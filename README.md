@@ -1,4 +1,4 @@
-# 아! 맞다 (A-right)
+# 아! 맞다 (A!right)
 - [Notion](https://www.notion.so/chaen-notio/714d57f7e7d44aa59e3e2c890af34a6f?pvs=4)
 ## Overview
 - 프로젝트 **아 맞다! (A!right)** 은, 매일의 일정에 따라 필요한 체크리스트를 간편하게 설정하고 관리할 수 있는 서비스를 제공합니다.
