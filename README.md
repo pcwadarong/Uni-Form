@@ -26,7 +26,7 @@
       
   <br/>
   
-- ## Overview
+## Overview
 - The Uniform Project allows college students to access and create surveys in one place, facilitating easy survey creation for creators and providing participants with a sense of accomplishment along with tangible rewards for contributing to better services.
 
 ### Creator Services
@@ -45,10 +45,6 @@
 ### Analysis Services
 - Everyone can access results for specific surveys.
 - Users can refer to existing surveys before creating their own, resolving uncertainties.
-    - Users who need to check items according to a schedule.
-    - Users who find it difficult to compose checklists from scratch and seek recommendations.
-    - Users who want to save and reuse custom checklists.
-    - Users who want to share checklists with others they share schedules with.
 
   <br/>
     
