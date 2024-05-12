@@ -1,0 +1,17 @@
+{
+  "extends": ["airbnb-typescript/base"],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "plugins": ["import"],
+  "rules": {
+    "import/prefer-default-export": "off",
+    "import/extensions": ["error", "never"]
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["plugin:@typescript-eslint/recommended"]
+    }
+  ]
+}
