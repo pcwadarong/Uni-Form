@@ -3,9 +3,9 @@ import Footer from '@/components/layout/footer';
 
 export default function Home() {
   return (
-    <section className="">
+    <section>
       <Header />
-      <div>hi</div>
+      <div className='bg-black'>hi</div>
       <Footer />
     </section>
   );

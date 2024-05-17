@@ -1,17 +1,14 @@
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
-  content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
-  ],
+  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
     colors: {
       primary: '#1CDE8F',
       font: '#0BC985',
       dark: '#010B13',
     },
+    screenS: { sm: '480px', '2xl': '1400px' },
     extend: {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -28,6 +25,10 @@ const config: Config = {
           3: '#CCCCCC',
           4: '#949494',
           5: '#38393D',
+        },
+        width: {
+          // '0.1rem': '0.1rem',
+          max: '1400px',
         },
       },
     },

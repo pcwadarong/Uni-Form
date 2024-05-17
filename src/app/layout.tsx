@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import localFont from 'next/font/local';
 import '../styles/globals.css';
-import '../styles/tailwind.css';
 
 const suit = localFont({ src: '../fonts/SUIT.woff2' });
 
