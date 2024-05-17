@@ -71,6 +71,7 @@
 - tailwindcss : CSS 프레임워크
 - shadcn/ui : 깔끔한 UI 라이브러리
 - material-ui : Google의 Material Design 스펙을 따르고 표준화된 디자인을 지원하는 UI 라이브러리
+- material-icon: includes the 2,100+ official Material Icons converted to SvgIcon component
 
 ### Sign in, up
 
