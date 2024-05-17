@@ -1,9 +1,9 @@
-# 아! 맞다 (A!right)
+# Uni-form
 
 - [Notion](https://chaen-notio.notion.site/Uni-Form-714d57f7e7d44aa59e3e2c890af34a6f)
 
 ## Overview
-
+- university form service
 - 유니폼 프로젝트는 대학생들이 진행하는 설문조사를 한 곳에 모아 볼 수 있게 하고, 조사자에게 쉽게 설문지를 만들 수 있도록 도와주며, 참여자에게는 더 좋은 서비스를 만들 수 있게 도와주었다는 성취감과 함께 확실한 보상을 제공합니다.
 
 ### 제작자 서비스
