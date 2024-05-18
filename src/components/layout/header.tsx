@@ -36,16 +36,16 @@ export default function Header() {
   };
 
   return (
-    <nav className="w-screen flex flex-col items-center z-10 fixed backdrop-blur-sm">
+    <nav className="w-screen flex flex-col items-center z-10 fixed backdrop-blur-sm bg-white drop-shadow">
       <div className="flex h-20 w-full px-8 2xl:w-[1400px] 2xl:px-0 items-center justify-between">
         <h1>
           <Link href="/">
             <Image src={'./logo.svg'} alt="logo" width="52" height="34" priority={true} />
           </Link>
         </h1>
-        <ul className="flex gap-8">
+        <ul className="flex gap-8 ">
           <li
-            className="hover:underline underline-offset-8 decoration-primary"
+            className="hover:underline underline-offset-8 decoration-primary" 
             onMouseOver={() => handleMouseOver('survey')}
             onMouseLeave={handleMouseLeave}
           >
@@ -66,7 +66,7 @@ export default function Header() {
             placeholder="관심있는 설문조사를 찾아보세요!"
           />
           <button className="absolute top-1/2 right-3 transform -translate-y-1/2">
-            <SearchIcon />
+            <SearchIcon className="text-primary" />
           </button>
         </div>
         <ul className="flex gap-8 items-center">

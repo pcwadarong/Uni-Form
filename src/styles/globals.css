@@ -6,8 +6,8 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-  accent-color: #3AA57E;
-  scrollbar-gutter: stable;
+  accent-color: #3aa57e;
+  //scrollbar-gutter: stable;
 }
 
 /* 다크 모드 지원 */
@@ -23,4 +23,8 @@
   .text-balance {
     text-wrap: balance;
   }
+}
+
+body {
+  background-color: #f8f8f8;
 }

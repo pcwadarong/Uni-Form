@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import localFont from 'next/font/local';
+import Circulator from '@/components/common/Circulator';
 import '../styles/globals.css';
 
 const suit = localFont({ src: '../fonts/SUIT.woff2' });
@@ -12,9 +13,11 @@ export const metadata: Metadata = {
   icons: {
     icon: '/favicon.ico',
   },
+  authors: {
+    name: 'chaen',
+  },
   openGraph: {
     type: 'website',
-    url: 'https://www.uniform.com', // 대체 필요
     title: 'Uniform',
     description: '대학생을 위한 폼 서비스',
     images: [
@@ -26,6 +29,7 @@ export const metadata: Metadata = {
       },
     ],
   },
+  metadataBase: new URL('https://your-production-domain.com'), // vercel 주소 작성
 };
 
 export default function RootLayout({
@@ -35,7 +39,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Suspense fallback={<div>loading...</div>}>
+      <Suspense fallback={<Circulator />}>
         <body className={suit.className}>{children}</body>
       </Suspense>
     </html>

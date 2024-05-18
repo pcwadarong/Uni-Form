@@ -13,12 +13,17 @@ const sns = [
 
 export default function Footer() {
   return (
-    <div>
-      {sns.map((item) => (
-        <Link key={item.name} href={item.link}>
-          {item.icon}
-        </Link>
-      ))}
+    <div className='h-56 flex flex-col justify-center items-center gap-4'>
+      <ul className="flex gap-4">
+        {sns.map((item) => (
+          <li>
+            <Link key={item.name} href={item.link}>
+              {item.icon}
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <p>© 2024. Uni Form Co. all rights reserved.</p>
     </div>
   );
 }

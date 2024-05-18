@@ -4,6 +4,7 @@ const config: Config = {
   content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
     colors: {
+      white: '#ffffff',
       primary: '#1CDE8F',
       font: '#0BC985',
       dark: '#010B13',
