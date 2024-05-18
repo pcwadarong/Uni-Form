@@ -23,7 +23,7 @@ export default function Footer() {
           </li>
         ))}
       </ul>
-      <p>© 2024. Uni Form Co. all rights reserved.</p>
+      <p className='text-xs'>© 2024. Uni Form Co. all rights reserved.</p>
     </div>
   );
 }
