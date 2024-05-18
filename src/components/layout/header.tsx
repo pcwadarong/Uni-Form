@@ -1,51 +1,25 @@
 'use client';
 
-import { useState, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import SearchIcon from '@mui/icons-material/Search';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
-import { SURVEY_CATEGORY, RECRUIT_CATEGORY } from '@/constants/category';
+import { useHover, getCategoryLinks } from '../../utils/HeaderUtils';
 
 export default function Header() {
-  const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
-  const [isSubMenuOpen, setIsSubMenuOpen] = useState<boolean>(false);
-  const subMenuTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-  const handleMouseOver = (category: string | null) => {
-    setHoveredCategory(category);
-    setIsSubMenuOpen(true);
-    if (subMenuTimeoutRef.current) {
-      clearTimeout(subMenuTimeoutRef.current);
-    }
-  };
-
-  const handleMouseLeave = () => {
-    subMenuTimeoutRef.current = setTimeout(() => {
-      setIsSubMenuOpen(false);
-    }, 500);
-  };
-
-  const getCategoryLinks = () => {
-    if (hoveredCategory === 'survey') {
-      return Object.entries(SURVEY_CATEGORY);
-    } else if (hoveredCategory === 'recruit') {
-      return Object.entries(RECRUIT_CATEGORY);
-    }
-    return [];
-  };
+  const { hoveredCategory, isSubMenuOpen, handleMouseOver, handleMouseLeave } = useHover();
 
   return (
     <nav className="w-screen flex flex-col items-center z-10 fixed backdrop-blur-sm bg-white drop-shadow">
       <div className="flex h-20 w-full px-8 2xl:w-[1400px] 2xl:px-0 items-center justify-between">
-        <h1>
-          <Link href="/">
-            <Image src={'./logo.svg'} alt="logo" width="52" height="34" priority={true} />
-          </Link>
-        </h1>
-        <ul className="flex gap-8 ">
+        <ul className="flex gap-8 items-center">
+          <h1>
+            <Link href="/">
+              <Image src={'./logo.svg'} alt="logo" width="52" height="34" priority={true} />
+            </Link>
+          </h1>
           <li
-            className="hover:underline underline-offset-8 decoration-primary" 
+            className="hover:underline underline-offset-8 decoration-primary"
             onMouseOver={() => handleMouseOver('survey')}
             onMouseLeave={handleMouseLeave}
           >
@@ -71,7 +45,9 @@ export default function Header() {
         </div>
         <ul className="flex gap-8 items-center">
           <li>
-            <NotificationsNoneIcon />
+            <Link href="/account/notification">
+              <NotificationsNoneIcon />
+            </Link>
           </li>
           <li>
             <Link href="/sign-in">로그인</Link>
@@ -82,19 +58,17 @@ export default function Header() {
         </ul>
       </div>
       {isSubMenuOpen && (
-        <div
-          className="pb-6"
+        <ul
+          className="flex flex-grow w-full px-8 pb-6 gap-8 2xl:w-[1400px] 2xl:px-0"
           onMouseOver={() => handleMouseOver(hoveredCategory)}
-          onMouseLeave={() => setIsSubMenuOpen(false)}
+          onMouseLeave={handleMouseLeave}
         >
-          <ul className="flex w-full px-8 2xl:w-[1400px] gap-8">
-            {getCategoryLinks().map(([key, value]) => (
-              <li key={key} className="hover:text-font">
-                <Link href={`${hoveredCategory}/${value}`}>{key}</Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+          {getCategoryLinks(hoveredCategory).map(([key, value]) => (
+            <li key={key} className="hover:text-font">
+              <Link href={`${hoveredCategory}/${value}`}>{key}</Link>
+            </li>
+          ))}
+        </ul>
       )}
     </nav>
   );
