@@ -37,24 +37,26 @@ export default function Header() {
 
   return (
     <nav className="w-screen flex flex-col items-center z-10 fixed backdrop-blur-sm">
-      <div className="flex h-20 w-full px-8 2xl:w-[1400px] 2xl-px-0 items-center justify-between">
+      <div className="flex h-20 w-full px-8 2xl:w-[1400px] 2xl:px-0 items-center justify-between">
         <h1>
-          <Image src={'./logo.svg'} alt="logo" width="52" height="34" priority={true} />
+          <Link href="/">
+            <Image src={'./logo.svg'} alt="logo" width="52" height="34" priority={true} />
+          </Link>
         </h1>
         <ul className="flex gap-8">
           <li
-            className="hover:border-b-[0.1rem] border-primary"
+            className="hover:underline underline-offset-8 decoration-primary"
             onMouseOver={() => handleMouseOver('survey')}
             onMouseLeave={handleMouseLeave}
           >
-            설문조사
+            <Link href="/survey">설문조사</Link>
           </li>
           <li
-            className="hover:border-b-[0.1rem] border-primary"
+            className="hover:underline underline-offset-8 decoration-primary"
             onMouseOver={() => handleMouseOver('recruit')}
             onMouseLeave={handleMouseLeave}
           >
-            모집공고
+            <Link href="/recruit">모집공고</Link>
           </li>
         </ul>
         <div className="relative flex-auto max-w-96">
@@ -63,7 +65,7 @@ export default function Header() {
             type="text"
             placeholder="관심있는 설문조사를 찾아보세요!"
           />
-          <button className="absolute top-1/2 right-3 transform -translate-y-1/2 ">
+          <button className="absolute top-1/2 right-3 transform -translate-y-1/2">
             <SearchIcon />
           </button>
         </div>
@@ -71,8 +73,12 @@ export default function Header() {
           <li>
             <NotificationsNoneIcon />
           </li>
-          <li>로그인</li>
-          <li>회원가입</li>
+          <li>
+            <Link href="/login">로그인</Link>
+          </li>
+          <li>
+            <Link href="/signup">회원가입</Link>
+          </li>
         </ul>
       </div>
       {isSubMenuOpen && (
@@ -81,10 +87,10 @@ export default function Header() {
           onMouseOver={() => handleMouseOver(hoveredCategory)}
           onMouseLeave={() => setIsSubMenuOpen(false)}
         >
-          <ul className="flex w-full px-8 2xl:w-[1400px] gap-8 hover:text-font">
+          <ul className="flex w-full px-8 2xl:w-[1400px] gap-8">
             {getCategoryLinks().map(([key, value]) => (
               <li key={key} className="hover:text-font">
-                <Link href={hoveredCategory + value}>{key}</Link>
+                <Link href={`${hoveredCategory}/${value}`}>{key}</Link>
               </li>
             ))}
           </ul>

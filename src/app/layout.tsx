@@ -8,8 +8,23 @@ const suit = localFont({ src: '../fonts/SUIT.woff2' });
 export const metadata: Metadata = {
   title: 'Uniform',
   description: '대학생을 위한 폼 서비스',
+  keywords: '대학생, 폼 서비스, 설문조사, 온라인 폼',
   icons: {
     icon: '/favicon.ico',
+  },
+  openGraph: {
+    type: 'website',
+    url: 'https://www.uniform.com', // 대체 필요
+    title: 'Uniform',
+    description: '대학생을 위한 폼 서비스',
+    images: [
+      {
+        url: '/og-image.jpg', // 이미지 제작 필요
+        width: 800,
+        height: 600,
+        alt: 'Uniform Logo',
+      },
+    ],
   },
 };
 

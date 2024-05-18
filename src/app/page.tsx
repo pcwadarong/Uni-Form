@@ -5,7 +5,6 @@ export default function Home() {
   return (
     <section>
       <Header />
-      <div className='bg-black'>hi</div>
       <Footer />
     </section>
   );
