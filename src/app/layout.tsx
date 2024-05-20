@@ -44,7 +44,7 @@ export default function RootLayout({
       <body className={`${suit.className} overflow-hidden`}>
         <Suspense fallback={<Circulator />}>
           <Header />
-          <section className="flex h-auto min-h-screen flex-col items-center pt-20 pb-44">
+          <section className="flex h-auto min-h-screen flex-col items-center pt-20 pb-52">
             {children}
           </section>
           <Footer />
