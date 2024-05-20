@@ -4,7 +4,7 @@ import Link from 'next/link';
 import NavSearch from './navSearch';
 import NavRight from './navRight';
 import NavLeft from './navLeft';
-import { useHover, getCategoryLinks } from '../../utils/HeaderUtils';
+import { useHover, getCategoryLinks } from '../../../utils/HeaderUtils';
 
 export default function Header() {
   const { hoveredCategory, isSubMenuOpen, handleMouseOver, handleMouseLeave } = useHover();

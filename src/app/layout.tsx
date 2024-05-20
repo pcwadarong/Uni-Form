@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import localFont from 'next/font/local';
 import Circulator from '@/components/common/Circulator';
-import Header from '@/components/layout/header';
+import Header from '@/components/layout/header/header';
 import Footer from '@/components/layout/footer';
 import '../styles/globals.css';
 
@@ -44,7 +44,9 @@ export default function RootLayout({
       <body className={`${suit.className} overflow-hidden`}>
         <Suspense fallback={<Circulator />}>
           <Header />
-          <section className='flex h-auto min-h-screen flex-col items-center justify-between pt-20 pb-44'>{children}</section>
+          <section className="flex h-auto min-h-screen flex-col items-center pt-20 pb-44">
+            {children}
+          </section>
           <Footer />
         </Suspense>
       </body>

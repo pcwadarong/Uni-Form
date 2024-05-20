@@ -15,7 +15,7 @@ export default function MobileMenu({ isOpened, toggleCategory, closeMenu }: Prop
       <div
         className={`bg-white fixed top-0 right-0 w-96 max-w-full h-screen z-50 p-8 overflow-auto transform ${isOpened ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-out`}
       >
-        <button onClick={toggleCategory} className="absolute right-8 top-8 text-gray-400">
+        <button onClick={toggleCategory} className="absolute right-8 top-8 text-gray-4 hover:text-dark">
           <ClearIcon />
         </button>
         <Link href="/" className="flex items-start gap-2 mb-6" onClick={closeMenu}>
@@ -48,12 +48,12 @@ export default function MobileMenu({ isOpened, toggleCategory, closeMenu }: Prop
             </ul>
           </li>
           <li>
-            <Link href="/sign-in" onClick={closeMenu}>
+            <Link href="/sign-in" onClick={closeMenu} className="hover:text-font">
               로그인
             </Link>
           </li>
           <li>
-            <Link href="/sign-up" onClick={closeMenu}>
+            <Link href="/sign-up" onClick={closeMenu} className="hover:text-font">
               회원가입
             </Link>
           </li>

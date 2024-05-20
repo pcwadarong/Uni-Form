@@ -1,7 +1,9 @@
 'use client';
 
 const SignIn: React.FC = () => {
-  return <></>;
+  return (
+    <></>
+  );
 };
 
 export default SignIn;
