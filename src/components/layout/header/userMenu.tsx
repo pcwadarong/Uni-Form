@@ -24,12 +24,9 @@ const UserMenu = ({ isAuthenticated }: Props) => {
   }, []);
 
   return (
-    <div className="relative" ref={menuRef}>
-      <button>
-        <PermIdentityIcon
-          className="hidden sm:inline md:hidden"
-          onClick={() => setShowUserMenu((prev) => !prev)}
-        />
+    <div className="relative hidden sm:inline md:hidden" ref={menuRef}>
+      <button onClick={() => setShowUserMenu((prev) => !prev)}>
+        <PermIdentityIcon />
       </button>
       {showUserMenu && (
         <div className="absolute right-0 flex flex-col text-center rounded-lg overflow-hidden shadow-md bg-white">

@@ -10,7 +10,7 @@ const SignIn: React.FC = () => {
       <div className="mt-10 w-96">
         <Form />
         <div className="flex gap-3 h-10 items-center text-sm text-gray-4 justify-center my-4">
-          <Link className="flex-1 text-end" href="/reset-pw">
+          <Link className="flex-1 text-end" href="/help/idInquiry">
             아이디 찾기
           </Link>
           <Divider orientation="vertical" variant="middle" flexItem />
