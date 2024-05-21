@@ -48,12 +48,12 @@ export default function MobileMenu({ isOpened, toggleCategory, closeMenu }: Prop
             </ul>
           </li>
           <li>
-            <Link href="/sign-in" onClick={closeMenu} className="hover:text-font">
+            <Link href="auth/sign-in" onClick={closeMenu} className="hover:text-font">
               로그인
             </Link>
           </li>
           <li>
-            <Link href="/sign-up" onClick={closeMenu} className="hover:text-font">
+            <Link href="auth/sign-up" onClick={closeMenu} className="hover:text-font">
               회원가입
             </Link>
           </li>

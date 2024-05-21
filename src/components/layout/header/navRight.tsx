@@ -32,10 +32,10 @@ export default function NavRight() {
           </>
         ) : (
           <>
-            <Link className="hidden md:inline" href="/sign-in">
+            <Link className="hidden md:inline" href="/auth/sign-in">
               로그인
             </Link>
-            <Link className="hidden md:inline" href="/sign-up">
+            <Link className="hidden md:inline" href="/auth/sign-up">
               회원가입
             </Link>
           </>

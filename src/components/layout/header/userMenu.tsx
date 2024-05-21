@@ -39,10 +39,10 @@ const UserMenu = ({ isAuthenticated }: Props) => {
             </>
           ) : (
             <>
-              <Link href="/sign-in" className="px-4 py-3 w-full hover:bg-gray-2">
+              <Link href="/auth/sign-in" className="px-4 py-3 w-full hover:bg-gray-2">
                 로그인
               </Link>
-              <Link href="/sign-up" className="px-4 py-3 hover:bg-gray-2">
+              <Link href="/auth/sign-up" className="px-4 py-3 hover:bg-gray-2">
                 회원가입
               </Link>
             </>
