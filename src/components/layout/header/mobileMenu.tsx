@@ -2,6 +2,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import ClearIcon from '@mui/icons-material/Clear';
 import { SURVEY_CATEGORY, RECRUIT_CATEGORY } from '@/constants/category';
+import { useAuthStore } from '@/store';
+import useHandleLogout from '@/hooks/useHandleLogout';
 
 interface Props {
   isOpened: boolean;
@@ -10,12 +12,18 @@ interface Props {
 }
 
 export default function MobileMenu({ isOpened, toggleCategory, closeMenu }: Props) {
+  const { user } = useAuthStore();
+  const handleLogout = useHandleLogout();
+
   return (
     <div>
       <div
         className={`bg-white fixed top-0 right-0 w-96 max-w-full h-screen z-50 p-8 overflow-auto transform ${isOpened ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-out`}
       >
-        <button onClick={toggleCategory} className="absolute right-8 top-8 text-gray-4 hover:text-dark">
+        <button
+          onClick={toggleCategory}
+          className="absolute right-8 top-8 text-gray-4 hover:text-dark"
+        >
           <ClearIcon />
         </button>
         <Link href="/" className="flex items-start gap-2 mb-6" onClick={closeMenu}>
@@ -47,16 +55,33 @@ export default function MobileMenu({ isOpened, toggleCategory, closeMenu }: Prop
               ))}
             </ul>
           </li>
-          <li>
-            <Link href="auth/sign-in" onClick={closeMenu} className="hover:text-font">
-              로그인
-            </Link>
-          </li>
-          <li>
-            <Link href="auth/sign-up" onClick={closeMenu} className="hover:text-font">
-              회원가입
-            </Link>
-          </li>
+          {user ? (
+            <>
+              <li>
+                <Link className="hover:text-font" href="/user">
+                  내 정보
+                </Link>
+              </li>
+              <li>
+                <button className="hover:text-font" onClick={handleLogout}>
+                  로그아웃
+                </button>
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
+                <Link href="auth/sign-in" className="hover:text-font">
+                  로그인
+                </Link>
+              </li>
+              <li>
+                <Link href="auth/sign-up" className="hover:text-font">
+                  회원가입
+                </Link>
+              </li>
+            </>
+          )}
         </ul>
       </div>
       <div

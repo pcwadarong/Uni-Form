@@ -2,12 +2,19 @@ import Link from 'next/link';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import UserMenu from './userMenu';
 import MenuIcon from '@mui/icons-material/Menu';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import MobileMenu from './mobileMenu';
+import { useAuthStore } from '@/store';
+import useHandleLogout from '@/hooks/useHandleLogout';
 
 export default function NavRight() {
   const [isOpened, setOpen] = useState(false);
-  const [authenticated, setAuthentication] = useState(false);
+  const { user, loadUserFromSession } = useAuthStore();
+  const handleLogout = useHandleLogout();
+
+  useEffect(() => {
+    loadUserFromSession();
+  }, [loadUserFromSession]);
 
   const toggleCategory = () => {
     setOpen(!isOpened);
@@ -20,7 +27,7 @@ export default function NavRight() {
   return (
     <div className="flex gap-4">
       <div className="flex gap-4 md:gap-8 items-center justify-end">
-        {authenticated ? (
+        {user ? (
           <>
             <Link href="/account/notification">
               <NotificationsNoneIcon />
@@ -28,7 +35,9 @@ export default function NavRight() {
             <Link className="hidden md:inline" href="/user">
               내 정보
             </Link>
-            <button className="hidden md:inline">로그아웃</button>
+            <button className="hidden md:inline" onClick={handleLogout}>
+              로그아웃
+            </button>
           </>
         ) : (
           <>
@@ -40,9 +49,7 @@ export default function NavRight() {
             </Link>
           </>
         )}
-        <UserMenu
-          isAuthenticated={authenticated}
-        />
+        <UserMenu />
       </div>
 
       <div className="sm:hidden">

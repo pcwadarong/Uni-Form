@@ -2,7 +2,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, firestore } from '../firebasConfig';
 
-const signUp = async (email: string, password: string, nickname: string) => {
+export const signUp = async (email: string, password: string, nickname: string) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
@@ -19,5 +19,3 @@ const signUp = async (email: string, password: string, nickname: string) => {
     return false;
   }
 };
-
-export { signUp };

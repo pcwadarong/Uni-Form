@@ -1,8 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { collection, query, where, getDocs } from 'firebase/firestore';
-import { firestore } from '@/firebase/firebasConfig';
 import { signUp } from '@/firebase/auth/sign-up';
 import { validateSignInput } from '@/utils/validateSignInput';
 
@@ -12,41 +10,25 @@ export default function Form() {
   const [password, setPassword] = useState<string>('');
   const [email, setEmail] = useState<string>('');
 
-  const [nicknameState, setNicknameState] = useState('');
-  const [nicknameChecked, setNicknameChecked] = useState(false);
   const [passwordConfirm, setPasswordConfirm] = useState<string>('');
   const [status, setStatus] = useState(false);
-
-  const confirmNickname = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    const nicknameQuery = query(collection(firestore, 'users'), where('nickname', '==', nickname));
-    const nicknameSnapshot = await getDocs(nicknameQuery);
-
-    if (!nicknameSnapshot.empty) {
-      alert('이미 사용 중인 닉네임입니다.');
-    } else {
-      setNicknameState('사용 가능한 닉네임입니다.');
-      setNicknameChecked(true);
-    }
-  };
 
   const passwordsMatch = password === passwordConfirm;
 
   useEffect(() => {
     const isFormValid =
       validateSignInput('nickname', nickname) &&
-      nicknameChecked &&
       validateSignInput('password', password) &&
       passwordsMatch &&
       validateSignInput('email', email);
     setStatus(isFormValid);
-  }, [nickname, nicknameChecked, password, passwordConfirm, email]);
+  }, [nickname, password, passwordConfirm, email]);
 
   const handleSignUp = async (event: React.FormEvent) => {
     event.preventDefault();
     const success = await signUp(email, password, nickname);
     if (success) {
-      router.push('/');
+      router.push('/auth/sign-in');
     } else {
       console.error('Sign up failed');
     }
@@ -57,7 +39,9 @@ export default function Form() {
       <form className="flex flex-col gap-6 text-sm" onSubmit={handleSignUp} autoComplete="on">
         <div>
           <label htmlFor="nickname">닉네임</label>
-          <span className="ml-3 text-font">{nicknameState}</span>
+          <span className="ml-3 text-font">
+            {validateSignInput('nickname', nickname) ? '' : '2~6자의 영문, 한글, 숫자로 입력해주세요.'}
+          </span>
           <div className="relative mt-2 flex w-full">
             <input
               id="nickname"
@@ -69,19 +53,9 @@ export default function Form() {
               placeholder="2~6자의 영문, 한글, 숫자"
               onChange={(e) => {
                 setNickname(e.target.value);
-                setNicknameChecked(false);
               }}
-              className="flex-1 p-3 min-w-56 rounded-xl focus:outline-none"
+              className="w-full p-3 rounded-xl focus:outline-none"
             />
-            <button
-              className={`text-white ml-3 rounded-xl bg-primary py-3 px-6 text-base ${
-                validateSignInput('nickname', nickname) ? '' : 'opacity-50 cursor-not-allowed'
-              }`}
-              onClick={confirmNickname}
-              disabled={!validateSignInput('nickname', nickname)}
-            >
-              중복확인
-            </button>
           </div>
         </div>
         <div>

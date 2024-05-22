@@ -1,17 +1,19 @@
-import create from 'zustand';
+import { create } from 'zustand';
+import type { User } from '@/types';
 
-interface SelectContentState {
-  selectContent: number;
-  setSelectContent: (select: number) => void;
+interface AuthStore {
+  user: User | null;
+  setUser: (user: User | null) => void;
+  loadUserFromSession: () => void;
 }
 
-export const useStore = create<SelectContentState>((set) => ({
-  selectContent: window.localStorage.getItem('select')
-    ? Number(window.localStorage.getItem('select'))
-    : 0,
-  setSelectContent: (select) => {
-    set((state) => ({ ...state, selectContent: select }));
+export const useAuthStore = create<AuthStore>((set) => ({
+  user: null,
+  setUser: (user) => set({ user }),
+  loadUserFromSession: () => {
+    const user = sessionStorage.getItem('user');
+    if (user) {
+      set({ user: JSON.parse(user) });
+    }
   },
 }));
-
-export default useStore;

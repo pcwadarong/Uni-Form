@@ -1,14 +1,14 @@
 import Link from 'next/link';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import { useState, useEffect, useRef } from 'react';
+import useHandleLogout from '@/hooks/useHandleLogout';
+import { useAuthStore } from '@/store';
 
-interface Props {
-  isAuthenticated: boolean;
-}
-
-const UserMenu = ({ isAuthenticated }: Props) => {
+const UserMenu = () => {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const { user } = useAuthStore();
+  const handleLogout = useHandleLogout();
 
   const handleClickOutside = (event: MouseEvent) => {
     if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
@@ -30,12 +30,14 @@ const UserMenu = ({ isAuthenticated }: Props) => {
       </button>
       {showUserMenu && (
         <div className="absolute right-0 flex flex-col text-center rounded-lg overflow-hidden shadow-md bg-white">
-          {isAuthenticated ? (
+          {user ? (
             <>
               <Link href="/user" className="px-4 py-3 w-full hover:bg-gray-2">
                 내 정보
               </Link>
-              <button className="px-4 py-3 hover:bg-gray-2">로그아웃</button>
+              <button className="px-4 py-3 hover:bg-gray-2" onClick={handleLogout}>
+                로그아웃
+              </button>
             </>
           ) : (
             <>
