@@ -28,3 +28,7 @@
 body {
   background-color: #f8f8f8;
 }
+
+h2 {
+  @apply text-2xl font-semibold;
+}

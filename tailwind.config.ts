@@ -5,6 +5,7 @@ const config: Config = {
   theme: {
     colors: {
       white: '#ffffff',
+      lightRed: '#FFEDEA',
       red: '#FE4E39',
       primary: '#1CDE8F',
       font: '#0BC985',

@@ -8,7 +8,7 @@ import Divider from '@mui/material/Divider';
 const SignIn: React.FC = () => {
   return (
     <>
-      <h2 className="text-center text-2xl font-semibold mt-20">로그인</h2>
+      <h2 className="text-center mt-20">로그인</h2>
       <div className="mt-10 w-96">
         <Form />
         <div className="flex gap-3 h-10 items-center text-sm text-gray-4 justify-center my-4">

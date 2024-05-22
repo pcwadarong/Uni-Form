@@ -27,7 +27,9 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "next.config.mjs",
-    "postcss.config.mjs"
-, "src/firebase/firebasConfig.ts", "src/firebase/firebaseAdmin.js"  ],
+    "postcss.config.mjs",
+    "src/firebase/firebasConfig.ts",
+    "src/firebase/firebaseAdmin.js"
+  ],
   "exclude": ["node_modules"]
 }
