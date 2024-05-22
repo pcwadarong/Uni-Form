@@ -51,7 +51,7 @@ export const handleLogin = async (
   method: 'email' | 'google',
   email: string,
   password: string,
-  setUser: (user: Partial<User | null>) => void,
+  setUser: (user: User | null) => void,
 ) => {
   let userCredential;
 
@@ -79,13 +79,12 @@ export const handleLogin = async (
         const userData = userDoc.data();
         nickname = userData.nickname;
       }
-      
     } else if (method === 'google' && user.displayName) {
       const nicknameMatch = user.displayName.match(/\(([^)]+)\)/);
       nickname = nicknameMatch ? nicknameMatch[1] : user.displayName;
     }
 
-    const userInfo = {
+    const userInfo: User = {
       email: user.email || '',
       nickname: nickname,
       uid: user.uid,
