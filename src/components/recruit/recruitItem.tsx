@@ -1,6 +1,6 @@
-'use client';
 import Date from './date';
 import { Survey } from '@/types';
+import Image from 'next/image';
 
 export default function RecruitItem({ item }: { item: Survey }) {
   const img = item.img || './logo.svg';
@@ -8,7 +8,7 @@ export default function RecruitItem({ item }: { item: Survey }) {
   return (
     <li className="drop-shadow flex flex-col flex-1 justify-between overflow-hidden rounded-3xl h-[360px]">
       <div className="h-48 w-full bg-font overflow-hidden">
-        <img className="w-full h-full object-cover" src={img} alt="survey image" />
+        <Image className="w-full h-full object-cover" src={img} alt="survey image" width={100} height={100} />
       </div>
       <div className="px-6 py-7 flex flex-col justify-between bg-white flex-grow">
         <div>

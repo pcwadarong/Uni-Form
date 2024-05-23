@@ -1,4 +1,3 @@
-'use client';
 import { Survey } from '@/types';
 interface ReactionProps extends Pick<Survey, 'response' | 'comments'> {}
 

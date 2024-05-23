@@ -1,3 +1,5 @@
+import { SURVEY_CATEGORY } from '@/constants/category';
+
 export const surveyData = [
   {
     id: '2024-05-18-1',
@@ -23,6 +25,7 @@ export const surveyData = [
         createdDate: '2024-05-21',
       },
     ],
+    category: SURVEY_CATEGORY['학업·커리어'],
   },
   {
     id: '2024-05-18-3',
@@ -38,6 +41,7 @@ export const surveyData = [
         createdDate: '2024-05-19',
       },
     ],
+    category: SURVEY_CATEGORY['기술'],
   },
   {
     id: '2024-05-21-4',
@@ -47,6 +51,7 @@ export const surveyData = [
     point: 0,
     response: 120,
     comments: [],
+    category: SURVEY_CATEGORY['경제'],
   },
   {
     id: '2024-04-22-5',
@@ -56,6 +61,7 @@ export const surveyData = [
     point: 200,
     response: 220,
     comments: [],
+    category: SURVEY_CATEGORY['반려동물'],
   },
   {
     id: '2024-05-22-6',
@@ -65,6 +71,7 @@ export const surveyData = [
     point: 250,
     response: 15,
     comments: [],
+    category: SURVEY_CATEGORY['문화'],
   },
   {
     id: '2024-05-23-7',
@@ -80,6 +87,7 @@ export const surveyData = [
         createdDate: '2024-05-24',
       },
     ],
+    category: SURVEY_CATEGORY['기타'],
   },
   {
     id: '2024-05-24-8',
@@ -105,6 +113,7 @@ export const surveyData = [
         createdDate: '2024-05-27',
       },
     ],
+    category: SURVEY_CATEGORY['자기계발·운동'],
   },
   {
     id: '2024-05-25-9',
@@ -125,6 +134,7 @@ export const surveyData = [
         createdDate: '2024-05-27',
       },
     ],
+    category: SURVEY_CATEGORY['경제'],
   },
   {
     id: '2024-05-26-10',
@@ -134,16 +144,18 @@ export const surveyData = [
     point: 0,
     response: 13,
     comments: [],
+    category: SURVEY_CATEGORY['기술'],
   },
   {
     id: '2024-05-27-11',
     title: '환경 보호에 대한 인식 조사',
     info: '안녕하세요! 저희는 환경공학부 000, 000 입니다. 환경 보호에 대한 인식과 행동에 대해 조사하고자 합니다. 설문은 약 7분 정도 소요됩니다. 감사합니다!',
-    img: 'https://images.unsplash.com/photo-1715693352133-ffa8caa4e7e8?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    img: 'https://firebase.google.com/static/images/appmakers/duolingo_2x.png?hl=ko',
     duration: '24.05.28 08:00 ~ 24.06.19 18:00',
     point: 190,
     response: 190,
     comments: [],
+    category: SURVEY_CATEGORY['환경·봉사'],
   },
   {
     id: '2024-05-28-12',
@@ -153,6 +165,7 @@ export const surveyData = [
     point: 0,
     response: 170,
     comments: [],
+    category: SURVEY_CATEGORY['관계'],
   },
   {
     id: '2024-05-29-13',
@@ -162,6 +175,7 @@ export const surveyData = [
     point: 30,
     response: 140,
     comments: [],
+    category: SURVEY_CATEGORY['학업·커리어'],
   },
   {
     id: '2024-05-30-14',
@@ -171,5 +185,6 @@ export const surveyData = [
     point: 0,
     response: 230,
     comments: [],
+    category: SURVEY_CATEGORY['자기계발·운동'],
   },
 ];

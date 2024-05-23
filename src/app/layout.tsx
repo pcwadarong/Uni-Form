@@ -4,7 +4,7 @@ import localFont from 'next/font/local';
 import Circulator from '@/components/common/Circulator';
 import Header from '@/components/layout/header/header';
 import Footer from '@/components/layout/footer';
-import ToTheTop from '@/components/common/toTheTop';
+import ActionBtns from '@/components/common/actionBtn';
 import '../styles/globals.css';
 
 const suit = localFont({ src: '../fonts/SUIT.woff2' });
@@ -49,7 +49,7 @@ export default function RootLayout({
             {children}
           </div>
           <Footer />
-          <ToTheTop />
+          <ActionBtns />
         </Suspense>
       </body>
     </html>

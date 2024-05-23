@@ -1,4 +1,3 @@
-'use client';
 import { Survey } from '@/types';
 interface CommentProps extends Pick<Survey, 'title' | 'comments'> {}
 

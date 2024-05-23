@@ -24,4 +24,5 @@ export interface Survey {
   point: number;
   response: number;
   comments: Comment[];
+  category: string;
 }

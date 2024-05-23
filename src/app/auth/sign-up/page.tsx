@@ -1,4 +1,3 @@
-'use client';
 import Form from './form';
 
 const SignUp: React.FC = () => {

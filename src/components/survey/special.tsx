@@ -1,4 +1,3 @@
-'use client';
 import { Survey } from '@/types';
 interface SpecialProps extends Pick<Survey, 'point' | 'duration'> {}
 import parseDateString from '@/utils/parseDateString';
