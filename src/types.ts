@@ -8,3 +8,19 @@ export interface User {
   nickname: string;
   uid: string;
 }
+
+type Comment = {
+  text: string;
+  creator: string;
+  createdDate: string;
+};
+
+export interface Survey {
+  id: string;
+  title: string;
+  info: string;
+  duration: string;
+  point: number;
+  response: number;
+  comments: Comment[];
+}
