@@ -4,6 +4,7 @@ import localFont from 'next/font/local';
 import Circulator from '@/components/common/Circulator';
 import Header from '@/components/layout/header/header';
 import Footer from '@/components/layout/footer';
+import ToTheTop from '@/components/common/toTheTop';
 import '../styles/globals.css';
 
 const suit = localFont({ src: '../fonts/SUIT.woff2' });
@@ -41,13 +42,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${suit.className}`}>
+      <body className={`${suit.className} relative`}>
         <Suspense fallback={<Circulator />}>
           <Header />
-          <div className="flex h-auto min-h-screen flex-col items-center pt-20 pb-52 w-full">
+          <div className="flex h-auto min-h-screen flex-col items-center pt-20 pb-28 w-full">
             {children}
           </div>
           <Footer />
+          <ToTheTop />
         </Suspense>
       </body>
     </html>

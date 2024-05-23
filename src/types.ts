@@ -19,6 +19,7 @@ export interface Survey {
   id: string;
   title: string;
   info: string;
+  img?: string;
   duration: string;
   point: number;
   response: number;

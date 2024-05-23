@@ -1,9 +1,10 @@
 'use client';
-import { Survey } from '@/types';
-interface SpecialProps extends Pick<Survey, 'point' | 'duration'> {}
+interface Props {
+  duration: string;
+}
 import parseDateString from '@/utils/parseDateString';
 
-export default function Special({ point, duration }: SpecialProps) {
+export default function Special({ duration }: Props) {
   let date = 0;
   if (duration) {
     const endDate = parseDateString(duration.split(' ~ ')[1]);
@@ -17,11 +18,6 @@ export default function Special({ point, duration }: SpecialProps) {
       {date > 0 && date <= 7 && (
         <span className="px-2 py-1 bg-lightRed text-center text-red text-xs rounded-md">
           {`마감 ${date}일 전`}
-        </span>
-      )}
-      {point > 0 && (
-        <span className="px-2 py-1 bg-primary text-center text-white text-xs rounded-md">
-          {`${point}P`}
         </span>
       )}
     </div>

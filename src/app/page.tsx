@@ -5,6 +5,7 @@ import filterAndSortSurveyData from '@/utils/filterAndSortData';
 import Link from 'next/link';
 import SurveyItem from '@/components/survey/surveyItem';
 import CommentItem from '@/components/survey/commentItem';
+import RecruitItem from '@/components/recruit/recruitItem';
 
 export default function Home() {
   const filteredSpecial = filterAndSortSurveyData(
@@ -46,7 +47,7 @@ export default function Home() {
 
   return (
     <>
-      <section className="w-full px-8 2xl:px-0 flex justify-center py-8">
+      <section className="w-full px-4 md:px-8 2xl:px-0 flex justify-center py-16">
         <div className="w-full 2xl:w-[1400px]">
           <div className="flex justify-between items-end mb-6">
             <h2>특별한 설문조사를 둘러보세요</h2>
@@ -54,23 +55,23 @@ export default function Home() {
               모든 설문 보기 →
             </Link>
           </div>
-          <ul className="flex justify-between gap-8">
+          <ul className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
             {filteredSpecial.slice(0, 4).map((item) => (
               <SurveyItem key={item.id} item={item} />
             ))}
           </ul>
         </div>
       </section>
-      <section className="bg-white w-full px-8 2xl:px-0 flex justify-center py-8">
+      <section className="bg-white w-full px-4 md:px-8 2xl:px-0 flex justify-center py-16">
         <div className="w-full 2xl:w-[1400px]">
           <div className="flex justify-between items-end mb-6">
-            <h2>최신 댓글이 달린 설문조사를 살펴보세요</h2>
+            <h2>최신 댓글을 살펴보세요</h2>
             <Link href="/" className="text-xs">
               모든 설문 보기 →
             </Link>
           </div>
           {surveyData.length > 0 && (
-            <ul className="flex gap-8 mb-8">
+            <ul className="grid md:grid-cols-2 gap-4 md:gap-8 mb-8">
               {filteredComment.slice(0, 4).map((item) => (
                 <CommentItem key={item.id} title={item.title} comments={item.comments} />
               ))}
@@ -78,19 +79,19 @@ export default function Home() {
           )}
         </div>
       </section>
-      <section className="w-full px-8 2xl:px-0 flex justify-center py-8">
+      <section className="w-full px-4 md:px-8 2xl:px-0 flex justify-center py-16">
         <div className="w-full 2xl:w-[1400px]">
-          <div className="flex">
+          <div className="flex flex-col md:flex-row gap-14 md:gap-8">
             <article className="flex-1">
               {surveyData.length > 0 && (
                 <>
-                  <div className="flex justify-between items-end mb-6r">
+                  <div className="flex justify-between items-end mb-6">
                     <h2>새로 등록된 설문조사</h2>
                     <Link href="/" className="text-xs">
                       모든 설문 보기 →
                     </Link>
                   </div>
-                  <ul>
+                  <ul className="grid grid-cols-2 gap-4 md:gap-8">
                     {filteredRecent.slice(0, 2).map((item) => (
                       <SurveyItem key={item.id} item={item} />
                     ))}
@@ -107,7 +108,7 @@ export default function Home() {
                       모든 설문 보기 →
                     </Link>
                   </div>
-                  <ul>
+                  <ul className="grid grid-cols-2 gap-4 md:gap-8">
                     {filteredPopular.slice(0, 2).map((item) => (
                       <SurveyItem key={item.id} item={item} />
                     ))}
@@ -118,20 +119,20 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="bg-white w-full px-8 2xl:px-0 flex justify-center py-8">
+      <section className="bg-white w-full px-4 md:px-8 2xl:px-0 flex justify-center py-16 drop-shadow-sm">
         <div className="w-full 2xl:w-[1400px]">
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-end mb-6">
             <h2>곧 마감되는 모집 공고를 살펴보세요</h2>
             <Link href="/" className="text-xs">
               모든 설문 보기 →
             </Link>
           </div>
-          <ul className="flex justify-between">
+          <ul className="grid md:grid-cols-3 gap-4 md:gap-8">
             {surveyData
               .sort(() => 0.5 - Math.random())
               .slice(0, 3)
               .map((item) => (
-                <SurveyItem key={item.id} item={item} />
+                <RecruitItem key={item.id} item={item} />
               ))}
           </ul>
         </div>
