@@ -42,10 +42,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${suit.className} relative`}>
+      <body className={`${suit.className} relative .body2`}>
         <Suspense fallback={<Circulator />}>
           <Header />
-          <div className="flex h-auto min-h-screen flex-col items-center pt-20 pb-24 -full">
+          <div className="flex h-auto min-h-screen flex-col items-center pt-20 pb-24">
             {children}
           </div>
           <Footer />

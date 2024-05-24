@@ -29,8 +29,32 @@ body {
   background-color: #f8f8f8;
 }
 
-h2 {
-  @apply text-2xl font-semibold;
+.title1 {
+  @apply text-4xl font-semibold leading-10;
+}
+
+.title2 {
+  @apply text-2xl font-semibold leading-8;
+}
+
+.title3 {
+  @apply text-xl font-semibold leading-7;
+}
+
+.body1 {
+  @apply text-lg font-medium leading-9;
+}
+
+.body2 {
+  @apply text-base font-normal leading-9;
+}
+
+.subtitle {
+  @apply text-sm font-normal leading-7;
+}
+
+.caption {
+  @apply text-xs font-normal leading-6;
 }
 
 .line-clamp-2 {

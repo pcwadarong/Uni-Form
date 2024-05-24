@@ -7,7 +7,7 @@ export default function CommentItem({ title, comments }: CommentProps) {
       {comments.length > 0 && (
         <>
           <p className="mb-2">{comments[comments.length - 1].text}</p>
-          <p className="text-xs text-gray-4">{title}</p>
+          <p className="caption text-gray-4">{title}</p>
         </>
       )}
     </li>

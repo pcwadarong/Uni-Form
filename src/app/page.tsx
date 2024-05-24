@@ -52,8 +52,8 @@ export default function Home() {
       <section className="w-full px-4 md:px-8 2xl:px-0 flex justify-center py-16">
         <div className="w-full 2xl:w-[1400px]">
           <div className="flex justify-between items-end mb-6">
-            <h2>특별한 설문조사를 둘러보세요</h2>
-            <Link href="/" className="text-xs">
+            <h2 className='title2'>특별한 설문조사를 둘러보세요</h2>
+            <Link href="/survey/all" className="caption">
               모든 설문 보기 →
             </Link>
           </div>
@@ -78,8 +78,8 @@ export default function Home() {
       <section className="bg-white w-full px-4 md:px-8 2xl:px-0 flex justify-center py-16">
         <div className="w-full 2xl:w-[1400px]">
           <div className="flex justify-between items-end mb-6">
-            <h2>최신 댓글을 살펴보세요</h2>
-            <Link href="/" className="text-xs">
+            <h2 className='title2'>최신 댓글을 살펴보세요</h2>
+            <Link href="/survey/all" className="caption">
               모든 설문 보기 →
             </Link>
           </div>
@@ -109,8 +109,8 @@ export default function Home() {
               {surveyData.length > 0 && (
                 <>
                   <div className="flex justify-between items-end mb-6">
-                    <h2>새로 등록된 설문조사</h2>
-                    <Link href="/" className="text-xs">
+                    <h2 className='title2'>새로 등록된 설문조사</h2>
+                    <Link href="/survey/all?sort=date-desc" className="caption">
                       모든 설문 보기 →
                     </Link>
                   </div>
@@ -135,8 +135,8 @@ export default function Home() {
               {surveyData.length > 0 && (
                 <>
                   <div className="flex justify-between items-end mb-6">
-                    <h2>현재 인기가 많은 설문조사</h2>
-                    <Link href="/" className="text-xs">
+                    <h2 className='title2'>현재 인기가 많은 설문조사</h2>
+                    <Link href="/survey/all?sort=popular-asc" className="caption">
                       모든 설문 보기 →
                     </Link>
                   </div>
@@ -163,9 +163,9 @@ export default function Home() {
       <section className="bg-white w-full px-4 md:px-8 2xl:px-0 flex justify-center py-16 drop-shadow-sm">
         <div className="w-full 2xl:w-[1400px]">
           <div className="flex justify-between items-end mb-6">
-            <h2>곧 마감되는 모집 공고를 살펴보세요</h2>
-            <Link href="/" className="text-xs">
-              모든 설문 보기 →
+            <h2 className='title2'>곧 마감되는 모집 공고를 살펴보세요</h2>
+            <Link href="/recruit/all" className="caption">
+              모든 공고 보기 →
             </Link>
           </div>
           <ul className="grid md:grid-cols-3 gap-4 md:gap-8">

@@ -33,10 +33,10 @@ export default function MobileMenu({ isOpened, toggleCategory, closeMenu }: Prop
         <ul className="flex flex-col gap-4">
           <li>
             <p className="font-semibold mb-4">설문조사</p>
-            <ul className="text-sm flex flex-wrap">
+            <ul className="subtitle flex flex-wrap">
               {Object.entries(SURVEY_CATEGORY).map(([key, value]) => (
                 <li key={key} className="w-1/2 hover:text-font mb-4">
-                  <Link href={`survey/${value}`} onClick={closeMenu}>
+                  <Link href={`/survey/${value}`} onClick={closeMenu}>
                     {key}
                   </Link>
                 </li>
@@ -45,10 +45,10 @@ export default function MobileMenu({ isOpened, toggleCategory, closeMenu }: Prop
           </li>
           <li>
             <p className="font-semibold mb-4">모집공고</p>
-            <ul className="text-sm flex flex-wrap">
+            <ul className="subtitle flex flex-wrap">
               {Object.entries(RECRUIT_CATEGORY).map(([key, value]) => (
                 <li key={key} className="w-1/2 hover:text-font mb-4">
-                  <Link href={`recruit/${value}`} onClick={closeMenu}>
+                  <Link href={`/recruit/${value}`} onClick={closeMenu}>
                     {key}
                   </Link>
                 </li>

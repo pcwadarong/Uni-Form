@@ -23,14 +23,14 @@ export default function NavLeft({ handleMouseOver, handleMouseLeave }: Props) {
         onMouseOver={() => handleMouseOver('survey')}
         onMouseLeave={handleMouseLeave}
       >
-        <Link href="/survey">설문조사</Link>
+        <Link href="/survey/all">설문조사</Link>
       </li>
       <li
         className="hidden sm:inline hover:underline underline-offset-8 decoration-primary"
         onMouseOver={() => handleMouseOver('recruit')}
         onMouseLeave={handleMouseLeave}
       >
-        <Link href="/recruit">모집공고</Link>
+        <Link href="/recruit/all">모집공고</Link>
       </li>
     </ul>
   );

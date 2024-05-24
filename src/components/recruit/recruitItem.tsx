@@ -13,9 +13,9 @@ export default function RecruitItem({ item }: { item: Survey }) {
       <div className="px-6 py-7 flex flex-col justify-between bg-white flex-grow">
         <div>
           <Date duration={item.duration} />
-          <h3 className="text-lg md:text-xl mt-3 mb-2 line-clamp-2">{item.title}</h3>
+          <h3 className="body1 md:text-xl mt-3 mb-2 line-clamp-2">{item.title}</h3>
         </div>
-        <p className="text-xs text-gray-4 truncate">{item.duration}</p>
+        <p className="caption text-gray-4 truncate">{item.duration}</p>
       </div>
     </li>
   );

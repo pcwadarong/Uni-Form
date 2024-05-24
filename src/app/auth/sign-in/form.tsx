@@ -36,7 +36,7 @@ const Form = () => {
   return (
     <div>
       <form
-        className="flex flex-col gap-6 text-sm"
+        className="flex flex-col gap-6 subtitle"
         onSubmit={(e) => login(e, 'email')}
         autoComplete="on"
       >

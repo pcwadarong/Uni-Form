@@ -4,7 +4,7 @@ import Link from 'next/link';
 import NavSearch from './navSearch';
 import NavRight from './navRight';
 import NavLeft from './navLeft';
-import { useHover, getCategoryLinks } from '../../../utils/HeaderUtils';
+import { useHover, getCategoryLinks } from '../../../hooks/useHover';
 
 export default function Header() {
   const { hoveredCategory, isSubMenuOpen, handleMouseOver, handleMouseLeave } = useHover();
@@ -23,8 +23,8 @@ export default function Header() {
           onMouseLeave={handleMouseLeave}
         >
           {getCategoryLinks(hoveredCategory).map(([key, value]) => (
-            <li key={key} className="hover:text-font text-sm">
-              <Link href={value}>{key}</Link>
+            <li key={key} className="hover:text-font subtitle">
+              <Link href={`/${hoveredCategory}${value}`}>{key}</Link>
             </li>
           ))}
         </ul>

@@ -36,7 +36,7 @@ export default function Form() {
 
   return (
     <>
-      <form className="flex flex-col gap-6 text-sm" onSubmit={handleSignUp} autoComplete="on">
+      <form className="flex flex-col gap-6 subtitle" onSubmit={handleSignUp} autoComplete="on">
         <div>
           <label htmlFor="nickname">닉네임</label>
           <span className="ml-3 text-font">
@@ -122,7 +122,7 @@ export default function Form() {
         <div>
           <button
             type="submit"
-            className={`text-white w-full rounded-xl bg-primary p-4 text-base mt-5 ${status ? '' : 'opacity-50 cursor-not-allowed'}`}
+            className={`text-white w-full rounded-xl bg-primary p-4 body2 mt-5 ${status ? '' : 'opacity-50 cursor-not-allowed'}`}
             disabled={!status}
           >
             회원가입하기
