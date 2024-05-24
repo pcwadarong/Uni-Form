@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 interface Props {
   topic: string;
-  onFilterChange: (filter: { point: string; deadline: string }) => void;
+  onFilterChange: (filter: { point?: string; deadline: string }) => void;
 }
 
 export const CategorySelection: React.FC<Props> = ({ topic, onFilterChange }) => {

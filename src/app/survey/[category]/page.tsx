@@ -61,7 +61,7 @@ const SurveyList = () => {
     applyFilters();
   }, [isInProgressChecked, filteredData]);
 
-  const onFilterChange = ({ point, deadline }: { point: string; deadline: string }) => {
+  const onFilterChange = ({ point = 'all', deadline }: { point?: string; deadline: string }) => {
     const newFilteredData = originalData.filter((item) => {
       const isPointMatch = point === 'all' || item.point >= parseInt(point);
       const isDeadlineMatch = calculateDeadlineMatch(item, deadline);
