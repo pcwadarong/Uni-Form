@@ -13,7 +13,7 @@ const sns = [
 
 export default function Footer() {
   return (
-    <div className='h-16 flex flex-col justify-center items-center gap-4 relative transform -translate-y-full'>
+    <div className='h-12 flex flex-col justify-center items-center gap-4 relative transform -translate-y-full'>
       <ul className="flex gap-4">
         {sns.map((item) => (
           <li>

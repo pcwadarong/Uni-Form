@@ -24,7 +24,7 @@ export default function Header() {
         >
           {getCategoryLinks(hoveredCategory).map(([key, value]) => (
             <li key={key} className="hover:text-font text-sm">
-              <Link href={`${hoveredCategory}/${value}`}>{key}</Link>
+              <Link href={value}>{key}</Link>
             </li>
           ))}
         </ul>

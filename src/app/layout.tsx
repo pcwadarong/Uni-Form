@@ -45,7 +45,7 @@ export default function RootLayout({
       <body className={`${suit.className} relative`}>
         <Suspense fallback={<Circulator />}>
           <Header />
-          <div className="flex h-auto min-h-screen flex-col items-center pt-20 pb-28 w-full">
+          <div className="flex h-auto min-h-screen flex-col items-center pt-20 pb-24 -full">
             {children}
           </div>
           <Footer />

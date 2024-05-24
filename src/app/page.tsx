@@ -7,6 +7,7 @@ import CommentItem from '@/components/survey/commentItem';
 import RecruitItem from '@/components/recruit/recruitItem';
 import SurveySkeleton from '@/components/survey/surveySkeleton';
 import CommentSkeleton from '@/components/survey/commentSkeleton';
+import RecruitSkeleton from '@/components/recruit/recruitSkeleton';
 
 export default function Home() {
   const filteredSpecial = filterAndSortSurveyData(
@@ -171,8 +172,8 @@ export default function Home() {
             <Suspense
               fallback={
                 <>
-                  <SurveySkeleton />
-                  <SurveySkeleton />
+                  <RecruitSkeleton />
+                  <RecruitSkeleton />
                 </>
               }
             >
