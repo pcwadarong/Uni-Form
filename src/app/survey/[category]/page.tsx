@@ -1,18 +1,24 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect, Suspense, useCallback } from 'react';
 import { useSearchParams, useParams } from 'next/navigation';
-import { CategorySelection } from '@/components/survey/categorySelection';
+
 import { surveyData } from '@/firebase/db/surveyData';
+import { Survey } from '@/types';
 import { SURVEY_CATEGORY } from '@/constants/category';
-import filterAndSortSurveyData from '@/utils/filterAndSortData';
-import { getSelectedItems } from '@/utils/getSelectedItems';
+
+import { CategorySelection } from '@/components/survey/categorySelection';
+import {
+  filterInProgressData,
+  getSelectedItems,
+  onChangeSortType,
+} from '@/utils/filterAndSortData';
+import calculateDeadlineMatch from '@/utils/calculateDeadlineMatch';
+
 import SurveyItem from '@/components/survey/surveyItem';
 import SurveySkeleton from '@/components/survey/surveySkeleton';
 import TuneIcon from '@mui/icons-material/Tune';
 import SortSelect from '@/components/common/sortSelect';
-import parseDateString from '@/utils/parseDateString';
-import { Survey } from '@/types';
 
 const SurveyList = () => {
   const params = useParams();
@@ -22,72 +28,59 @@ const SurveyList = () => {
     Object.keys(SURVEY_CATEGORY).find(
       (key) => SURVEY_CATEGORY[key].split('/').pop() === paramCategory,
     ) || '전체보기';
+
   const sortParam = searchParams.get('sort') || 'point-asc';
   const [isInProgressChecked, setIsInProgressChecked] = useState(false);
   const [filterDisplay, setFilterDisplay] = useState('hidden');
-  const [finalData, setFinalData] = useState<Survey[]>(surveyData);
+  const [originalData, setOriginalData] = useState<Survey[]>([]);
+  const [filteredData, setFilteredData] = useState<Survey[]>([]);
+  const [dataList, setDataList] = useState<Survey[]>([]);
 
-  const getFilteredSortedData = () => {
-    const initialData = filterAndSortSurveyData(
-      surveyData,
+  const initializeData = useCallback(() => {
+    const initialData = surveyData.filter(
       (item) => selectedCategory === '전체보기' || item.category === selectedCategory,
-      (a, b) => b.point - a.point,
     );
-
-    if (isInProgressChecked) {
-      const currentTime = new Date().getTime();
-      const filteredInProgressData = initialData.filter((item) => {
-        const endTime = new Date(item.duration.split(' ~ ')[1]).getTime();
-        return endTime > currentTime;
-      });
-      return getSelectedItems(filteredInProgressData, sortParam);
-    }
-
-    return getSelectedItems(initialData, sortParam);
-  };
+    const sortedData = getSelectedItems(initialData, sortParam);
+    setOriginalData(sortedData);
+    setFilteredData(sortedData);
+  }, [selectedCategory, sortParam]);
 
   useEffect(() => {
-    setFinalData(getFilteredSortedData());
-  }, [sortParam, selectedCategory, isInProgressChecked]);
+    initializeData();
+  }, [initializeData]);
 
-  const onChangeSortType = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newSortType = e.target.value;
-    const url = new URL(window.location.href);
-    url.searchParams.set('sort', newSortType);
-    window.history.pushState({}, '', url.toString());
+  useEffect(() => {
+    const applyFilters = () => {
+      let updatedData = [...filteredData];
+      if (isInProgressChecked) {
+        updatedData = filterInProgressData(updatedData);
+      }
+      setDataList(updatedData);
+    };
+
+    applyFilters();
+  }, [isInProgressChecked, filteredData]);
+
+  const onFilterChange = ({ point, deadline }: { point: string; deadline: string }) => {
+    const newFilteredData = originalData.filter((item) => {
+      const isPointMatch = point === 'all' || item.point >= parseInt(point);
+      const isDeadlineMatch = calculateDeadlineMatch(item, deadline);
+      return isPointMatch && isDeadlineMatch;
+    });
+
+    setFilteredData(newFilteredData);
+    setDataList(isInProgressChecked ? filterInProgressData(newFilteredData) : newFilteredData);
+  };
+  const handleCategoryToggle = () => {
+    setFilterDisplay((prev) => (prev === 'block' ? 'hidden' : 'block'));
   };
 
   const toggleInProgressFilter = () => {
     setIsInProgressChecked((prev) => !prev);
   };
 
-  const toggleFilterDisplay = () => {
-    setFilterDisplay((prev) => (prev === 'block' ? 'hidden' : 'block'));
-  };
-
-  const handleCategoryToggle = () => {
-    toggleFilterDisplay();
-  };
-
-  const onFilterChange = ({ point, deadline }: { point: string; deadline: string }) => {
-    const filteredData = surveyData.filter((item) => {
-      const isPointMatch = point === 'all' || item.point >= parseInt(point);
-
-      const endDate = parseDateString(item.duration.split(' ~ ')[1]);
-      const currentDate = new Date();
-      const diffTime = endDate.getTime() - currentDate.getTime();
-      const date = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      const isDeadlineMatch =
-        deadline === 'all' ||
-        (deadline !== '15' && date <= parseInt(deadline) && date >= 0) ||
-        (deadline === '15' && date >= parseInt(deadline));
-      return isPointMatch && isDeadlineMatch;
-    });
-    setFinalData(filteredData);
-  };
-
   return (
-    <section className="2xl:flex w-full 2xl:w-[1400px] gap-10 mt-20">
+    <section className="2xl:flex w-full 2xl:w-[1400px] gap-10 my-20 px-4 2xl:px-0">
       <div className={filterDisplay}>
         <CategorySelection topic={'survey'} onFilterChange={onFilterChange} />
       </div>
@@ -124,7 +117,7 @@ const SurveyList = () => {
               </>
             }
           >
-            {finalData.map((item) => (
+            {dataList.map((item) => (
               <SurveyItem key={item.id} item={item} />
             ))}
           </Suspense>

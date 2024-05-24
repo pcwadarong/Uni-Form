@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { surveyData } from '@/firebase/db/surveyData';
-import filterAndSortSurveyData from '@/utils/filterAndSortData';
+import { filterAndSortSurveyData, getSelectedItems } from '@/utils/filterAndSortData';
 import Link from 'next/link';
 import SurveyItem from '@/components/survey/surveyItem';
 import CommentItem from '@/components/survey/commentItem';
@@ -14,7 +14,7 @@ export default function Home() {
     surveyData,
     (item) => item.point > 0,
     () => Math.random() - 0.5,
-  );
+  ).slice(0, 4);
 
   const filteredComment = filterAndSortSurveyData(
     surveyData,
@@ -25,34 +25,17 @@ export default function Home() {
         new Date(a.comments[a.comments.length - 1].createdDate).getTime()
       );
     },
-  );
+  ).slice(0, 4);
 
-  const filteredRecent = filterAndSortSurveyData(
-    surveyData,
-    () => true,
-    (a, b) => new Date(b.id).getTime() - new Date(a.id).getTime(),
-  );
-
-  const filteredPopular = filterAndSortSurveyData(
-    surveyData,
-    () => true,
-    (a, b) => {
-      if (b.response !== a.response) {
-        return b.response - a.response;
-      } else if (b.comments.length !== a.comments.length) {
-        return b.comments.length - a.comments.length;
-      } else {
-        return new Date(b.id).getTime() - new Date(a.id).getTime();
-      }
-    },
-  );
+  const filteredRecent = getSelectedItems(surveyData, 'date-desc').slice(0, 2);
+  const filteredPopular = getSelectedItems(surveyData, 'popular-asc').slice(0, 2);
 
   return (
     <>
       <section className="w-full px-4 md:px-8 2xl:px-0 flex justify-center py-16">
         <div className="w-full 2xl:w-[1400px]">
           <div className="flex justify-between items-end mb-6">
-            <h2 className='title2'>특별한 설문조사를 둘러보세요</h2>
+            <h2 className="title2">특별한 설문조사를 둘러보세요</h2>
             <Link href="/survey/all" className="caption">
               모든 설문 보기 →
             </Link>
@@ -68,7 +51,7 @@ export default function Home() {
                 </>
               }
             >
-              {filteredSpecial.slice(0, 4).map((item) => (
+              {filteredSpecial.map((item) => (
                 <SurveyItem key={item.id} item={item} />
               ))}
             </Suspense>
@@ -78,7 +61,7 @@ export default function Home() {
       <section className="bg-white w-full px-4 md:px-8 2xl:px-0 flex justify-center py-16">
         <div className="w-full 2xl:w-[1400px]">
           <div className="flex justify-between items-end mb-6">
-            <h2 className='title2'>최신 댓글을 살펴보세요</h2>
+            <h2 className="title2">최신 댓글을 살펴보세요</h2>
             <Link href="/survey/all" className="caption">
               모든 설문 보기 →
             </Link>
@@ -95,7 +78,7 @@ export default function Home() {
           ></Suspense>
           {surveyData.length > 0 && (
             <ul className="grid md:grid-cols-2 gap-4 md:gap-8 mb-8">
-              {filteredComment.slice(0, 4).map((item) => (
+              {filteredComment.map((item) => (
                 <CommentItem key={item.id} title={item.title} comments={item.comments} />
               ))}
             </ul>
@@ -109,7 +92,7 @@ export default function Home() {
               {surveyData.length > 0 && (
                 <>
                   <div className="flex justify-between items-end mb-6">
-                    <h2 className='title2'>새로 등록된 설문조사</h2>
+                    <h2 className="title2">새로 등록된 설문조사</h2>
                     <Link href="/survey/all?sort=date-desc" className="caption">
                       모든 설문 보기 →
                     </Link>
@@ -123,7 +106,7 @@ export default function Home() {
                         </>
                       }
                     >
-                      {filteredRecent.slice(0, 2).map((item) => (
+                      {filteredRecent.map((item) => (
                         <SurveyItem key={item.id} item={item} />
                       ))}
                     </Suspense>
@@ -135,7 +118,7 @@ export default function Home() {
               {surveyData.length > 0 && (
                 <>
                   <div className="flex justify-between items-end mb-6">
-                    <h2 className='title2'>현재 인기가 많은 설문조사</h2>
+                    <h2 className="title2">현재 인기가 많은 설문조사</h2>
                     <Link href="/survey/all?sort=popular-asc" className="caption">
                       모든 설문 보기 →
                     </Link>
@@ -149,7 +132,7 @@ export default function Home() {
                         </>
                       }
                     >
-                      {filteredPopular.slice(0, 2).map((item) => (
+                      {filteredPopular.map((item) => (
                         <SurveyItem key={item.id} item={item} />
                       ))}
                     </Suspense>
@@ -163,7 +146,7 @@ export default function Home() {
       <section className="bg-white w-full px-4 md:px-8 2xl:px-0 flex justify-center py-16 drop-shadow-sm">
         <div className="w-full 2xl:w-[1400px]">
           <div className="flex justify-between items-end mb-6">
-            <h2 className='title2'>곧 마감되는 모집 공고를 살펴보세요</h2>
+            <h2 className="title2">곧 마감되는 모집 공고를 살펴보세요</h2>
             <Link href="/recruit/all" className="caption">
               모든 공고 보기 →
             </Link>
