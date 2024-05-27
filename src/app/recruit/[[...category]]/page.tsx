@@ -18,7 +18,7 @@ import calculateDeadlineMatch from '@/utils/calculateDeadlineMatch';
 import RecruitItem from '@/components/recruit/recruitItem';
 import RecruitSkeleton from '@/components/recruit/recruitSkeleton';
 import TuneIcon from '@mui/icons-material/Tune';
-import SortSelectMini from '@/components/common/sortSelectmini';
+import SortSelectMini from '@/components/common/sortSelectMini';
 
 const RecruitList = () => {
   const params = useParams();
