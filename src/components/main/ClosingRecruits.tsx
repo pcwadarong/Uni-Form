@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 import { surveyData } from '@/firebase/db/surveyData';
 import Link from 'next/link';
 import RecruitItem from '@/components/recruit/recruitItem';
