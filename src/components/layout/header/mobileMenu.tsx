@@ -18,7 +18,7 @@ export default function MobileMenu({ isOpened, toggleCategory, closeMenu }: Prop
   return (
     <div>
       <div
-        className={`bg-white fixed top-0 right-0 w-96 max-w-full h-screen z-50 p-8 overflow-auto transform ${isOpened ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-out`}
+        className={`bg-white fixed top-0 right-0 w-96 max-w-full h-screen z-30 p-8 overflow-auto transform ${isOpened ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-out`}
       >
         <button
           onClick={toggleCategory}
@@ -86,7 +86,7 @@ export default function MobileMenu({ isOpened, toggleCategory, closeMenu }: Prop
       </div>
       <div
         onClick={toggleCategory}
-        className={`fixed inset-0 h-screen z-40 bg-dark/70 transition-opacity duration-300 ${isOpened ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
+        className={`fixed inset-0 h-screen z-20 bg-dark/70 transition-opacity duration-300 ${isOpened ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
       />
     </div>
   );

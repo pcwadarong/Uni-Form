@@ -3,8 +3,11 @@ import { surveyData } from '@/firebase/db/surveyData';
 import Link from 'next/link';
 import RecruitItem from '@/components/recruit/recruitItem';
 import RecruitSkeleton from '@/components/recruit/recruitSkeleton';
+import { Survey } from '@/types';
 
-const ClosingRecruits: React.FC = () => {
+const ClosingRecruits: React.FC<{ openDetailModal: (item: Survey) => void }> = ({
+  openDetailModal,
+}) => {
   return (
     <section className="bg-white w-full px-4 md:px-8 2xl:px-0 flex justify-center py-16 drop-shadow-sm">
       <div className="w-full 2xl:w-[1400px]">
@@ -27,7 +30,11 @@ const ClosingRecruits: React.FC = () => {
               .sort(() => 0.5 - Math.random())
               .slice(0, 3)
               .map((item) => (
-                <RecruitItem key={item.id} item={item} />
+                <RecruitItem
+                  key={item.id}
+                  item={item}
+                  openDetailModal={() => openDetailModal(item)}
+                />
               ))}
           </Suspense>
         </ul>

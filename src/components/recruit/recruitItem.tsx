@@ -2,11 +2,17 @@ import Date from './date';
 import { Survey } from '@/types';
 import Image from 'next/image';
 
-export default function RecruitItem({ item }: { item: Survey }) {
+const RecruitItem: React.FC<{ item: Survey; openDetailModal: () => void }> = ({
+  item,
+  openDetailModal,
+}) => {
   const img = item.img || './logo.svg';
 
   return (
-    <li className="drop-shadow flex flex-col flex-1 justify-between overflow-hidden rounded-3xl h-[360px]">
+    <li
+      className="drop-shadow flex flex-col flex-1 justify-between overflow-hidden rounded-3xl h-[360px] cursor-pointer"
+      onClick={openDetailModal}
+    >
       <div className="h-44 w-full bg-font overflow-hidden">
         <Image
           className="w-full h-full object-cover"
@@ -25,4 +31,6 @@ export default function RecruitItem({ item }: { item: Survey }) {
       </div>
     </li>
   );
-}
+};
+
+export default RecruitItem;

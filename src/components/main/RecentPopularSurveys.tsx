@@ -4,8 +4,11 @@ import { getSelectedItems } from '@/utils/filterAndSortData';
 import Link from 'next/link';
 import SurveyItem from '@/components/survey/surveyItem';
 import SurveySkeleton from '@/components/survey/surveySkeleton';
+import { Survey } from '@/types';
 
-const RecentPopularSurveys = () => {
+const RecentPopularSurveys: React.FC<{ openDetailModal: (item: Survey) => void }> = ({
+  openDetailModal,
+}) => {
   const filteredRecent = getSelectedItems(surveyData, 'date-desc').slice(0, 2);
   const filteredPopular = getSelectedItems(surveyData, 'popular-asc').slice(0, 2);
 
@@ -23,9 +26,20 @@ const RecentPopularSurveys = () => {
                   </Link>
                 </div>
                 <ul className="grid grid-cols-2 gap-4 md:gap-8">
-                  <Suspense fallback={<><SurveySkeleton /><SurveySkeleton /></>}>
+                  <Suspense
+                    fallback={
+                      <>
+                        <SurveySkeleton />
+                        <SurveySkeleton />
+                      </>
+                    }
+                  >
                     {filteredRecent.map((item) => (
-                      <SurveyItem key={item.id} item={item} />
+                      <SurveyItem
+                        key={item.id}
+                        item={item}
+                        openDetailModal={() => openDetailModal(item)}
+                      />
                     ))}
                   </Suspense>
                 </ul>
@@ -42,9 +56,20 @@ const RecentPopularSurveys = () => {
                   </Link>
                 </div>
                 <ul className="grid grid-cols-2 gap-4 md:gap-8">
-                  <Suspense fallback={<><SurveySkeleton /><SurveySkeleton /></>}>
+                  <Suspense
+                    fallback={
+                      <>
+                        <SurveySkeleton />
+                        <SurveySkeleton />
+                      </>
+                    }
+                  >
                     {filteredPopular.map((item) => (
-                      <SurveyItem key={item.id} item={item} />
+                      <SurveyItem
+                        key={item.id}
+                        item={item}
+                        openDetailModal={() => openDetailModal(item)}
+                      />
                     ))}
                   </Suspense>
                 </ul>
