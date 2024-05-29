@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
+import Image from 'next/image';
 import UserMenu from './userMenu';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useState, useEffect } from 'react';
@@ -30,7 +30,10 @@ export default function NavRight() {
         {user ? (
           <>
             <Link href="/account/notification">
-              <NotificationsNoneIcon />
+              <Image src={'./notification.svg'} alt="알림" width="20" height="20" />
+            </Link>
+            <Link className="hidden md:inline" href="/post">
+              설문 제작
             </Link>
             <Link className="hidden md:inline" href="/user">
               내 정보
@@ -41,9 +44,6 @@ export default function NavRight() {
           </>
         ) : (
           <>
-            <Link className="hidden md:inline" href="/post">
-              설문 만들기
-            </Link>
             <Link className="hidden md:inline" href="/auth/sign-in">
               로그인
             </Link>
@@ -55,9 +55,9 @@ export default function NavRight() {
         <UserMenu />
       </div>
 
-      <div className="sm:hidden">
+      <div className="sm:hidden flex">
         <button onClick={toggleCategory}>
-          <MenuIcon />
+          <Image src={'./hamburger.svg'} alt="no comments" width="20" height="20" />
         </button>
         <MobileMenu isOpened={isOpened} toggleCategory={toggleCategory} closeMenu={closeMenu} />
       </div>

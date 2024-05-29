@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import { useState, useEffect, useRef } from 'react';
 import useHandleLogout from '@/hooks/useHandleLogout';
 import { useAuthStore } from '@/store';
+import Image from 'next/image';
 
 const UserMenu = () => {
   const [showUserMenu, setShowUserMenu] = useState(false);
@@ -24,9 +24,9 @@ const UserMenu = () => {
   }, []);
 
   return (
-    <div className="relative hidden sm:inline md:hidden" ref={menuRef}>
+    <div className="relative hidden sm:flex md:hidden " ref={menuRef}>
       <button onClick={() => setShowUserMenu((prev) => !prev)}>
-        <PermIdentityIcon />
+        <Image src={'/user.svg'} alt="user" width="20" height="20" priority={true} />
       </button>
       {showUserMenu && (
         <div className="absolute right-0 flex flex-col text-center rounded-lg overflow-hidden shadow-md bg-white">
