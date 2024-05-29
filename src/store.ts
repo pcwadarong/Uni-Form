@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import type { User } from '@/types';
+import { Survey } from '@/types';
 
 interface AuthStore {
   user: User | null;
@@ -16,4 +17,14 @@ export const useAuthStore = create<AuthStore>((set) => ({
       set({ user: JSON.parse(user) });
     }
   },
+}));
+
+interface SurveyState {
+  selectedItem: Survey | null;
+  setSelectedItem: (item: Survey | null) => void;
+}
+
+export const useSurveyStore = create<SurveyState>((set) => ({
+  selectedItem: null,
+  setSelectedItem: (item) => set({ selectedItem: item }),
 }));

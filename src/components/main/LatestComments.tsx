@@ -4,11 +4,8 @@ import { filterAndSortSurveyData } from '@/utils/filterAndSortData';
 import Link from 'next/link';
 import CommentItem from '@/components/survey/commentItem';
 import CommentSkeleton from '@/components/survey/commentSkeleton';
-import { Survey } from '@/types';
 
-const LatestComments: React.FC<{ openDetailModal: (item: Survey) => void }> = ({
-  openDetailModal,
-}) => {
+const LatestComments: React.FC = () => {
   const filteredComment = filterAndSortSurveyData(
     surveyData,
     (item) => item.comments.length > 0,
@@ -42,12 +39,7 @@ const LatestComments: React.FC<{ openDetailModal: (item: Survey) => void }> = ({
         {surveyData.length > 0 && (
           <ul className="grid md:grid-cols-2 gap-4 md:gap-8 mb-8">
             {filteredComment.map((item) => (
-              <CommentItem
-                key={item.id}
-                title={item.title}
-                comments={item.comments}
-                openDetailModal={() => openDetailModal(item)}
-              />
+              <CommentItem key={item.id} item={item} />
             ))}
           </ul>
         )}

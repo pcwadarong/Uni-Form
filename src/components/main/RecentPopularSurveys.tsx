@@ -4,11 +4,8 @@ import { getSelectedItems } from '@/utils/filterAndSortData';
 import Link from 'next/link';
 import SurveyItem from '@/components/survey/surveyItem';
 import SurveySkeleton from '@/components/survey/surveySkeleton';
-import { Survey } from '@/types';
 
-const RecentPopularSurveys: React.FC<{ openDetailModal: (item: Survey) => void }> = ({
-  openDetailModal,
-}) => {
+const RecentPopularSurveys = () => {
   const filteredRecent = getSelectedItems(surveyData, 'date-desc').slice(0, 2);
   const filteredPopular = getSelectedItems(surveyData, 'popular-asc').slice(0, 2);
 
@@ -35,11 +32,7 @@ const RecentPopularSurveys: React.FC<{ openDetailModal: (item: Survey) => void }
                     }
                   >
                     {filteredRecent.map((item) => (
-                      <SurveyItem
-                        key={item.id}
-                        item={item}
-                        openDetailModal={() => openDetailModal(item)}
-                      />
+                      <SurveyItem key={item.id} item={item} />
                     ))}
                   </Suspense>
                 </ul>
@@ -68,7 +61,6 @@ const RecentPopularSurveys: React.FC<{ openDetailModal: (item: Survey) => void }
                       <SurveyItem
                         key={item.id}
                         item={item}
-                        openDetailModal={() => openDetailModal(item)}
                       />
                     ))}
                   </Suspense>

@@ -2,17 +2,14 @@ import Special from './special';
 import Reaction from './reaction';
 import { Survey } from '@/types';
 import Image from 'next/image';
-
-const SurveyItem: React.FC<{ item: Survey; openDetailModal: () => void }> = ({
-  item,
-  openDetailModal,
-}) => {
+import { openDetailModal } from '@/utils/handleModal';
+const SurveyItem: React.FC<{ item: Survey }> = ({ item }) => {
   const img = item.img || './logo.svg';
 
   return (
     <li
       className="drop-shadow flex flex-col flex-1 justify-between overflow-hidden rounded-3xl h-[360px] cursor-pointer"
-      onClick={openDetailModal}
+      onClick={() => openDetailModal(item)}
     >
       <div className="h-36 w-full bg-font overflow-hidden">
         <Image

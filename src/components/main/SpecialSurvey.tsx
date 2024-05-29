@@ -4,9 +4,8 @@ import { filterAndSortSurveyData } from '@/utils/filterAndSortData';
 import Link from 'next/link';
 import SurveyItem from '@/components/survey/surveyItem';
 import SurveySkeleton from '@/components/survey/surveySkeleton';
-import { Survey } from '@/types';
 
-const SpecialSurveys: React.FC<{ openDetailModal: (item: Survey) => void }> = ({ openDetailModal }) => {
+const SpecialSurveys = () => {
   const filteredSpecial = filterAndSortSurveyData(
     surveyData,
     (item) => item.point > 0,
@@ -34,7 +33,7 @@ const SpecialSurveys: React.FC<{ openDetailModal: (item: Survey) => void }> = ({
             }
           >
             {filteredSpecial.map((item) => (
-              <SurveyItem key={item.id} item={item} openDetailModal={() => openDetailModal(item)} />
+              <SurveyItem key={item.id} item={item} />
             ))}
           </Suspense>
         </ul>
