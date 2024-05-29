@@ -1,6 +1,5 @@
 import Reaction from '../survey/reaction';
 import { Survey } from '@/types';
-import ClearIcon from '@mui/icons-material/Clear';
 import Image from 'next/image';
 import { closeModal } from '@/utils/handleModal';
 
@@ -10,9 +9,9 @@ const DetailModal: React.FC<{ item: Survey }> = ({ item }) => {
       <div className="m-auto w-full flex flex-col gap-3 max-w-[600px] max-h-full overflow-auto bg-gray-1 rounded-2xl shadow-2xl p-7 pt-25px md:p-30px md:pt-35px md:max-w-470px sm:max-w-screen">
         <button
           onClick={closeModal}
-          className="absolute right-10 top-10 text-gray-4 hover:text-dark"
+          className="absolute right-10 top-10 text-gray-4 hover:text-dark p-4 -m-4"
         >
-          <ClearIcon />
+          <Image src={'./cancel.svg'} alt="no comments" width="20" height="20" />
         </button>
         <h4 className="title3 md:text-xl mt-3 mb-2 line-clamp-2">{item.title}</h4>
         <hr className="-mt-3 w-full border-primary"></hr>

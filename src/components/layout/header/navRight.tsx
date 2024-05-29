@@ -41,6 +41,9 @@ export default function NavRight() {
           </>
         ) : (
           <>
+            <Link className="hidden md:inline" href="/post">
+              설문 만들기
+            </Link>
             <Link className="hidden md:inline" href="/auth/sign-in">
               로그인
             </Link>

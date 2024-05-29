@@ -20,6 +20,7 @@ export default function ActionBtns() {
       <button className="drop-shadow-md border-gray-3 border-[1px] bg-white w-11 h-11 rounded-full focus:bg-primary">
         <SettingsIcon />
       </button>
+      
     </div>
   );
 }
