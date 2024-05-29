@@ -2,6 +2,7 @@ import Reaction from '../survey/reaction';
 import { Survey } from '@/types';
 import Image from 'next/image';
 import { closeModal } from '@/utils/handleModal';
+import Button from '../common/button';
 
 const DetailModal: React.FC<{ item: Survey }> = ({ item }) => {
   return (
@@ -42,8 +43,8 @@ const DetailModal: React.FC<{ item: Survey }> = ({ item }) => {
           )}
         </div>
         <div className="flex justify-center gap-2">
-          <button className="py-2 px-8 rounded-md bg-green-light text-font">결과보기</button>
-          <button className="py-2 px-8 rounded-md bg-primary text-white">참여하기</button>
+          <Button text={'결과보기'} className={'bg-green-light text-font'} />
+          <Button text={'참여하기'} className={'bg-primary text-white'} />
         </div>
       </div>
     </div>
