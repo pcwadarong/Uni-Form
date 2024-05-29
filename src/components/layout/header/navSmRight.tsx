@@ -16,7 +16,7 @@ interface Props {
   closeMenu: () => void;
 }
 
-export default function MobileMenu({ isOpened, toggleCategory, closeMenu }: Props) {
+export default function NavSmRight({ isOpened, toggleCategory, closeMenu }: Props) {
   const { user } = useAuthStore();
   const handleLogout = useHandleLogout();
 
@@ -70,8 +70,8 @@ export default function MobileMenu({ isOpened, toggleCategory, closeMenu }: Prop
             {user ? (
               <>
                 <li>
-                  <Link className="hover:text-font" href="/post" onClick={() => closeMenu()}>
-                    <p>새 설문 만들기</p>
+                  <Link className="hover:text-font" href="/form" onClick={() => closeMenu()}>
+                    설문 페이지
                   </Link>
                 </li>
                 <li>

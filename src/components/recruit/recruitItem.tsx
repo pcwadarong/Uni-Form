@@ -1,24 +1,34 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import Date from './date';
 import { Survey } from '@/types';
-import Image from 'next/image';
 import { openDetailModal } from '@/utils/handleModal';
+import { getRandomColor } from '@/utils/getRandomColor';
 
 const RecruitItem: React.FC<{ item: Survey }> = ({ item }) => {
-  const img = item.img || './logo.svg';
+  const [randomClass, setRandomClass] = useState('');
+
+  useEffect(() => {
+    setRandomClass(getRandomColor());
+  }, []);
 
   return (
     <li
       className="drop-shadow flex flex-col flex-1 justify-between overflow-hidden rounded-3xl h-[360px] cursor-pointer"
       onClick={() => openDetailModal(item)}
     >
-      <div className="h-44 w-full bg-font overflow-hidden">
-        <Image
-          className="w-full h-full object-cover"
-          src={img}
-          alt="survey image"
-          width={100}
-          height={100}
-        />
+      <div className={`h-44 w-full bg-${randomClass} overflow-hidden`}>
+        {item.img && (
+          <Image
+            className="w-full h-full object-cover"
+            src={item.img}
+            alt="survey image"
+            width={100}
+            height={100}
+          />
+        )}
       </div>
       <div className="px-6 py-6 flex flex-col justify-between bg-white flex-grow">
         <div>

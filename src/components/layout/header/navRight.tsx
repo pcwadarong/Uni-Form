@@ -1,9 +1,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import UserMenu from './userMenu';
-import MenuIcon from '@mui/icons-material/Menu';
+import UserMenu from './navMdRight';
 import { useState, useEffect } from 'react';
-import MobileMenu from './mobileMenu';
+import NavSmRight from './navSmRight';
 import { useAuthStore } from '@/store';
 import useHandleLogout from '@/hooks/useHandleLogout';
 
@@ -32,13 +31,13 @@ export default function NavRight() {
             <Link href="/account/notification">
               <Image src={'./notification.svg'} alt="알림" width="20" height="20" />
             </Link>
-            <Link className="hidden md:inline" href="/post">
-              설문 제작
+            <Link className="hidden sm:inline" href="/form">
+              <Image src={'./file.svg'} alt="폼 페이지" width="20" height="20" />
             </Link>
-            <Link className="hidden md:inline" href="/user">
+            <Link className="hidden lg:inline" href="/user">
               내 정보
             </Link>
-            <button className="hidden md:inline" onClick={handleLogout}>
+            <button className="hidden lg:inline" onClick={handleLogout}>
               로그아웃
             </button>
           </>
@@ -59,7 +58,7 @@ export default function NavRight() {
         <button onClick={toggleCategory}>
           <Image src={'./hamburger.svg'} alt="no comments" width="20" height="20" />
         </button>
-        <MobileMenu isOpened={isOpened} toggleCategory={toggleCategory} closeMenu={closeMenu} />
+        <NavSmRight isOpened={isOpened} toggleCategory={toggleCategory} closeMenu={closeMenu} />
       </div>
     </div>
   );

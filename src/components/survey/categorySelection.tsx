@@ -31,12 +31,8 @@ export const CategorySelection: React.FC<Props> = ({ topic, onFilterChange }) =>
   const handleRadioSelect = (type: string, value: string) => {
     if (type === 'point') {
       setSelectedPoint(value);
-      const inputId = `point-${value}`;
-      updateLabelClass(type, inputId);
     } else if (type === 'deadline') {
       setSelectedDeadline(value);
-      const inputId = `deadline-${value}`;
-      updateLabelClass(type, inputId);
     }
   };
 
