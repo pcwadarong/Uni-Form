@@ -1,17 +1,15 @@
 'use client';
 
-//import Button from '@/components/common/button';
 import { useState, useEffect, useRef, ChangeEvent } from 'react';
 import FileEditIcon from '@/components/svg/file';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import AutoResizeTextarea from '@/components/ui/textarea';
 
 const Create: React.FC = () => {
-  const [showUserMenu, setShowUserMenu] = useState(false);
-  const [imageUrl, setImageUrl] = useState('');
-  const [isEditMode, setIsEditMode] = useState(false);
+  const [showUserMenu, setShowUserMenu] = useState<boolean>(false);
+  const [imageUrl, setImageUrl] = useState<string>('');
   const menuRef = useRef<HTMLDivElement>(null);
-  const router = useRouter();
+  const [explanationArea, setExplanationArea] = useState<string>('');
 
   const handleClickOutside = (event: MouseEvent) => {
     if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
@@ -32,7 +30,6 @@ const Create: React.FC = () => {
     reader.onloadend = () => {
       if (reader.result) {
         setImageUrl(reader.result.toString());
-        setIsEditMode(true);
       }
     };
     if (file) {
@@ -40,17 +37,8 @@ const Create: React.FC = () => {
     }
   };
 
-  const handleEditClick = () => {
-    setIsEditMode(true);
-  };
-
   const handleDeleteClick = () => {
     setImageUrl('');
-    setIsEditMode(false);
-  };
-
-  const handleDeleteSurvey = () => {
-    if (confirm('정말 삭제하시겠습니까?')) router.push('/');
   };
 
   return (
@@ -76,7 +64,9 @@ const Create: React.FC = () => {
                 </button>
                 <button
                   className="text-red px-3 py-2 rounded-md hover:bg-gray-2"
-                  onClick={handleDeleteSurvey}
+                  onClick={() => {
+                    if (confirm('정말 삭제하시겠습니까?')) setImageUrl('');
+                  }}
                 >
                   삭제하기
                 </button>
@@ -90,11 +80,9 @@ const Create: React.FC = () => {
             {imageUrl ? (
               <div className="relative overflow-hidden flex items-center">
                 <img src={imageUrl} alt="Uploaded" className="w-full h-auto object-cover" />
-                {isEditMode && (
-                  <div className="absolute bottom-5 right-5 bg-gray-4/50 text-white p-2 rounded-md">
-                    <button onClick={handleDeleteClick}>삭제하기</button>
-                  </div>
-                )}
+                <div className="absolute bottom-5 right-5 bg-gray-4/50 text-white p-2 rounded-md">
+                  <button onClick={handleDeleteClick}>삭제하기</button>
+                </div>
               </div>
             ) : (
               <label
@@ -111,9 +99,19 @@ const Create: React.FC = () => {
                 <p className="mt-2 text-white">사진 추가하기</p>
               </label>
             )}
-            {imageUrl && !isEditMode && <button onClick={handleEditClick}>Edit</button>}
           </div>
-          <input type="text" name="" id="" className="border-b-2 focus:outline-none" />
+          <div className="p-2">
+            <input
+              type="text"
+              placeholder="설문 제목 입력"
+              className="p-2 w-full focus:outline-none hover:border-b-[1px] focus:border-b-[1px] hover:border-gray-3 focus:border-primary"
+            />
+            <AutoResizeTextarea
+              value={explanationArea}
+              onChange={(e) => setExplanationArea(e.target.value)}
+              placeholder="설명을 입력하세요 ..."
+            />
+          </div>
         </div>
       </div>
     </div>
