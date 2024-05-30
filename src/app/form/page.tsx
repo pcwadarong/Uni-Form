@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { commonTemplate, surveyTemplate, recruitTemplate } from '@/constants/templates';
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
+import FileEditIcon from '@/components/svg/file';
 import { getRandomColor } from '@/utils/getRandomColor';
 
 const RandomColoredBox: React.FC<{ link: string; text: string }> = ({ link, text }) => {
@@ -18,16 +18,12 @@ const RandomColoredBox: React.FC<{ link: string; text: string }> = ({ link, text
       <Link href={link}>
         <div
           className={`relative rounded-3xl h-auto mb-2 drop-shadow-md aspect-square bg-${randomClass}`}
+          aria-label={`Navigate to ${text}`}
         >
           <p className="absolute top-6 left-6 title3">{text}</p>
-          <Image
-            src={'./file.svg'}
-            alt="폼 페이지"
-            width={60}
-            height={60}
-            className="absolute bottom-6 right-6"
-            style={{ width: '40%', height: 'auto' }}
-          />
+          <div className="absolute bottom-6 right-6">
+            <FileEditIcon width={60} height={60} aria-label="Edit icon" />
+          </div>
         </div>
       </Link>
     </li>
