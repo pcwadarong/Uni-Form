@@ -74,7 +74,7 @@ const Create: React.FC = () => {
             )}
           </div>
         </div>
-        <div className="pb-10 bg-white rounded-2xl overflow-hidden">
+        <div className="bg-white rounded-2xl overflow-hidden">
           <p className="py-2 px-4 text-font">{}페이지</p>
           <div className="aspect-[4/1] bg-font justify-center flex">
             {imageUrl ? (
@@ -111,6 +111,10 @@ const Create: React.FC = () => {
               onChange={(e) => setExplanationArea(e.target.value)}
               placeholder="설명을 입력하세요 ..."
             />
+          </div>
+          <div className="border-t-[1px] border-gray-2 flex h-14 items-center">
+            <button className="flex-1 border-r-[1px] border-gray-2">항목 추가</button>
+            <button className="flex-1">페이지 추가</button>
           </div>
         </div>
       </div>
