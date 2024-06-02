@@ -3,7 +3,8 @@
 import { useState, useEffect, useRef, ChangeEvent } from 'react';
 import FileEditIcon from '@/components/svg/file';
 import Image from 'next/image';
-import AutoResizeTextarea from '@/components/ui/textarea';
+import AutoResizeTextarea from '@/components/common/textarea';
+import AddBtns from '@/components/create/addBtns';
 
 const Create: React.FC = () => {
   const [showUserMenu, setShowUserMenu] = useState<boolean>(false);
@@ -43,8 +44,8 @@ const Create: React.FC = () => {
 
   return (
     <div className="flex w-full h-screen px-4 py-8 md:px-8 2xl:px-0 bg-green-light justify-center">
-      <div className="w-full 2xl:w-[1400px]">
-        <div className="flex gap-2 justify-end mb-5 subtitle items-center">
+      <div className="w-full 2xl:w-[1400px] flex flex-col gap-5">
+        <div className="flex gap-2 justify-end subtitle items-center">
           <button className="py-1 px-3 bg-white rounded-md">미리보기</button>
           <button className="py-1 px-3 bg-white rounded-md">임시저장</button>
           <button className="py-1 px-3 bg-primary text-white rounded-md">저장</button>
@@ -74,7 +75,7 @@ const Create: React.FC = () => {
             )}
           </div>
         </div>
-        <div className="bg-white rounded-2xl overflow-hidden">
+        <section className="bg-white rounded-2xl overflow-hidden">
           <p className="py-2 px-4 text-font">{}페이지</p>
           <div className="aspect-[4/1] bg-font justify-center flex">
             {imageUrl ? (
@@ -109,14 +110,25 @@ const Create: React.FC = () => {
             <AutoResizeTextarea
               value={explanationArea}
               onChange={(e) => setExplanationArea(e.target.value)}
+              className="caption"
               placeholder="설명을 입력하세요 ..."
             />
           </div>
-          <div className="border-t-[1px] border-gray-2 flex h-14 items-center">
-            <button className="flex-1 border-r-[1px] border-gray-2">항목 추가</button>
-            <button className="flex-1">페이지 추가</button>
+          <AddBtns />
+        </section>
+        <section>
+          <div className="bg-white rounded-2xl overflow-hidden">
+            <div className="p-2 flex">
+              <AutoResizeTextarea
+                value={explanationArea}
+                onChange={(e) => setExplanationArea(e.target.value)}
+                placeholder="질문"
+              />
+              <select></select>
+            </div>
+            <AddBtns />
           </div>
-        </div>
+        </section>
       </div>
     </div>
   );

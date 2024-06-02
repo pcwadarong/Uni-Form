@@ -34,7 +34,7 @@ const Form: React.FC = () => {
   const gridClassNames = 'grid grid-cols-2 md:grid-cols-4 gap-4 xl:grid-cols-5 xl:gap-8';
 
   return (
-    <div className="flex flex-col gap-10 w-full px-4 py-16 md:px-8 2xl:px-0 2xl:w-[1400px] text-center">
+    <section className="flex flex-col gap-10 w-full px-4 py-16 md:px-8 2xl:px-0 2xl:w-[1400px] text-center">
       <ul className={gridClassNames}>
         {Object.entries(commonTemplate).map(([key, value]) => (
           <RandomColoredBox key={key} link={`/create${value}`} text={key} />
@@ -56,7 +56,7 @@ const Form: React.FC = () => {
           ))}
         </ul>
       </div>
-    </div>
+    </section>
   );
 };
 
