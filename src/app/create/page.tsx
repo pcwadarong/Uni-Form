@@ -5,6 +5,8 @@ import FileEditIcon from '@/components/svg/file';
 import Image from 'next/image';
 import AutoResizeTextarea from '@/components/common/textarea';
 import AddBtns from '@/components/create/addBtns';
+import Questions from '@/components/create/questions';
+import { Question } from '@/types';
 
 const Create: React.FC = () => {
   const [showUserMenu, setShowUserMenu] = useState<boolean>(false);
@@ -40,6 +42,22 @@ const Create: React.FC = () => {
 
   const handleDeleteClick = () => {
     setImageUrl('');
+  };
+
+  const [questions, setQuestions] = useState([
+    {
+      id: 1,
+      type: 'checkbox',
+      question: 'What is your favorite color?',
+      options: ['Red', 'Green', 'Blue'],
+      answer: '',
+    },
+    { id: 2, type: 'short answer', question: 'What is your name?', answer: '' },
+    // 다른 질문 추가
+  ]);
+
+  const handleQuestionChange = (id: number, updatedQuestion: Question) => {
+    setQuestions(questions.map((q) => (q.id === id ? updatedQuestion : q)));
   };
 
   return (
@@ -122,13 +140,21 @@ const Create: React.FC = () => {
               <AutoResizeTextarea
                 value={explanationArea}
                 onChange={(e) => setExplanationArea(e.target.value)}
-                placeholder="질문"
+                placeholder="(질문)"
               />
-              <select></select>
             </div>
-            <AddBtns />
           </div>
         </section>
+        <div>
+          {questions.map((q) => (
+            <Questions
+              key={q.id}
+              question={q}
+              isEditing={false}
+              onChange={(updated) => handleQuestionChange(q.id, updated)}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

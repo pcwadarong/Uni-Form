@@ -26,3 +26,17 @@ export interface Survey {
   comments: Comment[];
   category: string;
 }
+
+export interface Question {
+  id: number;
+  type: string;
+  question: string;
+  options?: string[];
+  answer?: string | string[];
+}
+
+export interface QuestionProps {
+  question: Question;
+  isEditing: boolean;
+  onChange: (updatedQuestion: Question) => void;
+}
