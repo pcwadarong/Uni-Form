@@ -1,47 +1,158 @@
-import { QuestionProps } from '@/types';
-import { handleOptionChange } from '@/utils/handleOptionChange';
+import { QuestionProps, Option } from '@/types';
+import AutoResizeTextarea from '../common/textarea';
+import { useState } from 'react';
+import Options from './options';
+import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
+import { handleOptionDragEnd } from '@/utils/handleDragEnd';
+import Image from 'next/image';
 
 const CheckboxQuestion: React.FC<QuestionProps> = ({ question, isEditing, onChange }) => {
-  if (isEditing) {
-    return (
-      <div>
-        <input
-          type="text"
-          value={question.question}
-          onChange={(e) => onChange({ ...question, question: e.target.value })}
-        />
-        {question.options?.map((option, index) => (
-          <input
-            key={index}
-            type="text"
-            value={option}
-            onChange={(e) => {
-              const newOptions = [...(question.options || [])];
-              newOptions[index] = e.target.value;
-              onChange({ ...question, options: newOptions });
-            }}
-          />
-        ))}
-      </div>
-    );
-  }
+  const [explanation, setExplanation] = useState<string>('');
+
+  const hasEtcOption = question.options?.some((option) => option.value === '기타');
+
+  const deleteOption = (id: number) => {
+    if (question.options && question.options.length > 1) {
+      onChange({
+        ...question,
+        options: question.options.filter((option) => option.id !== id),
+      });
+    }
+  };
 
   return (
-    <div>
-      <p>{question.question}</p>
-      {question.options?.map((option, index) => (
-        <label key={index}>
-          <input
-            type="radio"
-            name={`question-${question.id}`}
-            value={option}
-            checked={question.answer === option}
-            onChange={(e) => handleOptionChange(question, e, onChange)}
+    <>
+      {isEditing ? (
+        <>
+          <select className="w-full border-[1px] border-gray-2 rounded-lg p-2 mb-3 focus:outline-none">
+            <option>객관식</option>
+            <option>주관식</option>
+          </select>
+          <div className="font-bold flex">
+            <span>Q.</span>
+            <input
+              type="text"
+              value={question.question}
+              placeholder="질문 입력"
+              onChange={(e) => onChange({ ...question, question: e.target.value })}
+              className="ml-1 flex-1 focused_input"
+            />
+          </div>
+
+          <AutoResizeTextarea
+            value={explanation}
+            onChange={(e) => setExplanation(e.target.value)}
+            className="caption"
+            placeholder="설명 입력 (선택 사항)"
           />
-          {option}
-        </label>
-      ))}
-    </div>
+          <DragDropContext
+            onDragEnd={(result) =>
+              handleOptionDragEnd(result, question.options || [], (updatedOptions: Option[]) => {
+                onChange({ ...question, options: updatedOptions });
+              })
+            }
+          >
+            <Droppable droppableId={`droppable-${question.id}`} type="option" direction="vertical">
+              {(provided) => (
+                <div ref={provided.innerRef} {...provided.droppableProps}>
+                  {(question.options || [])
+                    .sort((a, b) => (a.id === -1 ? 1 : b.id === -1 ? -1 : 0))
+                    .map((option, index) => (
+                      <Draggable
+                        key={option.id.toString()}
+                        draggableId={`draggable-${question.id}-${option.id}`}
+                        index={index}
+                      >
+                        {(draggableProvided) => (
+                          <div
+                            ref={draggableProvided.innerRef}
+                            {...draggableProvided.draggableProps}
+                            {...draggableProvided.dragHandleProps}
+                            className="flex gap-2"
+                          >
+                            <span className="cursor-move">=</span>
+                            <input
+                              type="text"
+                              value={option.value}
+                              placeholder={`항목 ${index}`}
+                              onChange={(e) =>
+                                onChange({
+                                  ...question,
+                                  options: question.options?.map((opt, i) =>
+                                    i === index ? { ...opt, value: e.target.value } : opt,
+                                  ),
+                                })
+                              }
+                              className="flex-1 mb-2 focused_input"
+                            />
+                            <button
+                              onClick={() => deleteOption(option.id)}
+                              disabled={question.options && question.options.length === 1}
+                            >
+                              <Image
+                                src={'./cancel.svg'}
+                                alt="no comments"
+                                width="20"
+                                height="20"
+                              />
+                            </button>
+                          </div>
+                        )}
+                      </Draggable>
+                    ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
+          <div className="flex gap-2 items-center">
+            <button
+              onClick={() =>
+                onChange({
+                  ...question,
+                  options: [
+                    ...(question.options || []),
+                    {
+                      id: (question.options ? question.options.length : 0) + 1,
+                      value: `항목 ${(question.options ? question.options.length : 0) + 1}`,
+                    },
+                  ],
+                })
+              }
+            >
+              항목 추가
+            </button>
+            {!hasEtcOption && (
+              <>
+                <span>또는</span>
+                <button
+                  onClick={() =>
+                    onChange({
+                      ...question,
+                      options: [...(question.options || []), { id: -1, value: '기타' }],
+                    })
+                  }
+                  className="rounded-full bg-gray-1 text-gray-4 py-1 px-3"
+                >
+                  '기타' 추가
+                </button>
+              </>
+            )}
+          </div>
+          <Options />
+        </>
+      ) : (
+        <>
+          <p className="font-bold">Q. {question.question || '(질문 없음)'}</p>
+          {question.options?.map((option) => (
+            <label key={option.id} className="p-3 rounded-lg flex gap-2 bg-gray-1 mt-3 text-gray-3">
+              <input type="radio" name={`question-${question.id}`} disabled value={option.value} />
+              {option.value}
+            </label>
+          ))}
+        </>
+      )}
+    </>
   );
 };
 

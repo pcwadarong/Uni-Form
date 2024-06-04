@@ -1,160 +1,105 @@
 'use client';
 
-import { useState, useEffect, useRef, ChangeEvent } from 'react';
-import FileEditIcon from '@/components/svg/file';
-import Image from 'next/image';
-import AutoResizeTextarea from '@/components/common/textarea';
-import AddBtns from '@/components/create/addBtns';
+import { useState, useEffect } from 'react';
 import Questions from '@/components/create/questions';
+import CreatePageButton from '@/components/create/buttons';
 import { Question } from '@/types';
+import AppreciateMessage from '@/components/create/appreciateMessage';
+import SurveyInfo from '@/components/create/surveyInfo';
+import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
+import { handleQuestionDragEnd } from '@/utils/handleDragEnd';
 
 const Create: React.FC = () => {
-  const [showUserMenu, setShowUserMenu] = useState<boolean>(false);
-  const [imageUrl, setImageUrl] = useState<string>('');
-  const menuRef = useRef<HTMLDivElement>(null);
-  const [explanationArea, setExplanationArea] = useState<string>('');
-
-  const handleClickOutside = (event: MouseEvent) => {
-    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-      setShowUserMenu(false);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      if (reader.result) {
-        setImageUrl(reader.result.toString());
-      }
-    };
-    if (file) {
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleDeleteClick = () => {
-    setImageUrl('');
-  };
-
-  const [questions, setQuestions] = useState([
+  const [editingId, setEditingId] = useState<number | null>(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [enabled, setEnabled] = useState(false);
+  const [questions, setQuestions] = useState<Question[]>([
     {
       id: 1,
       type: 'checkbox',
-      question: 'What is your favorite color?',
-      options: ['Red', 'Green', 'Blue'],
-      answer: '',
+      question: '',
+      options: [
+        { id: 1, value: '항목 1' },
+        { id: 2, value: '항목 2' },
+      ],
     },
-    { id: 2, type: 'short answer', question: 'What is your name?', answer: '' },
-    // 다른 질문 추가
+    {
+      id: 2,
+      type: 'checkbox',
+      question: '',
+      options: [
+        { id: 1, value: '항목 1' },
+        { id: 2, value: '항목 2' },
+      ],
+    },
   ]);
 
   const handleQuestionChange = (id: number, updatedQuestion: Question) => {
     setQuestions(questions.map((q) => (q.id === id ? updatedQuestion : q)));
   };
 
+  const toggleEdit = (id: number) => {
+    setEditingId(id);
+    setIsEditing(!isEditing);
+  };
+
+  useEffect(() => {
+    const animation = requestAnimationFrame(() => setEnabled(true));
+
+    return () => {
+      cancelAnimationFrame(animation);
+      setEnabled(false);
+    };
+  }, []);
+
+  if (!enabled) {
+    return null;
+  }
+
   return (
     <div className="flex w-full h-screen px-4 py-8 md:px-8 2xl:px-0 bg-green-light justify-center">
       <div className="w-full 2xl:w-[1400px] flex flex-col gap-5">
-        <div className="flex gap-2 justify-end subtitle items-center">
-          <button className="py-1 px-3 bg-white rounded-md">미리보기</button>
-          <button className="py-1 px-3 bg-white rounded-md">임시저장</button>
-          <button className="py-1 px-3 bg-primary text-white rounded-md">저장</button>
-          <div className="relative flex items-center" ref={menuRef}>
-            <button onClick={() => setShowUserMenu((prev) => !prev)} aria-label="Toggle User Menu">
-              <Image src={'/meatball.svg'} alt="meatball menu icon" width="20" height="20" />
-            </button>
-            {showUserMenu && (
-              <div className="absolute right-0 top-10 flex flex-col text-center rounded-lg overflow-hidden shadow-md bg-white">
-                <button
-                  className="rounded-md px-3 py-2 hover:bg-gray-2 text-nowrap"
-                  onClick={() =>
-                    alert('아직 지원되지 않는 기능입니다. 조금만 기다려주시면 감사하겠습니다.')
-                  }
-                >
-                  복제하기
-                </button>
-                <button
-                  className="text-red px-3 py-2 rounded-md hover:bg-gray-2"
-                  onClick={() => {
-                    if (confirm('정말 삭제하시겠습니까?')) setImageUrl('');
-                  }}
-                >
-                  삭제하기
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
-        <section className="bg-white rounded-2xl overflow-hidden">
-          <p className="py-2 px-4 text-font">{}페이지</p>
-          <div className="aspect-[4/1] bg-font justify-center flex">
-            {imageUrl ? (
-              <div className="relative overflow-hidden flex items-center">
-                <img src={imageUrl} alt="Uploaded" className="w-full h-auto object-cover" />
-                <div className="absolute bottom-5 right-5 bg-gray-4/50 text-white p-2 rounded-md">
-                  <button onClick={handleDeleteClick}>삭제하기</button>
-                </div>
-              </div>
-            ) : (
-              <label
-                className="cursor-pointer p-50 justify-center flex flex-col items-center"
-                aria-label="Upload Image"
+        <CreatePageButton />
+        <SurveyInfo />
+        <DragDropContext onDragEnd={(result) => handleQuestionDragEnd(result, questions, setQuestions)}>
+          <Droppable droppableId="questions" type="card" direction="vertical">
+            {(droppableProvided) => (
+              <ul
+                className="flex flex-col gap-5"
+                {...droppableProvided.droppableProps}
+                ref={droppableProvided.innerRef}
               >
-                <input
-                  type="file"
-                  onChange={handleFileChange}
-                  className="hidden"
-                  accept=".jpg, .jpeg, .png, .bmp, .webp, .svg"
-                />
-                <FileEditIcon color="white" width={70} height={70} />
-                <p className="mt-2 text-white">사진 추가하기</p>
-              </label>
+                {questions.map((q, index) => (
+                  <Draggable
+                    key={q.id.toString()}
+                    draggableId={q.id.toString()}
+                    index={index}
+                    isDragDisabled={!isEditing}
+                  >
+                    {(draggableProvided) => (
+                      <li
+                        ref={draggableProvided.innerRef}
+                        {...draggableProvided.draggableProps}
+                        {...draggableProvided.dragHandleProps}
+                      >
+                        <Questions
+                          key={q.id}
+                          question={q}
+                          isEditing={editingId === q.id}
+                          onEditToggle={() => toggleEdit(q.id)}
+                          onChange={(updated) => handleQuestionChange(q.id, updated)}
+                          provided={draggableProvided}
+                        />
+                      </li>
+                    )}
+                  </Draggable>
+                ))}
+                {droppableProvided.placeholder}
+              </ul>
             )}
-          </div>
-          <div className="p-2">
-            <input
-              type="text"
-              placeholder="설문 제목 입력"
-              className="p-2 w-full focus:outline-none hover:border-b-[1px] focus:border-b-[1px] hover:border-gray-3 focus:border-primary"
-            />
-            <AutoResizeTextarea
-              value={explanationArea}
-              onChange={(e) => setExplanationArea(e.target.value)}
-              className="caption"
-              placeholder="설명을 입력하세요 ..."
-            />
-          </div>
-          <AddBtns />
-        </section>
-        <section>
-          <div className="bg-white rounded-2xl overflow-hidden">
-            <div className="p-2 flex">
-              <AutoResizeTextarea
-                value={explanationArea}
-                onChange={(e) => setExplanationArea(e.target.value)}
-                placeholder="(질문)"
-              />
-            </div>
-          </div>
-        </section>
-        <div>
-          {questions.map((q) => (
-            <Questions
-              key={q.id}
-              question={q}
-              isEditing={false}
-              onChange={(updated) => handleQuestionChange(q.id, updated)}
-            />
-          ))}
-        </div>
+          </Droppable>
+        </DragDropContext>
+        <AppreciateMessage />
       </div>
     </div>
   );

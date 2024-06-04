@@ -51,3 +51,7 @@ body {
   -webkit-line-clamp: 2;
   overflow: hidden;
 }
+
+.focused_input {
+  @apply focus:outline-none hover:border-b-[1px] focus:border-b-[1px] hover:border-gray-3 focus:border-primary;
+}

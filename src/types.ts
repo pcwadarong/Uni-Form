@@ -27,11 +27,16 @@ export interface Survey {
   category: string;
 }
 
+export interface Option {
+  id: number;
+  value: string;
+}
+
 export interface Question {
   id: number;
   type: string;
   question: string;
-  options?: string[];
+  options?: Option[];
   answer?: string | string[];
 }
 
