@@ -1,6 +1,6 @@
 'use client';
 
-import { useSurveyStore } from '@/store';
+import { useSelectedSurveyStore } from '@/store';
 import { closeModal } from '@/utils/handleModal';
 import SpecialSurveys from '@/components/main/SpecialSurvey';
 import LatestComments from '@/components/main/LatestComments';
@@ -9,7 +9,7 @@ import ClosingRecruits from '@/components/main/ClosingRecruits';
 import DetailModal from '@/components/detailModal/detailModal';
 
 const Home: React.FC = () => {
-  const { selectedItem } = useSurveyStore();
+  const { selectedItem } = useSelectedSurveyStore();
 
   return (
     <>

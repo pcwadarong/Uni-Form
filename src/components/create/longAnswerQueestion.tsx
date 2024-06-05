@@ -1,16 +1,22 @@
-import { QuestionProps } from '@/types';
+import { QuestionProps, Question } from '@/types';
 import AutoResizeTextarea from '../common/textarea';
 import { useState, useEffect } from 'react';
 import Options from './options';
 import QuestionSelect from './select';
 import { onChangeQuestionType } from '@/utils/createPageUtils';
+import { useSurveyStore } from '@/store';
 
-const LongAnswerQuestion: React.FC<QuestionProps> = ({ question, isEditing, onChange }) => {
+const LongAnswerQuestion: React.FC<QuestionProps> = ({ question, isEditing }) => {
   const [explanation, setExplanation] = useState<string>(question.description || '');
+  const { updateQuestion } = useSurveyStore();
 
   useEffect(() => {
     setExplanation(question.description || '');
   }, [question.description]);
+
+  const handleQuestionChange = (updatedQuestion: Question) => {
+    updateQuestion(question.id, updatedQuestion);
+  };
 
   return (
     <>
@@ -18,15 +24,15 @@ const LongAnswerQuestion: React.FC<QuestionProps> = ({ question, isEditing, onCh
         <>
           <QuestionSelect
             value={question.type}
-            onChangeQuestionType={(e) => onChangeQuestionType(e, onChange, question)}
+            onChangeQuestionType={(e) => onChangeQuestionType(e, handleQuestionChange, question)}
           />
           <div className="font-bold flex">
             <span>Q.</span>
             <input
               type="text"
-              value={question.question}
+              value={question.title}
               placeholder="질문 입력"
-              onChange={(e) => onChange({ ...question, question: e.target.value })}
+              onChange={(e) => handleQuestionChange({ ...question, title: e.target.value })}
               className="ml-1 flex-1 focused_input"
             />
           </div>
@@ -34,7 +40,7 @@ const LongAnswerQuestion: React.FC<QuestionProps> = ({ question, isEditing, onCh
             value={explanation}
             onChange={(e) => {
               setExplanation(e.target.value);
-              onChange({ ...question, description: e.target.value });
+              handleQuestionChange({ ...question, description: e.target.value });
             }}
             className="caption"
             placeholder="설명 입력 (선택 사항)"
@@ -49,7 +55,7 @@ const LongAnswerQuestion: React.FC<QuestionProps> = ({ question, isEditing, onCh
         </>
       ) : (
         <>
-          <p className="font-bold">Q. {question.question || '(질문 없음)'}</p>
+          <p className="font-bold">Q. {question.title || '(질문 없음)'}</p>
           <p className="caption">{question.description || ''}</p>
           <textarea
             className="p-3 rounded-lg w-full bg-gray-1 mt-3"

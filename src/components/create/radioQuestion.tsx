@@ -1,4 +1,5 @@
-import { QuestionProps, Option } from '@/types';
+import { QuestionProps, Option, Question } from '@/types';
+import { useSurveyStore } from '@/store';
 import AutoResizeTextarea from '../common/textarea';
 import { useState, useEffect } from 'react';
 import Options from './options';
@@ -8,8 +9,13 @@ import Image from 'next/image';
 import QuestionSelect from './select';
 import { onChangeQuestionType, deleteOption } from '@/utils/createPageUtils';
 
-const RadioQuestion: React.FC<QuestionProps> = ({ question, isEditing, onChange }) => {
+const RadioQuestion: React.FC<QuestionProps> = ({ question, isEditing }) => {
   const [explanation, setExplanation] = useState<string>(question.description || '');
+  const { updateQuestion } = useSurveyStore();
+  
+  const handleQuestionChange = (updatedQuestion: Question) => {
+    updateQuestion(question.id, updatedQuestion);
+  };
 
   useEffect(() => {
     setExplanation(question.description || '');
@@ -23,15 +29,15 @@ const RadioQuestion: React.FC<QuestionProps> = ({ question, isEditing, onChange 
         <>
           <QuestionSelect
             value={question.type}
-            onChangeQuestionType={(e) => onChangeQuestionType(e, onChange, question)}
+            onChangeQuestionType={(e) => onChangeQuestionType(e, handleQuestionChange, question)}
           />
           <div className="font-bold flex">
             <span>Q.</span>
             <input
               type="text"
-              value={question.question}
+              value={question.title}
               placeholder="질문 입력"
-              onChange={(e) => onChange({ ...question, question: e.target.value })}
+              onChange={(e) => handleQuestionChange({ ...question, title: e.target.value })}
               className="ml-1 flex-1 focused_input"
             />
           </div>
@@ -40,7 +46,7 @@ const RadioQuestion: React.FC<QuestionProps> = ({ question, isEditing, onChange 
             value={explanation}
             onChange={(e) => {
               setExplanation(e.target.value);
-              onChange({ ...question, description: e.target.value });
+              handleQuestionChange({ ...question, description: e.target.value });
             }}
             className="caption"
             placeholder="설명 입력 (선택 사항)"
@@ -48,7 +54,7 @@ const RadioQuestion: React.FC<QuestionProps> = ({ question, isEditing, onChange 
           <DragDropContext
             onDragEnd={(result) =>
               handleOptionDragEnd(result, question.options || [], (updatedOptions: Option[]) => {
-                onChange({ ...question, options: updatedOptions });
+                handleQuestionChange({ ...question, options: updatedOptions });
               })
             }
           >
@@ -76,7 +82,7 @@ const RadioQuestion: React.FC<QuestionProps> = ({ question, isEditing, onChange 
                               value={option.value}
                               placeholder={`항목 ${index}`}
                               onChange={(e) =>
-                                onChange({
+                                handleQuestionChange({
                                   ...question,
                                   options: question.options?.map((opt, i) =>
                                     i === index ? { ...opt, value: e.target.value } : opt,
@@ -86,7 +92,7 @@ const RadioQuestion: React.FC<QuestionProps> = ({ question, isEditing, onChange 
                               className="flex-1 mb-2 focused_input"
                             />
                             <button
-                              onClick={() => deleteOption({ question, id: option.id, onChange })}
+                              onClick={() => deleteOption({ question, id: option.id, handleQuestionChange })}
                               disabled={question.options && question.options.length === 1}
                             >
                               <Image
@@ -108,7 +114,7 @@ const RadioQuestion: React.FC<QuestionProps> = ({ question, isEditing, onChange 
           <div className="flex gap-2 items-center">
             <button
               onClick={() =>
-                onChange({
+                handleQuestionChange({
                   ...question,
                   options: [
                     ...(question.options || []),
@@ -127,7 +133,7 @@ const RadioQuestion: React.FC<QuestionProps> = ({ question, isEditing, onChange 
                 <span>또는</span>
                 <button
                   onClick={() =>
-                    onChange({
+                    handleQuestionChange({
                       ...question,
                       options: [...(question.options || []), { id: -1, value: '기타' }],
                     })
@@ -143,7 +149,7 @@ const RadioQuestion: React.FC<QuestionProps> = ({ question, isEditing, onChange 
         </>
       ) : (
         <>
-          <p className="font-bold">Q. {question.question || '(질문 없음)'}</p>
+          <p className="font-bold">Q. {question.title || '(질문 없음)'}</p>
           <p className="caption">{question.description || ''}</p>
           {question.options?.map((option) => (
             <label key={option.id} className="p-3 rounded-lg flex gap-2 bg-gray-1 mt-3 text-gray-3">

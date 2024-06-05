@@ -2,7 +2,7 @@
 
 import { useState, useEffect, Suspense, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { useSurveyStore } from '@/store';
+import { useSelectedSurveyStore } from '@/store';
 import { surveyData } from '@/firebase/db/surveyData';
 import { Survey } from '@/types';
 import RecruitItem from '../recruit/recruitItem';
@@ -30,7 +30,7 @@ interface Props {
 }
 
 const CommonList = ({ topic, category }: Props) => {
-  const { selectedItem } = useSurveyStore();
+  const { selectedItem } = useSelectedSurveyStore();
   const searchParams = useSearchParams();
 
   const sortParam = searchParams.get('sort') || 'point-asc';

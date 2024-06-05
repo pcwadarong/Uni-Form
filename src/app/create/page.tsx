@@ -1,9 +1,9 @@
 'use client';
 
+import { useSurveyStore } from '@/store';
 import { useState, useEffect } from 'react';
 import Questions from '@/components/create/questions';
 import CreatePageButton from '@/components/create/buttons';
-import { Question } from '@/types';
 import AppreciateMessage from '@/components/create/appreciateMessage';
 import SurveyInfo from '@/components/create/surveyInfo';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
@@ -13,31 +13,7 @@ const Create: React.FC = () => {
   const [editingId, setEditingId] = useState<number | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [enabled, setEnabled] = useState(false);
-  const [questions, setQuestions] = useState<Question[]>([
-    {
-      id: 1,
-      type: 'checkbox',
-      question: '',
-      description: '추가적인 설명',
-      options: [
-        { id: 1, value: '항목 1' },
-        { id: 2, value: '항목 2' },
-      ],
-    },
-    {
-      id: 2,
-      type: 'checkbox',
-      question: '',
-      options: [
-        { id: 1, value: '항목 1' },
-        { id: 2, value: '항목 2' },
-      ],
-    },
-  ]);
-
-  const handleQuestionChange = (id: number, updatedQuestion: Question) => {
-    setQuestions(questions.map((q) => (q.id === id ? updatedQuestion : q)));
-  };
+  const { questions, setQuestions } = useSurveyStore();
 
   const toggleEdit = (id: number) => {
     setEditingId(id);
@@ -90,7 +66,6 @@ const Create: React.FC = () => {
                           question={q}
                           isEditing={editingId === q.id}
                           onEditToggle={() => toggleEdit(q.id)}
-                          onChange={(updated) => handleQuestionChange(q.id, updated)}
                           provided={draggableProvided}
                         />
                       </li>

@@ -11,7 +11,6 @@ const Questions: React.FC<ExtendedQuestionProps> = ({
   question,
   isEditing,
   onEditToggle,
-  onChange,
   provided,
 }) => {
   const QuestionComponent = questionComponentMap[question.type] || RadioQuestion;
@@ -33,7 +32,7 @@ const Questions: React.FC<ExtendedQuestionProps> = ({
       ) : (
         ''
       )}
-      <QuestionComponent question={question} isEditing={isEditing} onChange={onChange} />
+      <QuestionComponent question={question} isEditing={isEditing} />
     </div>
   );
 };

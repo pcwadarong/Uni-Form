@@ -35,7 +35,7 @@ export interface Option {
 export interface Question {
   id: number;
   type: string;
-  question: string;
+  title: string;
   description?: string;
   options?: Option[];
   answer?: string | string[];
@@ -44,5 +44,4 @@ export interface Question {
 export interface QuestionProps {
   question: Question;
   isEditing: boolean;
-  onChange: (updatedQuestion: Question) => void;
 }

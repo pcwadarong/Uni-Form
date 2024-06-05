@@ -2,10 +2,10 @@ import { QuestionProps } from '@/types';
 
 export const onChangeQuestionType = (
   e: React.ChangeEvent<HTMLSelectElement>,
-  onChange: (question: QuestionProps['question']) => void,
+  handleQuestionChange: (question: QuestionProps['question']) => void,
   question: QuestionProps['question'],
 ) => {
-  onChange({
+  handleQuestionChange({
     ...question,
     type: e.target.value,
   });
@@ -14,12 +14,12 @@ export const onChangeQuestionType = (
 interface DeleteProps {
   question: QuestionProps['question'];
   id: number;
-  onChange: (question: QuestionProps['question']) => void;
+  handleQuestionChange: (question: QuestionProps['question']) => void;
 }
 
-export const deleteOption = ({ question, id, onChange }: DeleteProps) => {
+export const deleteOption = ({ question, id, handleQuestionChange }: DeleteProps) => {
   if (question.options && question.options.length > 1) {
-    onChange({
+    handleQuestionChange({
       ...question,
       options: question.options.filter((option) => option.id !== id),
     });
