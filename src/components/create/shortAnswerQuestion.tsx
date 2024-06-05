@@ -1,26 +1,67 @@
-const ShortAnswerQuestion = ({ question, isEditing, onChange }) => {
-  const handleAnswerChange = (e) => {
-    const updatedQuestion = { ...question, answer: e.target.value };
-    onChange(updatedQuestion);
-  };
+import { QuestionProps } from '@/types';
+import AutoResizeTextarea from '../common/textarea';
+import { useState, useEffect } from 'react';
+import Options from './options';
+import QuestionSelect from './select';
+import { onChangeQuestionType } from '@/utils/createPageUtils';
 
-  if (isEditing) {
-    return (
-      <div>
-        <input
-          type="text"
-          value={question.question}
-          onChange={(e) => onChange({ ...question, question: e.target.value })}
-        />
-      </div>
-    );
-  }
+const ShortAnswerQuestion: React.FC<QuestionProps> = ({ question, isEditing, onChange }) => {
+  const [explanation, setExplanation] = useState<string>(question.description || '');
+
+  useEffect(() => {
+    setExplanation(question.description || '');
+  }, [question.description]);
 
   return (
-    <div>
-      <p>{question.question}</p>
-      <input type="text" value={question.answer} onChange={handleAnswerChange} />
-    </div>
+    <>
+      {isEditing ? (
+        <>
+          <QuestionSelect
+            value={question.type}
+            onChangeQuestionType={(e) => onChangeQuestionType(e, onChange, question)}
+          />
+          <div className="font-bold flex">
+            <span>Q.</span>
+            <input
+              type="text"
+              value={question.question}
+              placeholder="질문 입력"
+              onChange={(e) => onChange({ ...question, question: e.target.value })}
+              className="ml-1 flex-1 focused_input"
+            />
+          </div>
+          <AutoResizeTextarea
+            value={explanation}
+            onChange={(e) => {
+              setExplanation(e.target.value);
+              onChange({ ...question, description: e.target.value });
+            }}
+            className="caption"
+            placeholder="설명 입력 (선택 사항)"
+          />
+          <input
+            className="p-3 rounded-lg w-full bg-gray-1 mt-3"
+            type="text"
+            name={`question-${question.id}`}
+            disabled
+            placeholder="참여자의 답변 입력란 (최대 100자)"
+          />
+          <Options />
+        </>
+      ) : (
+        <>
+          <p className="font-bold">Q. {question.question || '(질문 없음)'}</p>
+          <p className="caption">{question.description || ''}</p>
+          <input
+            className="p-3 rounded-lg w-full bg-gray-1 mt-3"
+            type="text"
+            name={`question-${question.id}`}
+            disabled
+            placeholder="참여자의 답변 입력란 (최대 100자)"
+          />
+        </>
+      )}
+    </>
   );
 };
 
