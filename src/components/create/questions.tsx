@@ -1,18 +1,6 @@
 import { QuestionProps } from '@/types';
-
-import CheckboxQuestion from './checkboxQuestion';
+import questionComponentMap from '@/constants/questionComponentMap';
 import RadioQuestion from './radioQuestion';
-import CategoryQuestion from './categoryQuestion';
-import ConsentQuestion from './consentQuestion';
-import ScheduleQuestion from './scheduleQuestion';
-import DropDownQuestion from './dropDownQuestion';
-import FileQuestion from './fileQuestion';
-import LongAnswerQuestion from './longAnserQueestion';
-import ParticipantInfoQuestion from './participantInfoQuestion';
-import ScoreQuestion from './scoreQuestion';
-import ShortAnswerQuestion from './shortAnswerQuestion';
-import StarRatingQuestion from './starRatingQuestion';
-import TableQuestion from './tableQuestion';
 
 interface ExtendedQuestionProps extends QuestionProps {
   onEditToggle: () => void;
@@ -26,51 +14,7 @@ const Questions: React.FC<ExtendedQuestionProps> = ({
   onChange,
   provided,
 }) => {
-  let QuestionComponent;
-
-  switch (question.type) {
-    case 'category':
-      QuestionComponent = CategoryQuestion;
-      break;
-    case 'checkbox':
-      QuestionComponent = CheckboxQuestion;
-      break;
-    case 'consent':
-      QuestionComponent = ConsentQuestion;
-      break;
-    case 'dropdown':
-      QuestionComponent = DropDownQuestion;
-      break;
-    case 'file':
-      QuestionComponent = FileQuestion;
-      break;
-    case 'short answer':
-      QuestionComponent = ShortAnswerQuestion;
-      break;
-    case 'long answer':
-      QuestionComponent = LongAnswerQuestion;
-      break;
-    case 'schedule':
-      QuestionComponent = ScheduleQuestion;
-      break;
-    case 'radio':
-      QuestionComponent = RadioQuestion;
-      break;
-    case 'participant':
-      QuestionComponent = ParticipantInfoQuestion;
-      break;
-    case 'score':
-      QuestionComponent = ScoreQuestion;
-      break;
-    case 'star':
-      QuestionComponent = StarRatingQuestion;
-      break;
-    case 'table':
-      QuestionComponent = TableQuestion;
-      break;
-    default:
-      QuestionComponent = ShortAnswerQuestion;
-  }
+  const QuestionComponent = questionComponentMap[question.type] || RadioQuestion;
 
   return (
     <div
@@ -80,7 +24,10 @@ const Questions: React.FC<ExtendedQuestionProps> = ({
       }`}
     >
       {isEditing ? (
-        <div className="text-center cursor-move select-none p-10 -m-10" {...provided.dragHandleProps}>
+        <div
+          className="text-center cursor-move select-none p-10 -m-10"
+          {...provided.dragHandleProps}
+        >
           =
         </div>
       ) : (

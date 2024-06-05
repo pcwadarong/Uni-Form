@@ -18,6 +18,7 @@ const Create: React.FC = () => {
       id: 1,
       type: 'checkbox',
       question: '',
+      description: '추가적인 설명',
       options: [
         { id: 1, value: '항목 1' },
         { id: 2, value: '항목 2' },
@@ -61,7 +62,9 @@ const Create: React.FC = () => {
       <div className="w-full 2xl:w-[1400px] flex flex-col gap-5">
         <CreatePageButton />
         <SurveyInfo />
-        <DragDropContext onDragEnd={(result) => handleQuestionDragEnd(result, questions, setQuestions)}>
+        <DragDropContext
+          onDragEnd={(result) => handleQuestionDragEnd(result, questions, setQuestions)}
+        >
           <Droppable droppableId="questions" type="card" direction="vertical">
             {(droppableProvided) => (
               <ul

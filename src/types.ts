@@ -36,6 +36,7 @@ export interface Question {
   id: number;
   type: string;
   question: string;
+  description?: string;
   options?: Option[];
   answer?: string | string[];
 }

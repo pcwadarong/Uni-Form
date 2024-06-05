@@ -1,33 +1,30 @@
 import { QuestionProps, Option } from '@/types';
 import AutoResizeTextarea from '../common/textarea';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Options from './options';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { handleOptionDragEnd } from '@/utils/handleDragEnd';
 import Image from 'next/image';
+import QuestionSelect from './select';
+import { onChangeQuestionType, deleteOption } from '@/utils/createPageUtils';
 
 const CheckboxQuestion: React.FC<QuestionProps> = ({ question, isEditing, onChange }) => {
-  const [explanation, setExplanation] = useState<string>('');
+  const [explanation, setExplanation] = useState<string>(question.description || '');
+
+  useEffect(() => {
+    setExplanation(question.description || '');
+  }, [question.description]);
 
   const hasEtcOption = question.options?.some((option) => option.value === '기타');
-
-  const deleteOption = (id: number) => {
-    if (question.options && question.options.length > 1) {
-      onChange({
-        ...question,
-        options: question.options.filter((option) => option.id !== id),
-      });
-    }
-  };
 
   return (
     <>
       {isEditing ? (
         <>
-          <select className="w-full border-[1px] border-gray-2 rounded-lg p-2 mb-3 focus:outline-none">
-            <option>객관식</option>
-            <option>주관식</option>
-          </select>
+          <QuestionSelect
+            value={question.type}
+            onChangeQuestionType={(e) => onChangeQuestionType(e, onChange, question)}
+          />
           <div className="font-bold flex">
             <span>Q.</span>
             <input
@@ -41,7 +38,10 @@ const CheckboxQuestion: React.FC<QuestionProps> = ({ question, isEditing, onChan
 
           <AutoResizeTextarea
             value={explanation}
-            onChange={(e) => setExplanation(e.target.value)}
+            onChange={(e) => {
+              setExplanation(e.target.value);
+              onChange({ ...question, description: e.target.value });
+            }}
             className="caption"
             placeholder="설명 입력 (선택 사항)"
           />
@@ -86,7 +86,7 @@ const CheckboxQuestion: React.FC<QuestionProps> = ({ question, isEditing, onChan
                               className="flex-1 mb-2 focused_input"
                             />
                             <button
-                              onClick={() => deleteOption(option.id)}
+                              onClick={() => deleteOption({ question, id: option.id, onChange })}
                               disabled={question.options && question.options.length === 1}
                             >
                               <Image
@@ -144,9 +144,15 @@ const CheckboxQuestion: React.FC<QuestionProps> = ({ question, isEditing, onChan
       ) : (
         <>
           <p className="font-bold">Q. {question.question || '(질문 없음)'}</p>
+          <p className="caption">{question.description || ''}</p>
           {question.options?.map((option) => (
             <label key={option.id} className="p-3 rounded-lg flex gap-2 bg-gray-1 mt-3 text-gray-3">
-              <input type="radio" name={`question-${question.id}`} disabled value={option.value} />
+              <input
+                type="checkbox"
+                name={`question-${question.id}`}
+                disabled
+                value={option.value}
+              />
               {option.value}
             </label>
           ))}
