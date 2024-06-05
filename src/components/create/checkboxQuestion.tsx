@@ -92,7 +92,9 @@ const CheckboxQuestion: React.FC<QuestionProps> = ({ question, isEditing }) => {
                               className="flex-1 mb-2 focused_input"
                             />
                             <button
-                              onClick={() => deleteOption({ question, id: option.id, handleQuestionChange })}
+                              onClick={() =>
+                                deleteOption({ question, id: option.id, handleQuestionChange })
+                              }
                               disabled={question.options && question.options.length === 1}
                             >
                               <Image
@@ -145,7 +147,7 @@ const CheckboxQuestion: React.FC<QuestionProps> = ({ question, isEditing }) => {
               </>
             )}
           </div>
-          <Options />
+          <Options id={question.id} />
         </>
       ) : (
         <>

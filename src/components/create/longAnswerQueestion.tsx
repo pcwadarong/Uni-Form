@@ -51,7 +51,7 @@ const LongAnswerQuestion: React.FC<QuestionProps> = ({ question, isEditing }) =>
             disabled
             placeholder="참여자의 답변 입력란 (최대 2000자)"
           />
-          <Options />
+          <Options id={question.id} />
         </>
       ) : (
         <>

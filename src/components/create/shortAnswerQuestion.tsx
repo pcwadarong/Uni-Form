@@ -9,7 +9,7 @@ import { onChangeQuestionType } from '@/utils/createPageUtils';
 const ShortAnswerQuestion: React.FC<QuestionProps> = ({ question, isEditing }) => {
   const [explanation, setExplanation] = useState<string>(question.description || '');
   const { updateQuestion } = useSurveyStore();
-  
+
   const handleQuestionChange = (updatedQuestion: Question) => {
     updateQuestion(question.id, updatedQuestion);
   };
@@ -52,7 +52,7 @@ const ShortAnswerQuestion: React.FC<QuestionProps> = ({ question, isEditing }) =
             disabled
             placeholder="참여자의 답변 입력란 (최대 100자)"
           />
-          <Options />
+          <Options id={question.id}/>
         </>
       ) : (
         <>

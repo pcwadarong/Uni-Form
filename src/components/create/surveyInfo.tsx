@@ -4,17 +4,18 @@ import { useState, ChangeEvent } from 'react';
 import FileEditIcon from '../svg/file';
 import AutoResizeTextarea from '../common/textarea';
 import AddBtns from './addBtns';
+import { useSurveyStore } from '@/store';
 
 const SurveyInfo = () => {
-  const [imageUrl, setImageUrl] = useState<string>('');
-  const [explanationArea, setExplanationArea] = useState<string>('');
+  const { surveyInfo, setSurveyInfo } = useSurveyStore();
+  const [explanationArea, setExplanationArea] = useState<string>(surveyInfo.description);
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     const reader = new FileReader();
     reader.onloadend = () => {
       if (reader.result) {
-        setImageUrl(reader.result.toString());
+        setSurveyInfo({ imageUrl: reader.result.toString() });
       }
     };
     if (file) {
@@ -23,16 +24,25 @@ const SurveyInfo = () => {
   };
 
   const handleDeleteClick = () => {
-    setImageUrl('');
+    setSurveyInfo({ imageUrl: '' });
+  };
+
+  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSurveyInfo({ title: e.target.value });
+  };
+
+  const handleDescriptionChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setExplanationArea(e.target.value);
+    setSurveyInfo({ description: e.target.value });
   };
 
   return (
     <div className="bg-white rounded-2xl overflow-hidden shadow-md">
       <p className="py-2 px-4 text-font">{}페이지</p>
       <div className="aspect-[4/1] bg-font justify-center flex">
-        {imageUrl ? (
+        {surveyInfo.imageUrl ? (
           <div className="relative overflow-hidden flex items-center">
-            <img src={imageUrl} alt="Uploaded" className="w-full h-auto object-cover" />
+            <img src={surveyInfo.imageUrl} alt="Uploaded" className="w-full h-auto object-cover" />
             <div className="absolute bottom-5 right-5 bg-gray-4/50 text-white p-2 rounded-md">
               <button onClick={handleDeleteClick}>삭제하기</button>
             </div>
@@ -57,11 +67,13 @@ const SurveyInfo = () => {
         <input
           type="text"
           placeholder="설문 제목 입력"
+          value={surveyInfo.title}
+          onChange={handleTitleChange}
           className="p-2 w-full focused_input"
         />
         <AutoResizeTextarea
           value={explanationArea}
-          onChange={(e) => setExplanationArea(e.target.value)}
+          onChange={handleDescriptionChange}
           className="caption"
           placeholder="설명을 입력하세요 ..."
         />

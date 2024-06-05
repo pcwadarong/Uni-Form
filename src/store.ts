@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { User, Survey, Question } from '@/types';
+import type { User, Survey, Question, SurveyInfo } from '@/types';
 
 interface AuthStore {
   user: User | null;
@@ -30,8 +30,10 @@ export const useSelectedSurveyStore = create<SelectedSurveyStore>((set) => ({
 
 interface SurveyStore {
   questions: Question[];
-  setQuestions: (item: Question[]) => void;
+  surveyInfo: SurveyInfo;
+  setQuestions: (items: Question[]) => void;
   updateQuestion: (id: number, updatedQuestion: Question) => void;
+  setSurveyInfo: (info: Partial<SurveyInfo>) => void;
 }
 
 export const useSurveyStore = create<SurveyStore>((set) => ({
@@ -45,6 +47,7 @@ export const useSurveyStore = create<SurveyStore>((set) => ({
         { id: 1, value: '항목 1' },
         { id: 2, value: '항목 2' },
       ],
+      isEssential: false,
     },
     {
       id: 2,
@@ -54,16 +57,36 @@ export const useSurveyStore = create<SurveyStore>((set) => ({
         { id: 1, value: '항목 1' },
         { id: 2, value: '항목 2' },
       ],
+      isEssential: false,
     },
     {
       id: 3,
       type: 'participant',
       title: '회원 정보',
+      isEssential: true,
     },
   ],
-  setQuestions: (data) => set({ questions: data }),
+  surveyInfo: {
+    questions: [],
+    imageUrl: '',
+    title: '',
+    description: '',
+  },
+  setQuestions: (items) =>
+    set((state) => ({
+      questions: items,
+      surveyInfo: { ...state.surveyInfo, questions: items },
+    })),
   updateQuestion: (id, updatedQuestion) =>
     set((state) => ({
       questions: state.questions.map((q) => (q.id === id ? updatedQuestion : q)),
+      surveyInfo: {
+        ...state.surveyInfo,
+        questions: state.questions.map((q) => (q.id === id ? updatedQuestion : q)),
+      },
+    })),
+  setSurveyInfo: (info) =>
+    set((state) => ({
+      surveyInfo: { ...state.surveyInfo, ...info },
     })),
 }));

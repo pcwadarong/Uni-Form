@@ -120,7 +120,7 @@ const ParticipantInfoQuestion: React.FC<QuestionProps> = ({ question, isEditing 
             </div>
           </form>
           <p className="caption text-gray-3">{`참여자가 직접 ${selectedOption} 입력`}</p>
-          <Options />
+          <Options id={question.id}/>
         </>
       ) : (
         <>
