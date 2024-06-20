@@ -6,7 +6,7 @@ import { handleOptionDragEnd } from '@/utils/handleDragEnd';
 import Image from 'next/image';
 import { deleteOption } from '@/utils/createPageUtils';
 
-const RadioQuestion: React.FC<QuestionProps> = ({ question, isEditing }) => {
+const RadioQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
   const { updateQuestion } = useSurveyStore();
 
   const handleQuestionChange = (updatedQuestion: Question) => {
@@ -15,7 +15,7 @@ const RadioQuestion: React.FC<QuestionProps> = ({ question, isEditing }) => {
   const hasEtcOption = question.options?.some((option) => option.value === '기타');
   return (
     <>
-      {isEditing ? (
+      {mode === 'editing' ? (
         <>
           <DragDropContext
             onDragEnd={(result) =>

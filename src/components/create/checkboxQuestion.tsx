@@ -6,7 +6,7 @@ import { handleOptionDragEnd } from '@/utils/handleDragEnd';
 import Image from 'next/image';
 import { deleteOption } from '@/utils/createPageUtils';
 
-const CheckboxQuestion: React.FC<QuestionProps> = ({ question, isEditing }) => {
+const CheckboxQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
   const { updateQuestion } = useSurveyStore();
 
   const handleQuestionChange = (updatedQuestion: Question) => {
@@ -17,7 +17,7 @@ const CheckboxQuestion: React.FC<QuestionProps> = ({ question, isEditing }) => {
 
   return (
     <>
-      {isEditing ? (
+      {mode === 'editing' ? (
         <>
           <DragDropContext
             onDragEnd={(result) =>

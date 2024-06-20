@@ -4,7 +4,7 @@ import { QuestionProps } from '@/types';
 import { useState } from 'react';
 import Options from './options';
 
-const ParticipantInfoQuestion: React.FC<QuestionProps> = ({ question, isEditing }) => {
+const ParticipantInfoQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
   const [selectedOption, setselectedOption] = useState('이름');
   const [placeholder, setPlaceholder] = useState('이름을 입력해주세요');
 
@@ -30,7 +30,7 @@ const ParticipantInfoQuestion: React.FC<QuestionProps> = ({ question, isEditing 
 
   return (
     <>
-      {isEditing ? (
+      {mode === 'editing' ? (
         <>
           <form className="flex gap-3">
             <div>

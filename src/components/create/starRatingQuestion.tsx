@@ -4,7 +4,7 @@ import Options from './options';
 import { useSurveyStore } from '@/store';
 import { useState, useEffect } from 'react';
 
-const StarRatingQuestion: React.FC<QuestionProps> = ({ question, isEditing }) => {
+const StarRatingQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
   const { updateQuestion } = useSurveyStore();
   const [comment, setComment] = useState('1~5');
 
@@ -19,7 +19,7 @@ const StarRatingQuestion: React.FC<QuestionProps> = ({ question, isEditing }) =>
 
   return (
     <>
-      <div className={`mt-3 flex gap-3 ${isEditing ? 'items-center' : 'flex-col'}`}>
+      <div className={`mt-3 flex gap-3 ${mode === 'editing' ? 'items-center' : 'flex-col'}`}>
         <div className="flex" role="radiogroup" aria-labelledby={`question-${question.id}-label`}>
           {[...Array(5)].map((_, i) => (
             <Image
@@ -34,7 +34,7 @@ const StarRatingQuestion: React.FC<QuestionProps> = ({ question, isEditing }) =>
           ))}
         </div>
         <div className="ml-2 text-gray-4" id={`question-${question.id}-comment`}>
-          {isEditing ? (
+          {mode === 'editing' ? (
             <>
               <label htmlFor={`rating-step-${question.id}`} className="mr-2">
                 단위 선택:
@@ -49,14 +49,14 @@ const StarRatingQuestion: React.FC<QuestionProps> = ({ question, isEditing }) =>
                 <option value={0.5}>0.5</option>
                 <option value={1}>1</option>
               </select>
-              단위
+              <span className='ml-2'>단위</span>
             </>
           ) : (
             `${comment}점까지 선택이 가능합니다.`
           )}
         </div>
       </div>
-      {isEditing && <Options id={question.id} />}
+      {mode === 'editing' && <Options id={question.id} />}
     </>
   );
 };

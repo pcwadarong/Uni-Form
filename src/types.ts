@@ -32,6 +32,8 @@ export interface Option {
   value: string;
 }
 
+export type SurveyMode = 'editing' | 'previewing' | 'testing' | 'responding';
+
 export interface Question {
   id: number;
   type: string;
@@ -45,7 +47,7 @@ export interface Question {
 
 export interface QuestionProps {
   question: Question;
-  isEditing: boolean;
+  mode: SurveyMode;
 }
 
 export interface SurveyInfo {
@@ -53,4 +55,6 @@ export interface SurveyInfo {
   imageUrl: string;
   title: string;
   description: string;
+  duration: string;
+  mode: 'editing' | 'viewing';
 }

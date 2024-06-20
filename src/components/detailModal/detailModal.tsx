@@ -5,6 +5,10 @@ import { closeModal } from '@/utils/handleModal';
 import Button from '../common/button';
 
 const DetailModal: React.FC<{ item: Survey }> = ({ item }) => {
+  const temporary = () => {
+    console.log('a');
+  };
+
   return (
     <div className="z-50 relative p-4" role="dialog" aria-modal="true">
       <div className="m-auto w-full flex flex-col gap-3 max-w-[600px] max-h-full overflow-auto bg-gray-1 rounded-2xl shadow-2xl p-7 pt-25px md:p-30px md:pt-35px md:max-w-470px sm:max-w-screen">
@@ -43,8 +47,8 @@ const DetailModal: React.FC<{ item: Survey }> = ({ item }) => {
           )}
         </div>
         <div className="flex justify-center gap-2">
-          <Button text={'결과보기'} className={'bg-green-light text-font'} />
-          <Button text={'참여하기'} className={'bg-primary text-white'} />
+          <Button text={'결과보기'} className={'bg-green-light text-font'} onClick={temporary} />
+          <Button text={'참여하기'} className={'bg-primary text-white'} onClick={temporary} />
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import { QuestionProps } from '@/types';
 import Options from './options';
 
-const LongAnswerQuestion: React.FC<QuestionProps> = ({ question, isEditing }) => {
+const LongAnswerQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
   return (
     <>
       <textarea
@@ -10,7 +10,7 @@ const LongAnswerQuestion: React.FC<QuestionProps> = ({ question, isEditing }) =>
         disabled
         placeholder="참여자의 답변 입력란 (최대 2000자)"
       />
-      {isEditing && <Options id={question.id} />}
+      {mode === 'editing' && <Options id={question.id} />}
     </>
   );
 };

@@ -12,12 +12,7 @@ interface ExtendedQuestionProps extends QuestionProps {
   provided: any;
 }
 
-const Questions: React.FC<ExtendedQuestionProps> = ({
-  question,
-  isEditing,
-  onEditToggle,
-  provided,
-}) => {
+const Questions: React.FC<ExtendedQuestionProps> = ({ question, mode, onEditToggle, provided }) => {
   const QuestionComponent = questionComponentMap[question.type] || RadioQuestion;
   const [explanation, setExplanation] = useState<string>(question.description || '');
   const { updateQuestion } = useSurveyStore();
@@ -34,17 +29,16 @@ const Questions: React.FC<ExtendedQuestionProps> = ({
     <div
       onClick={onEditToggle}
       className={`bg-white rounded-2xl overflow-hidden shadow-md p-4 ${
-        isEditing ? 'border border-primary' : ''
+        mode === 'editing' ? 'border border-primary' : ''
       }`}
     >
-      {isEditing ? (
+      {mode === 'editing' ? (
         <>
           <div
             className="text-center cursor-move select-none p-10 -m-10"
             {...provided.dragHandleProps}
           >
-            <span className='blind'>질문 이동하기</span>
-            =
+            <span className="blind">질문 이동하기</span>=
           </div>
           <QuestionSelect
             value={question.type}
@@ -77,7 +71,7 @@ const Questions: React.FC<ExtendedQuestionProps> = ({
           <p className="caption">{question.description || ''}</p>
         </>
       )}
-      <QuestionComponent question={question} isEditing={isEditing} />
+      <QuestionComponent question={question} mode={mode}/>
     </div>
   );
 };

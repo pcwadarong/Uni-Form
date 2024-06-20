@@ -71,6 +71,8 @@ export const useSurveyStore = create<SurveyStore>((set) => ({
     imageUrl: '',
     title: '',
     description: '',
+    duration: '바로시작~제한없음',
+    mode:'editing',
   },
   setQuestions: (items) =>
     set((state) => ({

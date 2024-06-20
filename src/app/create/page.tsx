@@ -10,8 +10,8 @@ import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { handleQuestionDragEnd } from '@/utils/handleDragEnd';
 
 const Create: React.FC = () => {
-  const [editingId, setEditingId] = useState<number | null>(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [editingId, setEditingId] = useState<number | null>(null);
   const [enabled, setEnabled] = useState(false);
   const { questions, setQuestions } = useSurveyStore();
 
@@ -37,7 +37,7 @@ const Create: React.FC = () => {
     <div className="flex w-full h-screen px-4 py-8 md:px-8 2xl:px-0 bg-green-light justify-center">
       <div className="w-full 2xl:w-[1400px] flex flex-col gap-5">
         <CreatePageButton />
-        <SurveyInfo />
+        <SurveyInfo mode={editingId === 0 ? 'editing' : 'previewing'} onEditToggle={()=>toggleEdit(0)}/>
         <DragDropContext
           onDragEnd={(result) => handleQuestionDragEnd(result, questions, setQuestions)}
         >
@@ -64,7 +64,7 @@ const Create: React.FC = () => {
                         <Questions
                           key={q.id}
                           question={q}
-                          isEditing={editingId === q.id}
+                          mode={editingId === q.id ? 'editing' : 'previewing'}
                           onEditToggle={() => toggleEdit(q.id)}
                           provided={draggableProvided}
                         />
