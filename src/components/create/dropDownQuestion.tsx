@@ -1,25 +1,17 @@
 import { QuestionProps, Option, Question } from '@/types';
 import { useSurveyStore } from '@/store';
-import AutoResizeTextarea from '../common/textarea';
-import { useState, useEffect } from 'react';
 import Options from './options';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { handleOptionDragEnd } from '@/utils/handleDragEnd';
 import Image from 'next/image';
-import QuestionSelect from './select';
-import { onChangeQuestionType, deleteOption } from '@/utils/createPageUtils';
+import { deleteOption } from '@/utils/createPageUtils';
 
 const DropDownQuestion: React.FC<QuestionProps> = ({ question, isEditing }) => {
-  const [explanation, setExplanation] = useState<string>(question.description || '');
   const { updateQuestion } = useSurveyStore();
 
   const handleQuestionChange = (updatedQuestion: Question) => {
     updateQuestion(question.id, updatedQuestion);
   };
-
-  useEffect(() => {
-    setExplanation(question.description || '');
-  }, [question.description]);
 
   const hasEtcOption = question.options?.some((option) => option.value === '기타');
 
@@ -27,30 +19,6 @@ const DropDownQuestion: React.FC<QuestionProps> = ({ question, isEditing }) => {
     <>
       {isEditing ? (
         <>
-          <QuestionSelect
-            value={question.type}
-            onChangeQuestionType={(e) => onChangeQuestionType(e, handleQuestionChange, question)}
-          />
-          <div className="font-bold flex">
-            <span>Q.</span>
-            <input
-              type="text"
-              value={question.title}
-              placeholder="질문 입력"
-              onChange={(e) => handleQuestionChange({ ...question, title: e.target.value })}
-              className="ml-1 flex-1 focused_input"
-            />
-          </div>
-
-          <AutoResizeTextarea
-            value={explanation}
-            onChange={(e) => {
-              setExplanation(e.target.value);
-              handleQuestionChange({ ...question, description: e.target.value });
-            }}
-            className="caption"
-            placeholder="설명 입력 (선택 사항)"
-          />
           <DragDropContext
             onDragEnd={(result) =>
               handleOptionDragEnd(result, question.options || [], (updatedOptions: Option[]) => {
@@ -151,14 +119,12 @@ const DropDownQuestion: React.FC<QuestionProps> = ({ question, isEditing }) => {
         </>
       ) : (
         <>
-          <p className="font-bold">Q. {question.title || '(질문 없음)'}</p>
-          <p className="caption">{question.description || ''}</p>
           <select
             className="w-full border-[1px] border-gray-2 rounded-lg p-2 mt-3 focus:outline-none dark:bg-gray-900"
-            value={'file'}
+            value={'answer'}
             disabled
           >
-            <option value="file">답변을 선택해주세요.</option>
+            <option value="answer">답변을 선택해주세요.</option>
           </select>
         </>
       )}

@@ -10,6 +10,7 @@ const AddBtns = () => {
       { id: 1, value: '항목 1' },
       { id: 2, value: '항목 2' },
     ],
+    isEssential: true,
   };
   const addQuestion = () => {
     setQuestions([...questions, basicData]);

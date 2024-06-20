@@ -1,22 +1,12 @@
 'use client';
 
-import { QuestionProps, Question } from '@/types';
-import { useSurveyStore } from '@/store';
+import { QuestionProps } from '@/types';
 import { useState } from 'react';
-import AutoResizeTextarea from '../common/textarea';
 import Options from './options';
-import QuestionSelect from './select';
-import { onChangeQuestionType } from '@/utils/createPageUtils';
 
 const ParticipantInfoQuestion: React.FC<QuestionProps> = ({ question, isEditing }) => {
-  const [explanation, setExplanation] = useState<string>(question.description || '');
   const [selectedOption, setselectedOption] = useState('이름');
   const [placeholder, setPlaceholder] = useState('이름을 입력해주세요');
-  const { updateQuestion } = useSurveyStore();
-
-  const handleQuestionChange = (updatedQuestion: Question) => {
-    updateQuestion(question.id, updatedQuestion);
-  };
 
   const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     switch (event.target.value) {
@@ -42,29 +32,6 @@ const ParticipantInfoQuestion: React.FC<QuestionProps> = ({ question, isEditing 
     <>
       {isEditing ? (
         <>
-          <QuestionSelect
-            value={question.type}
-            onChangeQuestionType={(e) => onChangeQuestionType(e, handleQuestionChange, question)}
-          />
-          <div className="font-bold flex">
-            <span>Q.</span>
-            <input
-              type="text"
-              value={question.title}
-              placeholder="질문 입력"
-              onChange={(e) => handleQuestionChange({ ...question, title: e.target.value })}
-              className="ml-1 flex-1 focused_input"
-            />
-          </div>
-          <AutoResizeTextarea
-            value={explanation}
-            onChange={(e) => {
-              setExplanation(e.target.value);
-              handleQuestionChange({ ...question, description: e.target.value });
-            }}
-            className="caption"
-            placeholder="설명 입력 (선택 사항)"
-          />
           <form className="flex gap-3">
             <div>
               <input
@@ -124,8 +91,6 @@ const ParticipantInfoQuestion: React.FC<QuestionProps> = ({ question, isEditing 
         </>
       ) : (
         <>
-          <p className="font-bold">Q. {question.title || '(질문 없음)'}</p>
-          <p className="caption">{question.description || ''}</p>
           <label className="p-3 rounded-lg flex gap-2 bg-gray-1 mt-3 text-gray-3">
             <input type="text" className="w-full" disabled value={placeholder} />
           </label>
