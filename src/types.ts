@@ -40,6 +40,7 @@ export interface Question {
   options?: Option[];
   answer?: string | string[];
   isEssential: boolean;
+  ratingStep?: 0.5 | 1;
 }
 
 export interface QuestionProps {

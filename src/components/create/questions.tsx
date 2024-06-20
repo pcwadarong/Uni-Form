@@ -43,6 +43,7 @@ const Questions: React.FC<ExtendedQuestionProps> = ({
             className="text-center cursor-move select-none p-10 -m-10"
             {...provided.dragHandleProps}
           >
+            <span className='blind'>질문 이동하기</span>
             =
           </div>
           <QuestionSelect
