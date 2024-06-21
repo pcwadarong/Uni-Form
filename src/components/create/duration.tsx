@@ -2,7 +2,7 @@
 
 import { useSurveyStore } from '@/store';
 import Calendar from '../ui/calendar';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import Button from '../common/button';
 import formatDate from '@/utils/formatDate';
 import TimePicker from '../ui/timePicker';
@@ -33,18 +33,30 @@ const SetDuration = () => {
     }
   }, [isOpened]);
 
-  const toggleModal = () => {
-    setIsOpened(!isOpened);
+  // show either startDate or endDate only
+  useEffect(() => {
+    if (startDateVisible && endDateVisible) {
+      setStartDateVisible(false);
+    }
+  }, [endDateVisible]);
 
+  useEffect(() => {
+    if (startDateVisible && endDateVisible) {
+      setEndDateVisible(false);
+    }
+  }, [startDateVisible]);
+
+  const toggleModal = useCallback(() => {
+    setIsOpened(!isOpened);
     setStartVisible(false);
     setStartDateVisible(false);
     setStartTimeVisible(false);
     setEndVisible(false);
     setEndDateVisible(false);
     setEndTimeVisible(false);
-  };
+  }, [isOpened]);
 
-  const saveDuration = () => {
+  const saveDuration = useCallback(() => {
     let start = '바로 시작';
     let end = '제한 없음';
 
@@ -56,61 +68,49 @@ const SetDuration = () => {
     const durationFormat = `${start} ~ ${end}`;
     setSurveyInfo({ ...surveyInfo, duration: durationFormat });
     setIsOpened(!isOpened);
-  };
+  }, [startVisible, endVisible, startDate, endDate, setSurveyInfo, surveyInfo]);
 
-  const handleTimeChange = (
-    type: 'start' | 'end',
-    period: string,
-    hours: number,
-    minutes: number,
-  ) => {
-    const date = type === 'start' ? startDate : endDate;
-    if (date) {
-      const newDate = new Date(date);
+  const handleTimeChange = useCallback(
+    (type: 'start' | 'end', period: string, hours: number, minutes: number) => {
+      const date = type === 'start' ? startDate : endDate;
+      if (date) {
+        const newDate = new Date(date);
 
-      if (period === 'PM' && hours !== 12) {
-        hours += 12;
-      } else if (period === 'AM' && hours === 12) {
-        hours = 0;
-      }
-      newDate.setHours(hours);
-      newDate.setMinutes(minutes);
+        if (period === 'PM' && hours !== 12) {
+          hours += 12;
+        } else if (period === 'AM' && hours === 12) {
+          hours = 0;
+        }
+        newDate.setHours(hours);
+        newDate.setMinutes(minutes);
 
-      // If end date is selected, ensure it's not earlier than start date
-      if (type === 'end' && startDate) {
-        const startTime = new Date(startDate);
-        if (
-          newDate.toDateString() === startTime.toDateString() &&
-          newDate.getTime() < startTime.getTime()
-        ) {
-          alert('종료 시간은 시작 시간보다 이를 수 없습니다.');
-          return;
+        if (type === 'end' && startDate) {
+          const startTime = new Date(startDate);
+          if (
+            newDate.toDateString() === startTime.toDateString() &&
+            newDate.getTime() < startTime.getTime()
+          ) {
+            alert('종료 시간은 시작 시간보다 이를 수 없습니다.');
+            return;
+          }
+        }
+        if (type === 'start') {
+          setStartDate(newDate);
+        } else {
+          setEndDate(newDate);
         }
       }
-      if (type === 'start') {
-        setStartDate(newDate);
-      } else {
-        setEndDate(newDate);
-      }
-    }
-  };
+    },
+    [startDate, endDate],
+  );
 
-  // const isMounted = useRef(false);
+  const CalendarMemo = useMemo(() => {
+    return Calendar;
+  }, []);
 
-  // useEffect(() => {
-  //   if (!isMounted.current) {
-  //     // 처음 마운트될 때는 아무 작업도 하지 않음
-  //     isMounted.current = true;
-  //     return;
-  //   }
-
-  //   // 이후 컴포넌트 업데이트 시에만 실행될 로직
-  //   if (endVisible) {
-  //     setStartVisible(false);
-  //   } else if (startVisible) {
-  //     setEndVisible(false);
-  //   }
-  // }, [startVisible, endVisible]);
+  const TimePickerMemo = useMemo(() => {
+    return TimePicker;
+  }, []);
 
   return (
     <div className="px-2 mb-4">
@@ -164,7 +164,7 @@ const SetDuration = () => {
                     {formatDate(startDate).split(' / ')[0]}
                   </button>
                   {startDateVisible && (
-                    <Calendar
+                    <CalendarMemo
                       mode="single"
                       selected={startDate}
                       onDayClick={setStartDate}
@@ -180,7 +180,7 @@ const SetDuration = () => {
                     {formatDate(startDate).split(' / ')[1]}
                   </button>
                   {startTimeVisible && (
-                    <TimePicker type={'start'} date={startDate} onChange={handleTimeChange} />
+                    <TimePickerMemo type={'start'} date={startDate} onChange={handleTimeChange} />
                   )}
                 </div>
               )}
@@ -220,9 +220,8 @@ const SetDuration = () => {
                   >
                     {formatDate(endDate).split(' / ')[0]}
                   </button>
-                  <div></div>
                   {endDateVisible && (
-                    <Calendar
+                    <CalendarMemo
                       mode="single"
                       selected={endDate}
                       onDayClick={setEndDate}
@@ -238,7 +237,7 @@ const SetDuration = () => {
                     {formatDate(endDate).split(' / ')[1]}
                   </button>
                   {endTimeVisible && (
-                    <TimePicker type={'end'} date={endDate} onChange={handleTimeChange} />
+                    <TimePickerMemo type={'end'} date={endDate} onChange={handleTimeChange} />
                   )}
                 </div>
               )}
@@ -267,5 +266,3 @@ const SetDuration = () => {
 };
 
 export default SetDuration;
-
-// 다른 요소 클릭되었을 때 visible 사라지게 (날짜와 시간 중 하나만, end와 start 중 하나만)
