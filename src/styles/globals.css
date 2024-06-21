@@ -38,11 +38,11 @@ body {
 }
 
 .subtitle {
-  @apply text-sm font-normal leading-7;
+  @apply text-sm font-normal leading-6;
 }
 
 .caption {
-  @apply text-xs font-normal leading-6;
+  @apply text-xs font-normal leading-5;
 }
 
 .line-clamp-2 {

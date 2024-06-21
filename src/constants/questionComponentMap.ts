@@ -1,6 +1,5 @@
 import CategoryQuestion from '@/components/create/question/categoryQuestion';
 import CheckboxQuestion from '@/components/create/question/checkboxQuestion';
-import ConsentQuestion from '@/components/create/question/consentQuestion';
 import DropDownQuestion from '@/components/create/question/dropDownQuestion';
 import FileQuestion from '@/components/create/question/fileQuestion';
 import ShortAnswerQuestion from '@/components/create/question/shortAnswerQuestion';
@@ -16,7 +15,6 @@ import { QuestionProps } from '@/types';
 export const questionComponentMap: { [key: string]: React.FC<QuestionProps> } = {
   category: CategoryQuestion,
   checkbox: CheckboxQuestion,
-  consent: ConsentQuestion,
   dropdown: DropDownQuestion,
   file: FileQuestion,
   'short answer': ShortAnswerQuestion,
