@@ -1,5 +1,5 @@
 import { QuestionProps } from '@/types';
-import Options from './options';
+import Options from '../options';
 
 const LongAnswerQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
   return (

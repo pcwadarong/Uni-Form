@@ -1,12 +1,12 @@
 import { QuestionProps, Option, Question } from '@/types';
 import { useSurveyStore } from '@/store';
-import Options from './options';
+import Options from '../options';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { handleOptionDragEnd } from '@/utils/handleDragEnd';
 import Image from 'next/image';
 import { deleteOption } from '@/utils/createPageUtils';
 
-const CheckboxQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
+const DropDownQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
   const { updateQuestion } = useSurveyStore();
 
   const handleQuestionChange = (updatedQuestion: Question) => {
@@ -119,21 +119,17 @@ const CheckboxQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
         </>
       ) : (
         <>
-          {question.options?.map((option) => (
-            <label key={option.id} className="p-3 rounded-lg flex gap-2 bg-gray-1 mt-3 text-gray-3">
-              <input
-                type="checkbox"
-                name={`question-${question.id}`}
-                disabled
-                value={option.value}
-              />
-              {option.value}
-            </label>
-          ))}
+          <select
+            className="w-full border-[1px] border-gray-2 rounded-lg p-2 mt-3 focus:outline-none dark:bg-gray-900"
+            value={'answer'}
+            disabled
+          >
+            <option value="answer">답변을 선택해주세요.</option>
+          </select>
         </>
       )}
     </>
   );
 };
 
-export default CheckboxQuestion;
+export default DropDownQuestion;

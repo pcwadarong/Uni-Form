@@ -2,7 +2,7 @@ import { QuestionProps, Question } from '@/types';
 import { useSurveyStore } from '@/store';
 import questionComponentMap from '@/constants/questionComponentMap';
 import { useState, useEffect } from 'react';
-import RadioQuestion from './radioQuestion';
+import RadioQuestion from './question/radioQuestion';
 import QuestionSelect from './select';
 import { onChangeQuestionType } from '@/utils/createPageUtils';
 import AutoResizeTextarea from '../common/textarea';
@@ -71,7 +71,7 @@ const Questions: React.FC<ExtendedQuestionProps> = ({ question, mode, onEditTogg
           <p className="caption">{question.description || ''}</p>
         </>
       )}
-      <QuestionComponent question={question} mode={mode}/>
+      <QuestionComponent question={question} mode={mode} />
     </div>
   );
 };

@@ -2,7 +2,7 @@
 
 import { QuestionProps } from '@/types';
 import { useState } from 'react';
-import Options from './options';
+import Options from '../options';
 
 const ParticipantInfoQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
   const [selectedOption, setselectedOption] = useState('이름');

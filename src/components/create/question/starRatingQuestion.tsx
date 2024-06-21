@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { QuestionProps } from '@/types';
-import Options from './options';
+import Options from '../options';
 import { useSurveyStore } from '@/store';
 import { useState, useEffect } from 'react';
 
@@ -49,7 +49,7 @@ const StarRatingQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
                 <option value={0.5}>0.5</option>
                 <option value={1}>1</option>
               </select>
-              <span className='ml-2'>단위</span>
+              <span className="ml-2">단위</span>
             </>
           ) : (
             `${comment}점까지 선택이 가능합니다.`

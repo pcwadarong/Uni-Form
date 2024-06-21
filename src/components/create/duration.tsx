@@ -1,8 +1,11 @@
+'use client';
+
 import { useSurveyStore } from '@/store';
 import Calendar from '../ui/calendar';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Button from '../common/button';
 import formatDate from '@/utils/formatDate';
+import TimePicker from '../ui/timePicker';
 
 const SetDuration = () => {
   const { surveyInfo, setSurveyInfo } = useSurveyStore();
@@ -26,10 +29,32 @@ const SetDuration = () => {
   useEffect(() => {
     if (isOpened) {
       setStartDate(new Date(Date.now() + 30 * 60 * 1000));
+      setEndDate(new Date(Date.now() + 7 * 24 * 60 * 60 * 1000));
     }
   }, [isOpened]);
 
   const toggleModal = () => {
+    setIsOpened(!isOpened);
+
+    setStartVisible(false);
+    setStartDateVisible(false);
+    setStartTimeVisible(false);
+    setEndVisible(false);
+    setEndDateVisible(false);
+    setEndTimeVisible(false);
+  };
+
+  const saveDuration = () => {
+    let start = '바로 시작';
+    let end = '제한 없음';
+
+    if (startVisible)
+      start = `${formatDate(startDate).split(' / ')[0]}. ${formatDate(startDate).split(' / ')[1]}`;
+    if (endVisible)
+      end = `${formatDate(endDate).split(' / ')[0]}. ${formatDate(endDate).split(' / ')[1]}`;
+
+    const durationFormat = `${start} ~ ${end}`;
+    setSurveyInfo({ ...surveyInfo, duration: durationFormat });
     setIsOpened(!isOpened);
   };
 
@@ -42,6 +67,7 @@ const SetDuration = () => {
     const date = type === 'start' ? startDate : endDate;
     if (date) {
       const newDate = new Date(date);
+
       if (period === 'PM' && hours !== 12) {
         hours += 12;
       } else if (period === 'AM' && hours === 12) {
@@ -69,6 +95,22 @@ const SetDuration = () => {
     }
   };
 
+  // const isMounted = useRef(false);
+
+  // useEffect(() => {
+  //   if (!isMounted.current) {
+  //     // 처음 마운트될 때는 아무 작업도 하지 않음
+  //     isMounted.current = true;
+  //     return;
+  //   }
+
+  //   // 이후 컴포넌트 업데이트 시에만 실행될 로직
+  //   if (endVisible) {
+  //     setStartVisible(false);
+  //   } else if (startVisible) {
+  //     setEndVisible(false);
+  //   }
+  // }, [startVisible, endVisible]);
 
   return (
     <div className="px-2 mb-4">
@@ -83,7 +125,7 @@ const SetDuration = () => {
             role="dialog"
             aria-modal="true"
           >
-            <div className="bg-white p-8 rounded-2xl w-lg flex flex-col gap-4">
+            <div className="bg-white p-8 rounded-2xl w-fit sm:w-[340px] flex flex-col gap-4">
               <h3 className="title3 text-center">설문 기간</h3>
               <div className="flex">
                 <span className="text-gray-4 font-semibold">시작</span>
@@ -94,6 +136,7 @@ const SetDuration = () => {
                     id="start-immediate"
                     className="ml-4"
                     onClick={() => setStartVisible(false)}
+                    defaultChecked
                   />
                   <label className="ml-2 mr-4" htmlFor="start-immediate">
                     바로 시작
@@ -112,7 +155,7 @@ const SetDuration = () => {
                 </div>
               </div>
               {startVisible && (
-                <div className="flex flex-col items-start">
+                <div className="flex flex-col items-start relative">
                   <button
                     onClick={() => setStartDateVisible(!startDateVisible)}
                     aria-expanded={startDateVisible}
@@ -125,7 +168,7 @@ const SetDuration = () => {
                       mode="single"
                       selected={startDate}
                       onDayClick={setStartDate}
-                      className="rounded-2xl"
+                      className="rounded-2xl bg-white xl:absolute top-11 xl:shadow-lg z-50"
                       fromDate={new Date()}
                     />
                   )}
@@ -137,54 +180,7 @@ const SetDuration = () => {
                     {formatDate(startDate).split(' / ')[1]}
                   </button>
                   {startTimeVisible && (
-                    <div id="start-time" className="flex items-center w-full text-center p-2 gap-3">
-                      <select
-                        className="flex-1"
-                        onChange={(e) =>
-                          handleTimeChange(
-                            'start',
-                            e.target.value,
-                            startDate ? new Date(startDate).getHours() % 12 : 0,
-                            startDate ? new Date(startDate).getMinutes() : 0,
-                          )
-                        }
-                      >
-                        <option value="AM">오전</option>
-                        <option value="PM">오후</option>
-                      </select>
-                      <select
-                        className="flex-1"
-                        onChange={(e) =>
-                          handleTimeChange(
-                            'start',
-                            startDate ? (new Date(startDate).getHours() < 12 ? 'AM' : 'PM') : 'AM',
-                            Number(e.target.value),
-                            startDate ? new Date(startDate).getMinutes() : 0,
-                          )
-                        }
-                      >
-                        {Array.from({ length: 12 }, (_, i) => (
-                          <option key={i} value={i + 1}>
-                            {String(i + 1).padStart(2, '0')}
-                          </option>
-                        ))}
-                      </select>
-                      <span>:</span>
-                      <select
-                        className="flex-1"
-                        onChange={(e) =>
-                          handleTimeChange(
-                            'start',
-                            startDate ? (new Date(startDate).getHours() < 12 ? 'AM' : 'PM') : 'AM',
-                            startDate ? new Date(startDate).getHours() % 12 : 0,
-                            Number(e.target.value),
-                          )
-                        }
-                      >
-                        <option value="00">00</option>
-                        <option value="30">30</option>
-                      </select>
-                    </div>
+                    <TimePicker type={'start'} date={startDate} onChange={handleTimeChange} />
                   )}
                 </div>
               )}
@@ -197,6 +193,7 @@ const SetDuration = () => {
                     id="endless"
                     className="ml-4"
                     onClick={() => setEndVisible(false)}
+                    defaultChecked
                   />
                   <label className="ml-2 mr-4" htmlFor="endless">
                     제한 없음
@@ -215,7 +212,7 @@ const SetDuration = () => {
                 </div>
               </div>
               {endVisible && (
-                <div className="flex flex-col items-end">
+                <div className="flex flex-col items-end relative">
                   <button
                     onClick={() => setEndDateVisible(!endDateVisible)}
                     aria-expanded={endDateVisible}
@@ -223,12 +220,13 @@ const SetDuration = () => {
                   >
                     {formatDate(endDate).split(' / ')[0]}
                   </button>
+                  <div></div>
                   {endDateVisible && (
                     <Calendar
                       mode="single"
                       selected={endDate}
                       onDayClick={setEndDate}
-                      className="rounded-2xl"
+                      className="rounded-2xl bg-white xl:absolute top-11 xl:shadow-lg z-50"
                       fromDate={startDate}
                     />
                   )}
@@ -240,54 +238,7 @@ const SetDuration = () => {
                     {formatDate(endDate).split(' / ')[1]}
                   </button>
                   {endTimeVisible && (
-                    <div id="end-time" className="flex items-center w-full text-center p-2 gap-3">
-                      <select
-                        className="flex-1"
-                        onChange={(e) =>
-                          handleTimeChange(
-                            'end',
-                            e.target.value,
-                            endDate ? new Date(endDate).getHours() % 12 : 0,
-                            endDate ? new Date(endDate).getMinutes() : 0,
-                          )
-                        }
-                      >
-                        <option value="AM">오전</option>
-                        <option value="PM">오후</option>
-                      </select>
-                      <select
-                        className="flex-1"
-                        onChange={(e) =>
-                          handleTimeChange(
-                            'end',
-                            endDate ? (new Date(endDate).getHours() < 12 ? 'AM' : 'PM') : 'AM',
-                            Number(e.target.value),
-                            endDate ? new Date(endDate).getMinutes() : 0,
-                          )
-                        }
-                      >
-                        {Array.from({ length: 12 }, (_, i) => (
-                          <option key={i} value={i + 1}>
-                            {String(i + 1).padStart(2, '0')}
-                          </option>
-                        ))}
-                      </select>
-                      <span>:</span>
-                      <select
-                        className="flex-1"
-                        onChange={(e) =>
-                          handleTimeChange(
-                            'end',
-                            endDate ? (new Date(endDate).getHours() < 12 ? 'AM' : 'PM') : 'AM',
-                            endDate ? new Date(endDate).getHours() % 12 : 0,
-                            Number(e.target.value),
-                          )
-                        }
-                      >
-                        <option value="00">00</option>
-                        <option value="30">30</option>
-                      </select>
-                    </div>
+                    <TimePicker type={'end'} date={endDate} onChange={handleTimeChange} />
                   )}
                 </div>
               )}
@@ -295,12 +246,12 @@ const SetDuration = () => {
                 <Button
                   text={'취소'}
                   className={'bg-green-light text-font flex-1'}
-                  onClick={() => setIsOpened(false)}
+                  onClick={toggleModal}
                 />
                 <Button
                   text={'확인'}
                   className={'bg-primary text-white flex-1'}
-                  onClick={toggleModal}
+                  onClick={saveDuration}
                 />
               </div>
             </div>
@@ -317,8 +268,4 @@ const SetDuration = () => {
 
 export default SetDuration;
 
-// 토글 다시 했을 때 시간 리셋되는 거 고치기 value 할당
-// timePicker로 빼고 리팩토링
 // 다른 요소 클릭되었을 때 visible 사라지게 (날짜와 시간 중 하나만, end와 start 중 하나만)
-// 제일 처음 열었을 때 바로 시작에 체크되어 있게
-// 확인 눌렀을 때 데이터 저장 setSurveyInfo

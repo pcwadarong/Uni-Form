@@ -1,16 +1,16 @@
-import CategoryQuestion from '@/components/create/categoryQuestion';
-import CheckboxQuestion from '@/components/create/checkboxQuestion';
-import ConsentQuestion from '@/components/create/consentQuestion';
-import DropDownQuestion from '@/components/create/dropDownQuestion';
-import FileQuestion from '@/components/create/fileQuestion';
-import ShortAnswerQuestion from '@/components/create/shortAnswerQuestion';
-import LongAnswerQuestion from '@/components/create/longAnswerQueestion';
-import ScheduleQuestion from '@/components/create/scheduleQuestion';
-import RadioQuestion from '@/components/create/radioQuestion';
-import ParticipantInfoQuestion from '@/components/create/participantInfoQuestion';
-import ScoreQuestion from '@/components/create/scoreQuestion';
-import StarRatingQuestion from '@/components/create/starRatingQuestion';
-import TableQuestion from '@/components/create/tableQuestion';
+import CategoryQuestion from '@/components/create/question/categoryQuestion';
+import CheckboxQuestion from '@/components/create/question/checkboxQuestion';
+import ConsentQuestion from '@/components/create/question/consentQuestion';
+import DropDownQuestion from '@/components/create/question/dropDownQuestion';
+import FileQuestion from '@/components/create/question/fileQuestion';
+import ShortAnswerQuestion from '@/components/create/question/shortAnswerQuestion';
+import LongAnswerQuestion from '@/components/create/question/longAnswerQueestion';
+import ScheduleQuestion from '@/components/create/question/scheduleQuestion';
+import RadioQuestion from '@/components/create/question/radioQuestion';
+import ParticipantInfoQuestion from '@/components/create/question/participantInfoQuestion';
+import ScoreQuestion from '@/components/create/question/scoreQuestion';
+import StarRatingQuestion from '@/components/create/question/starRatingQuestion';
+import TableQuestion from '@/components/create/question/tableQuestion';
 import { QuestionProps } from '@/types';
 
 export const questionComponentMap: { [key: string]: React.FC<QuestionProps> } = {
