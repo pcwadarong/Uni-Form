@@ -15,12 +15,12 @@ const QuestionSelect: React.FC<QuestionSelectProps> = ({ value, onChangeQuestion
       <option value="short answer">주관식 단답형</option>
       <option value="long answer">주관식 서술형</option>
       <option value="dropdown">드롭다운</option>
-      <option value="category">카테고리형</option>
+      {/* <option value="category">카테고리형</option> */}
       <option value="participant">참여자 정보(이름/연락처/주소/이메일)</option>
-      <option value="table">표형</option>
+      {/* <option value="table">표형</option> */}
       <option value="star">별점형</option>
-      <option value="schedule">날짜/시간</option>
-      <option value="score">점수 선택형</option>
+      {/* <option value="schedule">날짜/시간</option> */}
+      {/* <option value="score">점수 선택형</option> */}
       <option value="file">이미지/파일</option>
     </select>
   );
