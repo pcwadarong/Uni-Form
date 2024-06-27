@@ -28,7 +28,7 @@ export default function NavRight() {
       <div className="flex gap-4 md:gap-8 items-center justify-end">
         {user ? (
           <>
-            <Link href="/account/notification">
+            <Link href="/user/notification">
               <Image src={'./notification.svg'} alt="알림" width="20" height="20" />
             </Link>
             <Link className="hidden sm:inline" href="/form">
