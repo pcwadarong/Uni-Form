@@ -6,6 +6,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 
 const FileQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
+  const isDisabled = mode === 'previewing' || mode === 'editing';
   const [type, setFileType] = useState('사진');
   const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 
@@ -67,7 +68,7 @@ const FileQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
                   ? '.jpg, .jpeg, .png, .bmp, .webp, .svg'
                   : '.doc, .docx, .xls, .xlsx, .ppt, .pptx, .pdf'
               }
-              disabled={mode === 'previewing'}
+              disabled={isDisabled}
               onChange={handleFileChange}
             />
             <Image

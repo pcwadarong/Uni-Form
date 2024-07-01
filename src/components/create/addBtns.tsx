@@ -1,8 +1,10 @@
 import { useSurveyStore } from '@/store';
+import { Question } from '@/types';
 
 const AddBtns = () => {
   const { questions, setQuestions } = useSurveyStore();
-  const basicData = {
+
+  const basicData: Question = {
     id: questions.length ? Math.max(...questions.map((q) => q.id)) + 1 : 1,
     type: 'checkbox',
     title: '',

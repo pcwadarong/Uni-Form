@@ -9,12 +9,14 @@ import SetDuration from './duration';
 
 interface Props {
   mode: string;
-  onEditToggle: () => void;
+  onEditToggle?: () => void;
 }
 const SurveyInfo = ({ mode, onEditToggle }: Props) => {
   const { surveyInfo, setSurveyInfo } = useSurveyStore();
   const [explanationArea, setExplanationArea] = useState<string>(surveyInfo.description);
 
+  console.log(surveyInfo);
+  
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     const reader = new FileReader();

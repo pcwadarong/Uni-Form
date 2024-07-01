@@ -1,10 +1,9 @@
-import { QuestionProps, Question } from '@/types';
+import { QuestionProps, Question, QuestionType } from '@/types';
 import { useSurveyStore } from '@/store';
 import questionComponentMap from '@/constants/questionComponentMap';
 import { useState, useEffect } from 'react';
 import RadioQuestion from './question/radioQuestion';
 import QuestionSelect from './select';
-import { onChangeQuestionType } from '@/utils/createPageUtils';
 import AutoResizeTextarea from '../common/textarea';
 
 interface ExtendedQuestionProps extends QuestionProps {
@@ -15,7 +14,7 @@ interface ExtendedQuestionProps extends QuestionProps {
 const Questions: React.FC<ExtendedQuestionProps> = ({ question, mode, onEditToggle, provided }) => {
   const QuestionComponent = questionComponentMap[question.type] || RadioQuestion;
   const [explanation, setExplanation] = useState<string>(question.description || '');
-  const { updateQuestion } = useSurveyStore();
+  const { updateQuestion, updateQuestionType } = useSurveyStore();
 
   const handleQuestionChange = (updatedQuestion: Question) => {
     updateQuestion(question.id, updatedQuestion);
@@ -24,6 +23,10 @@ const Questions: React.FC<ExtendedQuestionProps> = ({ question, mode, onEditTogg
   useEffect(() => {
     setExplanation(question.description || '');
   }, [question.description]);
+
+  const handleTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    updateQuestionType(question.id, e.target.value as QuestionType);
+  };
 
   return (
     <div
@@ -40,10 +43,7 @@ const Questions: React.FC<ExtendedQuestionProps> = ({ question, mode, onEditTogg
           >
             <span className="blind">질문 이동하기</span>=
           </div>
-          <QuestionSelect
-            value={question.type}
-            onChangeQuestionType={(e) => onChangeQuestionType(e, handleQuestionChange, question)}
-          />
+          <QuestionSelect value={question.type} onChangeQuestionType={handleTypeChange} />
           <div className="font-bold flex">
             <span>Q.</span>
             <input

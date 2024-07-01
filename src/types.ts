@@ -27,29 +27,38 @@ export interface Survey {
   category: string;
 }
 
+// 공통으로 사용되는 Option 타입
 export interface Option {
   id: number;
   value: string;
 }
 
+// 질문 모드 타입 정의
 export type SurveyMode = 'editing' | 'previewing' | 'testing' | 'responding';
 
+// 질문 타입 정의
+export type QuestionType = 'radio' | 'checkbox' | 'dropdown' | 'short answer' | 'long answer' | 'dropdown' | 'participant' | 'star' | 'file';
+// 추가될 타입들: | 'category' | 'table' | 'schedule' | 'score'
+
+// 기본 Question 인터페이스 정의
 export interface Question {
   id: number;
-  type: string;
+  type: QuestionType;
   title: string;
   description?: string;
-  options?: Option[];
-  answer?: string | string[];
   isEssential: boolean;
+  options?: Option[];
+  selectedOption?: string;
   ratingStep?: 0.5 | 1;
 }
 
+// QuestionProps 인터페이스
 export interface QuestionProps {
   question: Question;
   mode: SurveyMode;
 }
 
+// SurveyInfo 인터페이스
 export interface SurveyInfo {
   questions: Question[];
   imageUrl: string;
