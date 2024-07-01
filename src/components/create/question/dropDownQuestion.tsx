@@ -5,8 +5,10 @@ import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { handleOptionDragEnd } from '@/utils/handleDragEnd';
 import Image from 'next/image';
 import { deleteOption } from '@/utils/createPageUtils';
+import isModeDisabled from '@/utils/isModeDisabled';
 
 const DropDownQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
+  const isDisabled = isModeDisabled(mode);
   const { updateQuestion } = useSurveyStore();
 
   const handleQuestionChange = (updatedQuestion: Question) => {
@@ -122,7 +124,7 @@ const DropDownQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
           <select
             className="w-full border-[1px] border-gray-2 rounded-lg p-2 mt-3 focus:outline-none dark:bg-gray-900"
             value={'answer'}
-            disabled
+            disabled={isDisabled}
           >
             <option value="answer">답변을 선택해주세요.</option>
           </select>

@@ -5,8 +5,10 @@ import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { handleOptionDragEnd } from '@/utils/handleDragEnd';
 import Image from 'next/image';
 import { deleteOption } from '@/utils/createPageUtils';
+import isModeDisabled from '@/utils/isModeDisabled';
 
 const RadioQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
+  const isDisabled = isModeDisabled(mode);
   const { updateQuestion } = useSurveyStore();
 
   const handleQuestionChange = (updatedQuestion: Question) => {
@@ -119,7 +121,7 @@ const RadioQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
         <>
           {question.options?.map((option) => (
             <label key={option.id} className="p-3 rounded-lg flex gap-2 bg-gray-1 mt-3 text-gray-3">
-              <input type="radio" name={`question-${question.id}`} disabled value={option.value} />
+              <input type="radio" name={`question-${question.id}`} disabled={isDisabled} value={option.value} />
               {option.value}
             </label>
           ))}

@@ -1,8 +1,9 @@
 import { QuestionProps } from '@/types';
 import Options from '../options';
+import isModeDisabled from '@/utils/isModeDisabled';
 
 const LongAnswerQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
-  const isDisabled = mode === 'previewing' || mode === 'editing';
+  const isDisabled = isModeDisabled(mode);
 
   return (
     <>

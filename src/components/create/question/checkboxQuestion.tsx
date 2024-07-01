@@ -5,8 +5,10 @@ import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { handleOptionDragEnd } from '@/utils/handleDragEnd';
 import Image from 'next/image';
 import { deleteOption } from '@/utils/createPageUtils';
+import isModeDisabled from '@/utils/isModeDisabled';
 
 const CheckboxQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
+  const isDisabled = isModeDisabled(mode);
   const { updateQuestion } = useSurveyStore();
 
   const handleQuestionChange = (updatedQuestion: Question) => {
@@ -124,7 +126,7 @@ const CheckboxQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
               <input
                 type="checkbox"
                 name={`question-${question.id}`}
-                disabled
+                disabled={isDisabled}
                 value={option.value}
               />
               {option.value}

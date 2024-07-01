@@ -3,8 +3,10 @@ import { QuestionProps } from '@/types';
 import Options from '../options';
 import { useSurveyStore } from '@/store';
 import { useState, useEffect } from 'react';
+import isModeDisabled from '@/utils/isModeDisabled';
 
 const StarRatingQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
+  const isDisabled = isModeDisabled(mode);
   const { updateQuestion } = useSurveyStore();
   const [comment, setComment] = useState('1~5');
 
@@ -62,3 +64,5 @@ const StarRatingQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
 };
 
 export default StarRatingQuestion;
+
+// 실제로 작동할 부분을 구현해야 함
