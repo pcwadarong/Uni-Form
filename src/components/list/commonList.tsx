@@ -6,6 +6,7 @@ import { useSelectedSurveyStore } from '@/store';
 import { surveyData } from '@/firebase/db/surveyData';
 import { Survey } from '@/types';
 import RecruitItem from '../recruit/recruitItem';
+import Image from 'next/image';
 
 import { CategorySelection } from '@/components/survey/categorySelection';
 import {
@@ -115,6 +116,12 @@ const CommonList = ({ topic, category }: Props) => {
             </div>
             <SortSelect onChangeSortType={onChangeSortType} defaultValue={sortParam} />
           </div>
+          {dataList.length === 0 && (
+            <div className="flex flex-col items-center text-gray-500 mt-10">
+              <Image src={'./bubble-chat.svg'} alt="no comments" width="80" height="78" />
+              <p>해당하는 설문이 없습니다. 다른 조건으로 검색해보세요.</p>
+            </div>
+          )}
           <ul className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
             {topic === 'survey' ? (
               <Suspense

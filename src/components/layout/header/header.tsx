@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import NavSearch from './navSearch';
@@ -15,8 +16,12 @@ export default function Header() {
     return (
       <nav className="w-screen flex flex-col items-center z-10 fixed backdrop-blur-sm bg-white drop-shadow text-nowrap">
         <div className="flex h-20 w-full px-8 2xl:w-[1400px] 2xl:px-0 items-center justify-between">
-          Logo
-          <button>미리보기 종료</button>
+          <h1>
+            <Link href="/">
+              <Image src={'./logo.svg'} alt="logo" width="48" height="30" priority={true} />
+            </Link>
+          </h1>
+          <button className="py-1 px-3 bg-primary text-white rounded-md">미리보기 종료</button>
         </div>
       </nav>
     );

@@ -13,7 +13,7 @@ const sns = [
 
 export default function Footer() {
   return (
-    <div className='h-12 flex flex-col justify-center items-center gap-4 relative transform -translate-y-full'>
+    <footer className='h-28 flex flex-col justify-center items-center gap-4 relative -mt-28'>
       <ul className="flex gap-4">
         {sns.map((item) => (
           <li>
@@ -24,6 +24,6 @@ export default function Footer() {
         ))}
       </ul>
       <p className='caption'>© 2024. Uni Form Co. all rights reserved.</p>
-    </div>
+    </footer>
   );
 }
