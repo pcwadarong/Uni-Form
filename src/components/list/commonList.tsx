@@ -103,12 +103,12 @@ const CommonList = ({ topic, category }: Props) => {
         <div className="grow">
           <div className="flex justify-between items-center px-3 pb-6 2xl:pt-0">
             <div className="flex gap-6">
-              <button
-                className="bg-font text-white py-2 px-3 rounded-md"
-                onClick={handleCategoryToggle}
-              >
-                <TuneIcon /> {filterDisplay === 'block' ? '필터 닫기' : '필터 열기'}
+              <button className="bg-font text-white p-2 rounded-md" onClick={handleCategoryToggle}>
+                <TuneIcon />
+                <span>필터</span>
+                <span className="hidden md:inline">{filterDisplay === 'block' ? '닫기' : '열기'}</span>
               </button>
+
               <ToggleInProgressFilter
                 checked={isInProgressChecked}
                 onChange={toggleInProgressFilter}
@@ -119,7 +119,7 @@ const CommonList = ({ topic, category }: Props) => {
           {dataList.length === 0 && (
             <div className="flex flex-col items-center text-gray-500 mt-10">
               <Image src={'./bubble-chat.svg'} alt="no comments" width="80" height="78" />
-              <p>해당하는 설문이 없습니다. 다른 조건으로 검색해보세요.</p>
+              <p className='text-center body2'>해당하는 설문이 없습니다. <br></br> 다른 조건으로 검색해보세요.</p>
             </div>
           )}
           <ul className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
