@@ -8,10 +8,17 @@ import AutoResizeTextarea from '../common/textarea';
 
 interface ExtendedQuestionProps extends QuestionProps {
   onEditToggle: () => void;
+  isEssential: boolean;
   provided: any;
 }
 
-const Questions: React.FC<ExtendedQuestionProps> = ({ question, mode, onEditToggle, provided }) => {
+const Questions: React.FC<ExtendedQuestionProps> = ({
+  question,
+  mode,
+  isEssential,
+  onEditToggle,
+  provided,
+}) => {
   const QuestionComponent = questionComponentMap[question.type] || RadioQuestion;
   const [explanation, setExplanation] = useState<string>(question.description || '');
   const { updateQuestion, updateQuestionType } = useSurveyStore();
@@ -24,14 +31,14 @@ const Questions: React.FC<ExtendedQuestionProps> = ({ question, mode, onEditTogg
     setExplanation(question.description || '');
   }, [question.description]);
 
-  const handleTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    updateQuestionType(question.id, e.target.value as QuestionType);
+  const handleTypeChange = (newType: string) => {
+    updateQuestionType(question.id, newType as QuestionType);
   };
 
   return (
     <div
       onClick={onEditToggle}
-      className={`bg-white rounded-2xl overflow-hidden shadow-md p-4 ${
+      className={`bg-white rounded-2xl overflow-hidden shadow-md p-5 ${
         mode === 'editing' ? 'border border-primary' : ''
       }`}
     >
@@ -43,8 +50,9 @@ const Questions: React.FC<ExtendedQuestionProps> = ({ question, mode, onEditTogg
           >
             <span className="blind">질문 이동하기</span>=
           </div>
-          <QuestionSelect value={question.type} onChangeQuestionType={handleTypeChange} />
+          <QuestionSelect value={question.type} handleTypeChange={handleTypeChange} />
           <div className="font-bold flex">
+            {isEssential && <span className="text-red ml-[-12px] mr-[3px]">*</span>}
             <span>Q.</span>
             <input
               type="text"
@@ -67,7 +75,8 @@ const Questions: React.FC<ExtendedQuestionProps> = ({ question, mode, onEditTogg
         </>
       ) : (
         <>
-          <p className="font-bold">Q. {question.title || '(질문 없음)'}</p>
+          {isEssential && <span className="text-red ml-[-12px] mr-[3px]">*</span>}
+          <span className="font-bold">Q. {question.title || '(질문 없음)'}</span>
           <p className="caption">{question.description || ''}</p>
         </>
       )}

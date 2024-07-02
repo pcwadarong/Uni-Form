@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import localFont from 'next/font/local';
-import Circulator from '@/components/common/Circulator';
+import Loading from './loading';
 import Header from '@/components/layout/header/header';
 import Footer from '@/components/layout/footer';
 import ActionBtns from '@/components/common/actionBtn';
@@ -43,7 +43,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${suit.className} relative .body2`}>
-        <Suspense fallback={<Circulator />}>
+        <Suspense fallback={<Loading />}>
           <Header />
           <div className="flex h-auto min-h-screen flex-col items-center pt-20 pb-24">
             {children}

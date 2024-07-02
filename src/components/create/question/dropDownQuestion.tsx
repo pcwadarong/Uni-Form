@@ -6,6 +6,13 @@ import { handleOptionDragEnd } from '@/utils/handleDragEnd';
 import Image from 'next/image';
 import { deleteOption } from '@/utils/createPageUtils';
 import isModeDisabled from '@/utils/isModeDisabled';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 const DropDownQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
   const isDisabled = isModeDisabled(mode);
@@ -121,13 +128,14 @@ const DropDownQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
         </>
       ) : (
         <>
-          <select
-            className="w-full border-[1px] border-gray-2 rounded-lg p-2 mt-3 focus:outline-none dark:bg-gray-900"
-            value={'answer'}
-            disabled={isDisabled}
-          >
-            <option value="answer">답변을 선택해주세요.</option>
-          </select>
+          <Select disabled={isDisabled}>
+            <SelectTrigger className="border-gray-2 mb-3">
+              <SelectValue placeholder="답변을 선택해주세요." />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="a">hi</SelectItem>
+            </SelectContent>
+          </Select>
         </>
       )}
     </>

@@ -30,7 +30,13 @@ const SetDuration = () => {
     if (isOpened) {
       setStartDate(new Date(Date.now() + 30 * 60 * 1000));
       setEndDate(new Date(Date.now() + 7 * 24 * 60 * 60 * 1000));
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
     }
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, [isOpened]);
 
   // show either startDate or endDate only

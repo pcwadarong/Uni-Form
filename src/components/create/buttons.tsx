@@ -1,11 +1,14 @@
+'use client';
+
 import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 
 const CreatePageButton = () => {
   const [showToggleMenu, setShowToggleMenu] = useState<boolean>(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const currentPath = usePathname();
 
   const handleClickOutside = (event: MouseEvent) => {
     if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
@@ -22,7 +25,12 @@ const CreatePageButton = () => {
 
   return (
     <div className="flex gap-2 justify-end subtitle items-center">
-      <button className="py-1 px-3 bg-white rounded-md">미리보기</button>
+      <button
+        className="py-1 px-3 bg-white rounded-md"
+        onClick={() => window.open(`${currentPath}/preview`, '_blank')}
+      >
+        미리보기
+      </button>
       <button className="py-1 px-3 bg-white rounded-md">임시저장</button>
       <button className="py-1 px-3 bg-primary text-white rounded-md">저장</button>
       <div className="relative flex items-center" ref={menuRef}>

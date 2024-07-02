@@ -15,8 +15,6 @@ const SurveyInfo = ({ mode, onEditToggle }: Props) => {
   const { surveyInfo, setSurveyInfo } = useSurveyStore();
   const [explanationArea, setExplanationArea] = useState<string>(surveyInfo.description);
 
-  console.log(surveyInfo);
-  
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     const reader = new FileReader();
@@ -105,8 +103,8 @@ const SurveyInfo = ({ mode, onEditToggle }: Props) => {
         </div>
       ) : (
         <div>
-          <div className="aspect-[4/1] bg-font justify-center flex">
-            {surveyInfo.imageUrl && (
+          {surveyInfo.imageUrl && (
+            <div className="aspect-[4/1] bg-font justify-center flex">
               <div className="relative overflow-hidden flex items-center">
                 <img
                   src={surveyInfo.imageUrl}
@@ -114,8 +112,8 @@ const SurveyInfo = ({ mode, onEditToggle }: Props) => {
                   className="w-full h-auto object-cover"
                 />
               </div>
-            )}
-          </div>
+            </div>
+          )}
           <div className="p-4">
             <h2 className="title3" aria-label="Survey title">
               {surveyInfo.title}

@@ -1,28 +1,40 @@
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+
 interface QuestionSelectProps {
   value: string;
-  onChangeQuestionType: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  handleTypeChange: (value: string) => void;
 }
 
-const QuestionSelect: React.FC<QuestionSelectProps> = ({ value, onChangeQuestionType }) => {
+const QuestionSelect: React.FC<QuestionSelectProps> = ({ value, handleTypeChange }) => {
   return (
-    <select
-      className="w-full border-[1px] border-gray-2 rounded-lg p-2 mb-3 focus:outline-none dark:bg-gray-900"
-      onChange={onChangeQuestionType}
-      value={value}
-    >
-      <option value="radio">단일 객관식</option>
-      <option value="checkbox">복수 객관식</option>
-      <option value="short answer">주관식 단답형</option>
-      <option value="long answer">주관식 서술형</option>
-      <option value="dropdown">드롭다운</option>
-      {/* <option value="category">카테고리형</option> */}
-      <option value="participant">참여자 정보(이름/연락처/주소/이메일)</option>
-      {/* <option value="table">표형</option> */}
-      <option value="star">별점형</option>
-      {/* <option value="schedule">날짜/시간</option> */}
-      {/* <option value="score">점수 선택형</option> */}
-      <option value="file">이미지/파일</option>
-    </select>
+    <Select defaultValue={value} onValueChange={handleTypeChange}>
+      <SelectTrigger className="border-gray-2 mb-3">
+        <SelectValue placeholder="질문의 유형을 선택해주세요" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectItem value="radio">단일 객관식</SelectItem>
+          <SelectItem value="checkbox">복수 객관식</SelectItem>
+          <SelectItem value="short answer">주관식 단답형</SelectItem>
+          <SelectItem value="long answer">주관식 서술형</SelectItem>
+          <SelectItem value="dropdown">드롭다운</SelectItem>
+          {/* <option value="category">카테고리형</option> */}
+          <SelectItem value="participant">참여자 정보(이름/연락처/주소/이메일)</SelectItem>
+          {/* <option value="table">표형</option> */}
+          <SelectItem value="star">별점형</SelectItem>
+          {/* <option value="schedule">날짜/시간</option> */}
+          {/* <option value="score">점수 선택형</option> */}
+          <SelectItem value="file">이미지/파일</SelectItem>
+        </SelectGroup>
+      </SelectContent>
+    </Select>
   );
 };
 
