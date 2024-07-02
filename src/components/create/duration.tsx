@@ -7,6 +7,17 @@ import Button from '../common/button';
 import formatDate from '@/utils/formatDate';
 import TimePicker from '../ui/timePicker';
 
+const roundMinutes = (date: Date) => {
+  const minutes = date.getMinutes();
+  if (minutes < 30) {
+    date.setMinutes(30);
+  } else {
+    date.setHours(date.getHours() + 1);
+    date.setMinutes(0);
+  }
+  return date;
+};
+
 const SetDuration = () => {
   const { surveyInfo, setSurveyInfo } = useSurveyStore();
   const [isOpened, setIsOpened] = useState(false);
@@ -17,19 +28,16 @@ const SetDuration = () => {
   const [endDateVisible, setEndDateVisible] = useState(false);
   const [endTimeVisible, setEndTimeVisible] = useState(false);
 
-  // startDuration should always be after than now
-  const [startDate, setStartDate] = useState<Date | undefined>(
-    new Date(Date.now() + 30 * 60 * 1000),
-  );
-  const [endDate, setEndDate] = useState<Date | undefined>(
-    new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-  ); // 1 week later
+  const initialStartDate = roundMinutes(new Date());
+  const initialEndDate = roundMinutes(new Date(Date.now() + 7 * 24 * 60 * 60 * 1000));
 
-  // update startDuration every toggling
+  const [startDate, setStartDate] = useState<Date | undefined>(initialStartDate);
+  const [endDate, setEndDate] = useState<Date | undefined>(initialEndDate);
+
   useEffect(() => {
     if (isOpened) {
-      setStartDate(new Date(Date.now() + 30 * 60 * 1000));
-      setEndDate(new Date(Date.now() + 7 * 24 * 60 * 60 * 1000));
+      setStartDate(roundMinutes(new Date()));
+      setEndDate(roundMinutes(new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)));
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
@@ -39,7 +47,6 @@ const SetDuration = () => {
     };
   }, [isOpened]);
 
-  // show either startDate or endDate only
   useEffect(() => {
     if (startDateVisible && endDateVisible) {
       setStartDateVisible(false);
