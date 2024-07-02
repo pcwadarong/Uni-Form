@@ -55,8 +55,8 @@ export const getSelectedItems = (items: Survey[], sortType: string) => {
   });
 };
 
-export const onChangeSortType = (e: React.ChangeEvent<HTMLSelectElement>) => {
-  const newSortType = e.target.value;
+export const onChangeSortType = (newType: string) => {
+  const newSortType = newType;
   const url = new URL(window.location.href);
   url.searchParams.set('sort', newSortType);
   window.history.pushState({}, '', url.toString());

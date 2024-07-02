@@ -106,7 +106,9 @@ const CommonList = ({ topic, category }: Props) => {
               <button className="bg-font text-white p-2 rounded-md" onClick={handleCategoryToggle}>
                 <TuneIcon />
                 <span>필터</span>
-                <span className="hidden md:inline">{filterDisplay === 'block' ? '닫기' : '열기'}</span>
+                <span className="hidden md:inline">
+                  {filterDisplay === 'block' ? '닫기' : '열기'}
+                </span>
               </button>
 
               <ToggleInProgressFilter
@@ -119,7 +121,9 @@ const CommonList = ({ topic, category }: Props) => {
           {dataList.length === 0 && (
             <div className="flex flex-col items-center text-gray-500 mt-10">
               <Image src={'./bubble-chat.svg'} alt="no comments" width="80" height="78" />
-              <p className='text-center body2'>해당하는 설문이 없습니다. <br></br> 다른 조건으로 검색해보세요.</p>
+              <p className="text-center body2">
+                해당하는 설문이 없습니다. <br></br> 다른 조건으로 검색해보세요.
+              </p>
             </div>
           )}
           <ul className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
