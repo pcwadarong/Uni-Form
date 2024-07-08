@@ -59,7 +59,7 @@ export interface QuestionProps {
 }
 
 // SurveyInfo 인터페이스
-export interface SurveyInfo {
+export interface SurveyInfoType {
   questions: Question[];
   imageUrl: string;
   title: string;

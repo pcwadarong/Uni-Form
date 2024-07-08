@@ -56,11 +56,11 @@ const ParticipantInfoQuestion: React.FC<QuestionProps> = ({ question, mode }) =>
       ) : (
         <>
           <label className="p-3 rounded-lg flex gap-2 bg-gray-1 mt-3 text-gray-3">
-            <input type="text" className="w-full" disabled={isDisabled} value={placeholder} />
+            <input type="text" className="w-full bg-gray-1" disabled={isDisabled} value={placeholder} />
           </label>
           {selectedOption === 'address' && (
             <label className="p-3 rounded-lg flex gap-2 bg-gray-1 mt-3 text-gray-3">
-              <input type="text" className="w-full" disabled={isDisabled} value={'상세 주소를 입력해주세요.'} />
+              <input type="text" className="w-full bg-gray-1" disabled={isDisabled} value={'상세 주소를 입력해주세요.'} />
             </label>
           )}
         </>

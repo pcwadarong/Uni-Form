@@ -3,17 +3,24 @@
 import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter, usePathname } from 'next/navigation';
+import { useSurveyStore } from '@/store';
 
 const CreatePageButton = () => {
   const [showToggleMenu, setShowToggleMenu] = useState<boolean>(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const currentPath = usePathname();
+  const { surveyInfo } = useSurveyStore();
 
   const handleClickOutside = (event: MouseEvent) => {
     if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
       setShowToggleMenu(false);
     }
+  };
+
+  const openPreview = () => {
+    window.open(`${currentPath}/preview`, '_blank', 'noopener,noreferrer');
+    localStorage.setItem('survey 1', JSON.stringify(surveyInfo));
   };
 
   useEffect(() => {
@@ -25,10 +32,7 @@ const CreatePageButton = () => {
 
   return (
     <div className="flex gap-2 justify-end subtitle items-center">
-      <button
-        className="py-1 px-3 bg-white rounded-md"
-        onClick={() => window.open(`${currentPath}/preview`, '_blank')}
-      >
+      <button className="py-1 px-3 bg-white rounded-md" onClick={openPreview}>
         미리보기
       </button>
       <button className="py-1 px-3 bg-white rounded-md">임시저장</button>

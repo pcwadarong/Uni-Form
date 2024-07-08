@@ -35,7 +35,7 @@ const Create: React.FC = () => {
 
   return (
     <div className="flex-1 w-full px-4 pt-8 pb-20 md:px-8 2xl:px-0 bg-green-light justify-center">
-      <div className="w-full 2xl:w-[1400px] flex flex-col gap-5">
+      <div className="w-full 2xl:w-[1400px] flex flex-col gap-5 m-auto">
         <CreatePageButton />
         <SurveyInfo
           mode={editingId === 0 ? 'editing' : 'previewing'}

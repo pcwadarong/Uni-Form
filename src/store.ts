@@ -1,6 +1,8 @@
 import { create } from 'zustand';
-import type { User, Survey, Question, SurveyInfo, QuestionType } from '@/types';
+import type { User, Survey, Question, SurveyInfoType, QuestionType } from '@/types';
+import { BroadcastChannel } from 'broadcast-channel';
 
+//auth
 interface AuthStore {
   user: User | null;
   setUser: (user: User | null) => void;
@@ -11,7 +13,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
   user: null,
   setUser: (user) => set({ user }),
   loadUserFromSession: () => {
-    const user = sessionStorage.getItem('user');
+    const user = localStorage.getItem('user');
     if (user) {
       set({ user: JSON.parse(user) });
     }
@@ -28,13 +30,16 @@ export const useSelectedSurveyStore = create<SelectedSurveyStore>((set) => ({
   setSelectedItem: (item) => set({ selectedItem: item }),
 }));
 
+//survey
+const broadcast = new BroadcastChannel('zustand_channel');
+
 export interface SurveyStore {
   questions: Question[];
-  surveyInfo: SurveyInfo;
+  surveyInfo: SurveyInfoType;
   setQuestions: (items: Question[]) => void;
   updateQuestion: (id: number, updatedQuestion: Question) => void;
   updateQuestionType: (id: number, newType: QuestionType) => void;
-  setSurveyInfo: (info: Partial<SurveyInfo>) => void;
+  setSurveyInfo: (info: Partial<SurveyInfoType>) => void;
 }
 
 export const useSurveyStore = create<SurveyStore>((set) => ({
@@ -71,20 +76,28 @@ export const useSurveyStore = create<SurveyStore>((set) => ({
     duration: '바로시작~제한없음',
     mode: 'editing',
   },
-  setQuestions: (items) =>
-    set((state) => ({
-      questions: items,
-      surveyInfo: { ...state.surveyInfo, questions: items },
-    })),
-  updateQuestion: (id, updatedQuestion) =>
-    set((state) => ({
-      questions: state.questions.map((q) => (q.id === id ? updatedQuestion : q)),
-      surveyInfo: {
-        ...state.surveyInfo,
-        questions: state.questions.map((q) => (q.id === id ? updatedQuestion : q)),
-      },
-    })),
-  updateQuestionType: (id, newType) =>
+  setQuestions: (items) => {
+    set((state) => {
+      const newState = {
+        questions: items,
+        surveyInfo: { ...state.surveyInfo, questions: items },
+      };
+      broadcast.postMessage(newState.surveyInfo);
+      return newState;
+    });
+  },
+  updateQuestion: (id, updatedQuestion) => {
+    set((state) => {
+      const newQuestions = state.questions.map((q) => (q.id === id ? updatedQuestion : q));
+      const newState = {
+        questions: newQuestions,
+        surveyInfo: { ...state.surveyInfo, questions: newQuestions },
+      };
+      broadcast.postMessage(newState.surveyInfo);
+      return newState;
+    });
+  },
+  updateQuestionType: (id, newType) => {
     set((state) => {
       const newQuestions = state.questions.map((q) => {
         if (q.id !== id) return q;
@@ -128,13 +141,28 @@ export const useSurveyStore = create<SurveyStore>((set) => ({
         }
       });
 
-      return {
+      const newState = {
         questions: newQuestions,
         surveyInfo: { ...state.surveyInfo, questions: newQuestions },
       };
-    }),
-  setSurveyInfo: (info) =>
-    set((state) => ({
-      surveyInfo: { ...state.surveyInfo, ...info },
-    })),
+      broadcast.postMessage(newState.surveyInfo);
+      return newState;
+    });
+  },
+  setSurveyInfo: (info) => {
+    set((state) => {
+      const newState = { surveyInfo: { ...state.surveyInfo, ...info }, questions: state.questions };
+      broadcast.postMessage(newState.surveyInfo);
+      return newState;
+    });
+  },
 }));
+
+// BroadcastChannel 메시지 수신 설정
+broadcast.onmessage = (event) => {
+  const newState = event as SurveyInfoType;
+  useSurveyStore.setState({
+    questions: newState.questions,
+    surveyInfo: newState,
+  });
+};

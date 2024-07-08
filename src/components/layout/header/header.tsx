@@ -12,6 +12,11 @@ export default function Header() {
   const { hoveredCategory, isSubMenuOpen, handleMouseOver, handleMouseLeave } = useHover();
   const pathName = usePathname();
 
+  const quitPreview = () => {
+    window.close();
+    localStorage.removeItem('survey 1');
+  };
+
   if (pathName.includes('preview')) {
     return (
       <nav className="w-screen flex flex-col items-center z-10 fixed backdrop-blur-sm bg-white drop-shadow text-nowrap">
@@ -21,7 +26,9 @@ export default function Header() {
               <Image src={'./logo.svg'} alt="logo" width="48" height="30" priority={true} />
             </Link>
           </h1>
-          <button className="py-1 px-3 bg-primary text-white rounded-md">미리보기 종료</button>
+          <button className="py-1 px-3 bg-primary text-white rounded-md" onClick={quitPreview}>
+            미리보기 종료
+          </button>
         </div>
       </nav>
     );
