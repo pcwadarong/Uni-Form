@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Date from './date';
 import { Survey } from '@/types';
-import { openDetailModal } from '@/utils/handleModal';
+import { openDetailModal, handleEnterKeyPress } from '@/utils/handleModal';
 import { getRandomColor } from '@/utils/getRandomColor';
 
 const RecruitItem: React.FC<{ item: Survey }> = ({ item }) => {
@@ -18,6 +18,9 @@ const RecruitItem: React.FC<{ item: Survey }> = ({ item }) => {
     <li
       className="drop-shadow flex flex-col flex-1 justify-between overflow-hidden rounded-3xl h-[360px] cursor-pointer"
       onClick={() => openDetailModal(item)}
+      onKeyDown={handleEnterKeyPress(item)}
+      role="button"
+      tabIndex={0}
     >
       <div className={`h-44 w-full bg-${randomClass} overflow-hidden`}>
         {item.img && (

@@ -1,5 +1,5 @@
 import { Survey } from '@/types';
-import { openDetailModal } from '@/utils/handleModal';
+import { openDetailModal, handleEnterKeyPress } from '@/utils/handleModal';
 
 const CommentItem: React.FC<{ item: Survey }> = ({ item }) => {
   const comments = item.comments;
@@ -8,6 +8,9 @@ const CommentItem: React.FC<{ item: Survey }> = ({ item }) => {
     <li
       className="p-8 border-[1px] border-gray-3 flex-1 rounded-3xl text-ellipsis overflow-hidden cursor-pointer"
       onClick={() => openDetailModal(item)}
+      onKeyDown={handleEnterKeyPress(item)}
+      role="button"
+      tabIndex={0}
     >
       {comments.length > 0 && (
         <>

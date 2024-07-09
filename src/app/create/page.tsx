@@ -55,6 +55,7 @@ const Create: React.FC = () => {
                 className="flex flex-col gap-5"
                 {...droppableProvided.droppableProps}
                 ref={droppableProvided.innerRef}
+                aria-label="질문 목록"
               >
                 {surveyInfo.questions.map((q, index) => (
                   <Draggable
@@ -68,6 +69,9 @@ const Create: React.FC = () => {
                         ref={draggableProvided.innerRef}
                         {...draggableProvided.draggableProps}
                         {...draggableProvided.dragHandleProps}
+                        aria-roledescription="드래그 가능 항목"
+                        aria-labelledby={`question-title-${q.id}`}
+                        aria-describedby={`question-description-${q.id}`}
                       >
                         <Questions
                           key={q.id}

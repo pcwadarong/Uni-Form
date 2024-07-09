@@ -1,18 +1,37 @@
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+
 interface SortSelectProps {
-  onChangeSortType: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  onChangeSortType: (value: string) => void;
   defaultValue: string;
 }
 
 const SortSelectMini: React.FC<SortSelectProps> = ({ onChangeSortType, defaultValue }) => {
+  const options = [
+    { value: 'random', label: '랜덤 순' },
+    { value: 'date-desc', label: '최신 순' },
+    // { value: 'update-asc', label: '끌올 순' }, // 부가 기능으로 업데이트 예정
+  ];
+
   return (
-    <select className="dark:bg-gray-900" onChange={onChangeSortType} value={defaultValue}>
-      {/* <option value="update-asc">끌올 순</option> */}
-      <option value="random">랜덤 순</option>
-      <option value="date-desc">최신 순</option>
-    </select>
+    <Select value={defaultValue} onValueChange={onChangeSortType}>
+      <SelectTrigger className="border-gray-2 w-36">
+        <SelectValue />
+      </SelectTrigger>
+      <SelectContent>
+        {options.map((option) => (
+          <SelectItem key={option.value} value={option.value} role="option">
+            {option.label}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
   );
 };
 
 export default SortSelectMini;
-
-//끌올의 경우 부가 기능으로 업데이트 예정

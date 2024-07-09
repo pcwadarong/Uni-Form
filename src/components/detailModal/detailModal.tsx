@@ -15,6 +15,7 @@ const DetailModal: React.FC<{ item: Survey }> = ({ item }) => {
         <button
           onClick={closeModal}
           className="absolute right-10 top-10 text-gray-4 hover:text-dark p-4 -m-4"
+          aria-label="모달 닫기"
         >
           <Image src={'./cancel.svg'} alt="no comments" width="20" height="20" />
         </button>

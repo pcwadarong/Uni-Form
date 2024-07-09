@@ -12,3 +12,10 @@ export const closeModal = () => {
   setSelectedItem(null);
   document.body.style.overflow = 'auto';
 };
+
+export const handleEnterKeyPress =
+  (item: Survey) => (event: React.KeyboardEvent<HTMLLIElement>) => {
+    if (event.key === 'Enter') {
+      openDetailModal(item);
+    }
+  };

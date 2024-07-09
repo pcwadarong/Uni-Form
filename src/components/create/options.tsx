@@ -37,11 +37,22 @@ const Options: React.FC<Prop> = ({ id }) => {
 
   return (
     <div className="flex gap-2 justify-end border-t-[1px] border-gray-2 pt-2 mt-4">
-      <button onClick={handleQuestionDuplicate}>복사</button>
-      <button onClick={handleQuestionDelete} disabled={surveyInfo.questions.length === 1}>
+      <button onClick={handleQuestionDuplicate} aria-label="질문 복사하기">
+        복사
+      </button>
+      <button
+        onClick={handleQuestionDelete}
+        disabled={surveyInfo.questions.length === 1}
+        aria-label="질문 삭제하기"
+      >
         삭제
       </button>
-      <ToggleBtn text="답변 필수" checked={question.isEssential} onChange={toggleIsEssential} />
+      <ToggleBtn
+        text="답변 필수"
+        checked={question.isEssential}
+        onChange={toggleIsEssential}
+        aria-label="답변 필수 설정 토글"
+      />
     </div>
   );
 };

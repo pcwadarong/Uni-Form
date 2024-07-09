@@ -9,11 +9,11 @@ import isModeDisabled from '@/utils/isModeDisabled';
 const ParticipantInfoQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
   const { updateQuestion } = useSurveyStore();
   const isDisabled = isModeDisabled(mode);
-  const [selectedOption, setselectedOption] = useState('name');
+  const [selectedOption, setSelectedOption] = useState('name');
   const [placeholder, setPlaceholder] = useState('이름을 입력해주세요');
 
   const handleOptionChange = (newOption: string, newPlaceholder: string) => {
-    setselectedOption(newOption);
+    setSelectedOption(newOption);
     setPlaceholder(newPlaceholder);
     updateQuestion(question.id, { ...question, selectedOption: newOption });
   };
@@ -29,7 +29,7 @@ const ParticipantInfoQuestion: React.FC<QuestionProps> = ({ question, mode }) =>
     <>
       {mode === 'editing' ? (
         <>
-          <form className="flex gap-3">
+          <form className="flex gap-3" aria-label="참여자 정보 선택">
             {Object.keys(optionMap).map((option) => (
               <div key={option}>
                 <input
@@ -39,6 +39,7 @@ const ParticipantInfoQuestion: React.FC<QuestionProps> = ({ question, mode }) =>
                   name="option"
                   onChange={() => handleOptionChange(option, optionMap[option].placeholder)}
                   checked={selectedOption === option}
+                  aria-describedby={`${option}-description`}
                 />
                 <label htmlFor={option} className="ml-1">
                   {optionMap[option].label}
@@ -46,21 +47,24 @@ const ParticipantInfoQuestion: React.FC<QuestionProps> = ({ question, mode }) =>
               </div>
             ))}
           </form>
-          <p className="caption text-gray-3">{`참여자가 직접 ${optionMap[selectedOption].label} 입력`}</p>
+          <p className="caption text-gray-3" id={`${selectedOption}-description`}>
+            {`참여자가 직접 ${optionMap[selectedOption].label} 입력`}
+          </p>
           <Options id={question.id} />
         </>
       ) : (
         <>
-          <label className="overflow-hidden bg-gray-1 mt-3">
+          <label className="overflow-hidden bg-gray-1 mt-3" aria-label={placeholder}>
             <input
               type="text"
               className="w-full bg-gray-1 p-3 rounded-lg"
               disabled={isDisabled}
               placeholder={placeholder}
+              aria-describedby={`${selectedOption}-description`}
             />
           </label>
           {selectedOption === 'address' && (
-            <label className="overflow-hidden bg-gray-1 mt-3">
+            <label className="overflow-hidden bg-gray-1 mt-3" aria-label="상세 주소 입력">
               <input
                 type="text"
                 className="w-full bg-gray-1 p-3 rounded-lg"

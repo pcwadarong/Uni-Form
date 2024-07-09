@@ -48,6 +48,7 @@ export const CategorySelection: React.FC<Props> = ({ topic, onFilterChange }) =>
                   htmlFor={`point-${value}`}
                   className={`hover:text-dark w-24 mr-6 2xl:w-fit ${selectedPoint === value ? 'text-font' : ''}`}
                   onClick={() => handleRadioSelect('point', value)}
+                  aria-label={value === 'all' ? '전체 보기' : `${value}포인트 이상`}
                 >
                   {value === 'all' ? '전체 보기' : `${value}P 이상`}
                 </label>
@@ -66,6 +67,9 @@ export const CategorySelection: React.FC<Props> = ({ topic, onFilterChange }) =>
                 htmlFor={`deadline-${value}`}
                 className={`hover:text-dark w-24 mr-6 2xl:w-fit ${selectedDeadline === value ? 'text-font' : ''}`}
                 onClick={() => handleRadioSelect('deadline', value)}
+                aria-label={
+                  value === 'all' ? '전체 보기' : `${value}일 이${value === '15' ? '상' : '내'}`
+                }
               >
                 {value === 'all' ? '전체 보기' : `${value}일 이${value === '15' ? '상' : '내'}`}
               </label>

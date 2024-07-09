@@ -10,6 +10,7 @@ const AppreciateMessage = () => {
         value={appreciate}
         placeholder="설문에 참여해주셔서 감사합니다."
         onChange={(e) => setAppreciate(e.target.value)}
+        aria-label="감사 인사"
         className="p-2 w-full focus:outline-none hover:border-b-[1px] focus:border-b-[1px] hover:border-gray-3 focus:border-primary"
       />
     </section>

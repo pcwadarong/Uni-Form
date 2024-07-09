@@ -46,9 +46,18 @@ const CheckboxQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
                             {...draggableProvided.dragHandleProps}
                             className="flex gap-2"
                           >
-                            <span className="cursor-move">=</span>
+                            <span className="cursor-move" aria-label={`${index + 1}번 질문 이동하기`}>
+                              =
+                            </span>
+                            <label
+                              htmlFor={`option-${question.id}-${option.id}`}
+                              className="sr-only"
+                            >
+                              {index + 1}번
+                            </label>
                             <input
                               type="text"
+                              id={`option-${question.id}-${option.id}`}
                               value={option.value}
                               placeholder={`항목 ${index}`}
                               onChange={(e) =>
@@ -66,10 +75,11 @@ const CheckboxQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
                                 deleteOption({ question, id: option.id, handleQuestionChange })
                               }
                               disabled={question.options && question.options.length === 1}
+                              aria-label={`${index + 1}번 항목 삭제`}
                             >
                               <Image
                                 src={'./cancel.svg'}
-                                alt="no comments"
+                                alt="Delete option"
                                 width="20"
                                 height="20"
                               />
@@ -97,6 +107,7 @@ const CheckboxQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
                   ],
                 })
               }
+              aria-label="항목 추가"
             >
               항목 추가
             </button>
@@ -111,6 +122,7 @@ const CheckboxQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
                     })
                   }
                   className="rounded-full bg-gray-1 text-gray-4 py-1 px-3"
+                  aria-label="'기타' 항목 추가"
                 >
                   '기타' 추가
                 </button>
@@ -128,6 +140,7 @@ const CheckboxQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
                 name={`question-${question.id}`}
                 disabled={isDisabled}
                 value={option.value}
+                aria-label={option.value}
               />
               {option.value}
             </label>

@@ -35,14 +35,14 @@ const Form: React.FC = () => {
 
   return (
     <section className="flex flex-col gap-10 w-full px-4 py-16 md:px-8 2xl:px-0 2xl:w-[1400px] text-center">
-      <ul className={gridClassNames}>
+      <ul className={gridClassNames} aria-label="공통 템플릿 목록">
         {Object.entries(commonTemplate).map(([key, value]) => (
           <RandomColoredBox key={key} link={`/create${value}`} text={key} />
         ))}
       </ul>
       <div>
         <h2 className="text-start mb-4 title3">설문조사</h2>
-        <ul className={gridClassNames}>
+        <ul className={gridClassNames} aria-label="설문조사 템플릿 목록">
           {Object.entries(surveyTemplate).map(([key, value]) => (
             <RandomColoredBox key={key} link={`/create${value}`} text={key} />
           ))}
@@ -50,7 +50,7 @@ const Form: React.FC = () => {
       </div>
       <div>
         <h2 className="text-start mb-4 title3">모집공고</h2>
-        <ul className={gridClassNames}>
+        <ul className={gridClassNames} aria-label="모집공고 템플릿 목록">
           {Object.entries(recruitTemplate).map(([key, value]) => (
             <RandomColoredBox key={key} link={`/create${value}`} text={key} />
           ))}

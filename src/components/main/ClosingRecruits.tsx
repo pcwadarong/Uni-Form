@@ -5,6 +5,8 @@ import RecruitItem from '@/components/recruit/recruitItem';
 import RecruitSkeleton from '@/components/recruit/recruitSkeleton';
 
 const ClosingRecruits = () => {
+  const randomizedData = surveyData.sort(() => 0.5 - Math.random()).slice(0, 3);
+
   return (
     <section className="bg-white w-full px-4 md:px-8 2xl:px-0 flex justify-center py-16 drop-shadow-sm">
       <div className="w-full 2xl:w-[1400px]">
@@ -23,12 +25,9 @@ const ClosingRecruits = () => {
               </>
             }
           >
-            {surveyData
-              .sort(() => 0.5 - Math.random())
-              .slice(0, 3)
-              .map((item) => (
-                <RecruitItem key={item.id} item={item} />
-              ))}
+            {randomizedData.map((item) => (
+              <RecruitItem key={item.id} item={item} />
+            ))}
           </Suspense>
         </ul>
       </div>

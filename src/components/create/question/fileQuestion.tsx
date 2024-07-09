@@ -34,7 +34,7 @@ const FileQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
     <div>
       {mode === 'editing' ? (
         <>
-          <div className="flex gap-3" role="radiogroup" aria-labelledby="file-type-options">
+          <div className="flex gap-3" role="radiogroup" aria-labelledby="파일 종류 선택하기">
             <div>
               <input
                 type="radio"
@@ -43,7 +43,7 @@ const FileQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
                 name="option"
                 checked={type === '사진'}
                 onClick={() => handleOptionClick('사진')}
-                aria-labelledby="image-label"
+                aria-labelledby="이미지 선택"
               />
               <label id="image-label" htmlFor="image" className="ml-1">
                 이미지
@@ -57,7 +57,7 @@ const FileQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
                 name="option"
                 checked={type === '파일'}
                 onClick={() => handleOptionClick('파일')}
-                aria-labelledby="file-label"
+                aria-labelledby="파일 선택"
               />
               <label id="file-label" htmlFor="file" className="ml-1">
                 파일
@@ -83,7 +83,6 @@ const FileQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
               }
               disabled={isDisabled}
               onChange={handleFileChange}
-              aria-describedby="file-upload-instructions"
             />
             <Image
               src={type === '사진' ? './image.svg' : './file.svg'}

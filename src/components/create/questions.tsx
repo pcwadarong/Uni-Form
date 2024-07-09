@@ -47,12 +47,17 @@ const Questions: React.FC<ExtendedQuestionProps> = ({
           <div
             className="text-center cursor-move select-none p-10 -m-10"
             {...provided.dragHandleProps}
+            aria-label="질문 이동 핸들"
           >
             <span className="blind">질문 이동하기</span>=
           </div>
           <QuestionSelect value={question.type} handleTypeChange={handleTypeChange} />
           <div className="font-bold flex">
-            {isEssential && <span className="text-red ml-[-12px] mr-[3px]">*</span>}
+            {isEssential && (
+              <span aria-hidden="true" className="text-red ml-[-12px] mr-[3px]">
+                *
+              </span>
+            )}
             <span>Q.</span>
             <input
               type="text"
@@ -74,8 +79,16 @@ const Questions: React.FC<ExtendedQuestionProps> = ({
           />
         </>
       ) : (
-        <div className='mb-2'>
-          {isEssential && <span className="text-red ml-[-12px] mr-[3px]">*</span>}
+        <div className="mb-2">
+          {isEssential && (
+            <span
+              aria-label="필수 항목"
+              aria-hidden="true"
+              className="text-red ml-[-12px] mr-[3px]"
+            >
+              *
+            </span>
+          )}
           <span className="font-bold">Q. {question.title || '(질문 없음)'}</span>
           <p className="caption">{question.description || ''}</p>
         </div>

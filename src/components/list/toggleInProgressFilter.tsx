@@ -12,9 +12,10 @@ const ToggleInProgressFilter: React.FC<ToggleInProgressFilterProps> = ({ checked
         id="inProgress"
         checked={checked}
         onChange={onChange}
+        className="sr-only"
       />
-      <label htmlFor="inProgress">
-        <span className="block md:hidden">진행 중</span>
+      <label htmlFor="inProgress" className="cursor-pointer">
+        <span className="block md:hidden text-sm">진행 중</span>
         <span className="hidden md:block">진행 중인 설문만 보기</span>
       </label>
     </div>

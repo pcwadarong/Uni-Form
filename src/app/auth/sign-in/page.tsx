@@ -5,15 +5,24 @@ import Divider from '@mui/material/Divider';
 const SignIn: React.FC = () => {
   return (
     <>
-      <h2 className="text-center mt-20 title2">로그인</h2>
-      <div className="mt-10 w-96">
+      <h2 className="text-center mt-20 title2" id="login-heading">
+        로그인
+      </h2>
+      <div className="mt-10 w-96" role="form" aria-labelledby="login-heading">
         <Form />
-        <div className="flex gap-3 h-10 items-center subtitle text-gray-4 justify-center my-4">
-          <Link className="flex-1 text-end" href="/reset-pw">
+        <div
+          className="flex gap-3 h-10 items-center subtitle text-gray-4 justify-center my-4"
+          role="navigation"
+        >
+          <Link
+            className="flex-1 text-end"
+            href="/reset-pw"
+            aria-label="비밀번호 재설정 페이지로 이동"
+          >
             비밀번호 재설정
           </Link>
-          <Divider orientation="vertical" variant="middle" flexItem />
-          <Link className="flex-1" href="/auth/sign-up">
+          <Divider orientation="vertical" variant="middle" flexItem aria-hidden="true" />
+          <Link className="flex-1" href="/auth/sign-up" aria-label="회원가입 페이지로 이동">
             회원가입
           </Link>
         </div>

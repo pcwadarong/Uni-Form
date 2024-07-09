@@ -12,17 +12,25 @@ interface SortSelectProps {
 }
 
 const SortSelect: React.FC<SortSelectProps> = ({ onChangeSortType, defaultValue }) => {
+  const options = [
+    { value: 'point-asc', label: '리워드 높은 순' },
+    { value: 'random', label: '랜덤 순' },
+    { value: 'popular-asc', label: '인기 순' },
+    { value: 'date-desc', label: '최신 순' },
+    // { value: 'update-asc', label: '끌올 순' }, // 부가 기능으로 업데이트 예정
+  ];
+
   return (
     <Select value={defaultValue} onValueChange={onChangeSortType}>
       <SelectTrigger className="border-gray-2 w-36">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
-        {/* <option value="update-asc">끌올 순</option> */}
-        <SelectItem value="point-asc">리워드 높은 순</SelectItem>
-        <SelectItem value="random">랜덤 순</SelectItem>
-        <SelectItem value="popular-asc">인기 순</SelectItem>
-        <SelectItem value="date-desc">최신 순</SelectItem>
+        {options.map((option) => (
+          <SelectItem key={option.value} value={option.value} role="option">
+            {option.label}
+          </SelectItem>
+        ))}
       </SelectContent>
     </Select>
   );
@@ -30,4 +38,3 @@ const SortSelect: React.FC<SortSelectProps> = ({ onChangeSortType, defaultValue 
 
 export default SortSelect;
 
-//끌올의 경우 부가 기능으로 업데이트 예정

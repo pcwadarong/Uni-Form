@@ -13,6 +13,8 @@ const ShortAnswerQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
         name={`question-${question.id}`}
         disabled={isDisabled}
         placeholder="참여자의 답변 입력란 (최대 100자)"
+        aria-label="참여자의 답변 입력란"
+        aria-describedby={`question-${question.id}-description`}
       />
       {mode === 'editing' && <Options id={question.id} />}
     </>

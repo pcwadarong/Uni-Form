@@ -5,7 +5,7 @@ import { useSurveyStore } from '@/store';
 import SurveyInfo from '@/components/create/surveyInfo';
 import questionComponentMap from '@/constants/questionComponentMap';
 import { BroadcastChannel } from 'broadcast-channel';
-import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgress from '@/components/common/circular';
 
 const loadStateFromLocalStorage = () => {
   const serializedState = localStorage.getItem('survey 1');
@@ -55,8 +55,8 @@ const PreviewFormPage: React.FC = () => {
   return (
     <div className="flex-1 w-full px-4 pt-8 pb-20 md:px-8 2xl:px-0 bg-green-light justify-center">
       {loading ? (
-        <div className="flex w-screen h-screen justify-center items-center">
-          <CircularProgress className="text-primary" />
+        <div className="flex w-screen h-screen justify-center items-center" role="status" aria-live="polite">
+          <CircularProgress aria-label="설문지를 로드하는 중입니다." />
         </div>
       ) : (
         <div className="w-full 2xl:w-[1400px] flex flex-col gap-5 m-auto">
@@ -64,26 +64,37 @@ const PreviewFormPage: React.FC = () => {
           {surveyInfo.questions.map((q) => {
             const QuestionComponent = questionComponentMap[q.type];
             return (
-              <div key={q.id} className="bg-white rounded-2xl overflow-hidden shadow-md p-4">
+              <div
+                key={q.id}
+                className="bg-white rounded-2xl overflow-hidden shadow-md p-4"
+                aria-labelledby={`question-title-${q.id}`}
+              >
                 <div className='mb-2'>
-                <p className="font-bold">Q. {q.title || '(질문 없음)'}</p>
-                <p className="caption">{q.description || ''}</p>
+                  <p id={`question-title-${q.id}`} className="font-bold">
+                    Q. {q.title || '(질문 없음)'}
+                  </p>
+                  <p id={`question-description-${q.id}`} className="caption">
+                    {q.description || ''}
+                  </p>
                 </div>
                 <QuestionComponent key={q.id} question={q} mode="testing" />
               </div>
             );
           })}
-          <div className="flex">
+          <div className="flex" role="group" aria-label="폼 액션 버튼 그룹">
             <div className="flex-1"></div>
             <div className="flex-1 text-center">
-              <button className="py-3 px-8 bg-primary text-white rounded-md ">제출</button>
+              <button className="py-3 px-8 bg-primary text-white rounded-md" aria-label="폼 제출">
+                제출
+              </button>
             </div>
             <div className="flex-1 text-end">
               <button
-                className="p-3 hover:bg-dark/5  rounded-md"
+                className="p-3 hover:bg-dark/5 rounded-md"
                 onClick={() => {
                   window.location.reload();
                 }}
+                aria-label="양식 지우기"
               >
                 양식 지우기
               </button>

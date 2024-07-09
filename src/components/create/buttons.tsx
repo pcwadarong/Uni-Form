@@ -36,13 +36,19 @@ const CreatePageButton = () => {
         미리보기
       </button>
       <button className="py-1 px-3 bg-white rounded-md">임시저장</button>
-      <button className="py-1 px-3 bg-primary text-white rounded-md">저장</button>
+      <button className="py-1 px-3 bg-primary text-white rounded-md" aria-label="저장하기">
+        저장
+      </button>
       <div className="relative flex items-center" ref={menuRef}>
-        <button onClick={() => setShowToggleMenu((prev) => !prev)} aria-label="Toggle User Menu">
+        <button
+          onClick={() => setShowToggleMenu((prev) => !prev)}
+          aria-label="사용자 메뉴 토글"
+          aria-expanded={showToggleMenu}
+        >
           <Image src={'/meatball.svg'} alt="meatball menu icon" width="20" height="20" />
         </button>
         {showToggleMenu && (
-          <div className="absolute right-0 top-10 flex flex-col text-center rounded-lg overflow-hidden shadow-md bg-white">
+          <div className="absolute right-0 top-10 flex flex-col text-center rounded-lg overflow-hidden shadow-md bg-white" aria-labelledby="menu-button">
             <button
               className="rounded-md px-3 py-2 hover:bg-gray-2 text-nowrap"
               onClick={() =>

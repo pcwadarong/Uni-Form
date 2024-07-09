@@ -14,7 +14,9 @@ const RadioQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
   const handleQuestionChange = (updatedQuestion: Question) => {
     updateQuestion(question.id, updatedQuestion);
   };
+
   const hasEtcOption = question.options?.some((option) => option.value === '기타');
+
   return (
     <>
       {mode === 'editing' ? (
@@ -43,6 +45,7 @@ const RadioQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
                             {...draggableProvided.draggableProps}
                             {...draggableProvided.dragHandleProps}
                             className="flex gap-2"
+                            aria-label={`항목 ${index + 1} 드래그 가능`}
                           >
                             <span className="cursor-move">=</span>
                             <input
@@ -58,16 +61,18 @@ const RadioQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
                                 })
                               }
                               className="flex-1 mb-2 focused_input"
+                              aria-label={`항목 ${index + 1} 텍스트 입력`}
                             />
                             <button
                               onClick={() =>
                                 deleteOption({ question, id: option.id, handleQuestionChange })
                               }
                               disabled={question.options && question.options.length === 1}
+                              aria-label={`항목 ${index + 1} 삭제`}
                             >
                               <Image
                                 src={'./cancel.svg'}
-                                alt="no comments"
+                                alt={`항목 ${index + 1} 삭제`}
                                 width="20"
                                 height="20"
                               />
@@ -95,6 +100,7 @@ const RadioQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
                   ],
                 })
               }
+              aria-label="항목 추가"
             >
               항목 추가
             </button>
@@ -109,6 +115,7 @@ const RadioQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
                     })
                   }
                   className="rounded-full bg-gray-1 text-gray-4 py-1 px-3"
+                  aria-label="'기타' 추가"
                 >
                   '기타' 추가
                 </button>
@@ -121,7 +128,13 @@ const RadioQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
         <>
           {question.options?.map((option) => (
             <label key={option.id} className="p-3 rounded-lg flex gap-2 bg-gray-1 mt-3 text-gray-3">
-              <input type="radio" name={`question-${question.id}`} disabled={isDisabled} value={option.value} />
+              <input
+                type="radio"
+                name={`question-${question.id}`}
+                disabled={isDisabled}
+                value={option.value}
+                aria-label={option.value}
+              />
               {option.value}
             </label>
           ))}

@@ -1,13 +1,12 @@
 'use client';
 
-import { useState, useEffect, Suspense, useCallback } from 'react';
+import React, { useState, useEffect, Suspense, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useSelectedSurveyStore } from '@/store';
 import { surveyData } from '@/firebase/db/surveyData';
 import { Survey } from '@/types';
 import RecruitItem from '../recruit/recruitItem';
 import Image from 'next/image';
-
 import { CategorySelection } from '@/components/survey/categorySelection';
 import {
   filterInProgressData,
@@ -15,7 +14,6 @@ import {
   onChangeSortType,
 } from '@/utils/filterAndSortData';
 import calculateDeadlineMatch from '@/utils/calculateDeadlineMatch';
-
 import ToggleInProgressFilter from './toggleInProgressFilter';
 import SurveyItem from '@/components/survey/surveyItem';
 import SurveySkeleton from '@/components/survey/surveySkeleton';
@@ -26,17 +24,17 @@ import { closeModal } from '@/utils/handleModal';
 import RecruitSkeleton from '../recruit/recruitSkeleton';
 
 interface Props {
-  topic: string;
+  topic: 'survey' | 'recruit';
   category: string;
 }
 
-const CommonList = ({ topic, category }: Props) => {
+const CommonList: React.FC<Props> = ({ topic, category }) => {
   const { selectedItem } = useSelectedSurveyStore();
   const searchParams = useSearchParams();
 
   const sortParam = searchParams.get('sort') || 'point-asc';
   const [isInProgressChecked, setIsInProgressChecked] = useState(false);
-  const [filterDisplay, setFilterDisplay] = useState('hidden');
+  const [filterDisplay, setFilterDisplay] = useState<'hidden' | 'block'>('hidden');
   const [originalData, setOriginalData] = useState<Survey[]>([]);
   const [filteredData, setFilteredData] = useState<Survey[]>([]);
   const [dataList, setDataList] = useState<Survey[]>([]);
@@ -76,12 +74,19 @@ const CommonList = ({ topic, category }: Props) => {
     setFilteredData(newFilteredData);
     setDataList(isInProgressChecked ? filterInProgressData(newFilteredData) : newFilteredData);
   };
+
   const handleCategoryToggle = () => {
     setFilterDisplay((prev) => (prev === 'block' ? 'hidden' : 'block'));
   };
 
   const toggleInProgressFilter = () => {
     setIsInProgressChecked((prev) => !prev);
+  };
+
+  const closeModalAndResetFilters = () => {
+    setIsInProgressChecked(false);
+    setFilterDisplay('hidden');
+    closeModal();
   };
 
   return (
@@ -92,7 +97,7 @@ const CommonList = ({ topic, category }: Props) => {
           <div
             className="fixed top-0 left-0 w-full h-full bg-dark/70 z-40"
             aria-hidden="true"
-            onClick={closeModal}
+            onClick={closeModalAndResetFilters}
           ></div>
         </div>
       )}
@@ -118,47 +123,44 @@ const CommonList = ({ topic, category }: Props) => {
             </div>
             <SortSelect onChangeSortType={onChangeSortType} defaultValue={sortParam} />
           </div>
-          {dataList.length === 0 && (
+          {dataList.length === 0 ? (
             <div className="flex flex-col items-center text-gray-500 mt-10">
-              <Image src={'./bubble-chat.svg'} alt="no comments" width="80" height="78" />
+              <Image src="/bubble-chat.svg" alt="no comments" width={80} height={78} />
               <p className="text-center body2">
-                해당하는 설문이 없습니다. <br></br> 다른 조건으로 검색해보세요.
+                해당하는 설문이 없습니다. 다른 조건으로 검색해보세요.
               </p>
             </div>
+          ) : (
+            <ul className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+              <Suspense
+                fallback={
+                  topic === 'survey' ? (
+                    <>
+                      <SurveySkeleton />
+                      <SurveySkeleton />
+                      <SurveySkeleton />
+                      <SurveySkeleton />
+                    </>
+                  ) : (
+                    <>
+                      <RecruitSkeleton />
+                      <RecruitSkeleton />
+                      <RecruitSkeleton />
+                      <RecruitSkeleton />
+                    </>
+                  )
+                }
+              >
+                {dataList.map((item) =>
+                  topic === 'survey' ? (
+                    <SurveyItem key={item.id} item={item} />
+                  ) : (
+                    <RecruitItem key={item.id} item={item} />
+                  ),
+                )}
+              </Suspense>
+            </ul>
           )}
-          <ul className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
-            {topic === 'survey' ? (
-              <Suspense
-                fallback={
-                  <>
-                    <SurveySkeleton />
-                    <SurveySkeleton />
-                    <SurveySkeleton />
-                    <SurveySkeleton />
-                  </>
-                }
-              >
-                {dataList.map((item) => (
-                  <SurveyItem key={item.id} item={item} />
-                ))}
-              </Suspense>
-            ) : (
-              <Suspense
-                fallback={
-                  <>
-                    <RecruitSkeleton />
-                    <RecruitSkeleton />
-                    <RecruitSkeleton />
-                    <RecruitSkeleton />
-                  </>
-                }
-              >
-                {dataList.map((item) => (
-                  <RecruitItem key={item.id} item={item} />
-                ))}
-              </Suspense>
-            )}
-          </ul>
         </div>
       </section>
     </>
