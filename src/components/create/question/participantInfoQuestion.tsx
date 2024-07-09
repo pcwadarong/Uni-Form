@@ -1,25 +1,21 @@
 'use client';
 
 import { useSurveyStore } from '@/store';
-import { QuestionProps, Question } from '@/types';
+import { QuestionProps } from '@/types';
 import { useState } from 'react';
 import Options from '../options';
 import isModeDisabled from '@/utils/isModeDisabled';
 
 const ParticipantInfoQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
+  const { updateQuestion } = useSurveyStore();
   const isDisabled = isModeDisabled(mode);
   const [selectedOption, setselectedOption] = useState('name');
   const [placeholder, setPlaceholder] = useState('이름을 입력해주세요');
-  const { updateQuestion } = useSurveyStore();
-
-  const handleQuestionChange = (updatedQuestion: Question) => {
-    updateQuestion(question.id, updatedQuestion);
-  };
 
   const handleOptionChange = (newOption: string, newPlaceholder: string) => {
     setselectedOption(newOption);
     setPlaceholder(newPlaceholder);
-    handleQuestionChange({ ...question, selectedOption });
+    updateQuestion(question.id, { ...question, selectedOption: newOption });
   };
 
   const optionMap: Record<string, { label: string; placeholder: string }> = {
@@ -55,12 +51,22 @@ const ParticipantInfoQuestion: React.FC<QuestionProps> = ({ question, mode }) =>
         </>
       ) : (
         <>
-          <label className="p-3 rounded-lg flex gap-2 bg-gray-1 mt-3 text-gray-3">
-            <input type="text" className="w-full bg-gray-1" disabled={isDisabled} value={placeholder} />
+          <label className="overflow-hidden bg-gray-1 mt-3">
+            <input
+              type="text"
+              className="w-full bg-gray-1 p-3 rounded-lg"
+              disabled={isDisabled}
+              placeholder={placeholder}
+            />
           </label>
           {selectedOption === 'address' && (
-            <label className="p-3 rounded-lg flex gap-2 bg-gray-1 mt-3 text-gray-3">
-              <input type="text" className="w-full bg-gray-1" disabled={isDisabled} value={'상세 주소를 입력해주세요.'} />
+            <label className="overflow-hidden bg-gray-1 mt-3">
+              <input
+                type="text"
+                className="w-full bg-gray-1 p-3 rounded-lg"
+                disabled={isDisabled}
+                placeholder={'상세 주소를 입력해주세요.'}
+              />
             </label>
           )}
         </>

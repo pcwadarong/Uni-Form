@@ -74,11 +74,11 @@ const Questions: React.FC<ExtendedQuestionProps> = ({
           />
         </>
       ) : (
-        <>
+        <div className='mb-2'>
           {isEssential && <span className="text-red ml-[-12px] mr-[3px]">*</span>}
           <span className="font-bold">Q. {question.title || '(질문 없음)'}</span>
           <p className="caption">{question.description || ''}</p>
-        </>
+        </div>
       )}
       <QuestionComponent question={question} mode={mode} />
     </div>

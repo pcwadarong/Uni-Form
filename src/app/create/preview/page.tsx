@@ -64,9 +64,11 @@ const PreviewFormPage: React.FC = () => {
           {surveyInfo.questions.map((q) => {
             const QuestionComponent = questionComponentMap[q.type];
             return (
-              <div key={q.id} className={'bg-white rounded-2xl overflow-hidden shadow-md p-4'}>
+              <div key={q.id} className="bg-white rounded-2xl overflow-hidden shadow-md p-4">
+                <div className='mb-2'>
                 <p className="font-bold">Q. {q.title || '(질문 없음)'}</p>
                 <p className="caption">{q.description || ''}</p>
+                </div>
                 <QuestionComponent key={q.id} question={q} mode="testing" />
               </div>
             );

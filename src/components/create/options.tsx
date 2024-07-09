@@ -6,33 +6,39 @@ interface Prop {
 }
 
 const Options: React.FC<Prop> = ({ id }) => {
-  const { questions, setQuestions, updateQuestion } = useSurveyStore();
-  const question = questions.find((item) => item.id === id);
+  const { surveyInfo, setSurveyInfo } = useSurveyStore();
+  const question = surveyInfo.questions.find((item) => item.id === id);
 
   if (!question) {
     return null;
   }
 
   const handleQuestionDuplicate = () => {
-    const newId = questions.length ? Math.max(...questions.map((q) => q.id)) + 1 : 1;
+    const newId = surveyInfo.questions.length
+      ? Math.max(...surveyInfo.questions.map((q) => q.id)) + 1
+      : 1;
     const duplicatedQuestion = { ...question, id: newId };
-    setQuestions([...questions, duplicatedQuestion]);
+    const updatedQuestions = [...surveyInfo.questions, duplicatedQuestion];
+    setSurveyInfo({ questions: updatedQuestions });
   };
 
   const handleQuestionDelete = () => {
-    if (questions.length > 1) {
-      setQuestions(questions.filter((item) => item.id !== id));
+    if (surveyInfo.questions.length > 1) {
+      const updatedQuestions = surveyInfo.questions.filter((item) => item.id !== id);
+      setSurveyInfo({ questions: updatedQuestions });
     }
   };
 
   const toggleIsEssential = () => {
-    updateQuestion(id, { ...question, isEssential: !question.isEssential });
+    const updatedQuestion = { ...question, isEssential: !question.isEssential };
+    const updatedQuestions = surveyInfo.questions.map((q) => (q.id === id ? updatedQuestion : q));
+    setSurveyInfo({ questions: updatedQuestions });
   };
 
   return (
     <div className="flex gap-2 justify-end border-t-[1px] border-gray-2 pt-2 mt-4">
       <button onClick={handleQuestionDuplicate}>복사</button>
-      <button onClick={handleQuestionDelete} disabled={questions.length === 1}>
+      <button onClick={handleQuestionDelete} disabled={surveyInfo.questions.length === 1}>
         삭제
       </button>
       <ToggleBtn text="답변 필수" checked={question.isEssential} onChange={toggleIsEssential} />

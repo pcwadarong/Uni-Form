@@ -8,16 +8,21 @@ import AppreciateMessage from '@/components/create/appreciateMessage';
 import SurveyInfo from '@/components/create/surveyInfo';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { handleQuestionDragEnd } from '@/utils/handleDragEnd';
+import { Question } from '@/types';
 
 const Create: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [enabled, setEnabled] = useState(false);
-  const { questions, setQuestions } = useSurveyStore();
+  const { surveyInfo, setSurveyInfo } = useSurveyStore();
 
   const toggleEdit = (id: number) => {
     setEditingId(id);
     setIsEditing(!isEditing);
+  };
+
+  const setQuestions = (questions: Question[]) => {
+    setSurveyInfo({ questions });
   };
 
   useEffect(() => {
@@ -42,7 +47,7 @@ const Create: React.FC = () => {
           onEditToggle={() => toggleEdit(0)}
         />
         <DragDropContext
-          onDragEnd={(result) => handleQuestionDragEnd(result, questions, setQuestions)}
+          onDragEnd={(result) => handleQuestionDragEnd(result, surveyInfo.questions, setQuestions)}
         >
           <Droppable droppableId="questions" type="card" direction="vertical">
             {(droppableProvided) => (
@@ -51,7 +56,7 @@ const Create: React.FC = () => {
                 {...droppableProvided.droppableProps}
                 ref={droppableProvided.innerRef}
               >
-                {questions.map((q, index) => (
+                {surveyInfo.questions.map((q, index) => (
                   <Draggable
                     key={q.id.toString()}
                     draggableId={q.id.toString()}

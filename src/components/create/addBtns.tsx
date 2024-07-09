@@ -2,10 +2,10 @@ import { useSurveyStore } from '@/store';
 import { Question } from '@/types';
 
 const AddBtns = () => {
-  const { questions, setQuestions } = useSurveyStore();
+  const { surveyInfo, setSurveyInfo } = useSurveyStore();
 
   const basicData: Question = {
-    id: questions.length ? Math.max(...questions.map((q) => q.id)) + 1 : 1,
+    id: surveyInfo.questions.length ? Math.max(...surveyInfo.questions.map((q) => q.id)) + 1 : 1,
     type: 'checkbox',
     title: '',
     options: [
@@ -14,8 +14,10 @@ const AddBtns = () => {
     ],
     isEssential: true,
   };
+
   const addQuestion = () => {
-    setQuestions([...questions, basicData]);
+    const updatedQuestions = [...surveyInfo.questions, basicData];
+    setSurveyInfo({ questions: updatedQuestions });
   };
 
   return (

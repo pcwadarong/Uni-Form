@@ -34,28 +34,13 @@ export const useSelectedSurveyStore = create<SelectedSurveyStore>((set) => ({
 const broadcast = new BroadcastChannel('zustand_channel');
 
 export interface SurveyStore {
-  questions: Question[];
   surveyInfo: SurveyInfoType;
-  setQuestions: (items: Question[]) => void;
   updateQuestion: (id: number, updatedQuestion: Question) => void;
   updateQuestionType: (id: number, newType: QuestionType) => void;
   setSurveyInfo: (info: Partial<SurveyInfoType>) => void;
 }
 
 export const useSurveyStore = create<SurveyStore>((set) => ({
-  questions: [
-    {
-      id: 1,
-      type: 'checkbox',
-      title: '첫 번째 질문',
-      description: '추가적인 설명',
-      isEssential: true,
-      options: [
-        { id: 1, value: '항목 1' },
-        { id: 2, value: '항목 2' },
-      ],
-    },
-  ],
   surveyInfo: {
     questions: [
       {
@@ -76,21 +61,19 @@ export const useSurveyStore = create<SurveyStore>((set) => ({
     duration: '바로시작~제한없음',
     mode: 'editing',
   },
-  setQuestions: (items) => {
+  setSurveyInfo: (info) => {
     set((state) => {
-      const newState = {
-        questions: items,
-        surveyInfo: { ...state.surveyInfo, questions: items },
-      };
+      const newState = { surveyInfo: { ...state.surveyInfo, ...info } };
       broadcast.postMessage(newState.surveyInfo);
       return newState;
     });
   },
   updateQuestion: (id, updatedQuestion) => {
     set((state) => {
-      const newQuestions = state.questions.map((q) => (q.id === id ? updatedQuestion : q));
+      const newQuestions = state.surveyInfo.questions.map((q) =>
+        q.id === id ? updatedQuestion : q,
+      );
       const newState = {
-        questions: newQuestions,
         surveyInfo: { ...state.surveyInfo, questions: newQuestions },
       };
       broadcast.postMessage(newState.surveyInfo);
@@ -99,7 +82,7 @@ export const useSurveyStore = create<SurveyStore>((set) => ({
   },
   updateQuestionType: (id, newType) => {
     set((state) => {
-      const newQuestions = state.questions.map((q) => {
+      const newQuestions = state.surveyInfo.questions.map((q) => {
         if (q.id !== id) return q;
 
         const baseFields = {
@@ -124,12 +107,12 @@ export const useSurveyStore = create<SurveyStore>((set) => ({
           case 'participant':
             return {
               ...baseFields,
-              selectedOption: 'name이름',
+              selectedOption: 'name',
             };
           case 'file':
             return {
               ...baseFields,
-              selectedOption: '이미지',
+              selectedOption: '사진',
             };
           case 'star':
             return {
@@ -142,16 +125,8 @@ export const useSurveyStore = create<SurveyStore>((set) => ({
       });
 
       const newState = {
-        questions: newQuestions,
         surveyInfo: { ...state.surveyInfo, questions: newQuestions },
       };
-      broadcast.postMessage(newState.surveyInfo);
-      return newState;
-    });
-  },
-  setSurveyInfo: (info) => {
-    set((state) => {
-      const newState = { surveyInfo: { ...state.surveyInfo, ...info }, questions: state.questions };
       broadcast.postMessage(newState.surveyInfo);
       return newState;
     });
@@ -162,7 +137,6 @@ export const useSurveyStore = create<SurveyStore>((set) => ({
 broadcast.onmessage = (event) => {
   const newState = event as SurveyInfoType;
   useSurveyStore.setState({
-    questions: newState.questions,
     surveyInfo: newState,
   });
 };
