@@ -2,11 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import MailOutlineIcon from '@mui/icons-material/MailOutline';
-import PasswordIcon from '@mui/icons-material/Password';
-import GoogleIcon from '@mui/icons-material/Google';
 import { handleLogin } from '@/firebase/auth/sign-in';
 import { useAuthStore } from '@/store';
+import Image from 'next/image';
 
 const Form = () => {
   const router = useRouter();
@@ -43,7 +41,14 @@ const Form = () => {
         <div>
           <label htmlFor="id">이메일</label>
           <div className="relative mt-2">
-            <MailOutlineIcon className="absolute top-2.5 left-3 text-gray-3" />
+          <Image
+              src={'/mail.svg'}
+              alt="user"
+              width="20"
+              height="20"
+              priority={true}
+              className="absolute top-3.5 left-3 text-gray-3"
+            />
             <input
               id="email"
               name="email"
@@ -60,7 +65,14 @@ const Form = () => {
         <div>
           <label htmlFor="password">비밀번호</label>
           <div className="relative mt-2">
-            <PasswordIcon className="absolute top-2.5 left-3 text-gray-3" />
+            <Image
+              src={'/password.svg'}
+              alt="user"
+              width="20"
+              height="20"
+              priority={true}
+              className="absolute top-3 left-3 text-gray-3"
+            />
             <input
               id="password"
               name="password"
@@ -84,12 +96,18 @@ const Form = () => {
           </button>
         </div>
       </form>
-      <div className="mt-6 flex justify-center">
+      <div className="mt-6 flex justify-center relative">
         <button
           onClick={(e) => login(e, 'google')}
           className="flex items-center gap-2 py-3 w-full justify-center px-4 border-[1px] rounded-full border-gray-4"
         >
-          <GoogleIcon />
+          <Image
+            src={'/google.svg'}
+            alt="icon"
+            width="20"
+            height="20"
+            priority={true}
+          />
           <span>Google로 계속하기</span>
         </button>
       </div>

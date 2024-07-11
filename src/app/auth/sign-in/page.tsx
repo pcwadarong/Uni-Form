@@ -1,6 +1,5 @@
 import Form from './form';
 import Link from 'next/link';
-import Divider from '@mui/material/Divider';
 
 const SignIn: React.FC = () => {
   return (
@@ -21,7 +20,7 @@ const SignIn: React.FC = () => {
           >
             비밀번호 재설정
           </Link>
-          <Divider orientation="vertical" variant="middle" flexItem aria-hidden="true" />
+          <p>|</p>
           <Link className="flex-1" href="/auth/sign-up" aria-label="회원가입 페이지로 이동">
             회원가입
           </Link>

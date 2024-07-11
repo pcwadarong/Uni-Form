@@ -2,10 +2,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 const sns = [
-  { name: 'github', icon: <Image src={'./github.svg'} alt="github" width="22" height="22"/>, link: 'https://github.com/pcwadarong/Uni-Form' },
-  { name: 'facebook', icon: <Image src={'./facebook.svg'} alt="github" width="21" height="21"/>, link: 'https://www.facebook.com/' },
-  { name: 'instagram', icon: <Image src={'./instagram.svg'} alt="github" width="23" height="23"/>, link: 'https://www.instagram.com/' },
-  { name: 'x', icon: <Image src={'./x.svg'} alt="github" width="23" height="23"/>, link: 'https://twitter.com/' },
+  { name: 'github', icon: <Image src={'/github.svg'} alt="github" width="22" height="22"/>, link: 'https://github.com/pcwadarong/Uni-Form' },
+  { name: 'facebook', icon: <Image src={'/facebook.svg'} alt="github" width="21" height="21"/>, link: 'https://www.facebook.com/' },
+  { name: 'instagram', icon: <Image src={'/instagram.svg'} alt="github" width="23" height="23"/>, link: 'https://www.instagram.com/' },
+  { name: 'x', icon: <Image src={'/x.svg'} alt="github" width="23" height="23"/>, link: 'https://twitter.com/' },
 ];
 
 export default function Footer() {
