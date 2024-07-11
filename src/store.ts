@@ -71,7 +71,7 @@ export const useSurveyStore = create<SurveyStore>((set) => ({
   updateQuestion: (id, updatedQuestion) => {
     set((state) => {
       const newQuestions = state.surveyInfo.questions.map((q) =>
-        q.id === id ? updatedQuestion : q,
+        q.id === id ? { ...q, ...updatedQuestion } : q,
       );
       const newState = {
         surveyInfo: { ...state.surveyInfo, questions: newQuestions },

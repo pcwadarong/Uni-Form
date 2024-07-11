@@ -2,19 +2,15 @@
 
 import { useSurveyStore } from '@/store';
 import { QuestionProps } from '@/types';
-import { useState } from 'react';
 import Options from '../options';
 import isModeDisabled from '@/utils/isModeDisabled';
 
 const ParticipantInfoQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
   const { updateQuestion } = useSurveyStore();
   const isDisabled = isModeDisabled(mode);
-  const [selectedOption, setSelectedOption] = useState('name');
-  const [placeholder, setPlaceholder] = useState('이름을 입력해주세요');
+  const selectedOption = question.selectedOption || 'name';
 
-  const handleOptionChange = (newOption: string, newPlaceholder: string) => {
-    setSelectedOption(newOption);
-    setPlaceholder(newPlaceholder);
+  const handleOptionChange = (newOption: string) => {
     updateQuestion(question.id, { ...question, selectedOption: newOption });
   };
 
@@ -37,7 +33,7 @@ const ParticipantInfoQuestion: React.FC<QuestionProps> = ({ question, mode }) =>
                   id={option}
                   value={option}
                   name="option"
-                  onChange={() => handleOptionChange(option, optionMap[option].placeholder)}
+                  onChange={() => handleOptionChange(option)}
                   checked={selectedOption === option}
                   aria-describedby={`${option}-description`}
                 />
@@ -53,18 +49,21 @@ const ParticipantInfoQuestion: React.FC<QuestionProps> = ({ question, mode }) =>
           <Options id={question.id} />
         </>
       ) : (
-        <>
-          <label className="overflow-hidden bg-gray-1 mt-3" aria-label={placeholder}>
+        <div className='flex flex-col gap-2'>
+          <label
+            className="overflow-hidden bg-gray-1 mt-3"
+            aria-label={`${optionMap[selectedOption].placeholder}`}
+          >
             <input
               type="text"
               className="w-full bg-gray-1 p-3 rounded-lg"
               disabled={isDisabled}
-              placeholder={placeholder}
+              placeholder={`${optionMap[selectedOption].placeholder}`}
               aria-describedby={`${selectedOption}-description`}
             />
           </label>
           {selectedOption === 'address' && (
-            <label className="overflow-hidden bg-gray-1 mt-3" aria-label="상세 주소 입력">
+            <label className="overflow-hidden bg-gray-1" aria-label="상세 주소 입력">
               <input
                 type="text"
                 className="w-full bg-gray-1 p-3 rounded-lg"
@@ -73,7 +72,7 @@ const ParticipantInfoQuestion: React.FC<QuestionProps> = ({ question, mode }) =>
               />
             </label>
           )}
-        </>
+        </div>
       )}
     </>
   );

@@ -55,7 +55,11 @@ const PreviewFormPage: React.FC = () => {
   return (
     <div className="flex-1 w-full px-4 pt-8 pb-20 md:px-8 2xl:px-0 bg-green-light justify-center">
       {loading ? (
-        <div className="flex w-screen h-screen justify-center items-center" role="status" aria-live="polite">
+        <div
+          className="flex w-screen h-screen justify-center items-center"
+          role="status"
+          aria-live="polite"
+        >
           <CircularProgress aria-label="설문지를 로드하는 중입니다." />
         </div>
       ) : (
@@ -66,13 +70,18 @@ const PreviewFormPage: React.FC = () => {
             return (
               <div
                 key={q.id}
-                className="bg-white rounded-2xl overflow-hidden shadow-md p-4"
+                className="bg-white rounded-2xl overflow-hidden shadow-md p-5"
                 aria-labelledby={`question-title-${q.id}`}
               >
-                <div className='mb-2'>
-                  <p id={`question-title-${q.id}`} className="font-bold">
+                <div className="mb-2">
+                  {q.isEssential && (
+                    <span aria-hidden="true" className="text-red ml-[-12px] mr-[3px]">
+                      *
+                    </span>
+                  )}
+                  <span id={`question-title-${q.id}`} className="font-bold">
                     Q. {q.title || '(질문 없음)'}
-                  </p>
+                  </span>
                   <p id={`question-description-${q.id}`} className="caption">
                     {q.description || ''}
                   </p>
