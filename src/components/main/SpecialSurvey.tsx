@@ -1,16 +1,16 @@
-import { Suspense } from 'react';
-import { surveyData } from '@/firebase/db/surveyData';
-import { filterAndSortSurveyData } from '@/utils/filterAndSortData';
+import { Suspense, useEffect } from 'react';
 import Link from 'next/link';
 import SurveyItem from '@/components/survey/surveyItem';
 import SurveySkeleton from '@/components/survey/surveySkeleton';
+import { useSurveys } from '@/store/survey';
 
 const SpecialSurveys = () => {
-  const filteredSpecial = filterAndSortSurveyData(
-    surveyData,
-    (item) => item.point > 0,
-    () => Math.random() - 0.5,
-  ).slice(0, 4);
+  //const { publicSurveys, fetchSurveys } = usePublicSurveyStore();
+  const { data: publicSurveys, isLoading, error, refetch } = useSurveys();
+
+  useEffect(() => {
+    refetch(); // 컴포넌트가 마운트될 때 데이터를 새로고침합니다.
+  }, []);
 
   return (
     <section className="w-full px-4 md:px-8 2xl:px-0 flex justify-center py-16">
@@ -32,7 +32,7 @@ const SpecialSurveys = () => {
               </>
             }
           >
-            {filteredSpecial.map((item) => (
+            {publicSurveys.map((item) => (
               <SurveyItem key={item.id} item={item} />
             ))}
           </Suspense>

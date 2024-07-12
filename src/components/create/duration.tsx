@@ -1,6 +1,6 @@
 'use client';
 
-import { useSurveyStore } from '@/store';
+import { useSurveyStore } from '@/store/survey';
 import Calendar from '../ui/calendar';
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import Button from '../common/button';

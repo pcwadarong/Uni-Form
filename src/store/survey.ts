@@ -1,25 +1,37 @@
 import { create } from 'zustand';
-import type { User, Survey, Question, SurveyInfoType, QuestionType } from '@/types';
 import { BroadcastChannel } from 'broadcast-channel';
+import type { Survey, SurveyInfoType, Question, QuestionType, SortType } from '@/types';
+import { getSurveys } from '../firebase/getSurveyList';
+import { useQuery, QueryClient } from '@tanstack/react-query';
 
-//auth
-interface AuthStore {
-  user: User | null;
-  setUser: (user: User | null) => void;
-  loadUserFromSession: () => void;
-}
+// surveylist
+export const fetchSurveys = async (type: SortType) => {
+  const surveys = await getSurveys(type);
+  return surveys;
+};
 
-export const useAuthStore = create<AuthStore>((set) => ({
-  user: null,
-  setUser: (user) => set({ user }),
-  loadUserFromSession: () => {
-    const user = localStorage.getItem('user');
-    if (user) {
-      set({ user: JSON.parse(user) });
-    }
-  },
-}));
+export const useSurveys = (type: SortType) => {
+  return useQuery(['surveys', type], () => fetchSurveys(type));
+};
 
+// interface PublicSurveysStore {
+//   publicSurveys: Survey[] | null;
+//   fetchSurveys: () => Promise<void>;
+// }
+
+// export const usePublicSurveyStore = create<PublicSurveysStore>((set) => ({
+//   publicSurveys: null,
+//   fetchSurveys: async () => {
+//     try {
+//       const surveys = await getPublicSurveys();
+//       set({ publicSurveys: surveys });
+//     } catch (error) {
+//       console.error('Error getting public surveys:', error);
+//     }
+//   },
+// }));
+
+// selected survey (open modal)
 interface SelectedSurveyStore {
   selectedItem: Survey | null;
   setSelectedItem: (item: Survey | null) => void;
@@ -30,10 +42,10 @@ export const useSelectedSurveyStore = create<SelectedSurveyStore>((set) => ({
   setSelectedItem: (item) => set({ selectedItem: item }),
 }));
 
-//survey
+// surveyitem
 const broadcast = new BroadcastChannel('zustand_channel');
 
-export interface SurveyStore {
+interface SurveyStore {
   surveyInfo: SurveyInfoType;
   updateQuestion: (id: number, updatedQuestion: Question) => void;
   updateQuestionType: (id: number, newType: QuestionType) => void;
@@ -60,6 +72,7 @@ export const useSurveyStore = create<SurveyStore>((set) => ({
     description: '',
     duration: '바로시작~제한없음',
     mode: 'editing',
+    isPublic: false,
   },
   setSurveyInfo: (info) => {
     set((state) => {

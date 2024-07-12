@@ -1,4 +1,4 @@
-import { useSurveyStore } from '@/store';
+import { useSurveyStore } from '@/store/survey';
 import { Question } from '@/types';
 
 const AddBtns = () => {

@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { QuestionProps } from '@/types';
 import Options from '../options';
-import { useSurveyStore } from '@/store';
+import { useSurveyStore } from '@/store/survey';
 import { useState, useEffect } from 'react';
 import isModeDisabled from '@/utils/isModeDisabled';
 

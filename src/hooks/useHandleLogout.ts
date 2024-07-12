@@ -1,5 +1,5 @@
 import { useRouter } from 'next/navigation';
-import { useAuthStore } from '@/store';
+import { useAuthStore } from '@/store/auth';
 
 const useHandleLogout = () => {
   const { setUser } = useAuthStore();

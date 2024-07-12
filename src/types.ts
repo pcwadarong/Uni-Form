@@ -33,13 +33,6 @@ export interface Option {
   value: string;
 }
 
-// 질문 모드 타입 정의
-export type SurveyMode = 'editing' | 'previewing' | 'testing' | 'responding';
-
-// 질문 타입 정의
-export type QuestionType = 'radio' | 'checkbox' | 'dropdown' | 'short answer' | 'long answer' | 'dropdown' | 'participant' | 'star' | 'file';
-// 추가될 타입들: | 'category' | 'table' | 'schedule' | 'score'
-
 // 기본 Question 인터페이스 정의
 export interface Question {
   id: number;
@@ -66,4 +59,23 @@ export interface SurveyInfoType {
   description: string;
   duration: string;
   mode: 'editing' | 'viewing';
+  isPublic: boolean;
 }
+
+// 질문 모드 타입 정의
+export type SurveyMode = 'editing' | 'previewing' | 'testing' | 'responding';
+
+// 질문 타입 정의
+export type QuestionType =
+  | 'radio'
+  | 'checkbox'
+  | 'dropdown'
+  | 'short answer'
+  | 'long answer'
+  | 'dropdown'
+  | 'participant'
+  | 'star'
+  | 'file';
+// 추가될 타입들: | 'category' | 'table' | 'schedule' | 'score'
+
+export type SortType = 'public' | 'latest' | 'special' | 'popular';

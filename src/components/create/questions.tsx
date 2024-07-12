@@ -1,5 +1,5 @@
 import { QuestionProps, Question, QuestionType } from '@/types';
-import { useSurveyStore } from '@/store';
+import { useSurveyStore } from '@/store/survey';
 import questionComponentMap from '@/constants/questionComponentMap';
 import { useState, useEffect } from 'react';
 import RadioQuestion from './question/radioQuestion';

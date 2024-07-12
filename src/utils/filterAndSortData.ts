@@ -1,14 +1,6 @@
 import { Survey } from '@/types';
 import parseDateString from './parseDateString';
 
-export function filterAndSortSurveyData(
-  data: Survey[],
-  filterFunc: (item: Survey) => boolean,
-  sortFunc: (a: Survey, b: Survey) => number,
-): Survey[] {
-  return data.filter(filterFunc).sort(sortFunc);
-}
-
 function parseId(id: string) {
   const parts = id.split('-');
   const dateStr = `${parts[0]}-${parts[1]}-${parts[2]}`;

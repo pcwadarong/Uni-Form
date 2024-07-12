@@ -1,6 +1,6 @@
 'use client';
 
-import { useSurveyStore } from '@/store';
+import { useSurveyStore } from '@/store/survey';
 import { useState, useEffect } from 'react';
 import Questions from '@/components/create/questions';
 import CreatePageButton from '@/components/create/buttons';

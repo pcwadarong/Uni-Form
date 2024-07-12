@@ -1,6 +1,6 @@
 'use client';
 
-import { useSurveyStore } from '@/store';
+import { useSurveyStore } from '@/store/survey';
 import { QuestionProps } from '@/types';
 import Options from '../options';
 import isModeDisabled from '@/utils/isModeDisabled';

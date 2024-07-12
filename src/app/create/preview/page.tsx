@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import { useSurveyStore } from '@/store';
+import { useSurveyStore } from '@/store/survey';
 import SurveyInfo from '@/components/create/surveyInfo';
 import questionComponentMap from '@/constants/questionComponentMap';
 import { BroadcastChannel } from 'broadcast-channel';

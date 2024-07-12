@@ -1,5 +1,5 @@
 import ToggleBtn from '../common/toggleBtn';
-import { useSurveyStore } from '@/store';
+import { useSurveyStore } from '@/store/survey';
 
 interface Prop {
   id: number;

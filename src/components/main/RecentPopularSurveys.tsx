@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { surveyData } from '@/firebase/db/surveyData';
+import { surveyData } from '@/mocks/surveyData';
 import { getSelectedItems } from '@/utils/filterAndSortData';
 import Link from 'next/link';
 import SurveyItem from '@/components/survey/surveyItem';
@@ -58,10 +58,7 @@ const RecentPopularSurveys = () => {
                     }
                   >
                     {filteredPopular.map((item) => (
-                      <SurveyItem
-                        key={item.id}
-                        item={item}
-                      />
+                      <SurveyItem key={item.id} item={item} />
                     ))}
                   </Suspense>
                 </ul>

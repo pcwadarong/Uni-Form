@@ -1,4 +1,4 @@
-import { useSelectedSurveyStore } from '@/store';
+import { useSelectedSurveyStore } from '@/store/survey';
 import { Survey } from '@/types';
 
 export const openDetailModal = (item: Survey) => {

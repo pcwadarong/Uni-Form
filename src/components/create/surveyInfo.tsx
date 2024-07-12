@@ -4,7 +4,7 @@ import { useState, ChangeEvent } from 'react';
 import FileEditIcon from '../svg/file';
 import AutoResizeTextarea from '../common/textarea';
 import AddBtns from './addBtns';
-import { useSurveyStore } from '@/store';
+import { useSurveyStore } from '@/store/survey';
 import SetDuration from './duration';
 
 interface Props {

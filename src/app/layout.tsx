@@ -6,8 +6,13 @@ import Header from '@/components/layout/header/header';
 import Footer from '@/components/layout/footer';
 import ActionBtns from '@/components/common/actionBtn';
 import '../styles/globals.css';
+import { initMsw } from '@/mocks';
+import Providers from './providers';
 
 const suit = localFont({ src: '../fonts/SUIT.woff2' });
+if (process.env.NODE_ENV === 'development') {
+  initMsw();
+}
 
 export const metadata: Metadata = {
   title: 'Uniform',
@@ -41,17 +46,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${suit.className} relative .body2`}>
-        <Suspense fallback={<Loading />}>
-          <Header />
-          <div className="flex h-auto min-h-screen flex-col items-center pt-20 pb-28">
-            {children}
-          </div>
-          <Footer />
-          <ActionBtns />
-        </Suspense>
-      </body>
-    </html>
+    <Providers>
+      <html lang="en">
+        <body className={`${suit.className} relative .body2`}>
+          <Suspense fallback={<Loading />}>
+            <Header />
+            <div className="flex h-auto min-h-screen flex-col items-center pt-20 pb-28">
+              {children}
+            </div>
+            <Footer />
+            <ActionBtns />
+          </Suspense>
+        </body>
+      </html>
+    </Providers>
   );
 }

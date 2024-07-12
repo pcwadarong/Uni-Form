@@ -3,7 +3,7 @@
 import React, { useState, useEffect, Suspense, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useSelectedSurveyStore } from '@/store';
-import { surveyData } from '@/firebase/db/surveyData';
+import { surveyData } from '@/mocks/surveyData';
 import { Survey } from '@/types';
 import RecruitItem from '../recruit/recruitItem';
 import Image from 'next/image';
@@ -17,7 +17,6 @@ import calculateDeadlineMatch from '@/utils/calculateDeadlineMatch';
 import ToggleInProgressFilter from './toggleInProgressFilter';
 import SurveyItem from '@/components/survey/surveyItem';
 import SurveySkeleton from '@/components/survey/surveySkeleton';
-import TuneIcon from '@mui/icons-material/Tune';
 import SortSelect from '@/components/list/sortSelect';
 import DetailModal from '@/components/detailModal/detailModal';
 import { closeModal } from '@/utils/handleModal';
@@ -109,7 +108,7 @@ const CommonList: React.FC<Props> = ({ topic, category }) => {
           <div className="flex justify-between items-center px-3 pb-6 2xl:pt-0">
             <div className="flex gap-6">
               <button className="bg-font text-white p-2 rounded-md" onClick={handleCategoryToggle}>
-                <TuneIcon />
+              <Image src="/filter.svg" alt="no comments" width={25} height={25} />
                 <span>필터</span>
                 <span className="hidden md:inline">
                   {filterDisplay === 'block' ? '닫기' : '열기'}

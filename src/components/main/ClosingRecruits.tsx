@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { surveyData } from '@/firebase/db/surveyData';
+import { surveyData } from '@/mocks/surveyData';
 import Link from 'next/link';
 import RecruitItem from '@/components/recruit/recruitItem';
 import RecruitSkeleton from '@/components/recruit/recruitSkeleton';

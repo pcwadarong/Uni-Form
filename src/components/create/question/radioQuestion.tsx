@@ -1,5 +1,5 @@
 import { QuestionProps, Option, Question } from '@/types';
-import { useSurveyStore } from '@/store';
+import { useSurveyStore } from '@/store/survey';
 import Options from '../options';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import { handleOptionDragEnd } from '@/utils/handleDragEnd';

@@ -1,7 +1,7 @@
 'use client';
 
 import { QuestionProps } from '@/types';
-import { useSurveyStore } from '@/store';
+import { useSurveyStore } from '@/store/survey';
 import Options from '../options';
 import { useState } from 'react';
 import Image from 'next/image';

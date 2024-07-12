@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { surveyData } from '@/firebase/db/surveyData';
+import { surveyData } from '@/mocks/surveyData';
 import { filterAndSortSurveyData } from '@/utils/filterAndSortData';
 import Link from 'next/link';
 import CommentItem from '@/components/survey/commentItem';

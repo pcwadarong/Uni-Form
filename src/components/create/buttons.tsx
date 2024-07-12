@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter, usePathname } from 'next/navigation';
-import { useSurveyStore } from '@/store';
+import { useSurveyStore } from '@/store/survey';
 
 const CreatePageButton = () => {
   const [showToggleMenu, setShowToggleMenu] = useState<boolean>(false);

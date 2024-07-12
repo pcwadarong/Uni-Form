@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { handleLogin } from '@/firebase/auth/sign-in';
-import { useAuthStore } from '@/store';
+import { useAuthStore } from '@/store/auth';
 import Image from 'next/image';
 
 const Form = () => {
