@@ -1,6 +1,6 @@
 'use client';
 
-import { useSelectedSurveyStore } from '@/store';
+import { useSelectedSurveyStore } from '@/store/survey';
 import { closeModal } from '@/utils/handleModal';
 import SpecialSurveys from '@/components/main/SpecialSurvey';
 import LatestComments from '@/components/main/LatestComments';

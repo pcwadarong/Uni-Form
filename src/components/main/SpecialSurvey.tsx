@@ -1,16 +1,15 @@
-import { Suspense, useEffect } from 'react';
+import { fetchSurveys } from '@/store/survey';
 import Link from 'next/link';
 import SurveyItem from '@/components/survey/surveyItem';
 import SurveySkeleton from '@/components/survey/surveySkeleton';
-import { useSurveys } from '@/store/survey';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { Suspense } from 'react';
 
 const SpecialSurveys = () => {
-  //const { publicSurveys, fetchSurveys } = usePublicSurveyStore();
-  const { data: publicSurveys, isLoading, error, refetch } = useSurveys();
-
-  useEffect(() => {
-    refetch(); // 컴포넌트가 마운트될 때 데이터를 새로고침합니다.
-  }, []);
+  const { data: specialSurveys } = useSuspenseQuery({
+    queryKey: ['survey'],
+    queryFn: () => fetchSurveys('special'),
+  });
 
   return (
     <section className="w-full px-4 md:px-8 2xl:px-0 flex justify-center py-16">
@@ -32,7 +31,7 @@ const SpecialSurveys = () => {
               </>
             }
           >
-            {publicSurveys.map((item) => (
+            {specialSurveys.map((item) => (
               <SurveyItem key={item.id} item={item} />
             ))}
           </Suspense>
@@ -41,5 +40,4 @@ const SpecialSurveys = () => {
     </section>
   );
 };
-
 export default SpecialSurveys;

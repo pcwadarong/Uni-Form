@@ -1,21 +1,15 @@
+import { fetchSurveys } from '@/store/survey';
 import { Suspense } from 'react';
-import { surveyData } from '@/mocks/surveyData';
-import { filterAndSortSurveyData } from '@/utils/filterAndSortData';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import CommentItem from '@/components/survey/commentItem';
 import CommentSkeleton from '@/components/survey/commentSkeleton';
 
 const LatestComments: React.FC = () => {
-  const filteredComment = filterAndSortSurveyData(
-    surveyData,
-    (item) => item.comments.length > 0,
-    (a, b) => {
-      return (
-        new Date(b.comments[b.comments.length - 1].createdDate).getTime() -
-        new Date(a.comments[a.comments.length - 1].createdDate).getTime()
-      );
-    },
-  ).slice(0, 4);
+  const { data: latestComments } = useSuspenseQuery({
+    queryKey: ['latestComments'],
+    queryFn: () => fetchSurveys('latestComments'),
+  });
 
   return (
     <section className="bg-white w-full px-4 md:px-8 2xl:px-0 flex justify-center py-16">
@@ -35,14 +29,13 @@ const LatestComments: React.FC = () => {
               <CommentSkeleton />
             </div>
           }
-        ></Suspense>
-        {surveyData.length > 0 && (
+        >
           <ul className="grid md:grid-cols-2 gap-4 md:gap-8 mb-8">
-            {filteredComment.map((item) => (
+            {latestComments.map((item) => (
               <CommentItem key={item.id} item={item} />
             ))}
           </ul>
-        )}
+        </Suspense>
       </div>
     </section>
   );

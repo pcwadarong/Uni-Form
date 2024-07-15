@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { SURVEY_CATEGORY, RECRUIT_CATEGORY } from '@/constants/category';
-import { useAuthStore } from '@/store';
+import { useAuthStore } from '@/store/auth';
 import useHandleLogout from '@/hooks/useHandleLogout';
 import {
   Accordion,

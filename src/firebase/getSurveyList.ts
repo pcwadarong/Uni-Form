@@ -1,9 +1,9 @@
 import { collection, getDocs, doc, getDoc, limit, orderBy, query } from 'firebase/firestore';
 import { firestore } from './firebasConfig';
-import { Survey, SurveyInfoType } from '@/types';
+import { Survey, SurveyInfoType, SortType } from '@/types';
 
 export const getSurveys = async (
-  queryType: 'public' | 'latest' | 'special' | 'popular',
+  queryType: SortType,
 ): Promise<Survey[]> => {
   try {
     const surveysRef = collection(firestore, 'surveys');
@@ -27,6 +27,10 @@ export const getSurveys = async (
           limit(4),
         );
         break;
+      case 'latestComments':
+        q = query(surveysRef, orderBy('comments.createdDate', 'desc'), limit(4));
+        break;
+
       default:
         throw new Error('Unsupported query type');
     }
@@ -54,6 +58,8 @@ export const getSurveys = async (
     return [];
   }
 };
+
+
 
 export const getSurveyDetail = async (id: string): Promise<SurveyInfoType | null> => {
   try {

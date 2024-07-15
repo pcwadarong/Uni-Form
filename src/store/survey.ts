@@ -2,34 +2,12 @@ import { create } from 'zustand';
 import { BroadcastChannel } from 'broadcast-channel';
 import type { Survey, SurveyInfoType, Question, QuestionType, SortType } from '@/types';
 import { getSurveys } from '../firebase/getSurveyList';
-import { useQuery, QueryClient } from '@tanstack/react-query';
 
 // surveylist
 export const fetchSurveys = async (type: SortType) => {
   const surveys = await getSurveys(type);
   return surveys;
 };
-
-export const useSurveys = (type: SortType) => {
-  return useQuery(['surveys', type], () => fetchSurveys(type));
-};
-
-// interface PublicSurveysStore {
-//   publicSurveys: Survey[] | null;
-//   fetchSurveys: () => Promise<void>;
-// }
-
-// export const usePublicSurveyStore = create<PublicSurveysStore>((set) => ({
-//   publicSurveys: null,
-//   fetchSurveys: async () => {
-//     try {
-//       const surveys = await getPublicSurveys();
-//       set({ publicSurveys: surveys });
-//     } catch (error) {
-//       console.error('Error getting public surveys:', error);
-//     }
-//   },
-// }));
 
 // selected survey (open modal)
 interface SelectedSurveyStore {

@@ -3,7 +3,7 @@ import Image from 'next/image';
 import UserMenu from './navMdRight';
 import { useState, useEffect } from 'react';
 import NavSmRight from './navSmRight';
-import { useAuthStore } from '@/store';
+import { useAuthStore } from '@/store/auth';
 import useHandleLogout from '@/hooks/useHandleLogout';
 
 export default function NavRight() {

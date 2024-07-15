@@ -78,4 +78,4 @@ export type QuestionType =
   | 'file';
 // 추가될 타입들: | 'category' | 'table' | 'schedule' | 'score'
 
-export type SortType = 'public' | 'latest' | 'special' | 'popular';
+export type SortType = 'public' | 'latest' | 'special' | 'popular' | 'latestComments';

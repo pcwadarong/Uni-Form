@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, Suspense, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { useSelectedSurveyStore } from '@/store';
+import { useSelectedSurveyStore } from '@/store/survey';
 import { surveyData } from '@/mocks/surveyData';
 import { Survey } from '@/types';
 import RecruitItem from '../recruit/recruitItem';

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
 import useHandleLogout from '@/hooks/useHandleLogout';
-import { useAuthStore } from '@/store';
+import { useAuthStore } from '@/store/auth';
 import Image from 'next/image';
 
 const UserMenu = () => {
