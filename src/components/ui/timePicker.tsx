@@ -7,9 +7,9 @@ import {
 } from '@/components/ui/select';
 
 type TimePickerProps = {
-  type: 'start' | 'end';
+  type: 'begin' | 'finish';
   date: Date | undefined;
-  onChange: (type: 'start' | 'end', period: string, hours: number, minutes: number) => void;
+  onChange: (type: 'begin' | 'finish', period: string, hours: number, minutes: number) => void;
 };
 
 const TimePicker: React.FC<TimePickerProps> = ({ type, date, onChange }) => {

@@ -1,10 +1,9 @@
-import { Survey } from '@/types';
+import { Survey, Recruit } from '@/types';
 import parseDateString from './parseDateString';
 
-const calculateDeadlineMatch = (item: Survey, deadline: string) => {
-  const endDate = parseDateString(item.duration.split(' ~ ')[1]);
+export const calculateDeadlineMatch = (item: Survey | Recruit, deadline: string) => {
   const currentDate = new Date();
-  const diffTime = endDate.getTime() - currentDate.getTime();
+  const diffTime = parseDateString(item.endDate).getTime() - currentDate.getTime();
   const date = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   return (
     deadline === 'all' ||
@@ -12,5 +11,3 @@ const calculateDeadlineMatch = (item: Survey, deadline: string) => {
     (deadline === '15' && date >= parseInt(deadline))
   );
 };
-
-export default calculateDeadlineMatch;

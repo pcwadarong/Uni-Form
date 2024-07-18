@@ -3,11 +3,11 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Date from './date';
-import { Survey } from '@/types';
+import { Recruit } from '@/types';
 import { openDetailModal, handleEnterKeyPress } from '@/utils/handleModal';
 import { getRandomColor } from '@/utils/getRandomColor';
 
-const RecruitItem: React.FC<{ item: Survey }> = ({ item }) => {
+const RecruitItem: React.FC<{ item: Recruit }> = ({ item }) => {
   const [randomClass, setRandomClass] = useState('');
 
   useEffect(() => {
@@ -27,7 +27,7 @@ const RecruitItem: React.FC<{ item: Survey }> = ({ item }) => {
           <Image
             className="w-full h-full object-cover"
             src={item.img}
-            alt="survey image"
+            alt="Recruit image"
             width={100}
             height={100}
           />
@@ -35,10 +35,10 @@ const RecruitItem: React.FC<{ item: Survey }> = ({ item }) => {
       </div>
       <div className="px-6 py-6 flex flex-col justify-between bg-white flex-grow">
         <div>
-          <Date duration={item.duration} />
+          <Date startDate={item.startDate} endDate={item.endDate} />
           <h3 className="body1 md:text-xl mt-3 mb-2 line-clamp-2">{item.title}</h3>
         </div>
-        <p className="caption text-gray-4 truncate">{item.duration}</p>
+        <p className="caption text-gray-4 truncate">{`${item.startDate} ~ ${item.endDate}`}</p>
       </div>
     </li>
   );

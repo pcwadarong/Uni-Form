@@ -1,43 +1,47 @@
-import { Survey } from '@/types';
+import { Recruit, Survey } from '@/types';
 import parseDateString from './parseDateString';
 
 function parseId(id: string) {
   const parts = id.split('-');
-  const dateStr = `${parts[0]}-${parts[1]}-${parts[2]}`;
+  const type = parts[0];
+  const dateStr = `${parts[1]}-${parts[12]}-${parts[3]}`;
   const date = new Date(dateStr);
-  const num = parseInt(parts[3], 10);
-  return { date, num };
+  const num = parseInt(parts[4], 10);
+  return { type, date, num };
 }
 
-export const getSelectedItems = (items: Survey[], sortType: string) => {
+export const getSelectedItems = (items: Survey[] | Recruit[], sortType: string) => {
   return [...items].sort((a, b) => {
+    const parsedA = parseId(a.id);
+    const parsedB = parseId(b.id);
+
     if (sortType === 'random') {
       return Math.random() - 0.5;
-    } else if (sortType === 'point-asc') {
-      return b.point - a.point;
-    } else if (sortType === 'popular-asc') {
-      if (b.response !== a.response) {
-        return b.response - a.response;
-      } else if (b.comments.length !== a.comments.length) {
-        return b.comments.length - a.comments.length;
+    } else if (sortType === 'point-asc' && parsedA.type === 'survey' && parsedB.type === 'survey') {
+      return (a as Survey).point - (b as Survey).point;
+    } else if (
+      sortType === 'popular-asc' &&
+      parsedA.type === 'survey' &&
+      parsedB.type === 'survey'
+    ) {
+      const surveyA = a as Survey;
+      const surveyB = b as Survey;
+      if (surveyB.response.length !== surveyA.response.length) {
+        return surveyB.response.length - surveyA.response.length;
+      } else if (surveyB.comments.length !== surveyA.comments.length) {
+        return surveyB.comments.length - surveyA.comments.length;
       } else {
-        const parsedA = parseId(a.id);
-        const parsedB = parseId(b.id);
-        // 날짜를 비교
+        // Compare dates
         if (parsedA.date > parsedB.date) return -1;
         if (parsedA.date < parsedB.date) return 1;
-        // 날짜가 같으면 숫자를 비교
+        // Compare numbers
         if (parsedA.num > parsedB.num) return -1;
         if (parsedA.num < parsedB.num) return 1;
         return 0;
       }
     } else if (sortType === 'date-desc') {
-      const parsedA = parseId(a.id);
-      const parsedB = parseId(b.id);
-      // 날짜를 비교하여 최신 순으로 정렬
       if (parsedA.date > parsedB.date) return -1;
       if (parsedA.date < parsedB.date) return 1;
-      // 날짜가 같으면 숫자를 비교하여 최신 순으로 정렬
       if (parsedA.num > parsedB.num) return -1;
       if (parsedA.num < parsedB.num) return 1;
       return 0;
@@ -54,10 +58,10 @@ export const onChangeSortType = (newType: string) => {
   window.history.pushState({}, '', url.toString());
 };
 
-export const filterInProgressData = (data: Survey[]) => {
+export const filterInProgressData = (data: Survey[] | Recruit[]) => {
   const currentTime = new Date().getTime();
   return data.filter((item) => {
-    const endTime = parseDateString(item.duration.split(' ~ ')[1]).getTime();
+    const endTime = parseDateString(item.endDate).getTime();
     return endTime > currentTime;
   });
 };

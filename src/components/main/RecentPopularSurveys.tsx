@@ -1,19 +1,20 @@
-import { fetchSurveys } from '@/store/survey';
+import { getSurveys } from '@/firebase/getSurveyList';
 import Link from 'next/link';
 import SurveyItem from '@/components/survey/surveyItem';
 import SurveySkeleton from '@/components/survey/surveySkeleton';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { Suspense } from 'react';
+import { Survey } from '@/types';
 
 const RecentPopularSurveys = () => {
   const { data: latestSurveys } = useSuspenseQuery({
     queryKey: ['survey'],
-    queryFn: () => fetchSurveys('latest'),
+    queryFn: () => getSurveys('survey', 'latest'),
   });
 
   const { data: popularSurveys } = useSuspenseQuery({
     queryKey: ['survey'],
-    queryFn: () => fetchSurveys('popular'),
+    queryFn: () => getSurveys('survey', 'popular'),
   });
 
   return (
@@ -37,7 +38,7 @@ const RecentPopularSurveys = () => {
                 }
               >
                 {latestSurveys.map((item) => (
-                  <SurveyItem key={item.id} item={item} />
+                  <SurveyItem key={item.id} item={item as Survey} />
                 ))}
               </Suspense>
             </ul>
@@ -59,7 +60,7 @@ const RecentPopularSurveys = () => {
                 }
               >
                 {popularSurveys.map((item) => (
-                  <SurveyItem key={item.id} item={item} />
+                  <SurveyItem key={item.id} item={item as Survey} />
                 ))}
               </Suspense>
             </ul>

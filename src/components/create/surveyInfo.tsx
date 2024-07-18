@@ -122,7 +122,7 @@ const SurveyInfo = ({ mode, onEditToggle }: Props) => {
               {surveyInfo.description}
             </p>
             <span className="bg-gray-1 p-2 rounded-full text-gray-4" aria-label="Survey duration">
-              {surveyInfo.duration}
+              {`${surveyInfo.startDate} ~ ${surveyInfo.endDate}`}
             </span>
           </div>
         </div>

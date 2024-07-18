@@ -21,23 +21,23 @@ const roundMinutes = (date: Date) => {
 const SetDuration = () => {
   const { surveyInfo, setSurveyInfo } = useSurveyStore();
   const [isOpened, setIsOpened] = useState(false);
-  const [startVisible, setStartVisible] = useState(false);
-  const [startDateVisible, setStartDateVisible] = useState(false);
-  const [startTimeVisible, setStartTimeVisible] = useState(false);
-  const [endVisible, setEndVisible] = useState(false);
-  const [endDateVisible, setEndDateVisible] = useState(false);
-  const [endTimeVisible, setEndTimeVisible] = useState(false);
+  const [beginVisible, setBeginVisible] = useState(false);
+  const [beginDateVisible, setBeginDateVisible] = useState(false);
+  const [beginTimeVisible, setBeginTimeVisible] = useState(false);
+  const [finishVisible, setFinishVisible] = useState(false);
+  const [finishDateVisible, setFinishDateVisible] = useState(false);
+  const [finishTimeVisible, setFinishTimeVisible] = useState(false);
 
-  const initialStartDate = roundMinutes(new Date());
-  const initialEndDate = roundMinutes(new Date(Date.now() + 7 * 24 * 60 * 60 * 1000));
+  const initialBeginDate = roundMinutes(new Date());
+  const initialFinishDate = roundMinutes(new Date(Date.now() + 7 * 24 * 60 * 60 * 1000));
 
-  const [startDate, setStartDate] = useState<Date | undefined>(initialStartDate);
-  const [endDate, setEndDate] = useState<Date | undefined>(initialEndDate);
+  const [beginDate, setBeginDate] = useState<Date | undefined>(initialBeginDate);
+  const [finishDate, setFinishDate] = useState<Date | undefined>(initialFinishDate);
 
   useEffect(() => {
     if (isOpened) {
-      setStartDate(roundMinutes(new Date()));
-      setEndDate(roundMinutes(new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)));
+      setBeginDate(roundMinutes(new Date()));
+      setFinishDate(roundMinutes(new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)));
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
@@ -48,44 +48,43 @@ const SetDuration = () => {
   }, [isOpened]);
 
   useEffect(() => {
-    if (startDateVisible && endDateVisible) {
-      setStartDateVisible(false);
+    if (beginDateVisible && finishDateVisible) {
+      setBeginDateVisible(false);
     }
-  }, [endDateVisible]);
+  }, [finishDateVisible]);
 
   useEffect(() => {
-    if (startDateVisible && endDateVisible) {
-      setEndDateVisible(false);
+    if (beginDateVisible && finishDateVisible) {
+      setFinishDateVisible(false);
     }
-  }, [startDateVisible]);
+  }, [beginDateVisible]);
 
   const toggleModal = useCallback(() => {
     setIsOpened(!isOpened);
-    setStartVisible(false);
-    setStartDateVisible(false);
-    setStartTimeVisible(false);
-    setEndVisible(false);
-    setEndDateVisible(false);
-    setEndTimeVisible(false);
+    setBeginVisible(false);
+    setBeginDateVisible(false);
+    setBeginTimeVisible(false);
+    setFinishVisible(false);
+    setFinishDateVisible(false);
+    setFinishTimeVisible(false);
   }, [isOpened]);
 
   const saveDuration = useCallback(() => {
-    let start = '바로 시작';
-    let end = '제한 없음';
+    let begin = '바로 시작';
+    let finish = '제한 없음';
 
-    if (startVisible)
-      start = `${formatDate(startDate).split(' / ')[0]}. ${formatDate(startDate).split(' / ')[1]}`;
-    if (endVisible)
-      end = `${formatDate(endDate).split(' / ')[0]}. ${formatDate(endDate).split(' / ')[1]}`;
+    if (beginVisible)
+      begin = `${formatDate(beginDate).split(' / ')[0]}. ${formatDate(beginDate).split(' / ')[1]}`;
+    if (finishVisible)
+      finish = `${formatDate(finishDate).split(' / ')[0]}. ${formatDate(finishDate).split(' / ')[1]}`;
 
-    const durationFormat = `${start} ~ ${end}`;
-    setSurveyInfo({ ...surveyInfo, duration: durationFormat });
+    setSurveyInfo({ ...surveyInfo, startDate: begin, endDate: finish });
     setIsOpened(!isOpened);
-  }, [startVisible, endVisible, startDate, endDate, setSurveyInfo, surveyInfo]);
+  }, [beginVisible, finishVisible, beginDate, finishDate, setSurveyInfo, surveyInfo]);
 
   const handleTimeChange = useCallback(
-    (type: 'start' | 'end', period: string, hours: number, minutes: number) => {
-      const date = type === 'start' ? startDate : endDate;
+    (type: 'begin' | 'finish', period: string, hours: number, minutes: number) => {
+      const date = type === 'begin' ? beginDate : finishDate;
       if (date) {
         const newDate = new Date(date);
 
@@ -97,24 +96,24 @@ const SetDuration = () => {
         newDate.setHours(hours);
         newDate.setMinutes(minutes);
 
-        if (type === 'end' && startDate) {
-          const startTime = new Date(startDate);
+        if (type === 'finish' && beginDate) {
+          const beginTime = new Date(beginDate);
           if (
-            newDate.toDateString() === startTime.toDateString() &&
-            newDate.getTime() < startTime.getTime()
+            newDate.toDateString() === beginTime.toDateString() &&
+            newDate.getTime() < beginTime.getTime()
           ) {
             alert('종료 시간은 시작 시간보다 이를 수 없습니다.');
             return;
           }
         }
-        if (type === 'start') {
-          setStartDate(newDate);
+        if (type === 'begin') {
+          setBeginDate(newDate);
         } else {
-          setEndDate(newDate);
+          setFinishDate(newDate);
         }
       }
     },
-    [startDate, endDate],
+    [beginDate, finishDate],
   );
 
   const CalendarMemo = useMemo(() => {
@@ -129,7 +128,7 @@ const SetDuration = () => {
     <div className="px-2 mb-4">
       <span className="subtitle mr-2">설문 기간</span>
       <button className="bg-gray-1 p-2 rounded-full text-gray-4" onClick={toggleModal}>
-        {surveyInfo.duration}
+        {`${surveyInfo.startDate} ~ ${surveyInfo.endDate}`}
       </button>
       {isOpened && (
         <>
@@ -145,55 +144,55 @@ const SetDuration = () => {
                 <div>
                   <input
                     type="radio"
-                    name="start"
-                    id="start-immediate"
+                    name="begin"
+                    id="begin-immediate"
                     className="ml-4"
-                    onClick={() => setStartVisible(false)}
+                    onClick={() => setBeginVisible(false)}
                     defaultChecked
                   />
-                  <label className="ml-2 mr-4" htmlFor="start-immediate">
+                  <label className="ml-2 mr-4" htmlFor="begin-immediate">
                     바로 시작
                   </label>
                 </div>
                 <div>
                   <input
                     type="radio"
-                    name="start"
-                    id="start-custom"
-                    onClick={() => setStartVisible(true)}
+                    name="begin"
+                    id="begin-custom"
+                    onClick={() => setBeginVisible(true)}
                   />
-                  <label className="ml-2" htmlFor="start-custom">
+                  <label className="ml-2" htmlFor="begin-custom">
                     직접 설정
                   </label>
                 </div>
               </div>
-              {startVisible && (
+              {beginVisible && (
                 <div className="flex flex-col items-start relative">
                   <button
-                    onClick={() => setStartDateVisible(!startDateVisible)}
-                    aria-expanded={startDateVisible}
+                    onClick={() => setBeginDateVisible(!beginDateVisible)}
+                    aria-expanded={beginDateVisible}
                     className="py-2 px-3 border-[1px] w-full border-gray-2 rounded-lg text-left mb-2"
                   >
-                    {formatDate(startDate).split(' / ')[0]}
+                    {formatDate(beginDate).split(' / ')[0]}
                   </button>
-                  {startDateVisible && (
+                  {beginDateVisible && (
                     <CalendarMemo
                       mode="single"
-                      selected={startDate}
-                      onDayClick={setStartDate}
+                      selected={beginDate}
+                      onDayClick={setBeginDate}
                       className="rounded-2xl bg-white xl:absolute top-11 xl:shadow-lg z-50"
                       fromDate={new Date()}
                     />
                   )}
                   <button
-                    onClick={() => setStartTimeVisible(!startTimeVisible)}
-                    aria-expanded={startTimeVisible}
+                    onClick={() => setBeginTimeVisible(!beginTimeVisible)}
+                    aria-expanded={beginTimeVisible}
                     className="py-2 px-3 border-[1px] w-full border-gray-2 rounded-lg text-left"
                   >
-                    {formatDate(startDate).split(' / ')[1]}
+                    {formatDate(beginDate).split(' / ')[1]}
                   </button>
-                  {startTimeVisible && (
-                    <TimePickerMemo type={'start'} date={startDate} onChange={handleTimeChange} />
+                  {beginTimeVisible && (
+                    <TimePickerMemo type={'begin'} date={beginDate} onChange={handleTimeChange} />
                   )}
                 </div>
               )}
@@ -202,10 +201,10 @@ const SetDuration = () => {
                 <div>
                   <input
                     type="radio"
-                    name="end"
+                    name="finish"
                     id="endless"
                     className="ml-4"
-                    onClick={() => setEndVisible(false)}
+                    onClick={() => setFinishVisible(false)}
                     defaultChecked
                   />
                   <label className="ml-2 mr-4" htmlFor="endless">
@@ -215,42 +214,42 @@ const SetDuration = () => {
                 <div>
                   <input
                     type="radio"
-                    name="end"
-                    id="end-custom"
-                    onClick={() => setEndVisible(true)}
+                    name="finish"
+                    id="finish-custom"
+                    onClick={() => setFinishVisible(true)}
                   />
-                  <label className="ml-2" htmlFor="end-custom">
+                  <label className="ml-2" htmlFor="finish-custom">
                     직접 설정
                   </label>
                 </div>
               </div>
-              {endVisible && (
+              {finishVisible && (
                 <div className="flex flex-col items-end relative">
                   <button
-                    onClick={() => setEndDateVisible(!endDateVisible)}
-                    aria-expanded={endDateVisible}
+                    onClick={() => setFinishDateVisible(!finishDateVisible)}
+                    aria-expanded={finishDateVisible}
                     className="py-2 px-3 border-[1px] w-full border-gray-2 rounded-lg text-left mb-2"
                   >
-                    {formatDate(endDate).split(' / ')[0]}
+                    {formatDate(finishDate).split(' / ')[0]}
                   </button>
-                  {endDateVisible && (
+                  {finishDateVisible && (
                     <CalendarMemo
                       mode="single"
-                      selected={endDate}
-                      onDayClick={setEndDate}
+                      selected={finishDate}
+                      onDayClick={setFinishDate}
                       className="rounded-2xl bg-white xl:absolute top-11 xl:shadow-lg z-50"
-                      fromDate={startDate}
+                      fromDate={beginDate}
                     />
                   )}
                   <button
-                    onClick={() => setEndTimeVisible(!endTimeVisible)}
-                    aria-expanded={endTimeVisible}
+                    onClick={() => setFinishTimeVisible(!finishTimeVisible)}
+                    aria-expanded={finishTimeVisible}
                     className="py-2 px-3 border-[1px] w-full border-gray-2 rounded-lg text-left"
                   >
-                    {formatDate(endDate).split(' / ')[1]}
+                    {formatDate(finishDate).split(' / ')[1]}
                   </button>
-                  {endTimeVisible && (
-                    <TimePickerMemo type={'end'} date={endDate} onChange={handleTimeChange} />
+                  {finishTimeVisible && (
+                    <TimePickerMemo type={'finish'} date={finishDate} onChange={handleTimeChange} />
                   )}
                 </div>
               )}

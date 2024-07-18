@@ -1,11 +1,16 @@
 import { Suspense } from 'react';
-import { surveyData } from '@/mocks/surveyData';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { getSurveys } from '@/firebase/getSurveyList';
 import Link from 'next/link';
 import RecruitItem from '@/components/recruit/recruitItem';
 import RecruitSkeleton from '@/components/recruit/recruitSkeleton';
+import { Recruit } from '@/types';
 
 const ClosingRecruits = () => {
-  const randomizedData = surveyData.sort(() => 0.5 - Math.random()).slice(0, 3);
+  const { data: closingRecruits } = useSuspenseQuery({
+    queryKey: ['closingRecruits'],
+    queryFn: () => getSurveys('survey', 'closing'),
+  });
 
   return (
     <section className="bg-white w-full px-4 md:px-8 2xl:px-0 flex justify-center py-16 drop-shadow-sm">
@@ -25,8 +30,8 @@ const ClosingRecruits = () => {
               </>
             }
           >
-            {randomizedData.map((item) => (
-              <RecruitItem key={item.id} item={item} />
+            {closingRecruits.map((item) => (
+              <RecruitItem key={item.id} item={item as Recruit} />
             ))}
           </Suspense>
         </ul>

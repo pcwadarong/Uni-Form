@@ -1,14 +1,15 @@
-import { fetchSurveys } from '@/store/survey';
+import { getSurveys } from '@/firebase/getSurveyList';
 import Link from 'next/link';
 import SurveyItem from '@/components/survey/surveyItem';
 import SurveySkeleton from '@/components/survey/surveySkeleton';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { Suspense } from 'react';
+import { Survey } from '@/types';
 
 const SpecialSurveys = () => {
   const { data: specialSurveys } = useSuspenseQuery({
     queryKey: ['survey'],
-    queryFn: () => fetchSurveys('special'),
+    queryFn: () => getSurveys('survey', 'special'),
   });
 
   return (
@@ -32,7 +33,7 @@ const SpecialSurveys = () => {
             }
           >
             {specialSurveys.map((item) => (
-              <SurveyItem key={item.id} item={item} />
+              <SurveyItem key={item.id} item={item as Survey} />
             ))}
           </Suspense>
         </ul>

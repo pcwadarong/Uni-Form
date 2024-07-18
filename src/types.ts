@@ -1,8 +1,3 @@
-export interface FirebaseError {
-  code: string;
-  message: string;
-}
-
 export interface User {
   email: string;
   nickname: string;
@@ -15,16 +10,24 @@ type Comment = {
   createdDate: string;
 };
 
-export interface Survey {
+type Response = {
+  id: number;
+};
+
+export interface Recruit {
   id: string;
   title: string;
-  info: string;
+  info?: string;
   img?: string;
-  duration: string;
-  point: number;
-  response: number;
-  comments: Comment[];
+  startDate: string;
+  endDate: string;
   category: string;
+  response: Response[];
+}
+
+export interface Survey extends Recruit {
+  point: number;
+  comments: Comment[];
 }
 
 // 공통으로 사용되는 Option 타입
@@ -48,22 +51,23 @@ export interface Question {
 // QuestionProps 인터페이스
 export interface QuestionProps {
   question: Question;
-  mode: SurveyMode;
+  mode: ModeType;
 }
 
-// SurveyInfo 인터페이스
-export interface SurveyInfoType {
+// Info 인터페이스
+export interface InfoType {
   questions: Question[];
   imageUrl: string;
   title: string;
   description: string;
-  duration: string;
+  startDate: string;
+  endDate: string;
   mode: 'editing' | 'viewing';
   isPublic: boolean;
 }
 
 // 질문 모드 타입 정의
-export type SurveyMode = 'editing' | 'previewing' | 'testing' | 'responding';
+export type ModeType = 'editing' | 'previewing' | 'testing' | 'responding';
 
 // 질문 타입 정의
 export type QuestionType =
@@ -78,4 +82,4 @@ export type QuestionType =
   | 'file';
 // 추가될 타입들: | 'category' | 'table' | 'schedule' | 'score'
 
-export type SortType = 'public' | 'latest' | 'special' | 'popular' | 'latestComments';
+export type SortType = 'public' | 'latest' | 'special' | 'popular' | 'latestComments' | 'closing';

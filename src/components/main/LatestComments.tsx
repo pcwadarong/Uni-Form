@@ -1,14 +1,15 @@
-import { fetchSurveys } from '@/store/survey';
+import { getSurveys } from '@/firebase/getSurveyList';
 import { Suspense } from 'react';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import CommentItem from '@/components/survey/commentItem';
 import CommentSkeleton from '@/components/survey/commentSkeleton';
+import { Survey } from '@/types';
 
 const LatestComments: React.FC = () => {
   const { data: latestComments } = useSuspenseQuery({
     queryKey: ['latestComments'],
-    queryFn: () => fetchSurveys('latestComments'),
+    queryFn: () => getSurveys('survey', 'latestComments'),
   });
 
   return (
@@ -32,7 +33,7 @@ const LatestComments: React.FC = () => {
         >
           <ul className="grid md:grid-cols-2 gap-4 md:gap-8 mb-8">
             {latestComments.map((item) => (
-              <CommentItem key={item.id} item={item} />
+              <CommentItem key={item.id} item={item as Survey} />
             ))}
           </ul>
         </Suspense>

@@ -1,14 +1,14 @@
 interface Props {
-  duration: string;
+  startDate: string;
+  endDate: string;
 }
 import parseDateString from '@/utils/parseDateString';
 
-export default function Special({ duration }: Props) {
+export default function Special({ startDate, endDate }: Props) {
   let date = 0;
-  if (duration) {
-    const endDate = parseDateString(duration.split(' ~ ')[1]);
+  if (startDate) {
     const currentDate = new Date();
-    const diffTime = endDate.getTime() - currentDate.getTime();
+    const diffTime = parseDateString(endDate).getTime() - currentDate.getTime();
     date = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   }
 

@@ -1,18 +1,11 @@
 import { create } from 'zustand';
 import { BroadcastChannel } from 'broadcast-channel';
-import type { Survey, SurveyInfoType, Question, QuestionType, SortType } from '@/types';
-import { getSurveys } from '../firebase/getSurveyList';
-
-// surveylist
-export const fetchSurveys = async (type: SortType) => {
-  const surveys = await getSurveys(type);
-  return surveys;
-};
+import type { Survey, Recruit, InfoType, Question, QuestionType } from '@/types';
 
 // selected survey (open modal)
 interface SelectedSurveyStore {
-  selectedItem: Survey | null;
-  setSelectedItem: (item: Survey | null) => void;
+  selectedItem: Survey | Recruit | null;
+  setSelectedItem: (item: Survey | Recruit | null) => void;
 }
 
 export const useSelectedSurveyStore = create<SelectedSurveyStore>((set) => ({
@@ -24,10 +17,10 @@ export const useSelectedSurveyStore = create<SelectedSurveyStore>((set) => ({
 const broadcast = new BroadcastChannel('zustand_channel');
 
 interface SurveyStore {
-  surveyInfo: SurveyInfoType;
+  surveyInfo: InfoType;
   updateQuestion: (id: number, updatedQuestion: Question) => void;
   updateQuestionType: (id: number, newType: QuestionType) => void;
-  setSurveyInfo: (info: Partial<SurveyInfoType>) => void;
+  setSurveyInfo: (info: Partial<InfoType>) => void;
 }
 
 export const useSurveyStore = create<SurveyStore>((set) => ({
@@ -48,7 +41,8 @@ export const useSurveyStore = create<SurveyStore>((set) => ({
     imageUrl: '',
     title: '',
     description: '',
-    duration: '바로시작~제한없음',
+    startDate: '바로시작',
+    endDate: '제한없음',
     mode: 'editing',
     isPublic: false,
   },
@@ -126,7 +120,7 @@ export const useSurveyStore = create<SurveyStore>((set) => ({
 
 // BroadcastChannel 메시지 수신 설정
 broadcast.onmessage = (event) => {
-  const newState = event as SurveyInfoType;
+  const newState = event as InfoType;
   useSurveyStore.setState({
     surveyInfo: newState,
   });

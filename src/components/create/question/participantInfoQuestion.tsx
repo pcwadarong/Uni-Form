@@ -19,6 +19,9 @@ const ParticipantInfoQuestion: React.FC<QuestionProps> = ({ question, mode }) =>
     contact: { label: '연락처', placeholder: '연락처를 입력해주세요. (- 없이 번호만 입력)' },
     address: { label: '주소', placeholder: '기본 주소를 입력해주세요' },
     email: { label: '이메일 주소', placeholder: '이메일 주소를 입력해주세요' },
+    department: { label: '학과', placeholder: '학과를 입력해주세요' },
+    studentId: { label: '학번', placeholder: '학번을 입력해주세요' },
+    grade: { label: '학년', placeholder: '학년을 입력해주세요' },
   };
 
   return (
@@ -49,7 +52,7 @@ const ParticipantInfoQuestion: React.FC<QuestionProps> = ({ question, mode }) =>
           <Options id={question.id} />
         </>
       ) : (
-        <div className='flex flex-col gap-2'>
+        <div className="flex flex-col gap-2">
           <label
             className="overflow-hidden bg-gray-1 mt-3"
             aria-label={`${optionMap[selectedOption].placeholder}`}
