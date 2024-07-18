@@ -1,4 +1,4 @@
-import { getSurveys } from '@/firebase/getSurveyList';
+import { fetchSurveysOrRecruitsList } from '@/firebase/fetchDatas';
 import Link from 'next/link';
 import SurveyItem from '@/components/survey/surveyItem';
 import SurveySkeleton from '@/components/survey/surveySkeleton';
@@ -9,12 +9,12 @@ import { Survey } from '@/types';
 const RecentPopularSurveys = () => {
   const { data: latestSurveys } = useSuspenseQuery({
     queryKey: ['survey'],
-    queryFn: () => getSurveys('survey', 'latest'),
+    queryFn: () => fetchSurveysOrRecruitsList('survey', 'latest'),
   });
 
   const { data: popularSurveys } = useSuspenseQuery({
     queryKey: ['survey'],
-    queryFn: () => getSurveys('survey', 'popular'),
+    queryFn: () => fetchSurveysOrRecruitsList('survey', 'popular'),
   });
 
   return (

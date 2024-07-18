@@ -40,7 +40,7 @@ const SurveyItem: React.FC<{ item: Survey }> = ({ item }) => {
           <h3 className="body1 md:text-xl mt-3 mb-2 line-clamp-2">{item.title}</h3>
           <p className="caption text-gray-4 truncate">{`${item.startDate} ~ ${item.endDate}`}</p>
         </div>
-        <Reaction response={item.response} comments={item.comments} />
+        <Reaction response={item.responses} comments={item.comments} />
       </div>
     </li>
   );

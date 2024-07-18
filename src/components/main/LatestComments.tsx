@@ -1,4 +1,4 @@
-import { getSurveys } from '@/firebase/getSurveyList';
+import { fetchSurveysOrRecruitsList } from '@/firebase/fetchDatas';
 import { Suspense } from 'react';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import Link from 'next/link';
@@ -9,7 +9,7 @@ import { Survey } from '@/types';
 const LatestComments: React.FC = () => {
   const { data: latestComments } = useSuspenseQuery({
     queryKey: ['latestComments'],
-    queryFn: () => getSurveys('survey', 'latestComments'),
+    queryFn: () => fetchSurveysOrRecruitsList('survey', 'latestComments'),
   });
 
   return (

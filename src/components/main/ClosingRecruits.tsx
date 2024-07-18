@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { getSurveys } from '@/firebase/getSurveyList';
+import { fetchSurveysOrRecruitsList } from '@/firebase/fetchDatas';
 import Link from 'next/link';
 import RecruitItem from '@/components/recruit/recruitItem';
 import RecruitSkeleton from '@/components/recruit/recruitSkeleton';
@@ -9,7 +9,7 @@ import { Recruit } from '@/types';
 const ClosingRecruits = () => {
   const { data: closingRecruits } = useSuspenseQuery({
     queryKey: ['closingRecruits'],
-    queryFn: () => getSurveys('survey', 'closing'),
+    queryFn: () => fetchSurveysOrRecruitsList('survey', 'closing'),
   });
 
   return (

@@ -1,4 +1,4 @@
-import { getSurveys } from '@/firebase/getSurveyList';
+import { fetchSurveysOrRecruitsList } from '@/firebase/fetchDatas';
 import Link from 'next/link';
 import SurveyItem from '@/components/survey/surveyItem';
 import SurveySkeleton from '@/components/survey/surveySkeleton';
@@ -9,7 +9,7 @@ import { Survey } from '@/types';
 const SpecialSurveys = () => {
   const { data: specialSurveys } = useSuspenseQuery({
     queryKey: ['survey'],
-    queryFn: () => getSurveys('survey', 'special'),
+    queryFn: () => fetchSurveysOrRecruitsList('survey', 'special'),
   });
 
   return (

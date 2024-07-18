@@ -1,42 +1,42 @@
 export interface User {
-  email: string;
-  nickname: string;
   uid: string;
+  nickname: string;
+  email: string;
+  role: string;
+  createdSurveys: string[];
+  responses: string[];
+  comments: string[],
 }
-
-type Comment = {
-  text: string;
-  creator: string;
-  createdDate: string;
-};
-
-type Response = {
-  id: number;
-};
 
 export interface Recruit {
   id: string;
+  uid: string;
   title: string;
-  info?: string;
+  description?: string;
   img?: string;
   startDate: string;
   endDate: string;
   category: string;
-  response: Response[];
 }
 
 export interface Survey extends Recruit {
   point: number;
-  comments: Comment[];
+  responses?: string[];
+  comments?: string[];
+  lastCommentId?: string;
 }
 
-// 공통으로 사용되는 Option 타입
+export interface InfoType extends Recruit {
+  questions: Question[];
+  mode: 'editing' | 'viewing';
+  isPublic: boolean;
+}
+
 export interface Option {
   id: number;
   value: string;
 }
 
-// 기본 Question 인터페이스 정의
 export interface Question {
   id: number;
   type: QuestionType;
@@ -48,28 +48,13 @@ export interface Question {
   ratingStep?: 0.5 | 1;
 }
 
-// QuestionProps 인터페이스
 export interface QuestionProps {
   question: Question;
   mode: ModeType;
 }
 
-// Info 인터페이스
-export interface InfoType {
-  questions: Question[];
-  imageUrl: string;
-  title: string;
-  description: string;
-  startDate: string;
-  endDate: string;
-  mode: 'editing' | 'viewing';
-  isPublic: boolean;
-}
-
-// 질문 모드 타입 정의
 export type ModeType = 'editing' | 'previewing' | 'testing' | 'responding';
 
-// 질문 타입 정의
 export type QuestionType =
   | 'radio'
   | 'checkbox'
@@ -81,5 +66,19 @@ export type QuestionType =
   | 'star'
   | 'file';
 // 추가될 타입들: | 'category' | 'table' | 'schedule' | 'score'
+
+export interface Comment {
+  id: string;
+  surveyId: string;
+  uid: string;
+  content: string;
+}
+
+export interface Response {
+  responseId: string;
+  surveyId: number;
+  uid: string;
+  timestamp: string;
+}
 
 export type SortType = 'public' | 'latest' | 'special' | 'popular' | 'latestComments' | 'closing';

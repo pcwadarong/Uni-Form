@@ -2,8 +2,9 @@
 
 import React, { useState, useEffect, Suspense, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { fetchSurveysOrRecruitsList } from '@/firebase/fetchDatas';
 import { useSelectedSurveyStore } from '@/store/survey';
-import { surveyData } from '@/mocks/surveyData';
 import { Survey, Recruit } from '@/types';
 import RecruitItem from '../recruit/recruitItem';
 import Image from 'next/image';
@@ -38,18 +39,23 @@ const CommonList: React.FC<Props> = ({ topic, category }) => {
   const [filteredData, setFilteredData] = useState<Survey[] | Recruit[]>([]);
   const [dataList, setDataList] = useState<Survey[] | Recruit[]>([]);
 
-  const initializeData = useCallback(() => {
-    const initialData = surveyData.filter(
+  const { data: initialData } = useSuspenseQuery({
+    queryKey: ['closingRecruits'],
+    queryFn: () => fetchSurveysOrRecruitsList(topic, 'public'),
+  });
+
+  const categorizeData = useCallback(() => {
+    const categorizedData = initialData.filter(
       (item) => category === '전체보기' || item.category === category,
     );
-    const sortedData = getSelectedItems(initialData, sortParam);
+    const sortedData = getSelectedItems(categorizedData, sortParam);
     setOriginalData(sortedData);
     setFilteredData(sortedData);
   }, [category, sortParam]);
 
   useEffect(() => {
-    initializeData();
-  }, [initializeData]);
+    categorizeData();
+  }, [categorizeData]);
 
   useEffect(() => {
     const applyFilters = () => {

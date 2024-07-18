@@ -1,6 +1,6 @@
 import { http, HttpResponse } from 'msw';
 import { getPublicSurveys } from '@/firebase/getSurveyList';
-import { surveyData } from './surveyData';
+import { surveyData } from './surveys';
 
 const handlers = [
   http.get('/api/surveys', async () => {

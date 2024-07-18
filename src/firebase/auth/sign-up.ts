@@ -8,8 +8,12 @@ export const signUp = async (email: string, password: string, nickname: string) 
     const user = userCredential.user;
 
     await setDoc(doc(firestore, 'users', user.uid), {
-      email,
       nickname,
+      email,
+      role: 'user',
+      createdSurveys: [],
+      responses: [],
+      comments: [],
     });
 
     console.log('Sign up successful');

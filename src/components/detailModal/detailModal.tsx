@@ -3,11 +3,18 @@ import { Survey, Recruit } from '@/types';
 import Image from 'next/image';
 import { closeModal } from '@/utils/handleModal';
 import Button from '../common/button';
+import { fetchComments } from '@/firebase/fetchDatas';
+import { useSuspenseQuery } from '@tanstack/react-query';
 
 const DetailModal: React.FC<{ item: Survey | Recruit }> = ({ item }) => {
   const temporary = () => {
     console.log('a');
   };
+
+  const { data: comments } = useSuspenseQuery({
+    queryKey: ['comments', item.id],
+    queryFn: () => fetchComments(item.id),
+  });
 
   return (
     <div className="z-50 relative p-4" role="dialog" aria-modal="true">
@@ -21,24 +28,24 @@ const DetailModal: React.FC<{ item: Survey | Recruit }> = ({ item }) => {
         </button>
         <h4 className="title3 md:text-xl mt-3 mb-2 line-clamp-2">{item.title}</h4>
         <hr className="-mt-3 w-full border-primary"></hr>
-        <span className="line-clamp-3">{item.info}</span>
+        <span className="line-clamp-3">{item.description}</span>
         {'comments' in item && item.comments && (
           <>
             <div className="flex justify-between">
-              <span className="caption text-gray-4 truncate">{item.duration}</span>
-              <Reaction response={item.response} comments={item.comments} />
+              <span className="caption text-gray-4 truncate">{`${item.startDate} ~ ${item.endDate}`}</span>
+              <Reaction response={item.responses} comments={item.comments} />
             </div>
             <div className="overflow-hidden h-52 relative">
-              {item.comments.length > 0 ? (
+              {comments.length > 0 ? (
                 <ul>
                   <div className="absolute bottom-0 left-0 w-full h-14 bg-gradient-to-t from-gray-1"></div>
-                  {item.comments.map((comment, index) => (
+                  {comments.map((comment, index) => (
                     <li
                       key={index}
                       className="w-full p-3 rounded-xl mb-2 border-[1px] border-gray-2 bg-white"
                     >
-                      <h5 className="font-semibold">{comment.creator}</h5>
-                      <p>{comment.text}</p>
+                      <h5 className="font-semibold">{comment.uid}</h5>
+                      <p>{comment.content}</p>
                     </li>
                   ))}
                 </ul>
