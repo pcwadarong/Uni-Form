@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { firestore, auth } from '@/firebase/firebasConfig';
+import { firestore, auth } from '@/firebase/firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
 import { User } from '@/types';
 
