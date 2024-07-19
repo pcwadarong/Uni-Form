@@ -9,7 +9,7 @@ import { Recruit } from '@/types';
 const ClosingRecruits = () => {
   const { data: closingRecruits } = useSuspenseQuery({
     queryKey: ['closingRecruits'],
-    queryFn: () => fetchSurveysOrRecruitsList('survey', 'closing'),
+    queryFn: () => fetchSurveysOrRecruitsList('recruit', 'closing'),
   });
 
   return (

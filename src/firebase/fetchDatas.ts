@@ -62,7 +62,7 @@ export const fetchSurveysOrRecruitsList = async (
           orderBy('startDate', 'desc'),
           limit(4),
         );
-        const q2 = query(ref, where('startDate', '==', '바로 시작'), limit(4));
+        const q2 = query(ref, where('startDate', '==', '바로 시작'), limit(2));
 
         const [querySnapshot1, querySnapshot2] = await Promise.all([getDocs(q1), getDocs(q2)]);
 
@@ -80,7 +80,7 @@ export const fetchSurveysOrRecruitsList = async (
           ref,
           orderBy('responses.length', 'desc'),
           orderBy('comments.length', 'desc'),
-          limit(4),
+          limit(2),
         );
         const querySnapshot4 = await getDocs(q4);
         return querySnapshot4.docs.map((item) => mapDocumentToData(item, surveyType));
@@ -93,7 +93,7 @@ export const fetchSurveysOrRecruitsList = async (
           ref,
           where('endDate', '!=', '제한 없음'),
           orderBy('endDate', 'desc'),
-          limit(4),
+          limit(3),
         );
         const q7 = query(ref, where('endDate', '==', '제한 없음'), limit(4));
 
