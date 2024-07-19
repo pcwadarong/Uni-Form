@@ -22,6 +22,7 @@ import SortSelect from '@/components/list/sortSelect';
 import DetailModal from '@/components/detailModal/detailModal';
 import { closeModal } from '@/utils/handleModal';
 import RecruitSkeleton from '../recruit/recruitSkeleton';
+import FilterIcon from '../svg/filter';
 
 interface Props {
   topic: 'survey' | 'recruit';
@@ -113,14 +114,13 @@ const CommonList: React.FC<Props> = ({ topic, category }) => {
         <div className="grow">
           <div className="flex justify-between items-center px-3 pb-6 2xl:pt-0">
             <div className="flex gap-6">
-              <button className="bg-font text-white p-2 rounded-md" onClick={handleCategoryToggle}>
-                <Image src="/filter.svg" alt="no comments" width={25} height={25} />
+              <button className="bg-font flex items-center gap-[2.5px] text-white p-2 rounded-md" onClick={handleCategoryToggle}>
+                <FilterIcon width={20} height={20} aria-label="filter icon" />
                 <span>필터</span>
                 <span className="hidden md:inline">
                   {filterDisplay === 'block' ? '닫기' : '열기'}
                 </span>
               </button>
-
               <ToggleInProgressFilter
                 checked={isInProgressChecked}
                 onChange={toggleInProgressFilter}

@@ -12,7 +12,6 @@ const ToggleInProgressFilter: React.FC<ToggleInProgressFilterProps> = ({ checked
         id="inProgress"
         checked={checked}
         onChange={onChange}
-        className="sr-only"
       />
       <label htmlFor="inProgress" className="cursor-pointer">
         <span className="block md:hidden text-sm">진행 중</span>
