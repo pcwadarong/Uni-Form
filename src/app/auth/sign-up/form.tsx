@@ -9,7 +9,6 @@ export default function Form() {
   const [nickname, setNickname] = useState('');
   const [password, setPassword] = useState<string>('');
   const [email, setEmail] = useState<string>('');
-
   const [passwordConfirm, setPasswordConfirm] = useState<string>('');
   const [status, setStatus] = useState(false);
 

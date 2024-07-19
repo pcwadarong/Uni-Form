@@ -7,7 +7,6 @@ import { User } from '@/types';
 const emailSignIn = async (email: string, password: string) => {
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    console.log('Email login successful');
     return userCredential;
   } catch (error) {
     if (error instanceof FirebaseError) {
@@ -31,10 +30,18 @@ const googleSignIn = async () => {
       nickname = nicknameMatch ? nicknameMatch[1] : user.displayName;
     }
 
-    await setDoc(doc(firestore, 'users', user.uid), {
-      email: user.email,
-      nickname: nickname,
-    });
+    await setDoc(
+      doc(firestore, 'users', user.uid),
+      {
+        email: user.email,
+        nickname: nickname,
+        role: 'user',
+        createdSurveys: [],
+        responses: [],
+        comments: [],
+      },
+      { merge: true },
+    );
 
     return userCredential;
   } catch (error) {
@@ -69,30 +76,28 @@ export const handleLogin = async (
 
   if (userCredential) {
     const { user } = userCredential;
-    let nickname = 'uniform';
+    const userRef = doc(firestore, 'users', user.uid);
+    const userDoc = await getDoc(userRef);
 
-    if (method === 'email') {
-      const userRef = doc(firestore, 'users', user.uid);
-      const userDoc = await getDoc(userRef);
+    if (userDoc.exists()) {
+      const userData = userDoc.data() as User;
 
-      if (userDoc.exists()) {
-        const userData = userDoc.data();
-        nickname = userData.nickname;
-      }
-    } else if (method === 'google' && user.displayName) {
-      const nicknameMatch = user.displayName.match(/\(([^)]+)\)/);
-      nickname = nicknameMatch ? nicknameMatch[1] : user.displayName;
+      const userInfo: User = {
+        uid: user.uid,
+        nickname: userData.nickname,
+        email: user.email || '',
+        role: userData.role,
+        createdSurveys: userData.createdSurveys,
+        responses: userData.responses,
+        comments: userData.comments,
+      };
+
+      setUser(userInfo);
+      return true;
+    } else {
+      console.error('User document does not exist');
+      return false;
     }
-
-    const userInfo: User = {
-      email: user.email || '',
-      nickname: nickname,
-      uid: user.uid,
-    };
-
-    setUser(userInfo);
-    sessionStorage.setItem('user', JSON.stringify(userInfo));
-    return true;
   }
   return false;
 };

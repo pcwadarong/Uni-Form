@@ -1,4 +1,4 @@
-const FileEditIcon = ({
+const FilterIcon = ({
   color = '#010b13',
   width = 20,
   height = 20,
@@ -39,4 +39,4 @@ const FileEditIcon = ({
   </svg>
 );
 
-export default FileEditIcon;
+export default FilterIcon;

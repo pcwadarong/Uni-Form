@@ -1,19 +1,15 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import UserMenu from './navMdRight';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import NavSmRight from './navSmRight';
-import { useAuthStore } from '@/store/auth';
 import useHandleLogout from '@/hooks/useHandleLogout';
+import useAuth from '@/hooks/useAuth';
 
 export default function NavRight() {
   const [isOpened, setOpen] = useState(false);
-  const { user, loadUserFromSession } = useAuthStore();
+  const { user } = useAuth();
   const handleLogout = useHandleLogout();
-
-  useEffect(() => {
-    loadUserFromSession();
-  }, [loadUserFromSession]);
 
   const toggleCategory = () => {
     setOpen(!isOpened);

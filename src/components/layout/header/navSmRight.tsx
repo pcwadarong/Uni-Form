@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { SURVEY_CATEGORY, RECRUIT_CATEGORY } from '@/constants/category';
-import { useAuthStore } from '@/store/auth';
 import useHandleLogout from '@/hooks/useHandleLogout';
+import useAuth from '@/hooks/useAuth';
 import {
   Accordion,
   AccordionContent,
@@ -17,9 +17,9 @@ interface Props {
 }
 
 export default function NavSmRight({ isOpened, toggleCategory, closeMenu }: Props) {
-  const { user } = useAuthStore();
   const handleLogout = useHandleLogout();
-
+  const { user } = useAuth();
+  
   return (
     <div>
       <div

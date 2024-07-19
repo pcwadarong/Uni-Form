@@ -1,13 +1,13 @@
 import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
-import useHandleLogout from '@/hooks/useHandleLogout';
-import { useAuthStore } from '@/store/auth';
 import Image from 'next/image';
+import useAuth from '@/hooks/useAuth';
+import useHandleLogout from '@/hooks/useHandleLogout';
 
 const UserMenu = () => {
+  const { user } = useAuth();
   const [showUserMenu, setShowUserMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
-  const { user } = useAuthStore();
   const handleLogout = useHandleLogout();
 
   const handleClickOutside = (event: MouseEvent) => {
