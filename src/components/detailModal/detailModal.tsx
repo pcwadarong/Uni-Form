@@ -5,6 +5,7 @@ import { closeModal } from '@/utils/handleModal';
 import Button from '../common/button';
 import { fetchComments } from '@/firebase/fetchDatas';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import formatDateUi from '@/utils/formatDateUi';
 
 const DetailModal: React.FC<{ item: Survey | Recruit }> = ({ item }) => {
   const temporary = () => {
@@ -15,6 +16,8 @@ const DetailModal: React.FC<{ item: Survey | Recruit }> = ({ item }) => {
     queryKey: ['comments', item.id],
     queryFn: () => fetchComments(item.id),
   });
+
+  const hasComments = 'comments' in item;
 
   return (
     <div className="z-50 relative p-4" role="dialog" aria-modal="true">
@@ -29,22 +32,22 @@ const DetailModal: React.FC<{ item: Survey | Recruit }> = ({ item }) => {
         <h4 className="title3 md:text-xl mt-3 mb-2 line-clamp-2">{item.title}</h4>
         <hr className="-mt-3 w-full border-primary"></hr>
         <span className="line-clamp-3">{item.description}</span>
-        {'comments' in item && (
+        {hasComments && (
           <>
             <div className="flex justify-between">
-              <span className="caption text-gray-4 truncate">{`${item.startDate} ~ ${item.endDate}`}</span>
+              <span className="caption text-gray-4 truncate">{`${formatDateUi(item.startDate)} ~ ${formatDateUi(item.endDate)}`}</span>
               <Reaction responses={item.responses} comments={item.comments} />
             </div>
             <div className="overflow-hidden h-52 relative">
               {commentsList ? (
                 <ul>
                   <div className="absolute bottom-0 left-0 w-full h-14 bg-gradient-to-t from-gray-1"></div>
-                  {commentsList.map((comment, index) => (
+                  {commentsList.map((comment) => (
                     <li
-                      key={index}
+                      key={comment.id}
                       className="w-full p-3 rounded-xl mb-2 border-[1px] border-gray-2 bg-white"
                     >
-                      <h5 className="font-semibold">{comment.uid}</h5>
+                      <h5 className="font-semibold">{comment.nickname}</h5>
                       <p>{comment.content}</p>
                     </li>
                   ))}

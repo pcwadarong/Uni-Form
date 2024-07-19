@@ -11,6 +11,7 @@ import {
 } from 'firebase/firestore';
 import { firestore } from './firebaseConfig';
 import { Survey, Recruit, InfoType, Comment, Response, SortType } from '@/types';
+import { fetchUserNickname } from './getUserData';
 
 const mapDocumentToData = (item: DocumentData, surveyType: 'survey' | 'recruit') => {
   const data = item.data();
@@ -54,7 +55,6 @@ export const fetchSurveysOrRecruitsList = async (
         return await getDocs(ref).then((querySnapshot) => {
           return querySnapshot.docs.map((item) => mapDocumentToData(item, surveyType));
         });
-        break;
       case 'latest':
         const q1 = query(
           ref,
@@ -70,7 +70,6 @@ export const fetchSurveysOrRecruitsList = async (
         const results2 = querySnapshot2.docs.map((item) => mapDocumentToData(item, surveyType));
 
         return [...results1, ...results2];
-        break;
       case 'special':
         const q3 = query(ref, orderBy('point', 'desc'), limit(4));
         const querySnapshot3 = await getDocs(q3);
@@ -130,6 +129,7 @@ export const fetchDetail = async (id: string): Promise<InfoType | null> => {
         category: data.category,
         mode: data.mode || 'viewing',
         isPublic: data.isPublic || false,
+        isEditable: data.isEditable,
       };
     } else {
       return null;
@@ -143,16 +143,25 @@ export const fetchDetail = async (id: string): Promise<InfoType | null> => {
 export const fetchComments = async (id: string): Promise<Comment[] | null> => {
   try {
     const commentRef = collection(firestore, 'comments');
-    const q = query(commentRef, where('surveyId', '==', id), orderBy('lastCommentId', 'desc'));
+    const q = query(commentRef, where('surveyId', '==', id));
     const querySnapshot = await getDocs(q);
 
-    const comments: Comment[] = querySnapshot.docs.map((item) => ({
-      id: item.id,
-      surveyId: item.data().surveyId,
-      uid: item.data().uid,
-      content: item.data().content,
-    }));
-    return comments;
+    const commentsWithNicknames = await Promise.all(
+      querySnapshot.docs.map(async (item) => {
+        const commentData = item.data();
+        const nickname = await fetchUserNickname(commentData.uid, 'nickname');
+
+        return {
+          id: item.id,
+          surveyId: commentData.surveyId,
+          uid: commentData.uid,
+          content: commentData.content,
+          nickname: typeof nickname === 'string' ? nickname : '',
+        };
+      }),
+    );
+
+    return commentsWithNicknames;
   } catch (error) {
     console.error('Error getting list of comments:', error);
     return null;

@@ -1,16 +1,13 @@
 interface Props {
-  startDate: string;
   endDate: string;
 }
 import parseDateString from '@/utils/parseDateString';
 
-export default function Special({ startDate, endDate }: Props) {
+export default function Special({ endDate }: Props) {
   let date = 0;
-  if (startDate) {
-    const currentDate = new Date();
-    const diffTime = parseDateString(endDate).getTime() - currentDate.getTime();
-    date = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  }
+  const currentDate = new Date();
+  const diffTime = parseDateString(endDate).getTime() - currentDate.getTime();
+  date = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
   return (
     <div className="flex space-x-2 truncate">

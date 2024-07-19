@@ -7,6 +7,7 @@ import Special from './special';
 import Reaction from './reaction';
 import { openDetailModal, handleEnterKeyPress } from '@/utils/handleModal';
 import { getRandomColor } from '@/utils/getRandomColor';
+import formatDateUi from '@/utils/formatDateUi';
 
 const SurveyItem: React.FC<{ item: Survey }> = ({ item }) => {
   const [randomClass, setRandomClass] = useState('');
@@ -28,7 +29,7 @@ const SurveyItem: React.FC<{ item: Survey }> = ({ item }) => {
           <Image
             className="w-full h-full object-cover"
             src={item.img}
-            alt={'이미지 없음'}
+            alt={'이미지'}
             width={100}
             height={100}
           />
@@ -38,9 +39,9 @@ const SurveyItem: React.FC<{ item: Survey }> = ({ item }) => {
         <div>
           <Special point={item.point} startDate={item.startDate} endDate={item.endDate} />
           <h3 className="body1 md:text-xl mt-3 mb-2 line-clamp-2">{item.title}</h3>
-          <p className="caption text-gray-4 truncate">{`${item.startDate} ~ ${item.endDate}`}</p>
+          <p className="caption text-gray-4 truncate">{`${formatDateUi(item.startDate)} ~ ${formatDateUi(item.endDate)}`}</p>
         </div>
-        <Reaction response={item.responses} comments={item.comments} />
+        <Reaction responses={item.responses} comments={item.comments} />
       </div>
     </li>
   );

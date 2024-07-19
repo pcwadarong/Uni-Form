@@ -26,19 +26,23 @@ export const getSelectedItems = (items: Survey[] | Recruit[], sortType: string) 
     ) {
       const surveyA = a as Survey;
       const surveyB = b as Survey;
-      if (surveyB.response.length !== surveyA.response.length) {
-        return surveyB.response.length - surveyA.response.length;
-      } else if (surveyB.comments.length !== surveyA.comments.length) {
-        return surveyB.comments.length - surveyA.comments.length;
-      } else {
-        // Compare dates
-        if (parsedA.date > parsedB.date) return -1;
-        if (parsedA.date < parsedB.date) return 1;
-        // Compare numbers
-        if (parsedA.num > parsedB.num) return -1;
-        if (parsedA.num < parsedB.num) return 1;
-        return 0;
+      const responsesA = surveyA.responses || [];
+      const responsesB = surveyB.responses || [];
+      const commentsA = surveyA.comments || [];
+      const commentsB = surveyB.comments || [];
+
+      if (responsesB.length !== responsesA.length) {
+        return responsesB.length - responsesA.length;
       }
+      if (commentsB.length !== commentsA.length) {
+        return commentsB.length - commentsA.length;
+      }
+      if (parsedA.date > parsedB.date) return -1;
+      if (parsedA.date < parsedB.date) return 1;
+      if (parsedA.num > parsedB.num) return -1;
+      if (parsedA.num < parsedB.num) return 1;
+
+      return 0;
     } else if (sortType === 'date-desc') {
       if (parsedA.date > parsedB.date) return -1;
       if (parsedA.date < parsedB.date) return 1;

@@ -1,15 +1,13 @@
 import { Survey } from '@/types';
-interface SpecialProps extends Pick<Survey, 'point' | 'startDate' | 'endDate'> {}
+interface SpecialProps extends Pick<Survey, 'point' | 'endDate'> {}
 import parseDateString from '@/utils/parseDateString';
 
-export default function Special({ point, startDate, endDate }: SpecialProps) {
+export default function Special({ point, endDate }: SpecialProps) {
   let date = 0;
 
-  if (startDate) {
-    const currentDate = new Date();
-    const diffTime = parseDateString(endDate).getTime() - currentDate.getTime();
-    date = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  }
+  const currentDate = new Date();
+  const diffTime = parseDateString(endDate).getTime() - currentDate.getTime();
+  date = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
   return (
     <div className="flex space-x-2 truncate">

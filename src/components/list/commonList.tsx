@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState, useEffect, Suspense, useCallback } from 'react';
+import { useState, useEffect, Suspense, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useSuspenseQuery, useQueryClient } from '@tanstack/react-query';
 import { fetchSurveysOrRecruitsList } from '@/firebase/fetchDatas';
 import { useSelectedSurveyStore } from '@/store/survey';
 import { Survey, Recruit } from '@/types';
@@ -32,6 +32,7 @@ interface Props {
 const CommonList: React.FC<Props> = ({ topic, category }) => {
   const { selectedItem } = useSelectedSurveyStore();
   const searchParams = useSearchParams();
+  const queryClient = useQueryClient();
 
   const sortParam = searchParams.get('sort') || 'point-asc';
   const [isInProgressChecked, setIsInProgressChecked] = useState(false);
@@ -41,9 +42,16 @@ const CommonList: React.FC<Props> = ({ topic, category }) => {
   const [dataList, setDataList] = useState<Survey[] | Recruit[]>([]);
 
   const { data: initialData } = useSuspenseQuery({
-    queryKey: ['closingRecruits'],
+    queryKey: ['list', { type: topic }],
     queryFn: () => fetchSurveysOrRecruitsList(topic, 'public'),
   });
+
+  useEffect(() => {
+    queryClient.invalidateQueries({
+      queryKey: ['list'],
+      exact: true,
+    });
+  }, [queryClient]);
 
   const categorizeData = useCallback(() => {
     const categorizedData = initialData.filter(
@@ -52,7 +60,7 @@ const CommonList: React.FC<Props> = ({ topic, category }) => {
     const sortedData = getSelectedItems(categorizedData, sortParam);
     setOriginalData(sortedData);
     setFilteredData(sortedData);
-  }, [category, sortParam]);
+  }, [category, sortParam, initialData]);
 
   useEffect(() => {
     categorizeData();
@@ -72,8 +80,12 @@ const CommonList: React.FC<Props> = ({ topic, category }) => {
 
   const onFilterChange = ({ point = 'all', deadline }: { point?: string; deadline: string }) => {
     const newFilteredData = originalData.filter((item) => {
-      const isPointMatch = point === 'all' || (item.point && item.point >= parseInt(point));
+      const isPointMatch =
+        (item as Survey).point !== undefined
+          ? point === 'all' || (item as Survey).point >= parseInt(point)
+          : true;
       const isDeadlineMatch = calculateDeadlineMatch(item, deadline);
+
       return isPointMatch && isDeadlineMatch;
     });
 
@@ -114,7 +126,10 @@ const CommonList: React.FC<Props> = ({ topic, category }) => {
         <div className="grow">
           <div className="flex justify-between items-center px-3 pb-6 2xl:pt-0">
             <div className="flex gap-6">
-              <button className="bg-font flex items-center gap-[2.5px] text-white p-2 rounded-md" onClick={handleCategoryToggle}>
+              <button
+                className="bg-font flex items-center gap-[2.5px] text-white p-2 rounded-md"
+                onClick={handleCategoryToggle}
+              >
                 <FilterIcon width={20} height={20} aria-label="filter icon" />
                 <span>필터</span>
                 <span className="hidden md:inline">

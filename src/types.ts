@@ -6,6 +6,7 @@ export interface User {
   createdSurveys: string[];
   responses: string[];
   comments: string[];
+  drafts: string[];
 }
 
 export interface Recruit {
@@ -17,11 +18,11 @@ export interface Recruit {
   startDate: string;
   endDate: string;
   category: string;
+  responses?: string[];
 }
 
 export interface Survey extends Recruit {
   point: number;
-  responses?: string[];
   comments?: string[];
   lastCommentId?: string;
 }
@@ -30,6 +31,7 @@ export interface InfoType extends Recruit {
   questions: Question[];
   mode: 'editing' | 'viewing';
   isPublic: boolean;
+  isEditable: boolean;
 }
 
 export interface Option {
@@ -69,6 +71,7 @@ export type QuestionType =
 
 export interface Comment {
   id: string;
+  nickname?: string;
   surveyId: string;
   uid: string;
   content: string;

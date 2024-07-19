@@ -21,7 +21,7 @@ export const mockComments = [
     id: 'comments-2024-06-19-2',
     surveyId: 'survey-2024-06-18-3',
     uid: 'uHUrBWPBtbZOQBjzgpjuvxwS41N2',
-    content: '아래의 링크를 한 번 살펴보세요.  00대학교 졸업 전시로 했던 작품입니다.',
+    content: '아래의 링크를 한 번 살펴보세요. 참고가 될 것 같습니다.',
   },
   {
     id: 'comments-2024-06-24-1',
