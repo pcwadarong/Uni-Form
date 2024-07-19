@@ -28,7 +28,7 @@
     ".next/types/**/*.ts",
     "next.config.mjs",
     "postcss.config.mjs",
-    "src/firebase/firebasConfig.ts",
+    "src/firebase/firebaseConfig.ts",
     "src/firebase/firebaseAdmin.js",
     "src/components/survey/commentSkeleton.tsx"
   ],

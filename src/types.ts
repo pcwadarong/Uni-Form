@@ -5,7 +5,7 @@ export interface User {
   role: string;
   createdSurveys: string[];
   responses: string[];
-  comments: string[],
+  comments: string[];
 }
 
 export interface Recruit {
@@ -74,11 +74,16 @@ export interface Comment {
   content: string;
 }
 
+interface Answer {
+  questionId: string;
+  response: string | number | string[] | number[]; // 단답형, 선택형 등 다양한 답변 형식 지원
+}
+
 export interface Response {
-  responseId: string;
+  id: string;
   surveyId: number;
   uid: string;
-  timestamp: string;
+  content: Answer[];
 }
 
 export type SortType = 'public' | 'latest' | 'special' | 'popular' | 'latestComments' | 'closing';

@@ -1,5 +1,7 @@
 import {
   collection,
+  doc,
+  getDoc,
   getDocs,
   DocumentData,
   limit,
@@ -7,8 +9,8 @@ import {
   query,
   where,
 } from 'firebase/firestore';
-import { firestore } from './firebasConfig';
-import { Survey, Recruit, InfoType, Comment, SortType } from '@/types';
+import { firestore } from './firebaseConfig';
+import { Survey, Recruit, InfoType, Comment, Response, SortType } from '@/types';
 
 const mapDocumentToData = (item: DocumentData, surveyType: 'survey' | 'recruit') => {
   const data = item.data();
@@ -110,40 +112,68 @@ export const fetchSurveysOrRecruitsList = async (
   }
 };
 
-// export const getSurveyDetail = async (id: string): Promise<InfoType | null> => {
-//   try {
-//     const surveyRef = doc(firestore, 'surveys', id);
-//     const surveyDoc = await getDoc(surveyRef);
-//     if (surveyDoc.exists()) {
-//       const data = surveyDoc.data();
-//       return {
-//         questions: data.questions || [],
-//         imageUrl: data.imageUrl || '',
-//         title: data.title || '',
-//         description: data.description || '',
-//         duration: data.duration || '',
-//         mode: data.mode || 'viewing',
-//         isPublic: data.isPublic,
-//       };
-//     } else {
-//       return null;
-//     }
-//   } catch (error) {
-//     console.error('Error getting survey detail:', error);
-//     return null;
-//   }
-// };
+export const fetchDetail = async (id: string): Promise<InfoType | null> => {
+  try {
+    const surveyRef = doc(firestore, 'surveys', id);
+    const surveyDoc = await getDoc(surveyRef);
+    if (surveyDoc.exists()) {
+      const data = surveyDoc.data();
+      return {
+        questions: data.questions || [],
+        id: data.id,
+        uid: data.uid,
+        title: data.title,
+        description: data.description ?? '',
+        img: data.img ?? '',
+        startDate: data.startDate,
+        endDate: data.endDate,
+        category: data.category,
+        mode: data.mode || 'viewing',
+        isPublic: data.isPublic || false,
+      };
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error('Error getting survey detail:', error);
+    return null;
+  }
+};
 
-export const fetchComments = async (id: string): Promise<Comment[]> => {
-  const commentRef = collection(firestore, 'comments');
-  const q = query(commentRef, where('surveyId', '==', id), orderBy('lastCommentId', 'desc'));
-  const querySnapshot = await getDocs(q);
+export const fetchComments = async (id: string): Promise<Comment[] | null> => {
+  try {
+    const commentRef = collection(firestore, 'comments');
+    const q = query(commentRef, where('surveyId', '==', id), orderBy('lastCommentId', 'desc'));
+    const querySnapshot = await getDocs(q);
 
-  const comments: Comment[] = querySnapshot.docs.map((doc) => ({
-    id: doc.id,
-    surveyId: doc.data().surveyId,
-    uid: doc.data().uid,
-    content: doc.data().content,
-  }));
-  return comments;
+    const comments: Comment[] = querySnapshot.docs.map((item) => ({
+      id: item.id,
+      surveyId: item.data().surveyId,
+      uid: item.data().uid,
+      content: item.data().content,
+    }));
+    return comments;
+  } catch (error) {
+    console.error('Error getting list of comments:', error);
+    return null;
+  }
+};
+
+export const fetchResponses = async (id: string): Promise<Response[] | null> => {
+  try {
+    const responseRef = collection(firestore, 'responses');
+    const q = query(responseRef, where('surveyId', '==', id));
+    const querySnapshot = await getDocs(q);
+
+    const responses: Response[] = querySnapshot.docs.map((item) => ({
+      id: item.id,
+      surveyId: item.data().surveyId,
+      uid: item.data().uid,
+      content: item.data().content,
+    }));
+    return responses;
+  } catch (error) {
+    console.error('Error getting list of responses:', error);
+    return null;
+  }
 };

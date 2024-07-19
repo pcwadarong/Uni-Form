@@ -1,5 +1,5 @@
 import { doc, getDoc } from 'firebase/firestore';
-import { firestore } from './firebasConfig';
+import { firestore } from './firebaseConfig';
 
 const getUserData = async (uid: string) => {
   try {

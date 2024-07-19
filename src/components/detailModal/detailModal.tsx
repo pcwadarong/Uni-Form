@@ -11,7 +11,7 @@ const DetailModal: React.FC<{ item: Survey | Recruit }> = ({ item }) => {
     console.log('a');
   };
 
-  const { data: comments } = useSuspenseQuery({
+  const { data: commentsList } = useSuspenseQuery({
     queryKey: ['comments', item.id],
     queryFn: () => fetchComments(item.id),
   });
@@ -29,17 +29,17 @@ const DetailModal: React.FC<{ item: Survey | Recruit }> = ({ item }) => {
         <h4 className="title3 md:text-xl mt-3 mb-2 line-clamp-2">{item.title}</h4>
         <hr className="-mt-3 w-full border-primary"></hr>
         <span className="line-clamp-3">{item.description}</span>
-        {'comments' in item && item.comments && (
+        {'comments' in item && (
           <>
             <div className="flex justify-between">
               <span className="caption text-gray-4 truncate">{`${item.startDate} ~ ${item.endDate}`}</span>
-              <Reaction response={item.responses} comments={item.comments} />
+              <Reaction responses={item.responses} comments={item.comments} />
             </div>
             <div className="overflow-hidden h-52 relative">
-              {comments.length > 0 ? (
+              {commentsList ? (
                 <ul>
                   <div className="absolute bottom-0 left-0 w-full h-14 bg-gradient-to-t from-gray-1"></div>
-                  {comments.map((comment, index) => (
+                  {commentsList.map((comment, index) => (
                     <li
                       key={index}
                       className="w-full p-3 rounded-xl mb-2 border-[1px] border-gray-2 bg-white"

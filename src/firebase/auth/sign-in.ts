@@ -1,5 +1,5 @@
 import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { auth, firestore } from '../firebasConfig';
+import { auth, firestore } from '../firebaseConfig';
 import { getDoc, doc, setDoc } from 'firebase/firestore';
 import { FirebaseError } from 'firebase/app';
 import { User } from '@/types';
