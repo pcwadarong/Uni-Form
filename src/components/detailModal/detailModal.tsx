@@ -65,13 +65,13 @@ const DetailModal: React.FC<{ item: Survey | Recruit }> = ({ item }) => {
         )}
         <div className="flex justify-center gap-2">
           {hasPublicProp && item.isPublic && (
-            <Button text={'결과보기'} className={'bg-green-light text-font'} onClick={temporary} />
+            <Button text={'결과보기'} className={'bg-green-light text-font'} />
           )}
           {diffTime && (
-            <Button text={'참여하기'} className={'bg-primary text-white'} onClick={temporary} />
+            <Button text={'참여하기'} className={'bg-primary text-white'} />
           )}
           {item.isEditable && (
-            <Button text={'수정하기'} className={'bg-primary text-white'} onClick={temporary} />
+            <Button text={'수정하기'} className={'bg-primary text-white'} />
           )}
         </div>
       </div>

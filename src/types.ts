@@ -20,13 +20,13 @@ export interface Recruit {
   category: string;
   responses?: string[];
   isEditable: boolean;
+  isPublic?: boolean;
 }
 
 export interface Survey extends Recruit {
   point: number;
   comments?: string[];
   lastCommentId?: string;
-  isPublic: boolean;
 }
 
 export interface InfoType extends Recruit {

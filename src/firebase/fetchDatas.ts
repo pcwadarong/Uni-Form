@@ -13,7 +13,7 @@ import { firestore } from './firebaseConfig';
 import { Survey, Recruit, InfoType, Comment, Response, SortType } from '@/types';
 import { fetchUserNickname } from './getUserData';
 
-const mapDocumentToData = (item: DocumentData, surveyType: 'survey' | 'recruit') => {
+const mapDocumentToData = (item: DocumentData, surveyType: 'survey' | 'recruit' | 'detail') => {
   const data = item.data();
   const commonFields = {
     id: item.id,
@@ -25,20 +25,28 @@ const mapDocumentToData = (item: DocumentData, surveyType: 'survey' | 'recruit')
     endDate: data.endDate,
     category: data.category,
     isEditable: data.isEditable,
-    responses: data.responses ?? [],
+    isPublic: data.isPublic ?? false,
   };
+
   if (surveyType === 'survey') {
     return {
       ...commonFields,
       point: data.point ?? 0,
       comments: data.comments || [],
       lastCommentId: data.lastCommentId || '',
-      isPublic: data.isPublic,
     } as Survey;
-  } else {
+  } else if (surveyType === 'recruit') {
     return {
       ...commonFields,
     } as Recruit;
+  } else if (surveyType === 'detail') {
+    return {
+      ...commonFields,
+      questions: data.questions || [],
+      mode: data.mode || 'viewing',
+    } as InfoType;
+  } else {
+    return undefined;
   }
 };
 
@@ -55,7 +63,9 @@ export const fetchSurveysOrRecruitsList = async (
     switch (queryType) {
       case 'public':
         return await getDocs(ref).then((querySnapshot) => {
-          return querySnapshot.docs.map((item) => mapDocumentToData(item, surveyType));
+          return querySnapshot.docs
+            .map((item) => mapDocumentToData(item, surveyType))
+            .filter(Boolean) as Survey[];
         });
       case 'latest':
         const q1 = query(
@@ -71,11 +81,11 @@ export const fetchSurveysOrRecruitsList = async (
         const results1 = querySnapshot1.docs.map((item) => mapDocumentToData(item, surveyType));
         const results2 = querySnapshot2.docs.map((item) => mapDocumentToData(item, surveyType));
 
-        return [...results1, ...results2];
+        return [...results1, ...results2] as Survey[];
       case 'special':
         const q3 = query(ref, orderBy('point', 'desc'), limit(4));
         const querySnapshot3 = await getDocs(q3);
-        return querySnapshot3.docs.map((item) => mapDocumentToData(item, surveyType));
+        return querySnapshot3.docs.map((item) => mapDocumentToData(item, surveyType)) as Survey[];
       case 'popular':
         const q4 = query(
           ref,
@@ -84,11 +94,11 @@ export const fetchSurveysOrRecruitsList = async (
           limit(2),
         );
         const querySnapshot4 = await getDocs(q4);
-        return querySnapshot4.docs.map((item) => mapDocumentToData(item, surveyType));
+        return querySnapshot4.docs.map((item) => mapDocumentToData(item, surveyType)) as Survey[];
       case 'latestComments':
         const q5 = query(ref, orderBy('lastCommentId', 'desc'), limit(4));
         const querySnapshot5 = await getDocs(q5);
-        return querySnapshot5.docs.map((item) => mapDocumentToData(item, surveyType));
+        return querySnapshot5.docs.map((item) => mapDocumentToData(item, surveyType)) as Survey[];
       case 'closing':
         const q6 = query(
           ref,
@@ -103,7 +113,7 @@ export const fetchSurveysOrRecruitsList = async (
         const results3 = querySnapshot6.docs.map((item) => mapDocumentToData(item, surveyType));
         const results4 = querySnapshot7.docs.map((item) => mapDocumentToData(item, surveyType));
 
-        return [...results3, ...results4];
+        return [...results3, ...results4] as Survey[];
       default:
         throw new Error('Unsupported query type');
     }
@@ -118,20 +128,7 @@ export const fetchDetail = async (id: string): Promise<InfoType | null> => {
     const surveyRef = doc(firestore, 'surveys', id);
     const surveyDoc = await getDoc(surveyRef);
     if (surveyDoc.exists()) {
-      const data = surveyDoc.data();
-      return {
-        questions: data.questions || [],
-        id: data.id,
-        uid: data.uid,
-        title: data.title,
-        description: data.description ?? '',
-        img: data.img ?? '',
-        startDate: data.startDate,
-        endDate: data.endDate,
-        category: data.category,
-        mode: data.mode || 'viewing',
-        isEditable: data.isEditable,
-      };
+      return mapDocumentToData(surveyDoc, 'detail') as InfoType;
     } else {
       return null;
     }

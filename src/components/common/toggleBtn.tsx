@@ -1,12 +1,12 @@
 type ToggleBtnProps = {
   text: string;
-  checked: boolean;
+  checked: boolean | undefined;
   onChange: () => void;
 };
 
 const ToggleBtn = ({ text, checked, onChange }: ToggleBtnProps) => {
   return (
-    <label className="flex gap-2 items-center">
+    <label className="flex gap-2 items-center h-6">
       <span>{text}</span>
       <button
         onClick={onChange}

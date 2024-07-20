@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { BroadcastChannel } from 'broadcast-channel';
 import type { Survey, Recruit, InfoType, Question, QuestionType } from '@/types';
 
-// selected survey (open modal)
+// selected survey (open detail modal)
 interface SelectedSurveyStore {
   selectedItem: Survey | Recruit | null;
   setSelectedItem: (item: Survey | Recruit | null) => void;
@@ -30,7 +30,7 @@ export const useSurveyStore = create<SurveyStore>((set) => ({
         id: 1,
         type: 'checkbox',
         timestamp: '',
-        title: '첫 번째 질문',
+        title: '',
         description: '추가적인 설명',
         isEssential: true,
         options: [
