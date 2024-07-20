@@ -1,7 +1,7 @@
 import { useEffect, useRef, ChangeEvent } from 'react';
 
 interface AutoResizeTextareaProps {
-  value: string;
+  value: string | undefined;
   onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   placeholder?: string;
   className?: string;

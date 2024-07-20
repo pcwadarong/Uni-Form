@@ -37,7 +37,7 @@ const SurveyItem: React.FC<{ item: Survey }> = ({ item }) => {
       </div>
       <div className="px-6 py-7 flex flex-col justify-between bg-white flex-grow">
         <div>
-          <Special point={item.point} startDate={item.startDate} endDate={item.endDate} />
+          <Special point={item.point} endDate={item.endDate} />
           <h3 className="body1 md:text-xl mt-3 mb-2 line-clamp-2">{item.title}</h3>
           <p className="caption text-gray-4 truncate">{`${formatDateUi(item.startDate)} ~ ${formatDateUi(item.endDate)}`}</p>
         </div>

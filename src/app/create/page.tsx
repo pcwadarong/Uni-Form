@@ -28,13 +28,6 @@ const Create: React.FC = () => {
   useEffect(() => {
     const animation = requestAnimationFrame(() => setEnabled(true));
 
-    return () => {
-      cancelAnimationFrame(animation);
-      setEnabled(false);
-    };
-  }, []);
-
-  useEffect(() => {
     const handleBeforeUnload = (event: BeforeUnloadEvent) => {
       event.preventDefault();
       event.returnValue = '';
@@ -42,7 +35,16 @@ const Create: React.FC = () => {
 
     window.addEventListener('beforeunload', handleBeforeUnload);
 
+    const timestamp = new Date().toISOString();
+    const updatedQuestions = surveyInfo.questions.map((q) => ({
+      ...q,
+      timestamp: timestamp,
+    }));
+    setSurveyInfo({ questions: updatedQuestions });
+
     return () => {
+      cancelAnimationFrame(animation);
+      setEnabled(false);
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
   }, []);

@@ -13,14 +13,16 @@ interface Props {
 }
 const SurveyInfo = ({ mode, onEditToggle }: Props) => {
   const { surveyInfo, setSurveyInfo } = useSurveyStore();
-  const [explanationArea, setExplanationArea] = useState<string>(surveyInfo.description);
+  const [explanationArea, setExplanationArea] = useState<string | undefined>(surveyInfo.description);
+
+  console.log(surveyInfo);
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     const reader = new FileReader();
     reader.onloadend = () => {
       if (reader.result) {
-        setSurveyInfo({ imageUrl: reader.result.toString() });
+        setSurveyInfo({ img: reader.result.toString() });
       }
     };
     if (file) {
@@ -29,7 +31,7 @@ const SurveyInfo = ({ mode, onEditToggle }: Props) => {
   };
 
   const handleDeleteClick = () => {
-    setSurveyInfo({ imageUrl: '' });
+    setSurveyInfo({ img: '' });
   };
 
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -52,10 +54,10 @@ const SurveyInfo = ({ mode, onEditToggle }: Props) => {
       {mode === 'editing' ? (
         <div>
           <div className="aspect-[4/1] bg-font justify-center flex">
-            {surveyInfo.imageUrl ? (
+            {surveyInfo.img ? (
               <div className="relative overflow-hidden flex items-center">
                 <img
-                  src={surveyInfo.imageUrl}
+                  src={surveyInfo.img}
                   alt="Uploaded"
                   className="w-full h-auto object-cover"
                 />
@@ -103,11 +105,11 @@ const SurveyInfo = ({ mode, onEditToggle }: Props) => {
         </div>
       ) : (
         <div>
-          {surveyInfo.imageUrl && (
+          {surveyInfo.img && (
             <div className="aspect-[4/1] bg-font justify-center flex">
               <div className="relative overflow-hidden flex items-center">
                 <img
-                  src={surveyInfo.imageUrl}
+                  src={surveyInfo.img}
                   alt="Survey"
                   className="w-full h-auto object-cover"
                 />

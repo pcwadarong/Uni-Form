@@ -19,19 +19,19 @@ export interface Recruit {
   endDate: string;
   category: string;
   responses?: string[];
+  isEditable: boolean;
 }
 
 export interface Survey extends Recruit {
   point: number;
   comments?: string[];
   lastCommentId?: string;
+  isPublic: boolean;
 }
 
 export interface InfoType extends Recruit {
   questions: Question[];
   mode: 'editing' | 'viewing';
-  isPublic: boolean;
-  isEditable: boolean;
 }
 
 export interface Option {
@@ -42,6 +42,7 @@ export interface Option {
 export interface Question {
   id: number;
   type: QuestionType;
+  timestamp: string;
   title: string;
   description?: string;
   isEssential: boolean;

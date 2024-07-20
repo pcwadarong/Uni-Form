@@ -24,14 +24,16 @@ const mapDocumentToData = (item: DocumentData, surveyType: 'survey' | 'recruit')
     startDate: data.startDate,
     endDate: data.endDate,
     category: data.category,
+    isEditable: data.isEditable,
+    responses: data.responses ?? [],
   };
   if (surveyType === 'survey') {
     return {
       ...commonFields,
       point: data.point ?? 0,
-      responses: data.responses || [],
       comments: data.comments || [],
       lastCommentId: data.lastCommentId || '',
+      isPublic: data.isPublic,
     } as Survey;
   } else {
     return {
@@ -128,7 +130,6 @@ export const fetchDetail = async (id: string): Promise<InfoType | null> => {
         endDate: data.endDate,
         category: data.category,
         mode: data.mode || 'viewing',
-        isPublic: data.isPublic || false,
         isEditable: data.isEditable,
       };
     } else {

@@ -29,6 +29,7 @@ export const useSurveyStore = create<SurveyStore>((set) => ({
       {
         id: 1,
         type: 'checkbox',
+        timestamp: '',
         title: '첫 번째 질문',
         description: '추가적인 설명',
         isEssential: true,
@@ -47,7 +48,7 @@ export const useSurveyStore = create<SurveyStore>((set) => ({
     endDate: '제한없음',
     category: '',
     mode: 'editing',
-    isPublic: false,
+    isEditable: false,
   },
   setSurveyInfo: (info) => {
     set((state) => {
@@ -79,6 +80,7 @@ export const useSurveyStore = create<SurveyStore>((set) => ({
           title: q.title,
           description: q.description,
           isEssential: q.isEssential,
+          timestamp: q.timestamp,
         };
 
         switch (newType) {

@@ -17,7 +17,8 @@ const Options: React.FC<Prop> = ({ id }) => {
     const newId = surveyInfo.questions.length
       ? Math.max(...surveyInfo.questions.map((q) => q.id)) + 1
       : 1;
-    const duplicatedQuestion = { ...question, id: newId };
+    const timestamp = new Date().toISOString();
+    const duplicatedQuestion = { ...question, id: newId, timestamp: timestamp };
     const updatedQuestions = [...surveyInfo.questions, duplicatedQuestion];
     setSurveyInfo({ questions: updatedQuestions });
   };

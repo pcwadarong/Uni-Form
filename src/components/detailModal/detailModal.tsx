@@ -6,18 +6,20 @@ import Button from '../common/button';
 import { fetchComments } from '@/firebase/fetchDatas';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import formatDateUi from '@/utils/formatDateUi';
+import parseDateString from '@/utils/parseDateString';
+import Link from 'next/link';
 
 const DetailModal: React.FC<{ item: Survey | Recruit }> = ({ item }) => {
-  const temporary = () => {
-    console.log('a');
-  };
-
   const { data: commentsList } = useSuspenseQuery({
     queryKey: ['comments', item.id],
     queryFn: () => fetchComments(item.id),
   });
 
   const hasComments = 'comments' in item;
+  const hasPublicProp = 'isPublic' in item;
+
+  const currentDate = new Date();
+  const diffTime = parseDateString(item.endDate).getTime() - currentDate.getTime();
 
   return (
     <div className="z-50 relative p-4" role="dialog" aria-modal="true">
@@ -62,8 +64,15 @@ const DetailModal: React.FC<{ item: Survey | Recruit }> = ({ item }) => {
           </>
         )}
         <div className="flex justify-center gap-2">
-          <Button text={'결과보기'} className={'bg-green-light text-font'} onClick={temporary} />
-          <Button text={'참여하기'} className={'bg-primary text-white'} onClick={temporary} />
+          {hasPublicProp && item.isPublic && (
+            <Button text={'결과보기'} className={'bg-green-light text-font'} onClick={temporary} />
+          )}
+          {diffTime && (
+            <Button text={'참여하기'} className={'bg-primary text-white'} onClick={temporary} />
+          )}
+          {item.isEditable && (
+            <Button text={'수정하기'} className={'bg-primary text-white'} onClick={temporary} />
+          )}
         </div>
       </div>
     </div>
