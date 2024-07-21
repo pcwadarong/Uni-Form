@@ -4,6 +4,7 @@ import { firestore } from '@/firebase/firebaseConfig';
 import { FirebaseError } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
+import { Question } from '@/types';
 
 export const useSaveSurvey = () => {
   const { surveyInfo } = useSurveyStore();
@@ -24,12 +25,26 @@ export const useSaveSurvey = () => {
       uid: uid,
     };
 
+    const validatedQuestions = surveyInfo.questions.map((question) => {
+      const validatedQuestion: Partial<Question> = {};
+
+      (Object.keys(question) as Array<keyof Question>).forEach((key) => {
+        if (question[key] !== undefined) {
+          (validatedQuestion[key] as Question[keyof Question]) = question[key];
+        }
+      });
+
+      return validatedQuestion;
+    });
+
+    const questions = {
+      id: id,
+      questions: validatedQuestions,
+    };
+
     try {
       await setDoc(doc(firestore, cat, id), filteredSurveyInfo);
-      await setDoc(doc(firestore, 'questions', id), {
-        id: id,
-        questions: surveyInfo.questions,
-      });
+      await setDoc(doc(firestore, 'questions', id), questions);
 
       router.push('/');
     } catch (error) {

@@ -31,11 +31,10 @@ export const useSurveyStore = create<SurveyStore>((set) => ({
         type: 'checkbox',
         timestamp: '',
         title: '',
-        description: '추가적인 설명',
         isEssential: true,
         options: [
-          { id: 1, value: '항목 1' },
-          { id: 2, value: '항목 2' },
+          { id: 1, value: '' },
+          { id: 2, value: '' },
         ],
       },
     ],

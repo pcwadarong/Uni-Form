@@ -7,13 +7,13 @@ const AddBtns = () => {
   const basicData: Question = {
     id: surveyInfo.questions.length ? Math.max(...surveyInfo.questions.map((q) => q.id)) + 1 : 1,
     type: 'checkbox',
-    title: '',
     timestamp: new Date().toISOString(),
-    options: [
-      { id: 1, value: '항목 1' },
-      { id: 2, value: '항목 2' },
-    ],
+    title: '',
     isEssential: true,
+    options: [
+      { id: 1, value: '' },
+      { id: 2, value: '' },
+    ],
   };
 
   const addQuestion = () => {

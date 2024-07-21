@@ -50,7 +50,7 @@ const DetailModal: React.FC<{ item: Survey | Recruit }> = ({ item }) => {
               <Reaction responses={item.responses} comments={item.comments} />
             </div>
             <div className="overflow-hidden h-52 relative">
-              {commentsList ? (
+              {commentsList && commentsList.length > 0 ? (
                 <ul>
                   <div className="absolute bottom-0 left-0 w-full h-14 bg-gradient-to-t from-gray-1"></div>
                   {commentsList.map((comment) => (
@@ -74,9 +74,11 @@ const DetailModal: React.FC<{ item: Survey | Recruit }> = ({ item }) => {
         )}
         <div className="flex justify-center gap-2 mt-4">
           {hasPublicProp && item.isPublic && (
-            <Button text={'결과보기'} className={'bg-green-light text-font'} onClick={func}/>
+            <Button text={'결과보기'} className={'bg-green-light text-font'} onClick={func} />
           )}
-          {diffTime && <Button text={'참여하기'} className={'bg-primary text-white'} onClick={func} />}
+          {diffTime && (
+            <Button text={'참여하기'} className={'bg-primary text-white'} onClick={func} />
+          )}
           {/* {item.isEditable && <Button text={'수정하기'} className={'bg-primary text-white'} />} */}
         </div>
       </div>

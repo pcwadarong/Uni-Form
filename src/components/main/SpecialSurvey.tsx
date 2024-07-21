@@ -8,7 +8,7 @@ import { Survey } from '@/types';
 
 const SpecialSurveys = () => {
   const { data: specialSurveys } = useSuspenseQuery({
-    queryKey: ['survey'],
+    queryKey: ['speicalSurvey'],
     queryFn: () => fetchSurveysOrRecruitsList('survey', 'special'),
   });
 

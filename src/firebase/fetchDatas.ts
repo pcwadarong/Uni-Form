@@ -68,52 +68,41 @@ export const fetchSurveysOrRecruitsList = async (
             .filter(Boolean) as Survey[];
         });
       case 'latest':
-        const q1 = query(
-          ref,
-          where('startDate', '!=', '바로 시작'),
-          orderBy('startDate', 'desc'),
-          limit(4),
-        );
-        const q2 = query(ref, where('startDate', '==', '바로 시작'), limit(2));
-
-        const [querySnapshot1, querySnapshot2] = await Promise.all([getDocs(q1), getDocs(q2)]);
-
-        const results1 = querySnapshot1.docs.map((item) => mapDocumentToData(item, surveyType));
-        const results2 = querySnapshot2.docs.map((item) => mapDocumentToData(item, surveyType));
-
-        return [...results1, ...results2] as Survey[];
+        const q1 = query(ref, orderBy('id', 'desc'), limit(4));
+        const querySnapshot1 = await getDocs(q1);
+        return querySnapshot1.docs.map((item) => mapDocumentToData(item, surveyType)) as Survey[];
       case 'special':
-        const q3 = query(ref, orderBy('point', 'desc'), limit(4));
-        const querySnapshot3 = await getDocs(q3);
-        return querySnapshot3.docs.map((item) => mapDocumentToData(item, surveyType)) as Survey[];
+        const q2 = query(ref, orderBy('point', 'desc'), limit(4));
+        const querySnapshot2 = await getDocs(q2);
+        return querySnapshot2.docs.map((item) => mapDocumentToData(item, surveyType)) as Survey[];
       case 'popular':
-        const q4 = query(
+        const q3 = query(
           ref,
           orderBy('responses.length', 'desc'),
           orderBy('comments.length', 'desc'),
           limit(2),
         );
+        const querySnapshot3 = await getDocs(q3);
+        return querySnapshot3.docs.map((item) => mapDocumentToData(item, surveyType)) as Survey[];
+      case 'latestComments':
+        const q4 = query(ref, orderBy('lastCommentId', 'desc'), limit(4));
         const querySnapshot4 = await getDocs(q4);
         return querySnapshot4.docs.map((item) => mapDocumentToData(item, surveyType)) as Survey[];
-      case 'latestComments':
-        const q5 = query(ref, orderBy('lastCommentId', 'desc'), limit(4));
-        const querySnapshot5 = await getDocs(q5);
-        return querySnapshot5.docs.map((item) => mapDocumentToData(item, surveyType)) as Survey[];
       case 'closing':
-        const q6 = query(
+        const q5 = query(
           ref,
           where('endDate', '!=', '제한 없음'),
           orderBy('endDate', 'desc'),
           limit(3),
         );
-        const q7 = query(ref, where('endDate', '==', '제한 없음'), limit(4));
+        const q6 = query(ref, where('endDate', '==', '제한 없음'), limit(4));
 
-        const [querySnapshot6, querySnapshot7] = await Promise.all([getDocs(q6), getDocs(q7)]);
+        const [querySnapshot5, querySnapshot6] = await Promise.all([getDocs(q5), getDocs(q6)]);
 
-        const results3 = querySnapshot6.docs.map((item) => mapDocumentToData(item, surveyType));
-        const results4 = querySnapshot7.docs.map((item) => mapDocumentToData(item, surveyType));
+        const results1 = querySnapshot5.docs.map((item) => mapDocumentToData(item, surveyType));
+        const results2 = querySnapshot6.docs.map((item) => mapDocumentToData(item, surveyType));
 
-        return [...results3, ...results4] as Survey[];
+        return [...results1, ...results2] as Survey[];
       default:
         throw new Error('Unsupported query type');
     }

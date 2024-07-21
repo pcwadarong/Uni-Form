@@ -8,12 +8,12 @@ import { Survey } from '@/types';
 
 const RecentPopularSurveys = () => {
   const { data: latestSurveys } = useSuspenseQuery({
-    queryKey: ['survey'],
+    queryKey: ['latestSurvey'],
     queryFn: () => fetchSurveysOrRecruitsList('survey', 'latest'),
   });
 
   const { data: popularSurveys } = useSuspenseQuery({
-    queryKey: ['survey'],
+    queryKey: ['popularSurvey'],
     queryFn: () => fetchSurveysOrRecruitsList('survey', 'popular'),
   });
 

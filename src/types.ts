@@ -21,11 +21,11 @@ export interface Recruit {
   responses?: string[];
   isEditable: boolean;
   isPublic?: boolean;
+  point?: number;
 }
 
 export interface Survey extends Recruit {
-  point: number;
-  comments?: string[];
+  comments: string[];
   lastCommentId?: string;
 }
 

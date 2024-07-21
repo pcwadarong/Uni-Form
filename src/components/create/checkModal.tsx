@@ -24,6 +24,7 @@ const CheckModal: React.FC<Props> = ({ onClose }) => {
   const [selectedMainCategory, setSelectedMainCategory] = useState<string>('설문조사');
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>('');
   const [subCategories, setSubCategories] = useState<string[]>([]);
+  const [point, setPoint] = useState<string>('');
   const [isSelectOpen, setIsSelectOpen] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
   const { saveSurvey } = useSaveSurvey();
@@ -46,6 +47,11 @@ const CheckModal: React.FC<Props> = ({ onClose }) => {
       ? selectedCategory.slice(1)
       : selectedCategory;
     setSurveyInfo({ ...surveyInfo, category: formattedCategory });
+  };
+
+  const handlePointChange = (value: string) => {
+    setPoint(value);
+    setSurveyInfo({ ...surveyInfo, point: Number(value) });
   };
 
   const toggleIsEditable = (value: boolean) => {
@@ -116,7 +122,7 @@ const CheckModal: React.FC<Props> = ({ onClose }) => {
             <span className="w-20 pb-3">포인트:</span>
             <Select
               defaultValue="100"
-              onValueChange={handleSubCategoryChange}
+              onValueChange={handlePointChange}
               onOpenChange={() => setIsSelectOpen(!isSelectOpen)}
             >
               <SelectTrigger className="border-gray-2 mb-3">
