@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { handleLogin } from '@/firebase/auth/sign-in';
-import { useAuthStore } from '@/store/auth';
 import Image from 'next/image';
 
 const Form = () => {
@@ -12,11 +11,10 @@ const Form = () => {
   const [password, setPassword] = useState('');
   const [status, setStatus] = useState(false);
   const [loginErrorMessage, setLoginErrorMessage] = useState('');
-  const { setUser, loadUserFromSession } = useAuthStore();
 
   const login = async (event: React.FormEvent, method: 'email' | 'google') => {
     event.preventDefault();
-    const success = await handleLogin(method, email, password, setUser);
+    const success = await handleLogin(method, email, password);
     if (success) {
       router.push('/');
     } else {
@@ -27,9 +25,8 @@ const Form = () => {
   };
 
   useEffect(() => {
-    if (password && email) setStatus(true);
-    loadUserFromSession();
-  }, [password, email, loadUserFromSession]);
+    setStatus(!!(password && email));
+  }, [password, email]);
 
   return (
     <div>
@@ -41,7 +38,7 @@ const Form = () => {
         <div>
           <label htmlFor="id">이메일</label>
           <div className="relative mt-2">
-          <Image
+            <Image
               src={'/mail.svg'}
               alt="user"
               width="20"
@@ -101,13 +98,7 @@ const Form = () => {
           onClick={(e) => login(e, 'google')}
           className="flex items-center gap-2 py-3 w-full justify-center px-4 border-[1px] rounded-full border-gray-4"
         >
-          <Image
-            src={'/google.svg'}
-            alt="icon"
-            width="20"
-            height="20"
-            priority={true}
-          />
+          <Image src={'/google.svg'} alt="icon" width="20" height="20" priority={true} />
           <span>Google로 계속하기</span>
         </button>
       </div>

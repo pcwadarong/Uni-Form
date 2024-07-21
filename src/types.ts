@@ -39,6 +39,11 @@ export interface Option {
   value: string;
 }
 
+export interface Questions {
+  questions: Question[];
+  surveyId: string;
+}
+
 export interface Question {
   id: number;
   type: QuestionType;

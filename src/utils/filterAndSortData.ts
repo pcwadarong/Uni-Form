@@ -65,7 +65,7 @@ export const onChangeSortType = (newType: string) => {
 export const filterInProgressData = (data: Survey[] | Recruit[]) => {
   const currentTime = new Date().getTime();
   return data.filter((item) => {
-    const endTime = parseDateString(item.endDate).getTime();
+    const endTime = parseDateString(item.id, item.endDate).getTime();
     return endTime > currentTime;
   });
 };

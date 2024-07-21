@@ -3,7 +3,7 @@ import parseDateString from './parseDateString';
 
 export const calculateDeadlineMatch = (item: Survey | Recruit, deadline: string) => {
   const currentDate = new Date();
-  const diffTime = parseDateString(item.endDate).getTime() - currentDate.getTime();
+  const diffTime = parseDateString(item.id, item.endDate).getTime() - currentDate.getTime();
   const date = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   return (
     deadline === 'all' ||

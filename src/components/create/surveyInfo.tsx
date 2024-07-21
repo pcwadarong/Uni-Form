@@ -6,6 +6,7 @@ import AutoResizeTextarea from '../common/textarea';
 import AddBtns from './addBtns';
 import { useSurveyStore } from '@/store/survey';
 import SetDuration from './duration';
+import { formatTextWithLineBreaks } from '@/utils/formatTextWithLineBreaks';
 
 interface Props {
   mode: string;
@@ -13,9 +14,9 @@ interface Props {
 }
 const SurveyInfo = ({ mode, onEditToggle }: Props) => {
   const { surveyInfo, setSurveyInfo } = useSurveyStore();
-  const [explanationArea, setExplanationArea] = useState<string | undefined>(surveyInfo.description);
-
-  console.log(surveyInfo);
+  const [explanationArea, setExplanationArea] = useState<string | undefined>(
+    surveyInfo.description,
+  );
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -56,11 +57,7 @@ const SurveyInfo = ({ mode, onEditToggle }: Props) => {
           <div className="aspect-[4/1] bg-font justify-center flex">
             {surveyInfo.img ? (
               <div className="relative overflow-hidden flex items-center">
-                <img
-                  src={surveyInfo.img}
-                  alt="Uploaded"
-                  className="w-full h-auto object-cover"
-                />
+                <img src={surveyInfo.img} alt="Uploaded" className="w-full h-auto object-cover" />
                 <div className="absolute bottom-5 right-5 bg-gray-4/50 text-white p-2 rounded-md">
                   <button onClick={handleDeleteClick} aria-label="Delete image">
                     삭제하기
@@ -104,15 +101,11 @@ const SurveyInfo = ({ mode, onEditToggle }: Props) => {
           <AddBtns />
         </div>
       ) : (
-        <div>
+        <div className="pb-2">
           {surveyInfo.img && (
             <div className="aspect-[4/1] bg-font justify-center flex">
               <div className="relative overflow-hidden flex items-center">
-                <img
-                  src={surveyInfo.img}
-                  alt="Survey"
-                  className="w-full h-auto object-cover"
-                />
+                <img src={surveyInfo.img} alt="Survey" className="w-full h-auto object-cover" />
               </div>
             </div>
           )}
@@ -120,8 +113,11 @@ const SurveyInfo = ({ mode, onEditToggle }: Props) => {
             <h2 className="title3" aria-label="Survey title">
               {surveyInfo.title}
             </h2>
-            <p className="caption" aria-label="Survey description">
-              {surveyInfo.description}
+            <p
+              className={`caption ${explanationArea ? 'pb-5' : ''}`}
+              aria-label="Survey description"
+            >
+              {formatTextWithLineBreaks(surveyInfo.description || '')}
             </p>
             <span className="bg-gray-1 p-2 rounded-full text-gray-4" aria-label="Survey duration">
               {`${surveyInfo.startDate} ~ ${surveyInfo.endDate}`}

@@ -1,8 +1,7 @@
 import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { auth, firestore } from '../firebaseConfig';
-import { getDoc, doc, setDoc } from 'firebase/firestore';
+import { doc, setDoc } from 'firebase/firestore';
 import { FirebaseError } from 'firebase/app';
-import { User } from '@/types';
 
 const emailSignIn = async (email: string, password: string) => {
   try {
@@ -56,15 +55,19 @@ const googleSignIn = async () => {
 
 export const handleLogin = async (
   method: 'email' | 'google',
-  email: string,
-  password: string,
-  setUser: (user: User | null) => void,
+  email?: string,
+  password?: string,
 ) => {
   let userCredential;
 
   switch (method) {
     case 'email':
-      userCredential = await emailSignIn(email, password);
+      if (email && password) {
+        userCredential = await emailSignIn(email, password);
+      } else {
+        console.error('Email and password are required for email login');
+        return false;
+      }
       break;
     case 'google':
       userCredential = await googleSignIn();
@@ -74,30 +77,5 @@ export const handleLogin = async (
       return false;
   }
 
-  if (userCredential) {
-    const { user } = userCredential;
-    const userRef = doc(firestore, 'users', user.uid);
-    const userDoc = await getDoc(userRef);
-
-    if (userDoc.exists()) {
-      const userData = userDoc.data() as User;
-
-      const userInfo: User = {
-        uid: user.uid,
-        nickname: userData.nickname,
-        email: user.email || '',
-        role: userData.role,
-        createdSurveys: userData.createdSurveys,
-        responses: userData.responses,
-        comments: userData.comments,
-      };
-
-      setUser(userInfo);
-      return true;
-    } else {
-      console.error('User document does not exist');
-      return false;
-    }
-  }
-  return false;
+  return userCredential !== null;
 };

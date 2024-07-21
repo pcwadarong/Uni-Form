@@ -133,7 +133,7 @@ export const fetchDetail = async (id: string): Promise<InfoType | null> => {
       return null;
     }
   } catch (error) {
-    console.error('Error getting survey detail:', error);
+    console.error('Error getting detail:', error);
     return null;
   }
 };

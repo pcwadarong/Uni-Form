@@ -19,7 +19,7 @@ const DetailModal: React.FC<{ item: Survey | Recruit }> = ({ item }) => {
   const hasPublicProp = 'isPublic' in item;
 
   const currentDate = new Date();
-  const diffTime = parseDateString(item.endDate).getTime() - currentDate.getTime();
+  const diffTime = parseDateString(item.id, item.endDate).getTime() - currentDate.getTime();
 
   return (
     <div className="z-50 relative p-4" role="dialog" aria-modal="true">

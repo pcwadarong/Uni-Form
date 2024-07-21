@@ -23,7 +23,7 @@ export const mockRecruits = [
     id: 'recruit-2024-06-18-3',
     uid: 'uHUrBWPBtbZOQBjzgpjuvxwS41N2',
     title: '"UX DESIGN" 팀원 모집',
-    description: '안녕하세요! 저희는 "UX DESIGN"을 수강하고 있는 000, 000입니다. 저희와 함께하실 팀원 한 분을 모시고자 합니다.',
+    description: '안녕하세요! 저희는 "UX DESIGN"을 수강하고 있는 000, 000입니다. 저희와 함께하실 팀원 한 분을 모시고자 합니다. 팀원 1 : 다수의 공모전 수상 경력, 대기업 인턴 경력 팀원 2: 공모전 수상 경력, 논문 대회 최우수상 경력 답변 남겨주시면 빠른 시일 내에 연락 드리겠습니다. 감사합니다!',
     startDate: '2024-06-18 11:00:00',
     endDate: '2024-07-28 20:00:00',
     response: [],
