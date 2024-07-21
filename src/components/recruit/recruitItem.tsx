@@ -39,7 +39,7 @@ const RecruitItem: React.FC<{ item: Recruit }> = ({ item }) => {
           <Date id={item.id} endDate={item.endDate} />
           <h3 className="body1 md:text-xl mt-3 mb-2 line-clamp-2">{item.title}</h3>
         </div>
-        <p className="caption text-gray-4 truncate">{`${formatDateUi(item.startDate)} ~ ${formatDateUi(item.endDate)}`}</p>
+        <p className="caption text-gray-4 truncate">{`${formatDateUi(item.id, item.startDate)} ~ ${formatDateUi(item.id, item.endDate)}`}</p>
       </div>
     </li>
   );

@@ -6,17 +6,12 @@ export default function parseDateString(id: string, dateString: string): Date {
   } else if (dateString === '제한없음') {
     return new Date('9999-12-31T23:59:59.999Z');
   } else {
-    const [datePart, timePart] = dateString.split(' ');
-
-    if (!datePart || !timePart) {
-      throw new Error('Invalid date format');
-    }
-
+    const [datePart, slot, timePart] = dateString.split(' ');
     const [year, month, day] = datePart.split('.').map(Number);
 
     // 오전/오후 구별 및 시간 변환
-    const isPM = timePart.includes('오후');
-    const [hoursStr, minutesStr] = timePart.replace('오후', '').replace('오전', '').split(':');
+    const isPM = slot === '오후';
+    const [hoursStr, minutesStr] = timePart.split(':');
 
     const hours = Number(hoursStr);
     const minutes = Number(minutesStr);

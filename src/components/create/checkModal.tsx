@@ -111,6 +111,37 @@ const CheckModal: React.FC<Props> = ({ onClose }) => {
             </SelectGroup>
           </SelectContent>
         </Select>
+        {selectedMainCategory === '설문조사' && (
+          <div className="flex items-center">
+            <span className="w-20 pb-3">포인트:</span>
+            <Select
+              defaultValue="100"
+              onValueChange={handleSubCategoryChange}
+              onOpenChange={() => setIsSelectOpen(!isSelectOpen)}
+            >
+              <SelectTrigger className="border-gray-2 mb-3">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectItem value="0">0P</SelectItem>
+                  <SelectItem value="10">10P</SelectItem>
+                  <SelectItem value="20">20P</SelectItem>
+                  <SelectItem value="30">30P</SelectItem>
+                  <SelectItem value="40">40P</SelectItem>
+                  <SelectItem value="50">50P</SelectItem>
+                  <SelectItem value="80">80P</SelectItem>
+                  <SelectItem value="100">100P</SelectItem>
+                  <SelectItem value="120">120P</SelectItem>
+                  <SelectItem value="150">150P</SelectItem>
+                  <SelectItem value="200">200P</SelectItem>
+                  <SelectItem value="350">250P</SelectItem>
+                  <SelectItem value="300">300P</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+        )}
 
         <div className="flex items-center justify-between">
           <div className="text-left">

@@ -7,9 +7,12 @@ import { fetchComments } from '@/firebase/fetchDatas';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import formatDateUi from '@/utils/formatDateUi';
 import parseDateString from '@/utils/parseDateString';
-import Link from 'next/link';
+import { formatTextWithLineBreaks } from '@/utils/formatTextWithLineBreaks';
+import { useRouter } from 'next/navigation';
 
 const DetailModal: React.FC<{ item: Survey | Recruit }> = ({ item }) => {
+  const router = useRouter();
+
   const { data: commentsList } = useSuspenseQuery({
     queryKey: ['comments', item.id],
     queryFn: () => fetchComments(item.id),
@@ -20,6 +23,10 @@ const DetailModal: React.FC<{ item: Survey | Recruit }> = ({ item }) => {
 
   const currentDate = new Date();
   const diffTime = parseDateString(item.id, item.endDate).getTime() - currentDate.getTime();
+
+  const func = () => {
+    router.push('./');
+  };
 
   return (
     <div className="z-50 relative p-4" role="dialog" aria-modal="true">
@@ -33,11 +40,13 @@ const DetailModal: React.FC<{ item: Survey | Recruit }> = ({ item }) => {
         </button>
         <h4 className="title3 md:text-xl mt-3 mb-2 line-clamp-2">{item.title}</h4>
         <hr className="-mt-3 w-full border-primary"></hr>
-        <span className="line-clamp-3">{item.description}</span>
+        {item.description && (
+          <span className="overflow-visible">{formatTextWithLineBreaks(item.description)}</span>
+        )}
         {hasComments && (
           <>
             <div className="flex justify-between">
-              <span className="caption text-gray-4 truncate">{`${formatDateUi(item.startDate)} ~ ${formatDateUi(item.endDate)}`}</span>
+              <span className="caption text-gray-4 truncate">{`${formatDateUi(item.id, item.startDate)} ~ ${formatDateUi(item.id, item.endDate)}`}</span>
               <Reaction responses={item.responses} comments={item.comments} />
             </div>
             <div className="overflow-hidden h-52 relative">
@@ -63,16 +72,12 @@ const DetailModal: React.FC<{ item: Survey | Recruit }> = ({ item }) => {
             </div>
           </>
         )}
-        <div className="flex justify-center gap-2">
+        <div className="flex justify-center gap-2 mt-4">
           {hasPublicProp && item.isPublic && (
-            <Button text={'결과보기'} className={'bg-green-light text-font'} />
+            <Button text={'결과보기'} className={'bg-green-light text-font'} onClick={func}/>
           )}
-          {diffTime && (
-            <Button text={'참여하기'} className={'bg-primary text-white'} />
-          )}
-          {item.isEditable && (
-            <Button text={'수정하기'} className={'bg-primary text-white'} />
-          )}
+          {diffTime && <Button text={'참여하기'} className={'bg-primary text-white'} onClick={func} />}
+          {/* {item.isEditable && <Button text={'수정하기'} className={'bg-primary text-white'} />} */}
         </div>
       </div>
     </div>
