@@ -19,6 +19,7 @@ import ToggleInProgressFilter from './toggleInProgressFilter';
 import SurveyItem from '@/components/survey/surveyItem';
 import SurveySkeleton from '@/components/survey/surveySkeleton';
 import SortSelect from '@/components/list/sortSelect';
+import SortSelectMini from './sortSelectMini';
 import DetailModal from '@/components/detailModal/detailModal';
 import { closeModal } from '@/utils/handleModal';
 import RecruitSkeleton from '../recruit/recruitSkeleton';
@@ -141,7 +142,11 @@ const CommonList: React.FC<Props> = ({ topic, category }) => {
                 onChange={toggleInProgressFilter}
               />
             </div>
-            <SortSelect onChangeSortType={onChangeSortType} defaultValue={sortParam} />
+            {topic === 'survey' ? (
+              <SortSelect onChangeSortType={onChangeSortType} defaultValue={sortParam} />
+            ) : (
+              <SortSelectMini onChangeSortType={onChangeSortType} defaultValue={sortParam} />
+            )}
           </div>
           {dataList.length === 0 ? (
             <div className="flex flex-col items-center text-gray-500 mt-10">
