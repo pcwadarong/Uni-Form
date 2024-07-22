@@ -23,6 +23,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cookie": "^0.6.0",
+    "crypto-js": "^4.2.0",
     "date-fns": "^3.6.0",
     "firebase": "^10.12.3",
     "firebaseui": "^6.1.0",
@@ -38,6 +39,7 @@
   "devDependencies": {
     "@tanstack/eslint-plugin-query": "^5.51.1",
     "@types/cookie": "^0.6.0",
+    "@types/crypto-js": "^4.2.2",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-beautiful-dnd": "^13.1.8",

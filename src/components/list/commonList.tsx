@@ -81,10 +81,9 @@ const CommonList: React.FC<Props> = ({ topic, category }) => {
 
   const onFilterChange = ({ point = 'all', deadline }: { point?: string; deadline: string }) => {
     const newFilteredData = originalData.filter((item) => {
+      const itemPoint = (item as Survey).point;
       const isPointMatch =
-        (item as Survey).point !== undefined
-          ? point === 'all' || (item as Survey).point >= parseInt(point)
-          : true;
+        itemPoint !== undefined ? point === 'all' || itemPoint >= parseInt(point, 10) : true;
       const isDeadlineMatch = calculateDeadlineMatch(item, deadline);
 
       return isPointMatch && isDeadlineMatch;

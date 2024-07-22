@@ -9,6 +9,7 @@ import formatDateUi from '@/utils/formatDateUi';
 import parseDateString from '@/utils/parseDateString';
 import { formatTextWithLineBreaks } from '@/utils/formatTextWithLineBreaks';
 import { useRouter } from 'next/navigation';
+import { encrypt } from '@/utils/crypotoUtils';
 
 const DetailModal: React.FC<{ item: Survey | Recruit }> = ({ item }) => {
   const router = useRouter();
@@ -24,8 +25,16 @@ const DetailModal: React.FC<{ item: Survey | Recruit }> = ({ item }) => {
   const currentDate = new Date();
   const diffTime = parseDateString(item.id, item.endDate).getTime() - currentDate.getTime();
 
-  const func = () => {
-    router.push('./');
+  const moveToResultandComments = () => {
+    const encryptedId = encrypt(item.id);
+    router.push(`/analyze/${encryptedId}`);
+    closeModal();
+  };
+
+  const moveToResponse = () => {
+    const encryptedId = encrypt(item.id);
+    router.push(`/response/${encryptedId}`);
+    closeModal();
   };
 
   return (
@@ -74,10 +83,18 @@ const DetailModal: React.FC<{ item: Survey | Recruit }> = ({ item }) => {
         )}
         <div className="flex justify-center gap-2 mt-4">
           {hasPublicProp && item.isPublic && (
-            <Button text={'결과보기'} className={'bg-green-light text-font'} onClick={func} />
+            <Button
+              text={'결과보기'}
+              className={'bg-green-light text-font'}
+              onClick={moveToResultandComments}
+            />
           )}
           {diffTime && (
-            <Button text={'참여하기'} className={'bg-primary text-white'} onClick={func} />
+            <Button
+              text={'참여하기'}
+              className={'bg-primary text-white'}
+              onClick={moveToResponse}
+            />
           )}
           {/* {item.isEditable && <Button text={'수정하기'} className={'bg-primary text-white'} />} */}
         </div>

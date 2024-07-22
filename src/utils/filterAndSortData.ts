@@ -18,7 +18,11 @@ export const getSelectedItems = (items: Survey[] | Recruit[], sortType: string) 
     if (sortType === 'random') {
       return Math.random() - 0.5;
     } else if (sortType === 'point-asc' && parsedA.type === 'survey' && parsedB.type === 'survey') {
-      return (a as Survey).point - (b as Survey).point;
+      const surveyA = a as Survey;
+      const surveyB = b as Survey;
+      const pointA = surveyA.point ?? 0;
+      const pointB = surveyB.point ?? 0;
+      return pointA - pointB;
     } else if (
       sortType === 'popular-asc' &&
       parsedA.type === 'survey' &&

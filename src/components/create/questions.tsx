@@ -7,9 +7,9 @@ import QuestionSelect from './select';
 import AutoResizeTextarea from '../common/textarea';
 
 interface ExtendedQuestionProps extends QuestionProps {
-  onEditToggle: () => void;
+  onEditToggle?: () => void;
   isEssential: boolean;
-  provided: any;
+  provided?: any;
 }
 
 const Questions: React.FC<ExtendedQuestionProps> = ({

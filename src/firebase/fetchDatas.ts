@@ -10,7 +10,7 @@ import {
   where,
 } from 'firebase/firestore';
 import { firestore } from './firebaseConfig';
-import { Survey, Recruit, InfoType, Comment, Response, SortType } from '@/types';
+import { Survey, Recruit, InfoType, Comment, Response, SortType, Question } from '@/types';
 import { fetchUserNickname } from './getUserData';
 
 const mapDocumentToData = (item: DocumentData, surveyType: 'survey' | 'recruit' | 'detail') => {
@@ -112,15 +112,27 @@ export const fetchSurveysOrRecruitsList = async (
   }
 };
 
-export const fetchDetail = async (id: string): Promise<InfoType | null> => {
+export const fetchDetail = async (
+  surveyType: 'survey' | 'recruit',
+  id: string,
+): Promise<InfoType | null> => {
   try {
-    const surveyRef = doc(firestore, 'surveys', id);
+    const surveyRef = doc(firestore, surveyType, id);
     const surveyDoc = await getDoc(surveyRef);
-    if (surveyDoc.exists()) {
-      return mapDocumentToData(surveyDoc, 'detail') as InfoType;
-    } else {
+
+    if (!surveyDoc.exists()) {
       return null;
     }
+
+    const questionsRef = collection(firestore, 'questions');
+    const q = query(questionsRef, where('id', '==', id));
+    const questionsSnapshot = await getDocs(q);
+    const questions = questionsSnapshot.docs.map((item) => item.data() as Question);
+
+    const detailData = mapDocumentToData(surveyDoc, 'detail') as InfoType;
+    detailData.questions = questions;
+
+    return detailData;
   } catch (error) {
     console.error('Error getting detail:', error);
     return null;
