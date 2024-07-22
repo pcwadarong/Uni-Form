@@ -59,7 +59,7 @@ export interface Question {
 export interface QuestionProps {
   question: Question;
   mode: ModeType;
-}
+} 
 
 export type ModeType = 'editing' | 'previewing' | 'testing' | 'responding';
 

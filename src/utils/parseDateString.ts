@@ -11,10 +11,7 @@ export default function parseDateString(id: string, dateString: string): Date {
 
     // 오전/오후 구별 및 시간 변환
     const isPM = slot === '오후';
-    const [hoursStr, minutesStr] = timePart.split(':');
-
-    const hours = Number(hoursStr);
-    const minutes = Number(minutesStr);
+    const [hours, minutes] = timePart.split(':').map(Number);
 
     // 오전/오후를 반영한 시간 조정
     const adjustedHours = isPM ? (hours !== 12 ? hours + 12 : hours) : hours === 12 ? 0 : hours;

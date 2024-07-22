@@ -10,6 +10,7 @@ const ClosingRecruits = () => {
   const { data: closingRecruits } = useSuspenseQuery({
     queryKey: ['closingRecruits'],
     queryFn: () => fetchSurveysOrRecruitsList('recruit', 'closing'),
+    staleTime: 5 * 60 * 1000,
   });
 
   return (

@@ -10,6 +10,7 @@ const SpecialSurveys = () => {
   const { data: specialSurveys } = useSuspenseQuery({
     queryKey: ['speicalSurvey'],
     queryFn: () => fetchSurveysOrRecruitsList('survey', 'special'),
+    staleTime: 5 * 60 * 1000,
   });
 
   return (

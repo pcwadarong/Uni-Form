@@ -10,6 +10,7 @@ const LatestComments: React.FC = () => {
   const { data: latestComments } = useSuspenseQuery({
     queryKey: ['latestComments'],
     queryFn: () => fetchSurveysOrRecruitsList('survey', 'latestComments'),
+    staleTime: 5 * 60 * 1000,
   });
 
   return (

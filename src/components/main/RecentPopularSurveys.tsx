@@ -10,12 +10,17 @@ const RecentPopularSurveys = () => {
   const { data: latestSurveys } = useSuspenseQuery({
     queryKey: ['latestSurvey'],
     queryFn: () => fetchSurveysOrRecruitsList('survey', 'latest'),
+    staleTime: 5 * 60 * 1000,
   });
 
   const { data: popularSurveys } = useSuspenseQuery({
     queryKey: ['popularSurvey'],
     queryFn: () => fetchSurveysOrRecruitsList('survey', 'popular'),
+    staleTime: 5 * 60 * 1000,
   });
+
+  const latestSurveysLimited = latestSurveys.slice(0, 2);
+  const popularSurveysLimited = popularSurveys.slice(0, 2);
 
   return (
     <section className="w-full px-4 md:px-8 2xl:px-0 flex justify-center py-16">
@@ -37,7 +42,7 @@ const RecentPopularSurveys = () => {
                   </>
                 }
               >
-                {latestSurveys.map((item) => (
+                {latestSurveysLimited.map((item) => (
                   <SurveyItem key={item.id} item={item as Survey} />
                 ))}
               </Suspense>
@@ -59,7 +64,7 @@ const RecentPopularSurveys = () => {
                   </>
                 }
               >
-                {popularSurveys.map((item) => (
+                {popularSurveysLimited.map((item) => (
                   <SurveyItem key={item.id} item={item as Survey} />
                 ))}
               </Suspense>

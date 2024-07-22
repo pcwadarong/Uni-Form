@@ -102,7 +102,7 @@ const CheckboxQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
                     ...(question.options || []),
                     {
                       id: (question.options ? question.options.length : 0) + 1,
-                      value: `항목 ${(question.options ? question.options.length : 0) + 1}`,
+                      value: '',
                     },
                   ],
                 })
