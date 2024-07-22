@@ -1,9 +1,13 @@
 {
-  "extends": ["airbnb-typescript/base"],
+  "extends": [
+    "airbnb-typescript/base",
+    "plugin:@next/next/recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  "plugins": ["import"],
+  "plugins": ["import", "@next/next"],
   "rules": {
     "import/prefer-default-export": "off",
     "import/extensions": ["error", "never"]
