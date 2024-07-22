@@ -3,10 +3,10 @@ import { QuestionProps } from '@/types';
 import Options from '../options';
 import { useSurveyStore } from '@/store/survey';
 import { useState, useEffect } from 'react';
-import isModeDisabled from '@/utils/isModeDisabled';
+//import isModeDisabled from '@/utils/isModeDisabled';
 
 const StarRatingQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
-  const isDisabled = isModeDisabled(mode);
+  //const isDisabled = isModeDisabled(mode);
   const { updateQuestion } = useSurveyStore();
   const [comment, setComment] = useState('1~5');
 

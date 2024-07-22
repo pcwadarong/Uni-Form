@@ -19,7 +19,7 @@ export default function Special({ id, point, endDate }: SpecialProps) {
           {`마감 ${date}일 전`}
         </span>
       )}
-      {point > 0 && (
+      {point && point > 0 && (
         <span
           className="px-2 py-1 bg-primary text-center text-white caption rounded-md"
           aria-label={`${point}포인트`}

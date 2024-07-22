@@ -1,6 +1,7 @@
 import { QuestionProps, Question, QuestionType } from '@/types';
 import { useSurveyStore } from '@/store/survey';
 import questionComponentMap from '@/constants/questionComponentMap';
+import { DraggableProvided } from '@hello-pangea/dnd';
 import { useState, useEffect } from 'react';
 import RadioQuestion from './question/radioQuestion';
 import QuestionSelect from './select';
@@ -9,7 +10,7 @@ import AutoResizeTextarea from '../common/textarea';
 interface ExtendedQuestionProps extends QuestionProps {
   onEditToggle?: () => void;
   isEssential: boolean;
-  provided?: any;
+  provided?: DraggableProvided;
 }
 
 const Questions: React.FC<ExtendedQuestionProps> = ({
@@ -46,7 +47,7 @@ const Questions: React.FC<ExtendedQuestionProps> = ({
         <>
           <div
             className="text-center cursor-move select-none p-10 -m-10"
-            {...provided.dragHandleProps}
+            {...(provided?.dragHandleProps || {})}
             aria-label="질문 이동 핸들"
           >
             <span className="blind">질문 이동하기</span>=
