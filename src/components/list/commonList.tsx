@@ -7,7 +7,6 @@ import { fetchSurveysOrRecruitsList } from '@/firebase/fetchDatas';
 import { useSelectedSurveyStore } from '@/store/survey';
 import { Survey, Recruit } from '@/types';
 import RecruitItem from '../recruit/recruitItem';
-import Image from 'next/image';
 import { CategorySelection } from '@/components/survey/categorySelection';
 import {
   filterInProgressData,
@@ -24,6 +23,7 @@ import DetailModal from '@/components/detailModal/detailModal';
 import { closeModal } from '@/utils/handleModal';
 import RecruitSkeleton from '../recruit/recruitSkeleton';
 import FilterIcon from '../svg/filter';
+import NoContent from './noContent';
 
 interface Props {
   topic: 'survey' | 'recruit';
@@ -149,12 +149,7 @@ const CommonList: React.FC<Props> = ({ topic, category }) => {
             )}
           </div>
           {dataList.length === 0 ? (
-            <div className="flex flex-col items-center text-gray-500 mt-10">
-              <Image src="/bubble-chat.svg" alt="no comments" width={80} height={78} />
-              <p className="text-center body2">
-                해당하는 설문이 없습니다. 다른 조건으로 검색해보세요.
-              </p>
-            </div>
+            <NoContent />
           ) : (
             <ul className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
               <Suspense
