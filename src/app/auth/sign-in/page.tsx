@@ -15,7 +15,7 @@ const SignIn: React.FC = () => {
         >
           <Link
             className="flex-1 text-end"
-            href="/reset-pw"
+            href="/auth/reset-pw"
             aria-label="비밀번호 재설정 페이지로 이동"
           >
             비밀번호 재설정
