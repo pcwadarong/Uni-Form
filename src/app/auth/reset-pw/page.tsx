@@ -1,6 +1,5 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { resetPassword } from '@/firebase/auth/sign-up';
 import { useState, useEffect } from 'react';
 import { validateSignInput } from '@/utils/validateSignInput';
@@ -10,6 +9,7 @@ const ResetPw: React.FC = () => {
 
   const handleResetPassword = () => {
     resetPassword(email);
+    alert('메일 전송 완료. 메일함을 확인해주세요.');
   };
 
   useEffect(() => {

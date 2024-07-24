@@ -26,9 +26,9 @@ export const metadata: Metadata = {
     description: '대학생을 위한 폼 서비스',
     images: [
       {
-        url: '/og-image.jpg', // 이미지 제작 필요
+        url: '/preview.jpg',
         width: 800,
-        height: 600,
+        height: 400,
         alt: 'Uniform Logo',
       },
     ],
