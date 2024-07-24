@@ -6,13 +6,9 @@ import Header from '@/components/layout/header/header';
 import Footer from '@/components/layout/footer';
 import ActionBtns from '@/components/common/actionBtn';
 import '../styles/globals.css';
-// import { initMsw } from '@/mocks';
 import { Providers } from './providers';
 
 const suit = localFont({ src: '../fonts/SUIT.woff2' });
-// if (process.env.NODE_ENV === 'development') {
-//   initMsw();
-// }
 
 export const metadata: Metadata = {
   title: 'Uniform',
@@ -37,7 +33,7 @@ export const metadata: Metadata = {
       },
     ],
   },
-  metadataBase: new URL('https://your-production-domain.com'), // vercel 주소 작성
+  metadataBase: new URL('https://uni-form-chaen-chaens-projects.vercel.app/'),
 };
 
 export default function RootLayout({
