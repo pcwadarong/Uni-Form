@@ -12,6 +12,7 @@ import { useRouter } from 'next/navigation';
 import { encrypt } from '@/utils/crypotoUtils';
 import { useQueryClient } from '@tanstack/react-query';
 import { fetchDetail } from '@/firebase/fetchDatas';
+import { useEffect } from 'react';
 
 const DetailModal: React.FC<{ item: Survey | Recruit }> = ({ item }) => {
   const router = useRouter();
@@ -27,9 +28,9 @@ const DetailModal: React.FC<{ item: Survey | Recruit }> = ({ item }) => {
 
   const currentDate = new Date();
   const diffTime = parseDateString(item.id, item.endDate).getTime() - currentDate.getTime();
+  const type = item.id.startsWith('survey') ? 'surveys' : 'recruits';
 
   const prefetchDetails = async () => {
-    const type = item.id.startsWith('survey') ? 'surveys' : 'recruits';
     await queryClient.prefetchQuery({
       queryKey: ['selectedSurveyDetail', type, item.id],
       queryFn: () => fetchDetail(type, item.id),
@@ -42,8 +43,11 @@ const DetailModal: React.FC<{ item: Survey | Recruit }> = ({ item }) => {
     closeModal();
   };
 
+  useEffect(() => {
+    prefetchDetails();
+  }, [item.id]);
+
   const moveToResponse = async () => {
-    await prefetchDetails();
     const encryptedId = encrypt(item.id);
     router.push(`/response/${encryptedId}`);
     closeModal();
@@ -106,7 +110,6 @@ const DetailModal: React.FC<{ item: Survey | Recruit }> = ({ item }) => {
               text={'참여하기'}
               className={'bg-primary text-white'}
               onClick={moveToResponse}
-              onMouseEnter={prefetchDetails}
             />
           )}
           {/* {item.isEditable && <Button text={'수정하기'} className={'bg-primary text-white'} />} */}

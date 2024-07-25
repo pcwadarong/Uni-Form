@@ -18,8 +18,9 @@ const ResponsePage = () => {
   const type = itemId.startsWith('survey') ? 'surveys' : 'recruits';
 
   const { data: data } = useSuspenseQuery({
-    queryKey: ['selectedSurveyDetail'],
+    queryKey: ['selectedSurveyDetail', type, itemId],
     queryFn: () => fetchDetail(type, itemId),
+    staleTime: Infinity,
   });
 
   useEffect(() => {
@@ -36,7 +37,7 @@ const ResponsePage = () => {
     <div className="flex-1 w-full px-4 pt-8 pb-20 md:px-8 2xl:px-0 bg-green-light justify-center">
       <div className="w-full 2xl:w-[1400px] flex flex-col gap-5 m-auto">
         <SurveyInfo mode="responding" />
-        {surveyInfo.questions.length > 0 &&
+        {surveyInfo.questions &&
           surveyInfo.questions.map((question) => (
             <Questions
               key={question.timestamp}
