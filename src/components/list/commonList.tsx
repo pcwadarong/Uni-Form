@@ -27,7 +27,7 @@ import NoContent from './noContent';
 
 interface Props {
   topic: 'survey' | 'recruit';
-  category: string;
+  category: string | string[];
 }
 
 const CommonList: React.FC<Props> = ({ topic, category }) => {
