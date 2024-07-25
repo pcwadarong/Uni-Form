@@ -2,7 +2,7 @@
 
 import { useState, useEffect, Suspense, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { useSuspenseQuery, useQueryClient } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { fetchSurveysOrRecruitsList } from '@/firebase/fetchDatas';
 import { useSelectedSurveyStore } from '@/store/survey';
 import { Survey, Recruit } from '@/types';
@@ -33,7 +33,6 @@ interface Props {
 const CommonList: React.FC<Props> = ({ topic, category }) => {
   const { selectedItem } = useSelectedSurveyStore();
   const searchParams = useSearchParams();
-  const queryClient = useQueryClient();
 
   const sortParam = searchParams.get('sort') || 'random';
   const [isInProgressChecked, setIsInProgressChecked] = useState(false);
@@ -47,21 +46,11 @@ const CommonList: React.FC<Props> = ({ topic, category }) => {
     queryFn: () => fetchSurveysOrRecruitsList(topic, 'public'),
   });
 
-  // useEffect(() => {
-  //   queryClient.invalidateQueries({
-  //     queryKey: ['list'],
-  //     exact: true,
-  //   });
-  // }, [queryClient]);
-
-  console.log(initialData);
   const categorizeData = useCallback(() => {
-    console.log(category);
     const categorizedData = initialData.filter((item) => {
       return category === 'all' || item.category === category;
     });
     const sortedData = getSelectedItems(categorizedData, sortParam);
-    console.log(sortedData);
     setOriginalData(sortedData);
     setFilteredData(sortedData);
   }, [category, sortParam, initialData]);
