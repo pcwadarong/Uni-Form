@@ -11,7 +11,7 @@ import {
 } from 'firebase/firestore';
 import { firestore } from './firebaseConfig';
 import { Survey, Recruit, InfoType, Comment, Response, SortType } from '@/types';
-import { fetchUserNickname } from './getUserData';
+import { fetchUserData } from './getUserData';
 
 const mapDocumentToData = (item: DocumentData, surveyType: 'survey' | 'recruit' | 'detail') => {
   const data = item.data();
@@ -151,7 +151,7 @@ export const fetchComments = async (id: string): Promise<Comment[] | null> => {
     const commentsWithNicknames = await Promise.all(
       querySnapshot.docs.map(async (item) => {
         const commentData = item.data();
-        const nickname = await fetchUserNickname(commentData.uid, 'nickname');
+        const nickname = await fetchUserData(commentData.uid, 'nickname');
 
         return {
           id: item.id,

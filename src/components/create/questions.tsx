@@ -1,6 +1,7 @@
 import { QuestionProps, Question, QuestionType } from '@/types';
 import { useSurveyStore } from '@/store/survey';
 import questionComponentMap from '@/constants/questionComponentMap';
+import { useResponseStore } from '@/store/response';
 import { DraggableProvided } from '@hello-pangea/dnd';
 import { useState, useEffect } from 'react';
 import RadioQuestion from './question/radioQuestion';
@@ -23,6 +24,7 @@ const Questions: React.FC<ExtendedQuestionProps> = ({
   const QuestionComponent = questionComponentMap[question.type] || RadioQuestion;
   const [explanation, setExplanation] = useState<string>(question.description || '');
   const { updateQuestion, updateQuestionType } = useSurveyStore();
+  const { setResponse } = useResponseStore();
 
   const handleQuestionChange = (updatedQuestion: Question) => {
     updateQuestion(question.id, updatedQuestion);
@@ -34,6 +36,10 @@ const Questions: React.FC<ExtendedQuestionProps> = ({
 
   const handleTypeChange = (newType: string) => {
     updateQuestionType(question.id, newType as QuestionType);
+  };
+
+  const handleResponseChange = (newResponse: string | number | string[] | number[]) => {
+    setResponse(question.timestamp, newResponse);
   };
 
   return (
@@ -94,7 +100,7 @@ const Questions: React.FC<ExtendedQuestionProps> = ({
           <p className="caption">{question.description || ''}</p>
         </div>
       )}
-      <QuestionComponent question={question} mode={mode} />
+      <QuestionComponent question={question} mode={mode} onResponseChange={handleResponseChange} />
     </div>
   );
 };

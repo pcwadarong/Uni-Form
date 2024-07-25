@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { deleteOption } from '@/utils/createPageUtils';
 import isModeDisabled from '@/utils/isModeDisabled';
 
-const CheckboxQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
+const CheckboxQuestion: React.FC<QuestionProps> = ({ question, mode, onResponseChange }) => {
   const isDisabled = isModeDisabled(mode);
   const { updateQuestion } = useSurveyStore();
 
@@ -16,6 +16,12 @@ const CheckboxQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
   };
 
   const hasEtcOption = question.options?.some((option) => option.value === '기타');
+
+  const handleResponseChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (onResponseChange) {
+      onResponseChange(e.target.value);
+    }
+  };
 
   return (
     <>
@@ -46,7 +52,10 @@ const CheckboxQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
                             {...draggableProvided.dragHandleProps}
                             className="flex gap-2"
                           >
-                            <span className="cursor-move" aria-label={`${index + 1}번 질문 이동하기`}>
+                            <span
+                              className="cursor-move"
+                              aria-label={`${index + 1}번 질문 이동하기`}
+                            >
                               =
                             </span>
                             <label
@@ -140,6 +149,7 @@ const CheckboxQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
                 name={`question-${question.id}`}
                 disabled={isDisabled}
                 value={option.value}
+                onChange={handleResponseChange}
                 aria-label={option.value}
               />
               {option.value}

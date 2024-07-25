@@ -6,6 +6,7 @@ import SurveyInfo from '@/components/create/surveyInfo';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { fetchDetail } from '@/firebase/fetchDatas';
 import { useSurveyStore } from '@/store/survey';
+import { useResponseStore } from '@/store/response';
 import { useEffect } from 'react';
 import Questions from '@/components/create/questions';
 import Button from '@/components/common/button';
@@ -15,6 +16,7 @@ const ResponsePage = () => {
   const encryptedId = pathname.replace('/response/', '');
   const itemId = encryptedId ? decrypt(encryptedId) : '';
   const { surveyInfo, setSurveyInfo } = useSurveyStore();
+  const { response, initializeResponses } = useResponseStore();
   const type = itemId.startsWith('survey') ? 'surveys' : 'recruits';
 
   const { data: data } = useSuspenseQuery({
@@ -26,10 +28,12 @@ const ResponsePage = () => {
   useEffect(() => {
     if (data) {
       setSurveyInfo(data);
+      initializeResponses(itemId, data.questions);
     }
-  }, [data, setSurveyInfo]);
+  }, [data, setSurveyInfo, initializeResponses]);
 
   const handleSaveResponse = () => {
+    console.log(response);
     alert('saved');
   };
 
@@ -40,7 +44,7 @@ const ResponsePage = () => {
         {surveyInfo.questions &&
           surveyInfo.questions.map((question) => (
             <Questions
-              key={question.timestamp}
+              key={question.id}
               question={question}
               isEssential={question.isEssential}
               mode="responding"

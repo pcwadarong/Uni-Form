@@ -1,5 +1,3 @@
-'use client';
-
 const Notification: React.FC = () => {
   return (
     <div className="m-auto text-center">

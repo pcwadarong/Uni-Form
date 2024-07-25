@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { deleteOption } from '@/utils/createPageUtils';
 import isModeDisabled from '@/utils/isModeDisabled';
 
-const RadioQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
+const RadioQuestion: React.FC<QuestionProps> = ({ question, mode, onResponseChange }) => {
   const isDisabled = isModeDisabled(mode);
   const { updateQuestion } = useSurveyStore();
 
@@ -16,6 +16,12 @@ const RadioQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
   };
 
   const hasEtcOption = question.options?.some((option) => option.value === '기타');
+
+  const handleResponseChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (onResponseChange) {
+      onResponseChange(e.target.value);
+    }
+  };
 
   return (
     <>
@@ -133,6 +139,7 @@ const RadioQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
                 name={`question-${question.id}`}
                 disabled={isDisabled}
                 value={option.value}
+                onChange={handleResponseChange}
                 aria-label={option.value}
               />
               {option.value}

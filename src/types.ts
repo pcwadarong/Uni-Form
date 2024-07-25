@@ -59,7 +59,8 @@ export interface Question {
 export interface QuestionProps {
   question: Question;
   mode: ModeType;
-} 
+  onResponseChange?: (newResponse: string) => void;
+}
 
 export type ModeType = 'editing' | 'previewing' | 'testing' | 'responding';
 
@@ -84,13 +85,14 @@ export interface Comment {
 }
 
 interface Answer {
-  questionId: string;
+  questionId: number;
+  timestamp: string;
   response: string | number | string[] | number[]; // 단답형, 선택형 등 다양한 답변 형식 지원
 }
 
 export interface Response {
   id: string;
-  surveyId: number;
+  surveyId: string;
   uid: string;
   content: Answer[];
 }

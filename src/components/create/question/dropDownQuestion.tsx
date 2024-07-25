@@ -14,7 +14,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-const DropDownQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
+const DropDownQuestion: React.FC<QuestionProps> = ({ question, mode, onResponseChange }) => {
   const isDisabled = isModeDisabled(mode);
   const { updateQuestion } = useSurveyStore();
 
@@ -23,6 +23,12 @@ const DropDownQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
   };
 
   const hasEtcOption = question.options?.some((option) => option.value === '기타');
+
+  const handleResponseChange = (value: string) => {
+    if (onResponseChange) {
+      onResponseChange(value);
+    }
+  };
 
   return (
     <>
@@ -53,8 +59,16 @@ const DropDownQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
                             {...draggableProvided.dragHandleProps}
                             className="flex gap-2"
                           >
-                            <span className="cursor-move" aria-label={`${index + 1}번 질문 이동하기`}>=</span>
-                            <label htmlFor={`option-${question.id}-${option.id}`} className="sr-only">
+                            <span
+                              className="cursor-move"
+                              aria-label={`${index + 1}번 질문 이동하기`}
+                            >
+                              =
+                            </span>
+                            <label
+                              htmlFor={`option-${question.id}-${option.id}`}
+                              className="sr-only"
+                            >
                               {index + 1}번
                             </label>
                             <input
@@ -80,12 +94,7 @@ const DropDownQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
                               disabled={question.options && question.options.length === 1}
                               aria-label={`${index + 1}번 항목 삭제`}
                             >
-                              <Image
-                                src={'./cancel.svg'}
-                                alt="삭제 버튼"
-                                width="20"
-                                height="20"
-                              />
+                              <Image src={'./cancel.svg'} alt="삭제 버튼" width="20" height="20" />
                             </button>
                           </div>
                         )}
@@ -136,8 +145,15 @@ const DropDownQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
         </>
       ) : (
         <>
-          <Select disabled={isDisabled} aria-label="답변을 선택해주세요">
-            <SelectTrigger className="border-gray-2 mb-3" aria-describedby={`question-${question.id}-description`}>
+          <Select
+            disabled={isDisabled}
+            aria-label="답변을 선택해주세요"
+            onValueChange={handleResponseChange}
+          >
+            <SelectTrigger
+              className="border-gray-2 mb-3"
+              aria-describedby={`question-${question.id}-description`}
+            >
               <SelectValue placeholder="답변을 선택해주세요." />
             </SelectTrigger>
             <SelectContent>

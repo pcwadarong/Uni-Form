@@ -4,7 +4,10 @@ import { User } from '@/types';
 
 type UserField = 'all' | 'nickname' | 'email' | 'responses' | 'comments' | 'draft';
 
-export const fetchUserNickname = async (uid: string, fields: UserField = 'all'): Promise<User | null> => {
+export const fetchUserData = async (
+  uid: string,
+  fields: UserField = 'all',
+): Promise<User | null> => {
   try {
     const userDoc = doc(firestore, 'users', uid);
     const userSnapshot = await getDoc(userDoc);
