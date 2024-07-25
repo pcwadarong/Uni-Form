@@ -4,7 +4,8 @@ import { firestore } from '@/firebase/firebaseConfig';
 import { FirebaseError } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
-import { Question, InfoType } from '@/types';
+import { Question } from '@/types';
+import { initSurveyInfo } from '@/constants/initSurveyInfo';
 
 export const useSaveSurvey = () => {
   const { surveyInfo, setSurveyInfo } = useSurveyStore();
@@ -42,36 +43,10 @@ export const useSaveSurvey = () => {
       questions: validatedQuestions,
     };
 
-    const ititSurveyInfo: InfoType = {
-      questions: [
-        {
-          id: 1,
-          type: 'checkbox',
-          timestamp: '',
-          title: '',
-          isEssential: true,
-          options: [
-            { id: 1, value: '' },
-            { id: 2, value: '' },
-          ],
-        },
-      ],
-      id: '',
-      uid: '',
-      title: '',
-      description: '',
-      img: '',
-      startDate: '바로시작',
-      endDate: '제한없음',
-      category: '',
-      mode: 'editing',
-      isEditable: false,
-    };
-
     try {
       await setDoc(doc(firestore, cat, id), filteredSurveyInfo);
       await setDoc(doc(firestore, 'questions', id), questions);
-      setSurveyInfo(ititSurveyInfo);
+      setSurveyInfo(initSurveyInfo);
       router.push('/');
     } catch (error) {
       if (error instanceof FirebaseError) {

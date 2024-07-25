@@ -1,31 +1,42 @@
 'use client';
 
-import Link from 'next/link';
 import { commonTemplate, surveyTemplate, recruitTemplate } from '@/constants/templates';
 import { useState, useEffect } from 'react';
 import FileEditIcon from '@/components/svg/file';
 import { getRandomColor } from '@/utils/getRandomColor';
+import { useSurveyStore } from '@/store/survey';
+import { initSurveyInfo } from '@/constants/initSurveyInfo';
+import { useRouter } from 'next/navigation';
 
 const RandomColoredBox: React.FC<{ link: string; text: string }> = ({ link, text }) => {
   const [randomClass, setRandomClass] = useState('');
+  const router = useRouter();
+  const { setSurveyInfo } = useSurveyStore();
 
   useEffect(() => {
     setRandomClass(getRandomColor());
   }, []);
 
+  const moveToCreatePage = async () => {
+    try {
+      setSurveyInfo(initSurveyInfo);
+      router.push(link);
+    } catch (error) {
+      console.error('Failed to set survey info:', error);
+      return;
+    }
+  };
+
   return (
-    <li>
-      <Link href={link}>
-        <div
-          className={`relative rounded-3xl h-auto mb-2 drop-shadow-md aspect-square bg-${randomClass}`}
-          aria-label={`Navigate to ${text}`}
-        >
-          <p className="absolute top-6 left-6 title3">{text}</p>
-          <div className="absolute bottom-6 right-6">
-            <FileEditIcon width={60} height={60} aria-label="Edit icon" />
-          </div>
+    <li
+      className={`relative rounded-3xl h-auto mb-2 drop-shadow-md aspect-square bg-${randomClass} flex items-center justify-center`}
+    >
+      <button onClick={moveToCreatePage} aria-label={`Navigate to ${text}`} className='w-full h-full'>
+        <p className="absolute top-6 left-6 title3">{text}</p>
+        <div className="absolute bottom-6 right-6">
+          <FileEditIcon width={60} height={60} aria-label="Edit icon" />
         </div>
-      </Link>
+      </button>
     </li>
   );
 };
