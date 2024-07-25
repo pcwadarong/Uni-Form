@@ -10,9 +10,12 @@ import parseDateString from '@/utils/parseDateString';
 import { formatTextWithLineBreaks } from '@/utils/formatTextWithLineBreaks';
 import { useRouter } from 'next/navigation';
 import { encrypt } from '@/utils/crypotoUtils';
+import { useQueryClient } from '@tanstack/react-query';
+import { fetchDetail } from '@/firebase/fetchDatas';
 
 const DetailModal: React.FC<{ item: Survey | Recruit }> = ({ item }) => {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const { data: commentsList } = useSuspenseQuery({
     queryKey: ['comments', item.id],
@@ -25,13 +28,22 @@ const DetailModal: React.FC<{ item: Survey | Recruit }> = ({ item }) => {
   const currentDate = new Date();
   const diffTime = parseDateString(item.id, item.endDate).getTime() - currentDate.getTime();
 
+  const prefetchDetails = async () => {
+    const type = item.id.startsWith('survey') ? 'surveys' : 'recruits';
+    await queryClient.prefetchQuery({
+      queryKey: ['selectedSurveyDetail', type, item.id],
+      queryFn: () => fetchDetail(type, item.id),
+    });
+  };
+
   const moveToResultandComments = () => {
     const encryptedId = encrypt(item.id);
     router.push(`/analyze/${encryptedId}`);
     closeModal();
   };
 
-  const moveToResponse = () => {
+  const moveToResponse = async () => {
+    await prefetchDetails();
     const encryptedId = encrypt(item.id);
     router.push(`/response/${encryptedId}`);
     closeModal();
@@ -94,6 +106,7 @@ const DetailModal: React.FC<{ item: Survey | Recruit }> = ({ item }) => {
               text={'참여하기'}
               className={'bg-primary text-white'}
               onClick={moveToResponse}
+              onMouseEnter={prefetchDetails}
             />
           )}
           {/* {item.isEditable && <Button text={'수정하기'} className={'bg-primary text-white'} />} */}

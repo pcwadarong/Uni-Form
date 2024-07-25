@@ -113,7 +113,7 @@ export const fetchSurveysOrRecruitsList = async (
 };
 
 export const fetchDetail = async (
-  surveyType: 'survey' | 'recruit',
+  surveyType: 'surveys' | 'recruits',
   id: string,
 ): Promise<InfoType | null> => {
   try {
@@ -127,12 +127,15 @@ export const fetchDetail = async (
     const questionsRef = collection(firestore, 'questions');
     const q = query(questionsRef, where('id', '==', id));
     const questionsSnapshot = await getDocs(q);
-    const questions = questionsSnapshot.docs.map((item) => item.data() as Question);
+    const questionsArray = questionsSnapshot.docs[0]?.data().questions || [];
 
     const detailData = mapDocumentToData(surveyDoc, 'detail') as InfoType;
-    detailData.questions = questions;
+    const surveyData = {
+      ...detailData,
+      questions: questionsArray,
+    };
 
-    return detailData;
+    return surveyData;
   } catch (error) {
     console.error('Error getting detail:', error);
     return null;
