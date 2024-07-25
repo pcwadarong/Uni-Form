@@ -10,7 +10,7 @@ import {
   where,
 } from 'firebase/firestore';
 import { firestore } from './firebaseConfig';
-import { Survey, Recruit, InfoType, Comment, Response, SortType, Question } from '@/types';
+import { Survey, Recruit, InfoType, Comment, Response, SortType } from '@/types';
 import { fetchUserNickname } from './getUserData';
 
 const mapDocumentToData = (item: DocumentData, surveyType: 'survey' | 'recruit' | 'detail') => {
