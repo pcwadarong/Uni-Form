@@ -8,18 +8,17 @@ import {
 
 interface SortSelectProps {
   onChangeSortType: (value: string) => void;
-  defaultValue: string;
 }
 
-const SortSelectMini: React.FC<SortSelectProps> = ({ onChangeSortType, defaultValue }) => {
+const SortSelectMini: React.FC<SortSelectProps> = ({ onChangeSortType }) => {
   const options = [
-    { value: 'random', label: '랜덤 순' },
     { value: 'date-desc', label: '최신 순' },
+    { value: 'random', label: '랜덤 순' },
     // { value: 'update-asc', label: '끌올 순' }, // 부가 기능으로 업데이트 예정
   ];
 
   return (
-    <Select value={defaultValue} onValueChange={onChangeSortType}>
+    <Select defaultValue="date-desc" onValueChange={onChangeSortType}>
       <SelectTrigger className="border-gray-2 w-36">
         <SelectValue />
       </SelectTrigger>

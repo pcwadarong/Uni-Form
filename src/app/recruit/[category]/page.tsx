@@ -3,10 +3,10 @@
 import { useParams } from 'next/navigation';
 import CommonList from '@/components/list/commonList';
 
-const SurveyList = () => {
+const RecruitList = () => {
   const params = useParams();
   const paramCategory = params.category || 'all';
-  return <CommonList topic={'survey'} category={paramCategory} />;
+  return <CommonList topic={'recruit'} category={paramCategory} />;
 };
 
-export default SurveyList;
+export default RecruitList;

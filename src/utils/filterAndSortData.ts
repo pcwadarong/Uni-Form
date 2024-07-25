@@ -4,10 +4,9 @@ import parseDateString from './parseDateString';
 function parseId(id: string) {
   const parts = id.split('-');
   const type = parts[0];
-  const dateStr = `${parts[1]}-${parts[12]}-${parts[3]}`;
+  const dateStr = `${parts[1]}-${parts[2]}-${parts[3].substring(0, 2)}`;
   const date = new Date(dateStr);
-  const num = parseInt(parts[4], 10);
-  return { type, date, num };
+  return { type, date };
 }
 
 export const getSelectedItems = (items: Survey[] | Recruit[], sortType: string) => {
@@ -43,15 +42,11 @@ export const getSelectedItems = (items: Survey[] | Recruit[], sortType: string) 
       }
       if (parsedA.date > parsedB.date) return -1;
       if (parsedA.date < parsedB.date) return 1;
-      if (parsedA.num > parsedB.num) return -1;
-      if (parsedA.num < parsedB.num) return 1;
 
       return 0;
     } else if (sortType === 'date-desc') {
       if (parsedA.date > parsedB.date) return -1;
       if (parsedA.date < parsedB.date) return 1;
-      if (parsedA.num > parsedB.num) return -1;
-      if (parsedA.num < parsedB.num) return 1;
       return 0;
     } else {
       return 0;

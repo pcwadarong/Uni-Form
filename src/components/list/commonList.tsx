@@ -35,7 +35,7 @@ const CommonList: React.FC<Props> = ({ topic, category }) => {
   const searchParams = useSearchParams();
   const queryClient = useQueryClient();
 
-  const sortParam = searchParams.get('sort') || 'point-asc';
+  const sortParam = searchParams.get('sort') || 'random';
   const [isInProgressChecked, setIsInProgressChecked] = useState(false);
   const [filterDisplay, setFilterDisplay] = useState<'hidden' | 'block'>('hidden');
   const [originalData, setOriginalData] = useState<Survey[] | Recruit[]>([]);
@@ -43,22 +43,25 @@ const CommonList: React.FC<Props> = ({ topic, category }) => {
   const [dataList, setDataList] = useState<Survey[] | Recruit[]>([]);
 
   const { data: initialData } = useSuspenseQuery({
-    queryKey: ['list', { type: topic }],
+    queryKey: ['list', topic],
     queryFn: () => fetchSurveysOrRecruitsList(topic, 'public'),
   });
 
-  useEffect(() => {
-    queryClient.invalidateQueries({
-      queryKey: ['list'],
-      exact: true,
-    });
-  }, [queryClient]);
+  // useEffect(() => {
+  //   queryClient.invalidateQueries({
+  //     queryKey: ['list'],
+  //     exact: true,
+  //   });
+  // }, [queryClient]);
 
+  console.log(initialData);
   const categorizeData = useCallback(() => {
-    const categorizedData = initialData.filter(
-      (item) => category === '전체보기' || item.category === category,
-    );
+    console.log(category);
+    const categorizedData = initialData.filter((item) => {
+      return category === 'all' || item.category === category;
+    });
     const sortedData = getSelectedItems(categorizedData, sortParam);
+    console.log(sortedData);
     setOriginalData(sortedData);
     setFilteredData(sortedData);
   }, [category, sortParam, initialData]);
@@ -144,7 +147,7 @@ const CommonList: React.FC<Props> = ({ topic, category }) => {
             {topic === 'survey' ? (
               <SortSelect onChangeSortType={onChangeSortType} defaultValue={sortParam} />
             ) : (
-              <SortSelectMini onChangeSortType={onChangeSortType} defaultValue={sortParam} />
+              <SortSelectMini onChangeSortType={onChangeSortType} />
             )}
           </div>
           {dataList.length === 0 ? (
