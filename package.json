@@ -14,7 +14,6 @@
     "@radix-ui/react-accordion": "^1.2.10",
     "@radix-ui/react-checkbox": "^1.3.1",
     "@radix-ui/react-select": "^2.2.4",
-    "@tailwindcss/postcss": "^4.1.7",
     "@tanstack/react-query": "^5.51.11",
     "@tanstack/react-query-next-experimental": "^5.51.1",
     "broadcast-channel": "^7.0.0",
@@ -36,6 +35,7 @@
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@svgr/webpack": "^8.1.0",
+    "@tailwindcss/postcss": "^4.1.7",
     "@types/cookie": "^1.0.0",
     "@types/crypto-js": "^4.2.2",
     "@types/node": "^20",
@@ -43,7 +43,7 @@
     "@types/react-beautiful-dnd": "^13.1.8",
     "@types/react-dom": "^18",
     "postcss": "^8.5.3",
-    "tailwindcss": "^4.1.6",
+    "tailwindcss": "^4",
     "tailwindcss-animate": "^1.0.7",
     "tw-animate-css": "^1.2.9",
     "typescript": "^5"

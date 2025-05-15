@@ -58,7 +58,7 @@ const RAW_RUNTIME_STATE =
           ["react-day-picker", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:8.10.1"],\
           ["react-dom", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:18.3.1"],\
           ["tailwind-merge", "npm:3.3.0"],\
-          ["tailwindcss", "npm:4.1.6"],\
+          ["tailwindcss", "npm:4.1.7"],\
           ["tailwindcss-animate", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:1.0.7"],\
           ["tw-animate-css", "npm:1.2.9"],\
           ["typescript", "patch:typescript@npm%3A5.8.3#optional!builtin<compat/typescript>::version=5.8.3&hash=5786d5"],\
@@ -7374,13 +7374,6 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["tailwindcss", [\
-      ["npm:4.1.6", {\
-        "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/tailwindcss-npm-4.1.6-61c1165774-10c0.zip/node_modules/tailwindcss/",\
-        "packageDependencies": [\
-          ["tailwindcss", "npm:4.1.6"]\
-        ],\
-        "linkType": "HARD"\
-      }],\
       ["npm:4.1.7", {\
         "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/tailwindcss-npm-4.1.7-fa2df55972-10c0.zip/node_modules/tailwindcss/",\
         "packageDependencies": [\
@@ -7401,7 +7394,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/__virtual__/tailwindcss-animate-virtual-99703b6acf/4/AppData/Local/Yarn/Berry/cache/tailwindcss-animate-npm-1.0.7-0ee9776556-10c0.zip/node_modules/tailwindcss-animate/",\
         "packageDependencies": [\
           ["@types/tailwindcss", null],\
-          ["tailwindcss", "npm:4.1.6"],\
+          ["tailwindcss", "npm:4.1.7"],\
           ["tailwindcss-animate", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:1.0.7"]\
         ],\
         "packagePeers": [\
@@ -7552,7 +7545,7 @@ const RAW_RUNTIME_STATE =
           ["react-day-picker", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:8.10.1"],\
           ["react-dom", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:18.3.1"],\
           ["tailwind-merge", "npm:3.3.0"],\
-          ["tailwindcss", "npm:4.1.6"],\
+          ["tailwindcss", "npm:4.1.7"],\
           ["tailwindcss-animate", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:1.0.7"],\
           ["tw-animate-css", "npm:1.2.9"],\
           ["typescript", "patch:typescript@npm%3A5.8.3#optional!builtin<compat/typescript>::version=5.8.3&hash=5786d5"],\

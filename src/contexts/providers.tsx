@@ -2,6 +2,8 @@
 
 import { QueryClient, QueryClientProvider, isServer } from "@tanstack/react-query";
 import { ReactQueryStreamedHydration } from "@tanstack/react-query-next-experimental";
+import { AuthProvider } from "./authProvider";
+import { ThemeProvider } from "./themeProvider";
 
 function makeQueryClient() {
   return new QueryClient({
@@ -27,7 +29,13 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ReactQueryStreamedHydration>{children}</ReactQueryStreamedHydration>
+      <ReactQueryStreamedHydration>
+        <ThemeProvider>
+          <AuthProvider>
+            {children}
+          </AuthProvider>
+        </ThemeProvider>
+      </ReactQueryStreamedHydration>
     </QueryClientProvider>
   );
 }

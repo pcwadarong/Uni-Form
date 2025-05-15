@@ -1,7 +1,7 @@
 import Header from '@/components/layout/header/header';
 import localFont from 'next/font/local';
-import '../styles/globals.css';
-import { Providers } from './providers';
+import './globals.css';
+import { Providers } from '../contexts/providers';
 
 const suit = localFont({ src: '../fonts/SUIT.woff2' });
 
