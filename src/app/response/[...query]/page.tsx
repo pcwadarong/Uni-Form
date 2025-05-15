@@ -51,7 +51,7 @@ const ResponsePage = () => {
         ))}
         <Button
           text={'제출하기'}
-          className={'text-white bg-primary w-fit m-auto'}
+          className={'text-white bg-green-300 w-fit m-auto'}
           onClick={handleSaveResponse}
         />
       </div>

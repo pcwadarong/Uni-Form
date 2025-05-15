@@ -72,7 +72,7 @@ const DetailModal: React.FC<{ item: Survey | Recruit }> = ({ item }) => {
         <h4 className="title3 md:text-xl mt-3 mb-2 line-clamp-2">
           {item.title}
         </h4>
-        <hr className="-mt-3 w-full border-primary"></hr>
+        <hr className="-mt-3 w-full border-green-300"></hr>
         {item.description && (
           <span className="overflow-visible">
             {formatTextWithLineBreaks(item.description)}
@@ -119,18 +119,18 @@ const DetailModal: React.FC<{ item: Survey | Recruit }> = ({ item }) => {
           {hasPublicProp && item.isPublic && (
             <Button
               text={'결과보기'}
-              className={'bg-green-light text-font'}
+              className={'bg-green-light text-green-400'}
               onClick={moveToResultandComments}
             />
           )}
           {diffTime && (
             <Button
               text={'참여하기'}
-              className={'bg-primary text-white'}
+              className={'bg-green-300 text-white'}
               onClick={moveToResponse}
             />
           )}
-          {/* {item.isEditable && <Button text={'수정하기'} className={'bg-primary text-white'} />} */}
+          {/* {item.isEditable && <Button text={'수정하기'} className={'bg-green-300 text-white'} />} */}
         </div>
       </div>
     </div>

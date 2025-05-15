@@ -33,7 +33,7 @@ export default function Calendar({
         day: "h-9 w-9 p-0 aria-selected:opacity-100 hover:bg-gray-2  rounded-full ",
         day_range_end: "day-range-end",
         day_selected:
-          "bg-green-light text-font focus:bg-gray-900 focus:text-gray-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50 dark:hover:text-gray-900 dark:focus:bg-gray-50 dark:focus:text-gray-900",
+          "bg-green-light text-green-400 focus:bg-gray-900 focus:text-gray-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50 dark:hover:text-gray-900 dark:focus:bg-gray-50 dark:focus:text-gray-900",
         day_today: "bg-gray-1 rounded-full dark:bg-gray-800 dark:text-gray-50",
         day_outside:
           "day-outside text-gray-3 aria-selected:bg-gray-100/50 aria-selected:text-gray-500 aria-selected:opacity-30 dark:text-gray-400 dark:aria-selected:bg-gray-800/50 dark:aria-selected:text-gray-400",

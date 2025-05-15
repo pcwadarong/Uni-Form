@@ -19,14 +19,14 @@ export default function NavLeft({ handleMouseOver, handleMouseLeave }: Props) {
         </h1>
       </li>
       <li
-        className="hidden sm:inline hover:underline underline-offset-8 decoration-primary"
+        className="hidden sm:inline hover:underline underline-offset-8 decoration-green-300"
         onMouseOver={() => handleMouseOver("survey")}
         onMouseLeave={handleMouseLeave}
       >
         <Link href="/survey/all">설문조사</Link>
       </li>
       <li
-        className="hidden sm:inline hover:underline underline-offset-8 decoration-primary"
+        className="hidden sm:inline hover:underline underline-offset-8 decoration-green-300"
         onMouseOver={() => handleMouseOver("recruit")}
         onMouseLeave={handleMouseLeave}
       >

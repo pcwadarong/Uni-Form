@@ -42,7 +42,7 @@ export default function Form() {
       >
         <div>
           <label htmlFor="nickname">닉네임</label>
-          <span className="ml-3 text-font">
+          <span className="ml-3 text-green-400">
             {validateSignInput('nickname', nickname)
               ? ''
               : '2~6자의 영문, 한글, 숫자로 입력해주세요.'}
@@ -127,7 +127,7 @@ export default function Form() {
         <div>
           <button
             type="submit"
-            className={`text-white w-full rounded-xl bg-primary p-4 body2 mt-5 ${
+            className={`text-white w-full rounded-xl bg-green-300 p-4 body2 mt-5 ${
               status ? '' : 'opacity-50 cursor-not-allowed'
             }`}
             disabled={!status}

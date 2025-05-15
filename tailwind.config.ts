@@ -1,18 +1,12 @@
-import type { Config } from "tailwindcss";
-
-const config = {
-  darkMode: "class",
-  content: [
-    "./pages/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./app/**/*.{ts,tsx}",
-    "./src/**/*.{ts,tsx}",
-  ],
-  prefix: "",
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  darkMode: 'class',
+  prefix: '',
+  content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    screenS: { sm: "480px", "2xl": "1400px" },
+    extend: {
+      screenS: { sm: "480px", "2xl": "1400px" },
+    },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config;
-
-export default config;
+};

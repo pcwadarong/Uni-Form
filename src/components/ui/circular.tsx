@@ -7,7 +7,7 @@ const CircularProgress = () => (
       viewBox="25 25 50 50"
     >
       <circle
-        className="stroke-current stroke-primary"
+        className="stroke-current stroke-green-300"
         cx="50"
         cy="50"
         r="20"

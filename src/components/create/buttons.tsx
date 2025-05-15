@@ -88,7 +88,7 @@ const CreatePageButton = () => {
         임시저장
       </button>
       <button
-        className="py-1 px-3 bg-primary text-white rounded-md"
+        className="py-1 px-3 bg-green-300 text-white rounded-md"
         aria-label="저장하기"
         onClick={handleValidate}
       >

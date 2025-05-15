@@ -14,9 +14,9 @@ export const CategorySelection: React.FC<Props> = ({ topic, onFilterChange }) =>
     labels.forEach((label) => {
       const htmlFor = (label as HTMLLabelElement).htmlFor;
       if (htmlFor === `${type}-${value}`) {
-        label.classList.add("text-font");
+        label.classList.add("text-green-400");
       } else {
-        label.classList.remove("text-font");
+        label.classList.remove("text-green-400");
       }
     });
   };
@@ -46,7 +46,7 @@ export const CategorySelection: React.FC<Props> = ({ topic, onFilterChange }) =>
               <div key={`point-${value}`}>
                 <label
                   htmlFor={`point-${value}`}
-                  className={`hover:text-font w-24 mr-6 2xl:w-fit ${selectedPoint === value ? "text-font" : ""}`}
+                  className={`hover:text-green-400 w-24 mr-6 2xl:w-fit ${selectedPoint === value ? "text-green-400" : ""}`}
                   onClick={() => handleRadioSelect("point", value)}
                   aria-label={value === "all" ? "전체 보기" : `${value}포인트 이상`}
                 >
@@ -65,7 +65,7 @@ export const CategorySelection: React.FC<Props> = ({ topic, onFilterChange }) =>
             <div key={`deadline-${value}`}>
               <label
                 htmlFor={`deadline-${value}`}
-                className={`hover:text-font w-24 mr-6 2xl:w-fit ${selectedDeadline === value ? "text-font" : ""}`}
+                className={`hover:text-green-400 w-24 mr-6 2xl:w-fit ${selectedDeadline === value ? "text-green-400" : ""}`}
                 onClick={() => handleRadioSelect("deadline", value)}
                 aria-label={
                   value === "all" ? "전체 보기" : `${value}일 이${value === "15" ? "상" : "내"}`

@@ -256,12 +256,12 @@ const SetDuration = () => {
               <div className="flex justify-center gap-2">
                 <Button
                   text={"취소"}
-                  className={"bg-green-light text-font flex-1"}
+                  className={"bg-green-light text-green-400 flex-1"}
                   onClick={toggleModal}
                 />
                 <Button
                   text={"확인"}
-                  className={"bg-primary text-white flex-1"}
+                  className={"bg-green-300 text-white flex-1"}
                   onClick={saveDuration}
                 />
               </div>

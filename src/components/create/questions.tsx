@@ -51,7 +51,7 @@ const Questions: React.FC<ExtendedQuestionProps> = ({
     <div
       onClick={onEditToggle}
       className={`bg-white rounded-2xl overflow-hidden shadow-md p-5 ${
-        mode === 'editing' ? 'border border-primary' : ''
+        mode === 'editing' ? 'border border-green-300' : ''
       }`}
     >
       {mode === 'editing' ? (

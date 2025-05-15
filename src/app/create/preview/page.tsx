@@ -97,7 +97,7 @@ const PreviewFormPage: React.FC = () => {
             <div className="flex-1"></div>
             <div className="flex-1 text-center">
               <button
-                className="py-3 px-8 bg-primary text-white rounded-md"
+                className="py-3 px-8 bg-green-300 text-white rounded-md"
                 aria-label="폼 제출"
               >
                 제출

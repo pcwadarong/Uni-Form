@@ -22,7 +22,7 @@ export default function NavSearch() {
   return (
     <div className="relative flex-auto md:max-w-96 mx-8">
       <input
-        className="w-full h-10 pl-2 pr-10 bg-dark/5 rounded-xl focus:outline-none focus:ring-2 hover:bg-dark/10 focus:ring-primary"
+        className="w-full h-10 pl-2 pr-10 bg-dark/5 rounded-xl focus:outline-none focus:ring-2 hover:bg-dark/10 focus:ring-green-300"
         type="text"
         placeholder="관심사를 찾아보세요!"
         value={param}

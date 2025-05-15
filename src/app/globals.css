@@ -3,17 +3,13 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --color-primary: #1CDE8F;
-  --color-dark: #010B13;
-  --color-green-200: #29EE9E;
-  --color-font: #0BC985;
-  --color-gray-100: #F8F8F8;
-  --color-gray-200: #EAEAEA;
-  --color-gray-300: #CCCCCC;
-  --color-gray-400: #949494;
-  --color-gray-500: #38393D;
-  --accent: oklch(0.65 0.1143 165.23);
-  --background: oklch(0.98 0 0);
+  --color-green-500: oklch(0.74 0.1657 159.94);
+  --color-gray-200: oklch(0.94 0 0);
+  --color-gray-300: oklch(0.85 0 0);
+  --color-gray-400: oklch(0.67 0 0);
+  --color-gray-500: oklch(0.35 0.0071 274.78);
+  --color-background: oklch(0.98 0 0);
+  --color-foreground: oklch(0.14 0.0268 235.73);
   --border: oklch(0.922 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
@@ -23,12 +19,12 @@
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
   --destructive: oklch(0.577 0.245 27.325);
-  --foreground: oklch(0.145 0 0);
   --input: oklch(0.922 0 0);
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.14 0.0268 235.73);
   --primary-foreground: oklch(0.985 0 0);
   --radius: 0.625rem;
   --ring: oklch(0.708 0 0);
@@ -45,7 +41,8 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
+  --color-background: oklch(0.145 0 0);
+  --color-foreground: oklch(0.985 0 0);
   --border: oklch(1 0 0 / 10%);
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
@@ -55,7 +52,6 @@
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
   --destructive: oklch(0.704 0.191 22.216);
-  --foreground: oklch(0.985 0 0);
   --input: oklch(1 0 0 / 15%);
   --muted: oklch(0.269 0 0);
   --muted-foreground: oklch(0.708 0 0);
@@ -74,15 +70,6 @@
   --sidebar-primary: oklch(0.488 0.243 264.376);
   --sidebar-primary-foreground: oklch(0.985 0 0);
   --sidebar-ring: oklch(0.556 0 0);
-}
-
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
 }
 
 .title1 {
@@ -132,10 +119,6 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   overflow: hidden;
-}
-
-.focused_input {
-  @apply focus:outline-none hover:border-b-[1px] focus:border-b-[1px] hover:border-gray-3 focus:border-primary;
 }
 
 .blind {

@@ -45,7 +45,7 @@ const ResetPw: React.FC = () => {
           onClick={handleResetPassword}
           disabled={!status}
           aria-disabled={!status}
-          className={`text-white w-full rounded-xl bg-primary p-2 body2 mt-5 ${
+          className={`text-white w-full rounded-xl bg-green-300 p-2 body2 mt-5 ${
             status ? '' : 'opacity-50 cursor-not-allowed'
           }`}
         >

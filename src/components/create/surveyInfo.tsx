@@ -48,10 +48,10 @@ const SurveyInfo = ({ mode, onEditToggle }: Props) => {
     <div
       onClick={onEditToggle}
       className={`bg-white rounded-2xl overflow-hidden shadow-md ${
-        mode === 'editing' ? 'border border-primary' : ''
+        mode === 'editing' ? 'border border-green-300' : ''
       }`}
     >
-      <p className="py-2 px-4 text-font">{}페이지</p>
+      <p className="py-2 px-4 text-green-400">{}페이지</p>
       {mode === 'editing' ? (
         <div>
           <div className="aspect-[4/1] bg-font justify-center flex">

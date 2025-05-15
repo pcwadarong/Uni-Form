@@ -42,7 +42,7 @@ export default function NavSmRight({ isOpened, toggleCategory, closeMenu }: Prop
               <AccordionContent>
                 <ul className="grid grid-cols-2 gap-4">
                   {Object.entries(SURVEY_CATEGORY).map(([key, value]) => (
-                    <li key={key} className="hover:text-font">
+                    <li key={key} className="hover:text-green-400">
                       <Link href={`/survey/${value}`} onClick={() => closeMenu()}>
                         {key}
                       </Link>
@@ -56,7 +56,7 @@ export default function NavSmRight({ isOpened, toggleCategory, closeMenu }: Prop
               <AccordionContent>
                 <ul className="grid grid-cols-2 gap-4">
                   {Object.entries(RECRUIT_CATEGORY).map(([key, value]) => (
-                    <li key={key} className="hover:text-font">
+                    <li key={key} className="hover:text-green-400">
                       <Link href={`/survey/${value}`} onClick={() => closeMenu()}>
                         {key}
                       </Link>
@@ -70,17 +70,17 @@ export default function NavSmRight({ isOpened, toggleCategory, closeMenu }: Prop
             {user ? (
               <>
                 <li>
-                  <Link className="hover:text-font" href="/form" onClick={() => closeMenu()}>
+                  <Link className="hover:text-green-400" href="/form" onClick={() => closeMenu()}>
                     설문 페이지
                   </Link>
                 </li>
                 <li>
-                  <Link className="hover:text-font" href="/user" onClick={() => closeMenu()}>
+                  <Link className="hover:text-green-400" href="/user" onClick={() => closeMenu()}>
                     내 정보
                   </Link>
                 </li>
                 <li>
-                  <button className="hover:text-font" onClick={handleLogout}>
+                  <button className="hover:text-green-400" onClick={handleLogout}>
                     로그아웃
                   </button>
                 </li>
@@ -90,7 +90,7 @@ export default function NavSmRight({ isOpened, toggleCategory, closeMenu }: Prop
                 <li>
                   <Link
                     href="/auth/sign-in"
-                    className="hover:text-font"
+                    className="hover:text-green-400"
                     onClick={() => closeMenu()}
                   >
                     로그인
@@ -99,7 +99,7 @@ export default function NavSmRight({ isOpened, toggleCategory, closeMenu }: Prop
                 <li>
                   <Link
                     href="/auth/sign-up"
-                    className="hover:text-font"
+                    className="hover:text-green-400"
                     onClick={() => closeMenu()}
                   >
                     회원가입

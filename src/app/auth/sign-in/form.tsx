@@ -86,7 +86,7 @@ const Form = () => {
         <div>
           <button
             type="submit"
-            className={`text-white w-full rounded-xl bg-primary p-4 text-base ${
+            className={`text-white w-full rounded-xl bg-green-300 p-4 text-base ${
               status ? '' : 'opacity-50 cursor-not-allowed'
             }`}
             disabled={!status}

@@ -22,7 +22,7 @@ export default function Special({ id, point, endDate }: SpecialProps) {
       )}
       {point && point > 0 && (
         <span
-          className="px-2 py-1 bg-primary text-center text-white caption rounded-md"
+          className="px-2 py-1 bg-green-300 text-center text-white caption rounded-md"
           aria-label={`${point}포인트`}
         >
           {`${point}P`}

@@ -1,9 +1,9 @@
-import { Survey } from "@/types";
+import type { Survey } from "@/types";
 interface ReactionProps extends Pick<Survey, "responses" | "comments"> {}
 
 export default function Reaction({ responses, comments }: ReactionProps) {
   return (
-    <div className="text-font caption md:text-sm flex gap-3 truncate">
+    <div className="text-green-400 caption md:text-sm flex gap-3 truncate">
       {responses && responses.length > 0 && (
         <span
           aria-label={`설문에 ${responses.length}번 응답이 있습니다.`}

@@ -187,12 +187,12 @@ const CheckModal: React.FC<Props> = ({ onClose }) => {
         <div className="mt-5 gap-2 flex justify-center">
           <Button
             text={'수정하기'}
-            className={'bg-green-light text-font'}
+            className={'bg-green-light text-green-400'}
             onClick={handleOnClose}
           />
           <Button
             text={'저장하기'}
-            className={'bg-primary text-white'}
+            className={'bg-green-300 text-white'}
             onClick={handleSaveSurvey}
           />
         </div>

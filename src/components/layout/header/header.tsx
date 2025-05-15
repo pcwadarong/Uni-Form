@@ -26,7 +26,7 @@ export default function Header() {
               <Image src={"./logo.svg"} alt="logo" width="48" height="30" priority={true} />
             </Link>
           </h1>
-          <button className="py-1 px-3 bg-primary text-white rounded-md" onClick={quitPreview}>
+          <button className="py-1 px-3 bg-green-300 text-white rounded-md" onClick={quitPreview}>
             미리보기 종료
           </button>
         </div>
@@ -48,7 +48,7 @@ export default function Header() {
           onMouseLeave={handleMouseLeave}
         >
           {getCategoryLinks(hoveredCategory).map(([key, value]) => (
-            <li key={key} className="hover:text-font subtitle">
+            <li key={key} className="hover:text-green-400 subtitle">
               <Link href={`/${hoveredCategory}${value}`}>{key}</Link>
             </li>
           ))}
