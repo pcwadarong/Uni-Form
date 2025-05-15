@@ -1,8 +1,8 @@
 'use client';
 
-import { resetPassword } from '@/firebase/auth/sign-up';
-import { useState, useEffect } from 'react';
-import { validateSignInput } from '@/utils/validateSignInput';
+import { resetPassword } from '@/lib/firebase/auth/sign-up';
+import { validateSignInput } from '@/lib/validation/validateSignInput';
+import { useEffect, useState } from 'react';
 const ResetPw: React.FC = () => {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState(false);
@@ -27,7 +27,11 @@ const ResetPw: React.FC = () => {
         비밀번호 재설정 이메일을 보내드립니다. <br />
         발송된 이메일은 1시간 동안 유효합니다.
       </p>
-      <div className="mt-10 max-w-96" role="form" aria-labelledby="login-heading">
+      <div
+        className="mt-10 max-w-96"
+        role="form"
+        aria-labelledby="login-heading"
+      >
         <input
           onChange={(e) => setEmail(e.target.value)}
           value={email}
@@ -37,10 +41,13 @@ const ResetPw: React.FC = () => {
           aria-label="이메일 입력"
         />
         <button
+          type="submit"
           onClick={handleResetPassword}
           disabled={!status}
           aria-disabled={!status}
-          className={`text-white w-full rounded-xl bg-primary p-2 body2 mt-5 ${status ? '' : 'opacity-50 cursor-not-allowed'}`}
+          className={`text-white w-full rounded-xl bg-primary p-2 body2 mt-5 ${
+            status ? '' : 'opacity-50 cursor-not-allowed'
+          }`}
         >
           비밀번호 재설정하기
         </button>

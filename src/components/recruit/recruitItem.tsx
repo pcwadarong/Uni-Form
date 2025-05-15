@@ -1,12 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import formatDateUi from '@/lib/utils/formatDateUi';
+import { getRandomColor } from '@/lib/utils/getRandomColor';
+import { handleEnterKeyPress, openDetailModal } from '@/lib/utils/handleModal';
+import type { Recruit } from '@/types';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 import Date from './date';
-import { Recruit } from '@/types';
-import { openDetailModal, handleEnterKeyPress } from '@/utils/handleModal';
-import { getRandomColor } from '@/utils/getRandomColor';
-import formatDateUi from '@/utils/formatDateUi';
 
 const RecruitItem: React.FC<{ item: Recruit }> = ({ item }) => {
   const [randomClass, setRandomClass] = useState('');
@@ -37,9 +37,14 @@ const RecruitItem: React.FC<{ item: Recruit }> = ({ item }) => {
       <div className="px-6 py-6 flex flex-col justify-between bg-white flex-grow">
         <div>
           <Date id={item.id} endDate={item.endDate} />
-          <h3 className="body1 md:text-xl mt-3 mb-2 line-clamp-2">{item.title}</h3>
+          <h3 className="body1 md:text-xl mt-3 mb-2 line-clamp-2">
+            {item.title}
+          </h3>
         </div>
-        <p className="caption text-gray-4 truncate">{`${formatDateUi(item.id, item.startDate)} ~ ${formatDateUi(item.id, item.endDate)}`}</p>
+        <p className="caption text-gray-4 truncate">{`${formatDateUi(
+          item.id,
+          item.startDate,
+        )} ~ ${formatDateUi(item.id, item.endDate)}`}</p>
       </div>
     </li>
   );

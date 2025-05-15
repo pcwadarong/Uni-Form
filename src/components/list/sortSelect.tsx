@@ -4,7 +4,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from "@/components/ui/select";
 
 interface SortSelectProps {
   onChangeSortType: (value: string) => void;
@@ -13,10 +13,10 @@ interface SortSelectProps {
 
 const SortSelect: React.FC<SortSelectProps> = ({ onChangeSortType, defaultValue }) => {
   const options = [
-    { value: 'point-asc', label: '리워드 높은 순' },
-    { value: 'random', label: '랜덤 순' },
-    { value: 'popular-asc', label: '인기 순' },
-    { value: 'date-desc', label: '최신 순' },
+    { value: "point-asc", label: "리워드 높은 순" },
+    { value: "random", label: "랜덤 순" },
+    { value: "popular-asc", label: "인기 순" },
+    { value: "date-desc", label: "최신 순" },
     // { value: 'update-asc', label: '끌올 순' }, // 부가 기능으로 업데이트 예정
   ];
 
@@ -37,4 +37,3 @@ const SortSelect: React.FC<SortSelectProps> = ({ onChangeSortType, defaultValue 
 };
 
 export default SortSelect;
-

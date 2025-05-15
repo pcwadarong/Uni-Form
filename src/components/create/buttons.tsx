@@ -1,9 +1,9 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
-import Image from 'next/image';
-import { useRouter, usePathname } from 'next/navigation';
 import { useSurveyStore } from '@/store/survey';
+import Image from 'next/image';
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useRef, useState } from 'react';
 import CheckModal from './checkModal';
 
 const CreatePageButton = () => {
@@ -74,10 +74,17 @@ const CreatePageButton = () => {
 
   return (
     <div className="flex gap-2 justify-end subtitle items-center">
-      <button className="py-1 px-3 bg-white rounded-md" onClick={handleOpenPreview}>
+      <button
+        type="button"
+        className="py-1 px-3 bg-white rounded-md"
+        onClick={handleOpenPreview}
+      >
         미리보기
       </button>
-      <button className="py-1 px-3 bg-white rounded-md" onClick={handleSaveDraft}>
+      <button
+        className="py-1 px-3 bg-white rounded-md"
+        onClick={handleSaveDraft}
+      >
         임시저장
       </button>
       <button
@@ -93,7 +100,12 @@ const CreatePageButton = () => {
           aria-label="사용자 메뉴 토글"
           aria-expanded={showToggleMenu}
         >
-          <Image src={'/meatball.svg'} alt="meatball menu icon" width="20" height="20" />
+          <Image
+            src={'/meatball.svg'}
+            alt="meatball menu icon"
+            width="20"
+            height="20"
+          />
         </button>
         {showToggleMenu && (
           <div
@@ -107,7 +119,7 @@ const CreatePageButton = () => {
               복제하기
             </button>
             <button
-              className="text-red px-3 py-2 rounded-md hover:bg-gray-2"
+              className="text-red-500 px-3 py-2 rounded-md hover:bg-gray-2"
               onClick={handleDelete}
             >
               삭제하기

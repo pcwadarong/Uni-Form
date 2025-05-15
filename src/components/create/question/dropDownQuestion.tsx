@@ -1,11 +1,3 @@
-import { QuestionProps, Option, Question } from '@/types';
-import { useSurveyStore } from '@/store/survey';
-import Options from '../options';
-import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
-import { handleOptionDragEnd } from '@/utils/handleDragEnd';
-import Image from 'next/image';
-import { deleteOption } from '@/utils/createPageUtils';
-import isModeDisabled from '@/utils/isModeDisabled';
 import {
   Select,
   SelectContent,
@@ -13,8 +5,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { deleteOption } from '@/lib/utils/createPageUtils';
+import { handleOptionDragEnd } from '@/lib/utils/handleDragEnd';
+import isModeDisabled from '@/lib/utils/isModeDisabled';
+import { useSurveyStore } from '@/store/survey';
+import type { Option, Question, QuestionProps } from '@/types';
+import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd';
+import Image from 'next/image';
+import Options from '../options';
 
-const DropDownQuestion: React.FC<QuestionProps> = ({ question, mode, onResponseChange }) => {
+const DropDownQuestion: React.FC<QuestionProps> = ({
+  question,
+  mode,
+  onResponseChange,
+}) => {
   const isDisabled = isModeDisabled(mode);
   const { updateQuestion } = useSurveyStore();
 
@@ -22,7 +26,9 @@ const DropDownQuestion: React.FC<QuestionProps> = ({ question, mode, onResponseC
     updateQuestion(question.id, updatedQuestion);
   };
 
-  const hasEtcOption = question.options?.some((option) => option.value === '기타');
+  const hasEtcOption = question.options?.some(
+    (option) => option.value === '기타',
+  );
 
   const handleResponseChange = (value: string) => {
     if (onResponseChange) {
@@ -36,12 +42,23 @@ const DropDownQuestion: React.FC<QuestionProps> = ({ question, mode, onResponseC
         <>
           <DragDropContext
             onDragEnd={(result) =>
-              handleOptionDragEnd(result, question.options || [], (updatedOptions: Option[]) => {
-                handleQuestionChange({ ...question, options: updatedOptions });
-              })
+              handleOptionDragEnd(
+                result,
+                question.options || [],
+                (updatedOptions: Option[]) => {
+                  handleQuestionChange({
+                    ...question,
+                    options: updatedOptions,
+                  });
+                },
+              )
             }
           >
-            <Droppable droppableId={`droppable-${question.id}`} type="option" direction="vertical">
+            <Droppable
+              droppableId={`droppable-${question.id}`}
+              type="option"
+              direction="vertical"
+            >
               {(provided) => (
                 <div ref={provided.innerRef} {...provided.droppableProps}>
                   {(question.options || [])
@@ -80,7 +97,9 @@ const DropDownQuestion: React.FC<QuestionProps> = ({ question, mode, onResponseC
                                 handleQuestionChange({
                                   ...question,
                                   options: question.options?.map((opt, i) =>
-                                    i === index ? { ...opt, value: e.target.value } : opt,
+                                    i === index
+                                      ? { ...opt, value: e.target.value }
+                                      : opt,
                                   ),
                                 })
                               }
@@ -89,12 +108,24 @@ const DropDownQuestion: React.FC<QuestionProps> = ({ question, mode, onResponseC
                             />
                             <button
                               onClick={() =>
-                                deleteOption({ question, id: option.id, handleQuestionChange })
+                                deleteOption({
+                                  question,
+                                  id: option.id,
+                                  handleQuestionChange,
+                                })
                               }
-                              disabled={question.options && question.options.length === 1}
+                              disabled={
+                                question.options &&
+                                question.options.length === 1
+                              }
                               aria-label={`${index + 1}번 항목 삭제`}
                             >
-                              <Image src={'./cancel.svg'} alt="삭제 버튼" width="20" height="20" />
+                              <Image
+                                src={'./cancel.svg'}
+                                alt="삭제 버튼"
+                                width="20"
+                                height="20"
+                              />
                             </button>
                           </div>
                         )}
@@ -130,7 +161,10 @@ const DropDownQuestion: React.FC<QuestionProps> = ({ question, mode, onResponseC
                   onClick={() =>
                     handleQuestionChange({
                       ...question,
-                      options: [...(question.options || []), { id: -1, value: '기타' }],
+                      options: [
+                        ...(question.options || []),
+                        { id: -1, value: '기타' },
+                      ],
                     })
                   }
                   className="rounded-full bg-gray-1 text-gray-4 py-1 px-3"

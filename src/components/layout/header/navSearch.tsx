@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import Image from "next/image";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function NavSearch() {
-  const [param, setParam] = useState('');
+  const [param, setParam] = useState("");
   const router = useRouter();
 
   const handleSearch = () => {
@@ -14,7 +14,7 @@ export default function NavSearch() {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       handleSearch();
     }
   };
@@ -33,7 +33,7 @@ export default function NavSearch() {
         className="absolute top-1/2 right-3 transform -translate-y-1/2"
         onClick={handleSearch}
       >
-        <Image src={'/search.svg'} alt="search" width="20" height="20" />
+        <Image src={"/search.svg"} alt="search" width="20" height="20" />
       </button>
     </div>
   );

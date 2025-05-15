@@ -1,5 +1,5 @@
-import { Survey } from '@/types';
-interface ReactionProps extends Pick<Survey, 'responses' | 'comments'> {}
+import { Survey } from "@/types";
+interface ReactionProps extends Pick<Survey, "responses" | "comments"> {}
 
 export default function Reaction({ responses, comments }: ReactionProps) {
   return (

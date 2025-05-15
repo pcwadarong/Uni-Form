@@ -1,8 +1,8 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { signUp } from '@/lib/firebase/auth/sign-up';
+import { validateSignInput } from '@/lib/validation/validateSignInput';
 import { useRouter } from 'next/navigation';
-import { signUp } from '@/firebase/auth/sign-up';
-import { validateSignInput } from '@/utils/validateSignInput';
+import { useEffect, useState } from 'react';
 
 export default function Form() {
   const router = useRouter();
@@ -21,7 +21,7 @@ export default function Form() {
       passwordsMatch &&
       validateSignInput('email', email);
     setStatus(isFormValid);
-  }, [nickname, password, passwordConfirm, email]);
+  }, [nickname, password, passwordsMatch, email]);
 
   const handleSignUp = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -35,11 +35,17 @@ export default function Form() {
 
   return (
     <>
-      <form className="flex flex-col gap-6 subtitle" onSubmit={handleSignUp} autoComplete="on">
+      <form
+        className="flex flex-col gap-6 subtitle"
+        onSubmit={handleSignUp}
+        autoComplete="on"
+      >
         <div>
           <label htmlFor="nickname">닉네임</label>
           <span className="ml-3 text-font">
-            {validateSignInput('nickname', nickname) ? '' : '2~6자의 영문, 한글, 숫자로 입력해주세요.'}
+            {validateSignInput('nickname', nickname)
+              ? ''
+              : '2~6자의 영문, 한글, 숫자로 입력해주세요.'}
           </span>
           <div className="relative mt-2 flex w-full">
             <input
@@ -59,7 +65,7 @@ export default function Form() {
         </div>
         <div>
           <label htmlFor="password">비밀번호</label>
-          <span className="ml-3 text-red">
+          <span className="ml-3 text-red-500">
             {validateSignInput('password', password) || !password
               ? ''
               : '영문, 숫자, 특수문자 포함 8~20자로 입력해주세요.'}
@@ -80,7 +86,7 @@ export default function Form() {
         </div>
         <div>
           <label htmlFor="passwordConfirm">비밀번호 재확인</label>
-          <span className="ml-3 text-red">
+          <span className="ml-3 text-red-500">
             {passwordsMatch ? '' : '비밀번호가 일치하지 않습니다.'}
           </span>
           <div className="relative mt-2">
@@ -99,7 +105,7 @@ export default function Form() {
         </div>
         <div>
           <label htmlFor="email">이메일</label>
-          <span className="ml-3 text-red">
+          <span className="ml-3 text-red-500">
             {validateSignInput('email', email) || !email
               ? ''
               : '유효한 이메일 주소를 입력해주세요.'}
@@ -121,7 +127,9 @@ export default function Form() {
         <div>
           <button
             type="submit"
-            className={`text-white w-full rounded-xl bg-primary p-4 body2 mt-5 ${status ? '' : 'opacity-50 cursor-not-allowed'}`}
+            className={`text-white w-full rounded-xl bg-primary p-4 body2 mt-5 ${
+              status ? '' : 'opacity-50 cursor-not-allowed'
+            }`}
             disabled={!status}
           >
             회원가입하기

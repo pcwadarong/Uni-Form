@@ -1,14 +1,14 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import { SURVEY_CATEGORY, RECRUIT_CATEGORY } from '@/constants/category';
-import useHandleLogout from '@/hooks/useHandleLogout';
-import useAuth from '@/hooks/useAuth';
+import Link from "next/link";
+import Image from "next/image";
+import { SURVEY_CATEGORY, RECRUIT_CATEGORY } from "@/constants/category";
+import useHandleLogout from "@/hooks/useHandleLogout";
+import useAuth from "@/hooks/useAuth";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/components/ui/accordion';
+} from "@/components/ui/accordion";
 
 interface Props {
   isOpened: boolean;
@@ -19,20 +19,20 @@ interface Props {
 export default function NavSmRight({ isOpened, toggleCategory, closeMenu }: Props) {
   const handleLogout = useHandleLogout();
   const { user } = useAuth();
-  
+
   return (
     <div>
       <div
-        className={`bg-white fixed top-0 right-0 w-96 max-w-full h-screen z-30 p-8 overflow-auto transform ${isOpened ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-out`}
+        className={`bg-white fixed top-0 right-0 w-96 max-w-full h-screen z-30 p-8 overflow-auto transform ${isOpened ? "translate-x-0" : "translate-x-full"} transition-transform duration-300 ease-out`}
       >
         <button
           onClick={toggleCategory}
           className="absolute right-8 top-8 text-gray-4 hover:text-dark"
         >
-          <Image src={'./cancel.svg'} alt="no comments" width="20" height="20" />
+          <Image src={"./cancel.svg"} alt="no comments" width="20" height="20" />
         </button>
         <Link href="/" className="flex items-start gap-2 mb-4" onClick={closeMenu}>
-          <Image src={'/logo.svg'} alt="logo" width="30" height="20" priority={true} />
+          <Image src={"/logo.svg"} alt="logo" width="30" height="20" priority={true} />
           <span>Uni Form</span>
         </Link>
         <div className="flex flex-col mr-1">
@@ -112,7 +112,7 @@ export default function NavSmRight({ isOpened, toggleCategory, closeMenu }: Prop
       </div>
       <div
         onClick={toggleCategory}
-        className={`fixed inset-0 h-screen z-20 bg-dark/70 transition-opacity duration-300 ${isOpened ? 'opacity-100 visible' : 'opacity-0 invisible'}`}
+        className={`fixed inset-0 h-screen z-20 bg-dark/70 transition-opacity duration-300 ${isOpened ? "opacity-100 visible" : "opacity-0 invisible"}`}
       />
     </div>
   );

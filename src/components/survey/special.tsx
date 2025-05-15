@@ -1,19 +1,20 @@
-import { Survey } from '@/types';
+import type { Survey } from '@/types';
 interface SpecialProps extends Pick<Survey, 'id' | 'point' | 'endDate'> {}
-import parseDateString from '@/utils/parseDateString';
+import parseDateString from '@/lib/utils/parseDateString';
 
 export default function Special({ id, point, endDate }: SpecialProps) {
   let date = 0;
 
   const currentDate = new Date();
-  const diffTime = parseDateString(id, endDate).getTime() - currentDate.getTime();
+  const diffTime =
+    parseDateString(id, endDate).getTime() - currentDate.getTime();
   date = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
   return (
     <div className="flex space-x-2 truncate">
       {date > 0 && date <= 7 && (
         <span
-          className="px-2 py-1 bg-lightRed text-center text-red caption rounded-md"
+          className="px-2 py-1 bg-lightRed text-center text-red-500 caption rounded-md"
           aria-label={`마감 ${date}일 전`}
         >
           {`마감 ${date}일 전`}

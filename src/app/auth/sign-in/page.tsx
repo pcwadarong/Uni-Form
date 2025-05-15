@@ -1,5 +1,5 @@
-import Form from './form';
-import Link from 'next/link';
+import Link from "next/link";
+import Form from "./form";
 
 const SignIn: React.FC = () => {
   return (

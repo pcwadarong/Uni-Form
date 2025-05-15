@@ -1,12 +1,12 @@
-import { QuestionProps, Question, QuestionType } from '@/types';
-import { useSurveyStore } from '@/store/survey';
 import questionComponentMap from '@/constants/questionComponentMap';
 import { useResponseStore } from '@/store/response';
-import { DraggableProvided } from '@hello-pangea/dnd';
-import { useState, useEffect } from 'react';
+import { useSurveyStore } from '@/store/survey';
+import type { Question, QuestionProps, QuestionType } from '@/types';
+import type { DraggableProvided } from '@hello-pangea/dnd';
+import { useEffect, useState } from 'react';
+import AutoResizeTextarea from '../ui/textarea';
 import RadioQuestion from './question/radioQuestion';
 import QuestionSelect from './select';
-import AutoResizeTextarea from '../common/textarea';
 
 interface ExtendedQuestionProps extends QuestionProps {
   onEditToggle?: () => void;
@@ -21,8 +21,11 @@ const Questions: React.FC<ExtendedQuestionProps> = ({
   onEditToggle,
   provided,
 }) => {
-  const QuestionComponent = questionComponentMap[question.type] || RadioQuestion;
-  const [explanation, setExplanation] = useState<string>(question.description || '');
+  const QuestionComponent =
+    questionComponentMap[question.type] || RadioQuestion;
+  const [explanation, setExplanation] = useState<string>(
+    question.description || '',
+  );
   const { updateQuestion, updateQuestionType } = useSurveyStore();
   const { setResponse } = useResponseStore();
 
@@ -38,7 +41,9 @@ const Questions: React.FC<ExtendedQuestionProps> = ({
     updateQuestionType(question.id, newType as QuestionType);
   };
 
-  const handleResponseChange = (newResponse: string | number | string[] | number[]) => {
+  const handleResponseChange = (
+    newResponse: string | number | string[] | number[],
+  ) => {
     setResponse(question.timestamp, newResponse);
   };
 
@@ -58,7 +63,10 @@ const Questions: React.FC<ExtendedQuestionProps> = ({
           >
             <span className="blind">질문 이동하기</span>=
           </div>
-          <QuestionSelect value={question.type} handleTypeChange={handleTypeChange} />
+          <QuestionSelect
+            value={question.type}
+            handleTypeChange={handleTypeChange}
+          />
           <div className="font-bold flex">
             {isEssential && (
               <span aria-hidden="true" className="text-red ml-[-12px] mr-[3px]">
@@ -70,7 +78,9 @@ const Questions: React.FC<ExtendedQuestionProps> = ({
               type="text"
               value={question.title}
               placeholder="질문 입력"
-              onChange={(e) => handleQuestionChange({ ...question, title: e.target.value })}
+              onChange={(e) =>
+                handleQuestionChange({ ...question, title: e.target.value })
+              }
               className="ml-1 flex-1 focused_input"
             />
           </div>
@@ -79,7 +89,10 @@ const Questions: React.FC<ExtendedQuestionProps> = ({
             value={explanation}
             onChange={(e) => {
               setExplanation(e.target.value);
-              handleQuestionChange({ ...question, description: e.target.value });
+              handleQuestionChange({
+                ...question,
+                description: e.target.value,
+              });
             }}
             className="caption"
             placeholder="설명 입력 (선택 사항)"
@@ -96,11 +109,17 @@ const Questions: React.FC<ExtendedQuestionProps> = ({
               *
             </span>
           )}
-          <span className="font-bold">Q. {question.title || '(질문 없음)'}</span>
+          <span className="font-bold">
+            Q. {question.title || '(질문 없음)'}
+          </span>
           <p className="caption">{question.description || ''}</p>
         </div>
       )}
-      <QuestionComponent question={question} mode={mode} onResponseChange={handleResponseChange} />
+      <QuestionComponent
+        question={question}
+        mode={mode}
+        onResponseChange={handleResponseChange}
+      />
     </div>
   );
 };

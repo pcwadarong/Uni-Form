@@ -1,10 +1,10 @@
-import { Suspense } from 'react';
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { fetchSurveysOrRecruitsList } from '@/firebase/fetchDatas';
-import Link from 'next/link';
 import RecruitItem from '@/components/recruit/recruitItem';
 import RecruitSkeleton from '@/components/recruit/recruitSkeleton';
-import { Recruit } from '@/types';
+import { fetchSurveysOrRecruitsList } from '@/lib/firebase/fetchDatas';
+import type { Recruit } from '@/types';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import Link from 'next/link';
+import { Suspense } from 'react';
 
 const ClosingRecruits = () => {
   const { data: closingRecruits } = useSuspenseQuery({

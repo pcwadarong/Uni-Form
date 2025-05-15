@@ -1,6 +1,6 @@
 'use client';
 
-import { decrypt } from '@/utils/crypotoUtils';
+import { decrypt } from '@/lib/utils/crypotoUtils';
 import { usePathname } from 'next/navigation';
 //import SurveyInfo from '@/components/create/surveyInfo';
 //import { useSuspenseQuery } from '@tanstack/react-query';
@@ -22,7 +22,7 @@ const AnalyzePage = () => {
         <p>댓글 목록</p>
         <div>
           <input type="text" name="" id="" />
-          <button>댓글 달기</button>
+          <button type="button">댓글 달기</button>
         </div>
       </div>
     </>

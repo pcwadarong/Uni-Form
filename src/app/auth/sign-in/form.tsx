@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { handleLogin } from '@/firebase/auth/sign-in';
+import { handleLogin } from '@/lib/firebase/auth/sign-in';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 const Form = () => {
   const router = useRouter();
@@ -82,11 +82,13 @@ const Form = () => {
             />
           </div>
         </div>
-        <p className="text-red">{loginErrorMessage}</p>
+        <p className="text-red-500">{loginErrorMessage}</p>
         <div>
           <button
             type="submit"
-            className={`text-white w-full rounded-xl bg-primary p-4 text-base ${status ? '' : 'opacity-50 cursor-not-allowed'}`}
+            className={`text-white w-full rounded-xl bg-primary p-4 text-base ${
+              status ? '' : 'opacity-50 cursor-not-allowed'
+            }`}
             disabled={!status}
           >
             로그인하기
@@ -95,10 +97,17 @@ const Form = () => {
       </form>
       <div className="mt-6 flex justify-center relative">
         <button
+          type="submit"
           onClick={(e) => login(e, 'google')}
           className="flex items-center gap-2 py-3 w-full justify-center px-4 border-[1px] rounded-full border-gray-4"
         >
-          <Image src={'/google.svg'} alt="icon" width="20" height="20" priority={true} />
+          <Image
+            src={'/google.svg'}
+            alt="icon"
+            width="20"
+            height="20"
+            priority={true}
+          />
           <span>Google로 계속하기</span>
         </button>
       </div>

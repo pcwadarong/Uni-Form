@@ -1,14 +1,21 @@
 'use client';
 
-import { commonTemplate, surveyTemplate, recruitTemplate } from '@/constants/templates';
-import { useState, useEffect } from 'react';
 import FileEditIcon from '@/components/svg/file';
-import { getRandomColor } from '@/utils/getRandomColor';
-import { useSurveyStore } from '@/store/survey';
 import { initSurveyInfo } from '@/constants/initSurveyInfo';
+import {
+  commonTemplate,
+  recruitTemplate,
+  surveyTemplate,
+} from '@/constants/templates';
+import { getRandomColor } from '@/lib/utils/getRandomColor';
+import { useSurveyStore } from '@/store/survey';
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
-const RandomColoredBox: React.FC<{ link: string; text: string }> = ({ link, text }) => {
+const RandomColoredBox: React.FC<{ link: string; text: string }> = ({
+  link,
+  text,
+}) => {
   const [randomClass, setRandomClass] = useState('');
   const router = useRouter();
   const { setSurveyInfo } = useSurveyStore();
@@ -31,7 +38,12 @@ const RandomColoredBox: React.FC<{ link: string; text: string }> = ({ link, text
     <li
       className={`relative rounded-3xl h-auto mb-2 drop-shadow-md aspect-square bg-${randomClass} flex items-center justify-center`}
     >
-      <button onClick={moveToCreatePage} aria-label={`Navigate to ${text}`} className='w-full h-full'>
+      <button
+        type="button"
+        onClick={moveToCreatePage}
+        aria-label={`Navigate to ${text}`}
+        className="w-full h-full"
+      >
         <p className="absolute top-6 left-6 title3">{text}</p>
         <div className="absolute bottom-6 right-6">
           <FileEditIcon width={60} height={60} aria-label="Edit icon" />
@@ -42,7 +54,8 @@ const RandomColoredBox: React.FC<{ link: string; text: string }> = ({ link, text
 };
 
 const Form: React.FC = () => {
-  const gridClassNames = 'grid grid-cols-2 md:grid-cols-4 gap-4 xl:grid-cols-5 xl:gap-8';
+  const gridClassNames =
+    'grid grid-cols-2 md:grid-cols-4 gap-4 xl:grid-cols-5 xl:gap-8';
 
   return (
     <section className="flex flex-col gap-10 w-full px-4 py-16 md:px-8 2xl:px-0 2xl:w-[1400px] text-center">

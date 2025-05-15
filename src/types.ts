@@ -31,7 +31,7 @@ export interface Survey extends Recruit {
 
 export interface InfoType extends Recruit {
   questions: Question[];
-  mode: 'editing' | 'viewing';
+  mode: "editing" | "viewing";
 }
 
 export interface Option {
@@ -62,18 +62,18 @@ export interface QuestionProps {
   onResponseChange?: (newResponse: string) => void;
 }
 
-export type ModeType = 'editing' | 'previewing' | 'testing' | 'responding';
+export type ModeType = "editing" | "previewing" | "testing" | "responding";
 
 export type QuestionType =
-  | 'radio'
-  | 'checkbox'
-  | 'dropdown'
-  | 'short answer'
-  | 'long answer'
-  | 'dropdown'
-  | 'participant'
-  | 'star'
-  | 'file';
+  | "radio"
+  | "checkbox"
+  | "dropdown"
+  | "short answer"
+  | "long answer"
+  | "dropdown"
+  | "participant"
+  | "star"
+  | "file";
 // 추가될 타입들: | 'category' | 'table' | 'schedule' | 'score'
 
 export interface Comment {
@@ -97,4 +97,4 @@ export interface Response {
   content: Answer[];
 }
 
-export type SortType = 'public' | 'latest' | 'special' | 'popular' | 'latestComments' | 'closing';
+export type SortType = "public" | "latest" | "special" | "popular" | "latestComments" | "closing";

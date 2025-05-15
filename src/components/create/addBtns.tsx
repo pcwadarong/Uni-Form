@@ -1,18 +1,18 @@
-import { useSurveyStore } from '@/store/survey';
-import { Question } from '@/types';
+import { useSurveyStore } from "@/store/survey";
+import { Question } from "@/types";
 
 const AddBtns = () => {
   const { surveyInfo, setSurveyInfo } = useSurveyStore();
 
   const basicData: Question = {
     id: surveyInfo.questions.length ? Math.max(...surveyInfo.questions.map((q) => q.id)) + 1 : 1,
-    type: 'checkbox',
+    type: "checkbox",
     timestamp: new Date().toISOString(),
-    title: '',
+    title: "",
     isEssential: true,
     options: [
-      { id: 1, value: '' },
-      { id: 2, value: '' },
+      { id: 1, value: "" },
+      { id: 2, value: "" },
     ],
   };
 

@@ -1,6 +1,6 @@
-import useAuth from '@/hooks/useAuth';
-import { useRouter } from 'next/navigation';
-import { useCallback } from 'react';
+import useAuth from "@/hooks/useAuth";
+import { useRouter } from "next/navigation";
+import { useCallback } from "react";
 
 const useHandleLogout = () => {
   const { logout } = useAuth();
@@ -8,7 +8,7 @@ const useHandleLogout = () => {
 
   const handleLogout = useCallback(async () => {
     await logout();
-    router.push('/');
+    router.push("/");
   }, [logout, router]);
 
   return handleLogout;

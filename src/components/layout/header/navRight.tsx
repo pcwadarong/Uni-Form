@@ -1,10 +1,10 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import UserMenu from './navMdRight';
-import { useState } from 'react';
-import NavSmRight from './navSmRight';
-import useHandleLogout from '@/hooks/useHandleLogout';
-import useAuth from '@/hooks/useAuth';
+import Link from "next/link";
+import Image from "next/image";
+import UserMenu from "./navMdRight";
+import { useState } from "react";
+import NavSmRight from "./navSmRight";
+import useHandleLogout from "@/hooks/useHandleLogout";
+import useAuth from "@/hooks/useAuth";
 
 export default function NavRight() {
   const [isOpened, setOpen] = useState(false);
@@ -25,10 +25,10 @@ export default function NavRight() {
         {user ? (
           <>
             <Link href="/user/notification">
-              <Image src={'./notification.svg'} alt="알림" width="20" height="20" />
+              <Image src={"./notification.svg"} alt="알림" width="20" height="20" />
             </Link>
             <Link className="hidden sm:inline" href="/form">
-              <Image src={'./file.svg'} alt="폼 페이지" width="20" height="20" />
+              <Image src={"./file.svg"} alt="폼 페이지" width="20" height="20" />
             </Link>
             <Link className="hidden lg:inline" href="/user">
               내 정보
@@ -52,7 +52,7 @@ export default function NavRight() {
 
       <div className="sm:hidden flex">
         <button onClick={toggleCategory}>
-          <Image src={'./hamburger.svg'} alt="no comments" width="20" height="20" />
+          <Image src={"./hamburger.svg"} alt="no comments" width="20" height="20" />
         </button>
         <NavSmRight isOpened={isOpened} toggleCategory={toggleCategory} closeMenu={closeMenu} />
       </div>

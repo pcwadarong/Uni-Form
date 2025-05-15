@@ -1,11 +1,11 @@
+import { initSurveyInfo } from '@/constants/initSurveyInfo';
+import { firestore } from '@/lib/firebase/firebaseConfig';
 import { useSurveyStore } from '@/store/survey';
-import { setDoc, doc } from 'firebase/firestore';
-import { firestore } from '@/firebase/firebaseConfig';
+import type { Question } from '@/types';
 import { FirebaseError } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
-import { Question } from '@/types';
-import { initSurveyInfo } from '@/constants/initSurveyInfo';
 
 export const useSaveSurvey = () => {
   const { surveyInfo, setSurveyInfo } = useSurveyStore();
@@ -21,7 +21,9 @@ export const useSaveSurvey = () => {
     const uid = user ? user.uid : 'unknown';
 
     const filteredSurveyInfo = {
-      ...Object.fromEntries(Object.entries(surveyInfo).filter(([key]) => key !== 'questions')),
+      ...Object.fromEntries(
+        Object.entries(surveyInfo).filter(([key]) => key !== 'questions'),
+      ),
       id: id,
       uid: uid,
     };

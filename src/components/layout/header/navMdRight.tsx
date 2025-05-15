@@ -1,8 +1,8 @@
-import Link from 'next/link';
-import { useState, useEffect, useRef } from 'react';
-import Image from 'next/image';
-import useAuth from '@/hooks/useAuth';
-import useHandleLogout from '@/hooks/useHandleLogout';
+import Link from "next/link";
+import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
+import useAuth from "@/hooks/useAuth";
+import useHandleLogout from "@/hooks/useHandleLogout";
 
 const UserMenu = () => {
   const { user } = useAuth();
@@ -17,9 +17,9 @@ const UserMenu = () => {
   };
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
@@ -28,7 +28,7 @@ const UserMenu = () => {
       {user ? (
         <div className="relative hidden sm:flex lg:hidden" ref={menuRef}>
           <button onClick={() => setShowUserMenu((prev) => !prev)}>
-            <Image src={'/user.svg'} alt="user" width="20" height="20" priority={true} />
+            <Image src={"/user.svg"} alt="user" width="20" height="20" priority={true} />
           </button>
           {showUserMenu && (
             <div className="absolute right-0 top-8 flex flex-col text-center rounded-lg overflow-hidden shadow-md bg-white">
@@ -44,7 +44,7 @@ const UserMenu = () => {
       ) : (
         <div className="relative hidden sm:flex md:hidden" ref={menuRef}>
           <button onClick={() => setShowUserMenu((prev) => !prev)}>
-            <Image src={'/user.svg'} alt="user" width="20" height="20" priority={true} />
+            <Image src={"/user.svg"} alt="user" width="20" height="20" priority={true} />
           </button>
           {showUserMenu && (
             <div className="absolute right-0 top-8 flex flex-col text-center rounded-lg overflow-hidden shadow-md bg-white">

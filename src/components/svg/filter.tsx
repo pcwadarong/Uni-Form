@@ -1,8 +1,8 @@
 const FilterIcon = ({
-  color = '#ffffff',
+  color = "#ffffff",
   width = 20,
   height = 20,
-  'aria-label': ariaLabel = 'Edit File',
+  "aria-label": ariaLabel = "Edit File",
   ...props
 }: React.SVGProps<SVGSVGElement> & { color?: string; width?: number; height?: number }) => (
   <svg

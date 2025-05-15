@@ -1,14 +1,14 @@
 'use client';
 
-import { useSurveyStore } from '@/store/survey';
-import { useState, useEffect } from 'react';
-import Questions from '@/components/create/questions';
-import CreatePageButton from '@/components/create/buttons';
 import AppreciateMessage from '@/components/create/appreciateMessage';
+import CreatePageButton from '@/components/create/buttons';
+import Questions from '@/components/create/questions';
 import SurveyInfo from '@/components/create/surveyInfo';
-import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
-import { handleQuestionDragEnd } from '@/utils/handleDragEnd';
-import { Question } from '@/types';
+import { handleQuestionDragEnd } from '@/lib/utils/handleDragEnd';
+import { useSurveyStore } from '@/store/survey';
+import type { Question } from '@/types';
+import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd';
+import { useEffect, useState } from 'react';
 
 const Create: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -47,7 +47,7 @@ const Create: React.FC = () => {
       setEnabled(false);
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
-  }, []);
+  }, [setSurveyInfo, surveyInfo.questions.map]);
 
   if (!enabled) {
     return null;
@@ -62,7 +62,9 @@ const Create: React.FC = () => {
           onEditToggle={() => toggleEdit(0)}
         />
         <DragDropContext
-          onDragEnd={(result) => handleQuestionDragEnd(result, surveyInfo.questions, setQuestions)}
+          onDragEnd={(result) =>
+            handleQuestionDragEnd(result, surveyInfo.questions, setQuestions)
+          }
         >
           <Droppable droppableId="questions" type="card" direction="vertical">
             {(droppableProvided) => (

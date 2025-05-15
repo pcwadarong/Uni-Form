@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { auth, firestore } from '@/lib/firebase/firebaseConfig';
+import type { User } from '@/types';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { firestore, auth } from '@/firebase/firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
-import { User } from '@/types';
+import { useEffect, useState } from 'react';
 
 const useAuth = () => {
   const [user, setUser] = useState<User | null>(null);

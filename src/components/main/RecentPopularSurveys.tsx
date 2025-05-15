@@ -1,10 +1,10 @@
-import { fetchSurveysOrRecruitsList } from '@/firebase/fetchDatas';
-import Link from 'next/link';
 import SurveyItem from '@/components/survey/surveyItem';
 import SurveySkeleton from '@/components/survey/surveySkeleton';
+import { fetchSurveysOrRecruitsList } from '@/lib/firebase/fetchDatas';
+import type { Survey } from '@/types';
 import { useSuspenseQuery } from '@tanstack/react-query';
+import Link from 'next/link';
 import { Suspense } from 'react';
-import { Survey } from '@/types';
 
 const RecentPopularSurveys = () => {
   const { data: latestSurveys } = useSuspenseQuery({

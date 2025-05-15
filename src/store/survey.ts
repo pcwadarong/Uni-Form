@@ -1,6 +1,6 @@
-import { create } from 'zustand';
-import { BroadcastChannel } from 'broadcast-channel';
-import type { Survey, Recruit, InfoType, Question, QuestionType } from '@/types';
+import { create } from "zustand";
+import { BroadcastChannel } from "broadcast-channel";
+import type { Survey, Recruit, InfoType, Question, QuestionType } from "@/types";
 
 // selected survey (open detail modal)
 interface SelectedSurveyStore {
@@ -14,7 +14,7 @@ export const useSelectedSurveyStore = create<SelectedSurveyStore>((set) => ({
 }));
 
 // surveyitem
-const broadcast = new BroadcastChannel('zustand_channel');
+const broadcast = new BroadcastChannel("zustand_channel");
 
 interface SurveyStore {
   surveyInfo: InfoType;
@@ -28,25 +28,25 @@ export const useSurveyStore = create<SurveyStore>((set) => ({
     questions: [
       {
         id: 1,
-        type: 'checkbox',
-        timestamp: '',
-        title: '',
+        type: "checkbox",
+        timestamp: "",
+        title: "",
         isEssential: true,
         options: [
-          { id: 1, value: '' },
-          { id: 2, value: '' },
+          { id: 1, value: "" },
+          { id: 2, value: "" },
         ],
       },
     ],
-    id: '',
-    uid: '',
-    title: '',
-    description: '',
-    img: '',
-    startDate: '바로시작',
-    endDate: '제한없음',
-    category: '',
-    mode: 'editing',
+    id: "",
+    uid: "",
+    title: "",
+    description: "",
+    img: "",
+    startDate: "바로시작",
+    endDate: "제한없음",
+    category: "",
+    mode: "editing",
     isEditable: false,
   },
   setSurveyInfo: (info) => {
@@ -83,27 +83,27 @@ export const useSurveyStore = create<SurveyStore>((set) => ({
         };
 
         switch (newType) {
-          case 'checkbox':
-          case 'radio':
-          case 'dropdown':
+          case "checkbox":
+          case "radio":
+          case "dropdown":
             return {
               ...baseFields,
               options: [
-                { id: 1, value: '' },
-                { id: 2, value: '' },
+                { id: 1, value: "" },
+                { id: 2, value: "" },
               ],
             };
-          case 'participant':
+          case "participant":
             return {
               ...baseFields,
-              selectedOption: 'name',
+              selectedOption: "name",
             };
-          case 'file':
+          case "file":
             return {
               ...baseFields,
-              selectedOption: '사진',
+              selectedOption: "사진",
             };
-          case 'star':
+          case "star":
             return {
               ...baseFields,
               ratingStep: 1 as 1 | 0.5,

@@ -1,5 +1,5 @@
-import { create } from 'zustand';
-import { Response } from '@/types';
+import type { Response } from "@/types";
+import { create } from "zustand";
 
 interface ResponseState {
   response: Response;
@@ -9,9 +9,9 @@ interface ResponseState {
 
 export const useResponseStore = create<ResponseState>((set) => ({
   response: {
-    id: '',
-    surveyId: '',
-    uid: '',
+    id: "",
+    surveyId: "",
+    uid: "",
     content: [],
   },
   setResponse: (timestamp, newResponse) =>
@@ -26,13 +26,13 @@ export const useResponseStore = create<ResponseState>((set) => ({
   initializeResponses: (surveyId, questions) =>
     set({
       response: {
-        id: '',
+        id: "",
         surveyId: surveyId,
-        uid: '',
+        uid: "",
         content: questions.map((question) => ({
           questionId: question.id,
           timestamp: question.timestamp,
-          response: '',
+          response: "",
         })),
       },
     }),

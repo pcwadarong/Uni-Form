@@ -1,5 +1,5 @@
-import ToggleBtn from '../common/toggleBtn';
 import { useSurveyStore } from '@/store/survey';
+import ToggleBtn from '../ui/toggleBtn';
 
 interface Prop {
   id: number;
@@ -25,14 +25,18 @@ const Options: React.FC<Prop> = ({ id }) => {
 
   const handleQuestionDelete = () => {
     if (surveyInfo.questions.length > 1) {
-      const updatedQuestions = surveyInfo.questions.filter((item) => item.id !== id);
+      const updatedQuestions = surveyInfo.questions.filter(
+        (item) => item.id !== id,
+      );
       setSurveyInfo({ questions: updatedQuestions });
     }
   };
 
   const toggleIsEssential = () => {
     const updatedQuestion = { ...question, isEssential: !question.isEssential };
-    const updatedQuestions = surveyInfo.questions.map((q) => (q.id === id ? updatedQuestion : q));
+    const updatedQuestions = surveyInfo.questions.map((q) =>
+      q.id === id ? updatedQuestion : q,
+    );
     setSurveyInfo({ questions: updatedQuestions });
   };
 

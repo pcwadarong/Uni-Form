@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 const AppreciateMessage = () => {
-  const [appreciate, setAppreciate] = useState<string>('설문에 참여해주셔서 감사합니다.');
+  const [appreciate, setAppreciate] = useState<string>("설문에 참여해주셔서 감사합니다.");
 
   return (
     <section className="bg-white rounded-2xl overflow-hidden p-2 shadow-md">

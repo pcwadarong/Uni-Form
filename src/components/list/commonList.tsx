@@ -1,29 +1,29 @@
 'use client';
 
-import { useState, useEffect, Suspense, useCallback } from 'react';
-import { useSearchParams } from 'next/navigation';
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { fetchSurveysOrRecruitsList } from '@/firebase/fetchDatas';
-import { useSelectedSurveyStore } from '@/store/survey';
-import { Survey, Recruit } from '@/types';
-import RecruitItem from '../recruit/recruitItem';
+import DetailModal from '@/components/detailModal/detailModal';
+import SortSelect from '@/components/list/sortSelect';
 import { CategorySelection } from '@/components/survey/categorySelection';
+import SurveyItem from '@/components/survey/surveyItem';
+import SurveySkeleton from '@/components/survey/surveySkeleton';
+import { fetchSurveysOrRecruitsList } from '@/lib/firebase/fetchDatas';
+import { calculateDeadlineMatch } from '@/lib/utils/calculateDeadlineMatch';
 import {
   filterInProgressData,
   getSelectedItems,
   onChangeSortType,
-} from '@/utils/filterAndSortData';
-import { calculateDeadlineMatch } from '@/utils/calculateDeadlineMatch';
-import ToggleInProgressFilter from './toggleInProgressFilter';
-import SurveyItem from '@/components/survey/surveyItem';
-import SurveySkeleton from '@/components/survey/surveySkeleton';
-import SortSelect from '@/components/list/sortSelect';
-import SortSelectMini from './sortSelectMini';
-import DetailModal from '@/components/detailModal/detailModal';
-import { closeModal } from '@/utils/handleModal';
+} from '@/lib/utils/filterAndSortData';
+import { closeModal } from '@/lib/utils/handleModal';
+import { useSelectedSurveyStore } from '@/store/survey';
+import type { Recruit, Survey } from '@/types';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { useSearchParams } from 'next/navigation';
+import { Suspense, useCallback, useEffect, useState } from 'react';
+import RecruitItem from '../recruit/recruitItem';
 import RecruitSkeleton from '../recruit/recruitSkeleton';
 import FilterIcon from '../svg/filter';
 import NoContent from './noContent';
+import SortSelectMini from './sortSelectMini';
+import ToggleInProgressFilter from './toggleInProgressFilter';
 
 interface Props {
   topic: 'survey' | 'recruit';
@@ -36,7 +36,9 @@ const CommonList: React.FC<Props> = ({ topic, category }) => {
 
   const sortParam = searchParams.get('sort') || 'random';
   const [isInProgressChecked, setIsInProgressChecked] = useState(false);
-  const [filterDisplay, setFilterDisplay] = useState<'hidden' | 'block'>('hidden');
+  const [filterDisplay, setFilterDisplay] = useState<'hidden' | 'block'>(
+    'hidden',
+  );
   const [originalData, setOriginalData] = useState<Survey[] | Recruit[]>([]);
   const [filteredData, setFilteredData] = useState<Survey[] | Recruit[]>([]);
   const [dataList, setDataList] = useState<Survey[] | Recruit[]>([]);
@@ -71,18 +73,30 @@ const CommonList: React.FC<Props> = ({ topic, category }) => {
     applyFilters();
   }, [isInProgressChecked, filteredData]);
 
-  const onFilterChange = ({ point = 'all', deadline }: { point?: string; deadline: string }) => {
+  const onFilterChange = ({
+    point = 'all',
+    deadline,
+  }: {
+    point?: string;
+    deadline: string;
+  }) => {
     const newFilteredData = originalData.filter((item) => {
       const itemPoint = (item as Survey).point;
       const isPointMatch =
-        itemPoint !== undefined ? point === 'all' || itemPoint >= parseInt(point, 10) : true;
+        itemPoint !== undefined
+          ? point === 'all' || itemPoint >= Number.parseInt(point, 10)
+          : true;
       const isDeadlineMatch = calculateDeadlineMatch(item, deadline);
 
       return isPointMatch && isDeadlineMatch;
     });
 
     setFilteredData(newFilteredData);
-    setDataList(isInProgressChecked ? filterInProgressData(newFilteredData) : newFilteredData);
+    setDataList(
+      isInProgressChecked
+        ? filterInProgressData(newFilteredData)
+        : newFilteredData,
+    );
   };
 
   const handleCategoryToggle = () => {
@@ -119,6 +133,7 @@ const CommonList: React.FC<Props> = ({ topic, category }) => {
           <div className="flex justify-between items-center px-3 pb-6 2xl:pt-0">
             <div className="flex gap-6">
               <button
+                type='button'
                 className="bg-font flex items-center gap-[2.5px] text-white p-2 rounded-md"
                 onClick={handleCategoryToggle}
               >
@@ -134,7 +149,10 @@ const CommonList: React.FC<Props> = ({ topic, category }) => {
               />
             </div>
             {topic === 'survey' ? (
-              <SortSelect onChangeSortType={onChangeSortType} defaultValue={sortParam} />
+              <SortSelect
+                onChangeSortType={onChangeSortType}
+                defaultValue={sortParam}
+              />
             ) : (
               <SortSelectMini onChangeSortType={onChangeSortType} />
             )}

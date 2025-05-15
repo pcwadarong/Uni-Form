@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useSurveyStore } from '@/store/survey';
-import Calendar from '../ui/calendar';
-import { useState, useEffect, useCallback, useMemo } from 'react';
-import Button from '../common/button';
-import formatDate from '@/utils/formatDate';
-import TimePicker from '../ui/timePicker';
+import { useSurveyStore } from "@/store/survey";
+import formatDate from "@/lib/utils/formatDate";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import Button from "../ui/button";
+import Calendar from "../ui/calendar";
+import TimePicker from "../ui/timePicker";
 
 const roundMinutes = (date: Date) => {
   const minutes = date.getMinutes();
@@ -38,12 +38,12 @@ const SetDuration = () => {
     if (isOpened) {
       setBeginDate(roundMinutes(new Date()));
       setFinishDate(roundMinutes(new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)));
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     }
     return () => {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     };
   }, [isOpened]);
 
@@ -70,43 +70,43 @@ const SetDuration = () => {
   }, [isOpened]);
 
   const saveDuration = useCallback(() => {
-    let begin = '바로 시작';
-    let finish = '제한 없음';
+    let begin = "바로 시작";
+    let finish = "제한 없음";
 
     if (beginVisible)
-      begin = `${formatDate(beginDate).split(' / ')[0]}. ${formatDate(beginDate).split(' / ')[1]}`;
+      begin = `${formatDate(beginDate).split(" / ")[0]}. ${formatDate(beginDate).split(" / ")[1]}`;
     if (finishVisible)
-      finish = `${formatDate(finishDate).split(' / ')[0]}. ${formatDate(finishDate).split(' / ')[1]}`;
+      finish = `${formatDate(finishDate).split(" / ")[0]}. ${formatDate(finishDate).split(" / ")[1]}`;
 
     setSurveyInfo({ ...surveyInfo, startDate: begin, endDate: finish });
     setIsOpened(!isOpened);
   }, [beginVisible, finishVisible, beginDate, finishDate, setSurveyInfo, surveyInfo]);
 
   const handleTimeChange = useCallback(
-    (type: 'begin' | 'finish', period: string, hours: number, minutes: number) => {
-      const date = type === 'begin' ? beginDate : finishDate;
+    (type: "begin" | "finish", period: string, hours: number, minutes: number) => {
+      const date = type === "begin" ? beginDate : finishDate;
       if (date) {
         const newDate = new Date(date);
 
-        if (period === 'PM' && hours !== 12) {
+        if (period === "PM" && hours !== 12) {
           hours += 12;
-        } else if (period === 'AM' && hours === 12) {
+        } else if (period === "AM" && hours === 12) {
           hours = 0;
         }
         newDate.setHours(hours);
         newDate.setMinutes(minutes);
 
-        if (type === 'finish' && beginDate) {
+        if (type === "finish" && beginDate) {
           const beginTime = new Date(beginDate);
           if (
             newDate.toDateString() === beginTime.toDateString() &&
             newDate.getTime() < beginTime.getTime()
           ) {
-            alert('종료 시간은 시작 시간보다 이를 수 없습니다.');
+            alert("종료 시간은 시작 시간보다 이를 수 없습니다.");
             return;
           }
         }
-        if (type === 'begin') {
+        if (type === "begin") {
           setBeginDate(newDate);
         } else {
           setFinishDate(newDate);
@@ -173,7 +173,7 @@ const SetDuration = () => {
                     aria-expanded={beginDateVisible}
                     className="py-2 px-3 border-[1px] w-full border-gray-2 rounded-lg text-left mb-2"
                   >
-                    {formatDate(beginDate).split(' / ')[0]}
+                    {formatDate(beginDate).split(" / ")[0]}
                   </button>
                   {beginDateVisible && (
                     <CalendarMemo
@@ -189,10 +189,10 @@ const SetDuration = () => {
                     aria-expanded={beginTimeVisible}
                     className="py-2 px-3 border-[1px] w-full border-gray-2 rounded-lg text-left"
                   >
-                    {formatDate(beginDate).split(' / ')[1]}
+                    {formatDate(beginDate).split(" / ")[1]}
                   </button>
                   {beginTimeVisible && (
-                    <TimePickerMemo type={'begin'} date={beginDate} onChange={handleTimeChange} />
+                    <TimePickerMemo type={"begin"} date={beginDate} onChange={handleTimeChange} />
                   )}
                 </div>
               )}
@@ -230,7 +230,7 @@ const SetDuration = () => {
                     aria-expanded={finishDateVisible}
                     className="py-2 px-3 border-[1px] w-full border-gray-2 rounded-lg text-left mb-2"
                   >
-                    {formatDate(finishDate).split(' / ')[0]}
+                    {formatDate(finishDate).split(" / ")[0]}
                   </button>
                   {finishDateVisible && (
                     <CalendarMemo
@@ -246,22 +246,22 @@ const SetDuration = () => {
                     aria-expanded={finishTimeVisible}
                     className="py-2 px-3 border-[1px] w-full border-gray-2 rounded-lg text-left"
                   >
-                    {formatDate(finishDate).split(' / ')[1]}
+                    {formatDate(finishDate).split(" / ")[1]}
                   </button>
                   {finishTimeVisible && (
-                    <TimePickerMemo type={'finish'} date={finishDate} onChange={handleTimeChange} />
+                    <TimePickerMemo type={"finish"} date={finishDate} onChange={handleTimeChange} />
                   )}
                 </div>
               )}
               <div className="flex justify-center gap-2">
                 <Button
-                  text={'취소'}
-                  className={'bg-green-light text-font flex-1'}
+                  text={"취소"}
+                  className={"bg-green-light text-font flex-1"}
                   onClick={toggleModal}
                 />
                 <Button
-                  text={'확인'}
-                  className={'bg-primary text-white flex-1'}
+                  text={"확인"}
+                  className={"bg-primary text-white flex-1"}
                   onClick={saveDuration}
                 />
               </div>

@@ -1,7 +1,7 @@
 'use client';
 
+import { fetchUserData } from '@/lib/firebase/getUserData';
 import { useQuery } from '@tanstack/react-query';
-import { fetchUserData } from '@/firebase/getUserData';
 import { getAuth } from 'firebase/auth';
 import Loading from '../loading';
 
@@ -29,7 +29,13 @@ const Account: React.FC = () => {
   if (isError) {
     return <span>Error: {error.message}</span>;
   }
-  return <div className="m-auto text-center">{data ? `안녕하세요 ${data.nickname}님` : '사용자 정보를 불러올 수 없습니다.'}</div>;
+  return (
+    <div className="m-auto text-center">
+      {data
+        ? `안녕하세요 ${data.nickname}님`
+        : '사용자 정보를 불러올 수 없습니다.'}
+    </div>
+  );
 };
 
 export default Account;

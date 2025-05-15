@@ -1,8 +1,5 @@
 'use client';
 
-import { useState, useRef } from 'react';
-import { SURVEY_CATEGORY, RECRUIT_CATEGORY } from '@/constants/category';
-import { useSurveyStore } from '@/store/survey';
 import {
   Select,
   SelectContent,
@@ -11,9 +8,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import ToggleBtn from '../common/toggleBtn';
-import Button from '../common/button';
+import { RECRUIT_CATEGORY, SURVEY_CATEGORY } from '@/constants/category';
 import { useSaveSurvey } from '@/hooks/useSaveSurvey';
+import { useSurveyStore } from '@/store/survey';
+import { useRef, useState } from 'react';
+import Button from '../ui/button';
+import ToggleBtn from '../ui/toggleBtn';
 
 interface Props {
   onClose: () => void;
@@ -21,7 +21,8 @@ interface Props {
 
 const CheckModal: React.FC<Props> = ({ onClose }) => {
   const { surveyInfo, setSurveyInfo } = useSurveyStore();
-  const [selectedMainCategory, setSelectedMainCategory] = useState<string>('설문조사');
+  const [selectedMainCategory, setSelectedMainCategory] =
+    useState<string>('설문조사');
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>('');
   const [subCategories, setSubCategories] = useState<string[]>([]);
   const [isSelectOpen, setIsSelectOpen] = useState(false);
@@ -41,7 +42,9 @@ const CheckModal: React.FC<Props> = ({ onClose }) => {
   const handleSubCategoryChange = (value: string) => {
     setSelectedSubCategory(value);
     const selectedCategory =
-      selectedMainCategory === '설문조사' ? SURVEY_CATEGORY[value] : RECRUIT_CATEGORY[value];
+      selectedMainCategory === '설문조사'
+        ? SURVEY_CATEGORY[value]
+        : RECRUIT_CATEGORY[value];
     const formattedCategory = selectedCategory.startsWith('/')
       ? selectedCategory.slice(1)
       : selectedCategory;
@@ -74,7 +77,11 @@ const CheckModal: React.FC<Props> = ({ onClose }) => {
       role="dialog"
       aria-modal="true"
     >
-      <div className="fixed inset-0 bg-dark/70" aria-hidden="true" onClick={handleOnClose}></div>
+      <div
+        className="fixed inset-0 bg-dark/70"
+        aria-hidden="true"
+        onClick={handleOnClose}
+      ></div>
       <div
         className="flex flex-col gap-4 relative z-50 p-5 w-full max-w-[600px] max-h-full overflow-auto bg-white rounded-2xl shadow-2xl md:p-30px md:pt-35px"
         ref={modalRef}
@@ -165,7 +172,8 @@ const CheckModal: React.FC<Props> = ({ onClose }) => {
             <div className="text-left">
               <p>설문 결과 공개</p>
               <p className="caption text-gray-4">
-                폭넓은 지식 공유를 위해, 개인정보를 제외한 설문 분석 결과를 사이트에 공개합니다.{' '}
+                폭넓은 지식 공유를 위해, 개인정보를 제외한 설문 분석 결과를
+                사이트에 공개합니다.{' '}
               </p>
             </div>
             <ToggleBtn

@@ -1,8 +1,8 @@
 const FileEditIcon = ({
-  color = '#010b13',
+  color = "#010b13",
   width = 20,
   height = 20,
-  'aria-label': ariaLabel = 'Edit File',
+  "aria-label": ariaLabel = "Edit File",
   ...props
 }: React.SVGProps<SVGSVGElement> & { color?: string; width?: number; height?: number }) => (
   <svg

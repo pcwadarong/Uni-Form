@@ -1,12 +1,12 @@
 'use client';
 
-import { useState, ChangeEvent } from 'react';
-import FileEditIcon from '../svg/file';
-import AutoResizeTextarea from '../common/textarea';
-import AddBtns from './addBtns';
+import { formatTextWithLineBreaks } from '@/lib/utils/formatTextWithLineBreaks';
 import { useSurveyStore } from '@/store/survey';
+import { type ChangeEvent, useState } from 'react';
+import FileEditIcon from '../svg/file';
+import AutoResizeTextarea from '../ui/textarea';
+import AddBtns from './addBtns';
 import SetDuration from './duration';
-import { formatTextWithLineBreaks } from '@/utils/formatTextWithLineBreaks';
 
 interface Props {
   mode: string;
@@ -57,7 +57,11 @@ const SurveyInfo = ({ mode, onEditToggle }: Props) => {
           <div className="aspect-[4/1] bg-font justify-center flex">
             {surveyInfo.img ? (
               <div className="relative overflow-hidden flex items-center">
-                <img src={surveyInfo.img} alt="Uploaded" className="w-full h-auto object-cover" />
+                <img
+                  src={surveyInfo.img}
+                  alt="Uploaded"
+                  className="w-full h-auto object-cover"
+                />
                 <div className="absolute bottom-5 right-5 bg-gray-4/50 text-white p-2 rounded-md">
                   <button onClick={handleDeleteClick} aria-label="Delete image">
                     삭제하기
@@ -105,7 +109,11 @@ const SurveyInfo = ({ mode, onEditToggle }: Props) => {
           {surveyInfo.img && (
             <div className="aspect-[4/1] bg-font justify-center flex">
               <div className="relative overflow-hidden flex items-center">
-                <img src={surveyInfo.img} alt="Survey" className="w-full h-auto object-cover" />
+                <img
+                  src={surveyInfo.img}
+                  alt="Survey"
+                  className="w-full h-auto object-cover"
+                />
               </div>
             </div>
           )}
@@ -119,7 +127,10 @@ const SurveyInfo = ({ mode, onEditToggle }: Props) => {
             >
               {formatTextWithLineBreaks(surveyInfo.description || '')}
             </p>
-            <span className="bg-gray-1 p-2 rounded-full text-gray-4" aria-label="Survey duration">
+            <span
+              className="bg-gray-1 p-2 rounded-full text-gray-4"
+              aria-label="Survey duration"
+            >
               {`${surveyInfo.startDate} ~ ${surveyInfo.endDate}`}
             </span>
           </div>

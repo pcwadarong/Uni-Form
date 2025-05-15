@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
-import { useSurveyStore } from '@/store/survey';
 import SurveyInfo from '@/components/create/surveyInfo';
+import CircularProgress from '@/components/ui/circular';
 import questionComponentMap from '@/constants/questionComponentMap';
+import { useSurveyStore } from '@/store/survey';
 import { BroadcastChannel } from 'broadcast-channel';
-import CircularProgress from '@/components/common/circular';
+import { useEffect, useRef, useState } from 'react';
 
 const loadStateFromLocalStorage = () => {
   const serializedState = localStorage.getItem('survey 1');
@@ -42,7 +42,7 @@ const PreviewFormPage: React.FC = () => {
     return () => {
       broadcast.close();
     };
-  }, [surveyInfo, setSurveyInfo]);
+  }, [surveyInfo, setSurveyInfo, broadcast]);
 
   useEffect(() => {
     if (!isMount.current) {
@@ -75,7 +75,10 @@ const PreviewFormPage: React.FC = () => {
               >
                 <div className="mb-2">
                   {q.isEssential && (
-                    <span aria-hidden="true" className="text-red ml-[-12px] mr-[3px]">
+                    <span
+                      aria-hidden="true"
+                      className="text-red ml-[-12px] mr-[3px]"
+                    >
                       *
                     </span>
                   )}
@@ -93,7 +96,10 @@ const PreviewFormPage: React.FC = () => {
           <div className="flex" role="group" aria-label="폼 액션 버튼 그룹">
             <div className="flex-1"></div>
             <div className="flex-1 text-center">
-              <button className="py-3 px-8 bg-primary text-white rounded-md" aria-label="폼 제출">
+              <button
+                className="py-3 px-8 bg-primary text-white rounded-md"
+                aria-label="폼 제출"
+              >
                 제출
               </button>
             </div>

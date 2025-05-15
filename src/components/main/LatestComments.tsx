@@ -1,10 +1,10 @@
-import { fetchSurveysOrRecruitsList } from '@/firebase/fetchDatas';
-import { Suspense } from 'react';
-import { useSuspenseQuery } from '@tanstack/react-query';
-import Link from 'next/link';
 import CommentItem from '@/components/survey/commentItem';
 import CommentSkeleton from '@/components/survey/commentSkeleton';
-import { Survey } from '@/types';
+import { fetchSurveysOrRecruitsList } from '@/lib/firebase/fetchDatas';
+import type { Survey } from '@/types';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import Link from 'next/link';
+import { Suspense } from 'react';
 
 const LatestComments: React.FC = () => {
   const { data: latestComments } = useSuspenseQuery({

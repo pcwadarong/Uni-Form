@@ -1,13 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import formatDateUi from '@/lib/utils/formatDateUi';
+import { getRandomColor } from '@/lib/utils/getRandomColor';
+import { handleEnterKeyPress, openDetailModal } from '@/lib/utils/handleModal';
+import type { Survey } from '@/types';
 import Image from 'next/image';
-import { Survey } from '@/types';
-import Special from './special';
+import { useEffect, useState } from 'react';
 import Reaction from './reaction';
-import { openDetailModal, handleEnterKeyPress } from '@/utils/handleModal';
-import { getRandomColor } from '@/utils/getRandomColor';
-import formatDateUi from '@/utils/formatDateUi';
+import Special from './special';
 
 const SurveyItem: React.FC<{ item: Survey }> = ({ item }) => {
   const [randomClass, setRandomClass] = useState('');
@@ -38,8 +38,13 @@ const SurveyItem: React.FC<{ item: Survey }> = ({ item }) => {
       <div className="px-6 py-7 flex flex-col justify-between bg-white flex-grow">
         <div>
           <Special id={item.id} point={item.point} endDate={item.endDate} />
-          <h3 className="body1 md:text-xl mt-3 mb-2 line-clamp-2">{item.title}</h3>
-          <p className="caption text-gray-4 truncate">{`${formatDateUi(item.id, item.startDate)} ~ ${formatDateUi(item.id, item.endDate)}`}</p>
+          <h3 className="body1 md:text-xl mt-3 mb-2 line-clamp-2">
+            {item.title}
+          </h3>
+          <p className="caption text-gray-4 truncate">{`${formatDateUi(
+            item.id,
+            item.startDate,
+          )} ~ ${formatDateUi(item.id, item.endDate)}`}</p>
         </div>
         <Reaction responses={item.responses} comments={item.comments} />
       </div>

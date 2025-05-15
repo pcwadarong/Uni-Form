@@ -1,6 +1,6 @@
-import { QuestionProps } from '@/types';
+import isModeDisabled from '@/lib/utils/isModeDisabled';
+import type { QuestionProps } from '@/types';
 import Options from '../options';
-import isModeDisabled from '@/utils/isModeDisabled';
 
 const ShortAnswerQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
   const isDisabled = isModeDisabled(mode);
