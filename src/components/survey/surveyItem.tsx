@@ -1,38 +1,44 @@
 "use client";
 
+import { encrypt } from "@/lib/utils/crypoto";
 import formatDateUi from "@/lib/utils/formatDateUi";
 import { getRandomColor } from "@/lib/utils/getRandomColor";
-import { handleEnterKeyPress, openDetailModal } from "@/lib/utils/handleModal";
-import type { Survey } from "@/types";
+import type { Form } from "@/types";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import Reaction from "./reaction";
 import Special from "./special";
 
-const SurveyItem: React.FC<{ item: Survey }> = ({ item }) => {
+export default function SurveyItem({ item }: { item: Form }) {
   const router = useRouter();
-  const [randomClass, setRandomClass] = useState("");
+  const backgroundClass = useMemo(() => getRandomColor(), []);
 
-  useEffect(() => {
-    setRandomClass(getRandomColor());
-  }, []);
+  const handleClick = async () => {
+    const encryptedId = await encrypt("survey-2024-07-21T03:14:29.823Z", process.env.NEXT_PUBLIC_CRYPT_SECRET || '');
+    router.push(`/entry/${encryptedId}`);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      handleClick();
+    }
+  };
 
   return (
-    <li
-      className="drop-shadow flex flex-col flex-1 justify-between overflow-hidden rounded-3xl h-[360px] cursor-pointer"
-      // onClick={() => openDetailModal(item)}
-      onClick={() => router.push(`/entry/${item.id}`)}
-      onKeyDown={handleEnterKeyPress(item)}
-      role="button"
-      tabIndex={0}
+    <button
+      type="button"
+      className="drop-shadow flex flex-col flex-1 justify-between overflow-hidden rounded-3xl h-[360px] cursor-pointer text-left"
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
     >
-      <div className={`h-36 w-full bg-${randomClass} overflow-hidden`}>
+      <div className={`h-36 w-full bg-${backgroundClass} overflow-hidden`}>
         {item.img && (
           <Image
             className="w-full h-full object-cover"
             src={item.img}
-            alt={"이미지"}
+            alt="설문 이미지"
             width={100}
             height={100}
           />
@@ -42,15 +48,12 @@ const SurveyItem: React.FC<{ item: Survey }> = ({ item }) => {
         <div>
           <Special id={item.id} point={item.point} endDate={item.endDate} />
           <h3 className="body1 md:text-xl mt-3 mb-2 line-clamp-2">{item.title}</h3>
-          <p className="caption text-gray-4 truncate">{`${formatDateUi(
-            item.id,
-            item.startDate,
-          )} ~ ${formatDateUi(item.id, item.endDate)}`}</p>
+          <p className="caption text-gray-4 truncate">
+            {`${formatDateUi(item.id, item.startDate)} ~ ${formatDateUi(item.id, item.endDate)}`}
+          </p>
         </div>
-        <Reaction responses={item.responses} comments={item.comments} />
+        <Reaction responsesCount={item.responsesCount} commentsCount={item.commentsCount} />
       </div>
-    </li>
+    </button>
   );
-};
-
-export default SurveyItem;
+}

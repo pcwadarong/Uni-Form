@@ -1,4 +1,7 @@
-export default function BubbleChat({ fill = "currentColor", ...props }: React.SVGProps<SVGSVGElement>) {
+export default function BubbleChat({
+  fill = "currentColor",
+  ...props
+}: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       aria-hidden="true"

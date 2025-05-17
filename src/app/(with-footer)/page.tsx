@@ -1,34 +1,38 @@
-"use client";
+import ClosingRecruits from "@/app/(with-footer)/main/ClosingRecruits";
+import LatestComments from "@/app/(with-footer)/main/LatestComments";
+import RecentPopularSurveys from "@/app/(with-footer)/main/RecentPopularSurveys";
+import SpecialSurveys from "@/app/(with-footer)/main/SpecialSurvey";
+import type { Metadata } from "next";
 
-import DetailModal from "@/components/detailModal/detailModal";
-import ClosingRecruits from "@/components/main/ClosingRecruits";
-import LatestComments from "@/components/main/LatestComments";
-import RecentPopularSurveys from "@/components/main/RecentPopularSurveys";
-import SpecialSurveys from "@/components/main/SpecialSurvey";
-import { closeModal } from "@/lib/utils/handleModal";
-import { useSelectedSurveyStore } from "@/store/survey";
+export const metadata: Metadata = {
+  title: "Uniform",
+  description: "대학생을 위한 폼 서비스",
+  keywords: "대학생, 폼 서비스, 설문조사, 온라인 폼",
+  icons: {
+    icon: "/favicon.ico",
+  },
+  authors: {
+    name: "chaen",
+  },
+  openGraph: {
+    type: "website",
+    title: "Uniform",
+    description: "대학생을 위한 폼 서비스",
+    images: [
+      {
+        url: "/preview.jpg",
+        width: 800,
+        height: 400,
+        alt: "Uniform Logo",
+      },
+    ],
+  },
+  metadataBase: new URL("https://uni-form-chaen-chaens-projects.vercel.app/"),
+};
 
 const Home: React.FC = () => {
-  const { selectedItem } = useSelectedSurveyStore();
-
   return (
     <>
-      {selectedItem && (
-        <div className="fixed inset-0 flex items-center justify-center z-50">
-          <DetailModal item={selectedItem} />
-          <div
-            className="fixed top-0 left-0 w-full h-full bg-dark/70 z-40"
-            aria-hidden="true"
-            onClick={closeModal}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                closeModal;
-              }
-            }}
-          />
-        </div>
-      )}
       <SpecialSurveys />
       <LatestComments />
       <RecentPopularSurveys />

@@ -9,28 +9,32 @@ export interface User {
   drafts: string[];
 }
 
-export interface Recruit {
+export type UserField = "all" | "nickname" | "email" | "responses" | "comments" | "draft";
+
+export interface Form {
+  type: 'survey' | 'recruit';
   id: string;
   uid: string;
   title: string;
-  description?: string;
-  img?: string;
+  description: string | null;
+  img: string | null;
   startDate: string;
   endDate: string;
   category: string;
-  responses?: string[];
   isEditable: boolean;
-  isPublic?: boolean;
+  isPublic: boolean;
+  responsesCount: number;
+  commentsCount: number;
   point?: number;
 }
 
-export interface Survey extends Recruit {
-  comments: string[];
-}
+// export interface Survey extends Form {
+//   comments: string[];
+// }
 
-export interface Detail extends Recruit {
+export interface Detail extends Form {
   questions: Question[];
-  mode: "editing" | "viewing";
+  // mode: "editing" | "viewing";
 }
 
 export interface Option {

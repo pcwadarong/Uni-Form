@@ -1,7 +1,8 @@
+'use client';
+
 import CommentItem from "@/components/survey/commentItem";
 import CommentSkeleton from "@/components/survey/commentSkeleton";
 import { fetchSurveysOrRecruitsList } from "@/lib/firebase/fetchDatas";
-import type { Survey } from "@/types";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -34,7 +35,7 @@ const LatestComments: React.FC = () => {
         >
           <ul className="grid md:grid-cols-2 gap-4 md:gap-8 mb-8">
             {latestComments.map((item) => (
-              <CommentItem key={item.id} item={item as Survey} />
+              <CommentItem key={item.id} item={item} />
             ))}
           </ul>
         </Suspense>

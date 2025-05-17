@@ -4,7 +4,7 @@ import Questions from "@/components/create/questions";
 import SurveyInfo from "@/components/create/surveyInfo";
 import { Button } from "@/components/ui/button";
 import { fetchDetail } from "@/lib/firebase/fetchDatas";
-import { decrypt } from "@/lib/utils/crypotoUtils";
+import { decrypt } from "@/lib/utils/crypotoClient";
 import { useResponseStore } from "@/store/response";
 import { useSurveyStore } from "@/store/survey";
 import { useSuspenseQuery } from "@tanstack/react-query";

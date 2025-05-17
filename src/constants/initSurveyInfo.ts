@@ -22,6 +22,9 @@ export const initSurveyInfo: Detail = {
   startDate: "바로시작",
   endDate: "제한없음",
   category: "",
-  mode: "editing",
+  isPublic: false,
   isEditable: false,
+  // mode: "editing",
+  responsesCount: 0,
+  commentsCount: 0,
 };

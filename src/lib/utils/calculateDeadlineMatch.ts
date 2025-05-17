@@ -1,7 +1,7 @@
-import type { Recruit, Survey } from "@/types";
+import type { Form } from "@/types";
 import parseDateString from "./parseDateString";
 
-export const calculateDeadlineMatch = (item: Survey | Recruit, deadline: string) => {
+export const calculateDeadlineMatch = (item: Form, deadline: string) => {
   const currentDate = new Date();
   const diffTime = parseDateString(item.id, item.endDate).getTime() - currentDate.getTime();
   const date = Math.ceil(diffTime / (1000 * 60 * 60 * 24));

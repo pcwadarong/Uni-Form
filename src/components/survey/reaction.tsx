@@ -1,17 +1,17 @@
-import type { Survey } from "@/types";
-interface ReactionProps extends Pick<Survey, "responses" | "comments"> {}
-
-export default function Reaction({ responses, comments }: ReactionProps) {
+export default function Reaction({
+  responsesCount,
+  commentsCount,
+}: { responsesCount: number; commentsCount: number }) {
   return (
     <div className="text-green-400 caption md:text-sm flex gap-3 truncate">
-      {responses && responses.length > 0 && (
+      {responsesCount > 0 && (
         <span
-          aria-label={`설문에 ${responses.length}번 응답이 있습니다.`}
-        >{`👀 설문 ${responses.length}회`}</span>
+          aria-label={`설문에 ${responsesCount}번 응답이 있습니다.`}
+        >{`👀 설문 ${responsesCount}회`}</span>
       )}
-      {comments && comments.length > 0 && (
-        <span aria-label={`댓글 ${comments.length}개가 있습니다.`}>
-          {`✨ 댓글 ${comments.length}개`}
+      {commentsCount > 0 && (
+        <span aria-label={`댓글 ${commentsCount}개가 있습니다.`}>
+          {`✨ 댓글 ${commentsCount}개`}
         </span>
       )}
     </div>

@@ -1,28 +1,37 @@
 "use client";
 
-import { fetchCommentsClient } from "@/lib/firebase/form/get";
-import formatDateUi from "@/lib/utils/formatDateUi";
-import type { Detail } from "@/types";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { fetchCommentsClient } from "@/lib/firebase/form/getClient";
+import type { Comment, Form } from "@/types";
+import { type InfiniteData, useInfiniteQuery } from "@tanstack/react-query";
+import type { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
 import Comments from "./comment";
 
 interface Props {
-  encryptedId: string;
-  item: Detail;
+  item: Form;
   initialComments: Comment[];
 }
 
-export default function EntryClient({ encryptedId, item, initialComments }: Props) {
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
+interface CommentPage {
+  comments: Comment[];
+  lastDoc: QueryDocumentSnapshot<DocumentData> | null;
+  hasMore: boolean;
+}
+
+export default function EntryClient({ item, initialComments }: Props) {
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery<
+    CommentPage,
+    Error,
+    InfiniteData<CommentPage>,
+    [string, string],
+    QueryDocumentSnapshot<DocumentData> | null
+  >({
     queryKey: ["comments", item.id],
-    queryFn: async ({ pageParam }) => {
-      return await fetchCommentsClient(item.id, 5, pageParam?.lastDoc);
-    },
-    getNextPageParam: (lastPage, pages) => {
-      return lastPage.hasMore ? { lastDoc: lastPage.lastDoc } : undefined;
-    },
+    queryFn: async ({ pageParam }) => await fetchCommentsClient(item.id, 5, pageParam ?? null),
+    getNextPageParam: (lastPage) => (lastPage.hasMore ? lastPage.lastDoc : undefined),
+
+    initialPageParam: null,
+
     initialData: {
-      pageParams: [undefined],
       pages: [
         {
           comments: initialComments,
@@ -30,19 +39,18 @@ export default function EntryClient({ encryptedId, item, initialComments }: Prop
           hasMore: true,
         },
       ],
+      pageParams: [null],
     },
   });
 
+  const allComments = data?.pages.flatMap((page) => page.comments) ?? [];
+
   return (
     <Comments
-      itemId={item.id}
-      showMeta={true}
-      startDate={formatDateUi(item.id, item.startDate)}
-      endDate={formatDateUi(item.id, item.endDate)}
-      responses={item.responses}
-      comments={data.pages.flat()}
+      comments={allComments}
       onLoadMore={fetchNextPage}
-      hasNextPage={hasNextPage}
+      hasNextPage={hasNextPage ?? false}
+      isFetchingNextPage={isFetchingNextPage}
     />
   );
 }

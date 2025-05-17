@@ -13,15 +13,15 @@ const formatDateString = (date: Date): string => {
 const formatDateUi = (id: string, dateString: string): string => {
   if (dateString === "제한없음") {
     return dateString;
-  } else if (dateString === "바로시작") {
+  }
+  if (dateString === "바로시작") {
     const isoDateString = id.split("-").slice(1).join("-").split("T")[0];
     const [year, month, day] = isoDateString.split("-").map(Number);
     const date = new Date(year, month - 1, day, 0, 0, 0);
     return formatDateString(date);
-  } else {
+  }
     const date = parseDateString(id, dateString);
     return formatDateString(date);
-  }
 };
 
 export default formatDateUi;

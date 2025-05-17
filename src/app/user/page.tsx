@@ -1,6 +1,6 @@
 "use client";
 
-import { fetchUserData } from "@/lib/firebase/user/get";
+import { fetchUserData } from "@/lib/firebase/user/getClient";
 import { useQuery } from "@tanstack/react-query";
 import { getAuth } from "firebase/auth";
 import Loading from "../loading";

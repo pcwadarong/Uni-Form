@@ -1,7 +1,7 @@
 import { useSelectedSurveyStore } from "@/store/survey";
-import type { Recruit, Survey } from "@/types";
+import type { Form } from "@/types";
 
-export const openDetailModal = (item: Survey | Recruit) => {
+export const openDetailModal = (item: Form) => {
   const setSelectedItem = useSelectedSurveyStore.getState().setSelectedItem;
   setSelectedItem(item);
   document.body.style.overflow = "hidden";
@@ -14,7 +14,7 @@ export const closeModal = () => {
 };
 
 export const handleEnterKeyPress =
-  (item: Survey | Recruit) => (event: React.KeyboardEvent<HTMLLIElement>) => {
+  (item: Form) => (event: React.KeyboardEvent<HTMLLIElement>) => {
     if (event.key === "Enter") {
       openDetailModal(item);
     }

@@ -1,6 +1,6 @@
 "use client";
 
-import { decrypt } from "@/lib/utils/crypotoUtils";
+import { decrypt } from "@/lib/utils/crypotoClient";
 import { usePathname } from "next/navigation";
 //import SurveyInfo from '@/components/create/surveyInfo';
 //import { useSuspenseQuery } from '@tanstack/react-query';

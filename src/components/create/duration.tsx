@@ -130,8 +130,9 @@ const SetDuration = () => {
       <button className="bg-gray-1 p-2 rounded-full text-gray-4" onClick={toggleModal}>
         {`${surveyInfo.startDate} ~ ${surveyInfo.endDate}`}
       </button>
-      {isOpened && (
-        <>
+      {isOpened &&
+        (
+          <>
           <div
             className="fixed inset-0 z-40 flex items-center justify-center p-4"
             role="dialog"
@@ -270,7 +271,7 @@ const SetDuration = () => {
             aria-hidden="true"
            />
         </div>
-      )}
+        )}
     </div>
   );
 };

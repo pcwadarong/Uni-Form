@@ -1,7 +1,8 @@
+'use client';
+
 import SurveyItem from "@/components/survey/surveyItem";
 import SurveySkeleton from "@/components/survey/surveySkeleton";
 import { fetchSurveysOrRecruitsList } from "@/lib/firebase/fetchDatas";
-import type { Survey } from "@/types";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -34,7 +35,7 @@ const SpecialSurveys = () => {
             }
           >
             {specialSurveys.map((item) => (
-              <SurveyItem key={item.id} item={item as Survey} />
+              <SurveyItem key={item.id} item={item} />
             ))}
           </Suspense>
         </ul>
