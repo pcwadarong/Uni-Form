@@ -1,15 +1,15 @@
-import SurveyItem from '@/components/survey/surveyItem';
-import SurveySkeleton from '@/components/survey/surveySkeleton';
-import { fetchSurveysOrRecruitsList } from '@/lib/firebase/fetchDatas';
-import type { Survey } from '@/types';
-import { useSuspenseQuery } from '@tanstack/react-query';
-import Link from 'next/link';
-import { Suspense } from 'react';
+import SurveyItem from "@/components/survey/surveyItem";
+import SurveySkeleton from "@/components/survey/surveySkeleton";
+import { fetchSurveysOrRecruitsList } from "@/lib/firebase/fetchDatas";
+import type { Survey } from "@/types";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import Link from "next/link";
+import { Suspense } from "react";
 
 const SpecialSurveys = () => {
   const { data: specialSurveys } = useSuspenseQuery({
-    queryKey: ['speicalSurvey'],
-    queryFn: () => fetchSurveysOrRecruitsList('survey', 'special'),
+    queryKey: ["speicalSurvey"],
+    queryFn: () => fetchSurveysOrRecruitsList("survey", "special"),
     staleTime: 5 * 60 * 1000,
   });
 

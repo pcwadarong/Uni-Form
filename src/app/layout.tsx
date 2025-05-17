@@ -1,9 +1,9 @@
-import Header from '@/components/layout/header/header';
-import localFont from 'next/font/local';
-import './globals.css';
-import { Providers } from '../contexts/providers';
+import Header from "@/components/layout/header/header";
+import localFont from "next/font/local";
+import "./globals.css";
+import { Providers } from "../contexts/providers";
 
-const suit = localFont({ src: '../fonts/SUIT.woff2' });
+const suit = localFont({ src: "../fonts/SUIT.woff2" });
 
 export default function RootLayout({
   children,

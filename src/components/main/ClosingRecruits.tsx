@@ -1,15 +1,15 @@
-import RecruitItem from '@/components/recruit/recruitItem';
-import RecruitSkeleton from '@/components/recruit/recruitSkeleton';
-import { fetchSurveysOrRecruitsList } from '@/lib/firebase/fetchDatas';
-import type { Recruit } from '@/types';
-import { useSuspenseQuery } from '@tanstack/react-query';
-import Link from 'next/link';
-import { Suspense } from 'react';
+import RecruitItem from "@/components/recruit/recruitItem";
+import RecruitSkeleton from "@/components/recruit/recruitSkeleton";
+import { fetchSurveysOrRecruitsList } from "@/lib/firebase/fetchDatas";
+import type { Recruit } from "@/types";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import Link from "next/link";
+import { Suspense } from "react";
 
 const ClosingRecruits = () => {
   const { data: closingRecruits } = useSuspenseQuery({
-    queryKey: ['closingRecruits'],
-    queryFn: () => fetchSurveysOrRecruitsList('recruit', 'closing'),
+    queryKey: ["closingRecruits"],
+    queryFn: () => fetchSurveysOrRecruitsList("recruit", "closing"),
     staleTime: 5 * 60 * 1000,
   });
 

@@ -1,25 +1,25 @@
-'use client';
+"use client";
 
-import { handleLogin } from '@/lib/firebase/auth/sign-in';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { handleLogin } from "@/lib/firebase/user/sign-in";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const Form = () => {
   const router = useRouter();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [status, setStatus] = useState(false);
-  const [loginErrorMessage, setLoginErrorMessage] = useState('');
+  const [loginErrorMessage, setLoginErrorMessage] = useState("");
 
-  const login = async (event: React.FormEvent, method: 'email' | 'google') => {
+  const login = async (event: React.FormEvent, method: "email" | "google") => {
     event.preventDefault();
     const success = await handleLogin(method, email, password);
     if (success) {
-      router.push('/');
+      router.push("/");
     } else {
       setLoginErrorMessage(
-        '가입하지 않은 이메일이거나, 이메일 또는 비밀번호가 회원정보와 일치하지 않아 로그인에 실패하였습니다.',
+        "가입하지 않은 이메일이거나, 이메일 또는 비밀번호가 회원정보와 일치하지 않아 로그인에 실패하였습니다.",
       );
     }
   };
@@ -32,14 +32,14 @@ const Form = () => {
     <div>
       <form
         className="flex flex-col gap-6 subtitle"
-        onSubmit={(e) => login(e, 'email')}
+        onSubmit={(e) => login(e, "email")}
         autoComplete="on"
       >
         <div>
           <label htmlFor="id">이메일</label>
           <div className="relative mt-2">
             <Image
-              src={'/mail.svg'}
+              src={"/mail.svg"}
               alt="user"
               width="20"
               height="20"
@@ -63,7 +63,7 @@ const Form = () => {
           <label htmlFor="password">비밀번호</label>
           <div className="relative mt-2">
             <Image
-              src={'/password.svg'}
+              src={"/password.svg"}
               alt="user"
               width="20"
               height="20"
@@ -87,7 +87,7 @@ const Form = () => {
           <button
             type="submit"
             className={`text-white w-full rounded-xl bg-green-300 p-4 text-base ${
-              status ? '' : 'opacity-50 cursor-not-allowed'
+              status ? "" : "opacity-50 cursor-not-allowed"
             }`}
             disabled={!status}
           >
@@ -98,16 +98,10 @@ const Form = () => {
       <div className="mt-6 flex justify-center relative">
         <button
           type="submit"
-          onClick={(e) => login(e, 'google')}
+          onClick={(e) => login(e, "google")}
           className="flex items-center gap-2 py-3 w-full justify-center px-4 border-[1px] rounded-full border-gray-4"
         >
-          <Image
-            src={'/google.svg'}
-            alt="icon"
-            width="20"
-            height="20"
-            priority={true}
-          />
+          <Image src={"/google.svg"} alt="icon" width="20" height="20" priority={true} />
           <span>Google로 계속하기</span>
         </button>
       </div>

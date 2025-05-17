@@ -1,13 +1,12 @@
-import type { Survey } from '@/types';
-interface SpecialProps extends Pick<Survey, 'id' | 'point' | 'endDate'> {}
-import parseDateString from '@/lib/utils/parseDateString';
+import type { Survey } from "@/types";
+interface SpecialProps extends Pick<Survey, "id" | "point" | "endDate"> {}
+import parseDateString from "@/lib/utils/parseDateString";
 
 export default function Special({ id, point, endDate }: SpecialProps) {
   let date = 0;
 
   const currentDate = new Date();
-  const diffTime =
-    parseDateString(id, endDate).getTime() - currentDate.getTime();
+  const diffTime = parseDateString(id, endDate).getTime() - currentDate.getTime();
   date = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
   return (

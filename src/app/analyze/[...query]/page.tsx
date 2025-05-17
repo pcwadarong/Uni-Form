@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { decrypt } from '@/lib/utils/crypotoUtils';
-import { usePathname } from 'next/navigation';
+import { decrypt } from "@/lib/utils/crypotoUtils";
+import { usePathname } from "next/navigation";
 //import SurveyInfo from '@/components/create/surveyInfo';
 //import { useSuspenseQuery } from '@tanstack/react-query';
 //import { fetchDetail } from '@/firebase/fetchDatas';
@@ -11,8 +11,8 @@ import { usePathname } from 'next/navigation';
 
 const AnalyzePage = () => {
   const pathname = usePathname();
-  const encryptedId = pathname.replace('/analyze/', '');
-  const itemId = encryptedId ? decrypt(encryptedId) : '';
+  const encryptedId = pathname.replace("/analyze/", "");
+  const itemId = encryptedId ? decrypt(encryptedId) : "";
   return (
     <>
       <div>분석페이지 for Item ID: {itemId}</div>

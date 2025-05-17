@@ -1,6 +1,6 @@
-import { create } from "zustand";
+import type { Detail, Question, QuestionType, Recruit, Survey } from "@/types";
 import { BroadcastChannel } from "broadcast-channel";
-import type { Survey, Recruit, InfoType, Question, QuestionType } from "@/types";
+import { create } from "zustand";
 
 // selected survey (open detail modal)
 interface SelectedSurveyStore {
@@ -17,10 +17,10 @@ export const useSelectedSurveyStore = create<SelectedSurveyStore>((set) => ({
 const broadcast = new BroadcastChannel("zustand_channel");
 
 interface SurveyStore {
-  surveyInfo: InfoType;
+  surveyInfo: Detail;
   updateQuestion: (id: number, updatedQuestion: Question) => void;
   updateQuestionType: (id: number, newType: QuestionType) => void;
-  setSurveyInfo: (info: Partial<InfoType>) => void;
+  setSurveyInfo: (info: Partial<Detail>) => void;
 }
 
 export const useSurveyStore = create<SurveyStore>((set) => ({
@@ -124,7 +124,7 @@ export const useSurveyStore = create<SurveyStore>((set) => ({
 
 // BroadcastChannel 메시지 수신 설정
 broadcast.onmessage = (event) => {
-  const newState = event as InfoType;
+  const newState = event as Detail;
   useSurveyStore.setState({
     surveyInfo: newState,
   });

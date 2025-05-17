@@ -3,7 +3,7 @@ const nextConfig = {
   images: { domains: ["firebase.google.com"] },
   experimental: {
     serverActions: {
-      bodySizeLimit: '10mb',
+      bodySizeLimit: "10mb",
     },
   },
 };

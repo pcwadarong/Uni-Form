@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import AppreciateMessage from '@/components/create/appreciateMessage';
-import CreatePageButton from '@/components/create/buttons';
-import Questions from '@/components/create/questions';
-import SurveyInfo from '@/components/create/surveyInfo';
-import { handleQuestionDragEnd } from '@/lib/utils/handleDragEnd';
-import { useSurveyStore } from '@/store/survey';
-import type { Question } from '@/types';
-import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd';
-import { useEffect, useState } from 'react';
+import AppreciateMessage from "@/components/create/appreciateMessage";
+import CreatePageButton from "@/components/create/buttons";
+import Questions from "@/components/create/questions";
+import SurveyInfo from "@/components/create/surveyInfo";
+import { handleQuestionDragEnd } from "@/lib/utils/handleDragEnd";
+import { useSurveyStore } from "@/store/survey";
+import type { Question } from "@/types";
+import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
+import { useEffect, useState } from "react";
 
 const Create: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -30,10 +30,10 @@ const Create: React.FC = () => {
 
     const handleBeforeUnload = (event: BeforeUnloadEvent) => {
       event.preventDefault();
-      event.returnValue = '';
+      event.returnValue = "";
     };
 
-    window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener("beforeunload", handleBeforeUnload);
 
     const timestamp = new Date().toISOString();
     const updatedQuestions = surveyInfo.questions.map((q) => ({
@@ -45,7 +45,7 @@ const Create: React.FC = () => {
     return () => {
       cancelAnimationFrame(animation);
       setEnabled(false);
-      window.removeEventListener('beforeunload', handleBeforeUnload);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, [setSurveyInfo, surveyInfo.questions.map]);
 
@@ -58,13 +58,11 @@ const Create: React.FC = () => {
       <div className="w-full 2xl:w-[1400px] flex flex-col gap-5 m-auto">
         <CreatePageButton />
         <SurveyInfo
-          mode={editingId === 0 ? 'editing' : 'previewing'}
+          mode={editingId === 0 ? "editing" : "previewing"}
           onEditToggle={() => toggleEdit(0)}
         />
         <DragDropContext
-          onDragEnd={(result) =>
-            handleQuestionDragEnd(result, surveyInfo.questions, setQuestions)
-          }
+          onDragEnd={(result) => handleQuestionDragEnd(result, surveyInfo.questions, setQuestions)}
         >
           <Droppable droppableId="questions" type="card" direction="vertical">
             {(droppableProvided) => (
@@ -94,7 +92,7 @@ const Create: React.FC = () => {
                           key={q.id}
                           question={q}
                           isEssential={q.isEssential}
-                          mode={editingId === q.id ? 'editing' : 'previewing'}
+                          mode={editingId === q.id ? "editing" : "previewing"}
                           onEditToggle={() => toggleEdit(q.id)}
                           provided={draggableProvided}
                         />

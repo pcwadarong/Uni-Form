@@ -1,21 +1,21 @@
-import SurveyItem from '@/components/survey/surveyItem';
-import SurveySkeleton from '@/components/survey/surveySkeleton';
-import { fetchSurveysOrRecruitsList } from '@/lib/firebase/fetchDatas';
-import type { Survey } from '@/types';
-import { useSuspenseQuery } from '@tanstack/react-query';
-import Link from 'next/link';
-import { Suspense } from 'react';
+import SurveyItem from "@/components/survey/surveyItem";
+import SurveySkeleton from "@/components/survey/surveySkeleton";
+import { fetchSurveysOrRecruitsList } from "@/lib/firebase/fetchDatas";
+import type { Survey } from "@/types";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import Link from "next/link";
+import { Suspense } from "react";
 
 const RecentPopularSurveys = () => {
   const { data: latestSurveys } = useSuspenseQuery({
-    queryKey: ['latestSurvey'],
-    queryFn: () => fetchSurveysOrRecruitsList('survey', 'latest'),
+    queryKey: ["latestSurvey"],
+    queryFn: () => fetchSurveysOrRecruitsList("survey", "latest"),
     staleTime: 5 * 60 * 1000,
   });
 
   const { data: popularSurveys } = useSuspenseQuery({
-    queryKey: ['popularSurvey'],
-    queryFn: () => fetchSurveysOrRecruitsList('survey', 'popular'),
+    queryKey: ["popularSurvey"],
+    queryFn: () => fetchSurveysOrRecruitsList("survey", "popular"),
     staleTime: 5 * 60 * 1000,
   });
 

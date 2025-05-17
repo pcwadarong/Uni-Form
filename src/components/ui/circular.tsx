@@ -1,11 +1,6 @@
 const CircularProgress = () => (
   <div className="inline-block w-12 h-12">
-    <svg
-      className="animate-spin"
-      role="presentation"
-      aria-hidden="true"
-      viewBox="25 25 50 50"
-    >
+    <svg className="animate-spin" role="presentation" aria-hidden="true" viewBox="25 25 50 50">
       <circle
         className="stroke-current stroke-green-300"
         cx="50"
@@ -15,7 +10,7 @@ const CircularProgress = () => (
         strokeWidth="4"
         strokeDasharray="89, 200"
         strokeDashoffset="0"
-        style={{ animation: 'dash 1.5s ease-in-out infinite' }}
+        style={{ animation: "dash 1.5s ease-in-out infinite" }}
       />
     </svg>
     <style jsx>{`

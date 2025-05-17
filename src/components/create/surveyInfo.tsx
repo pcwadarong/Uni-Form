@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { formatTextWithLineBreaks } from '@/lib/utils/formatTextWithLineBreaks';
-import { useSurveyStore } from '@/store/survey';
-import { type ChangeEvent, useState } from 'react';
-import FileEditIcon from '../svg/file';
-import AutoResizeTextarea from '../ui/textarea';
-import AddBtns from './addBtns';
-import SetDuration from './duration';
+import { formatTextWithLineBreaks } from "@/lib/utils/formatTextWithLineBreaks";
+import { useSurveyStore } from "@/store/survey";
+import { type ChangeEvent, useState } from "react";
+import FileEditIcon from "../svg/file";
+import AutoResizeTextarea from "../ui/textarea";
+import AddBtns from "./addBtns";
+import SetDuration from "./duration";
 
 interface Props {
   mode: string;
@@ -32,7 +32,7 @@ const SurveyInfo = ({ mode, onEditToggle }: Props) => {
   };
 
   const handleDeleteClick = () => {
-    setSurveyInfo({ img: '' });
+    setSurveyInfo({ img: "" });
   };
 
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -48,20 +48,16 @@ const SurveyInfo = ({ mode, onEditToggle }: Props) => {
     <div
       onClick={onEditToggle}
       className={`bg-white rounded-2xl overflow-hidden shadow-md ${
-        mode === 'editing' ? 'border border-green-300' : ''
+        mode === "editing" ? "border border-green-300" : ""
       }`}
     >
       <p className="py-2 px-4 text-green-400">{}페이지</p>
-      {mode === 'editing' ? (
+      {mode === "editing" ? (
         <div>
           <div className="aspect-[4/1] bg-font justify-center flex">
             {surveyInfo.img ? (
               <div className="relative overflow-hidden flex items-center">
-                <img
-                  src={surveyInfo.img}
-                  alt="Uploaded"
-                  className="w-full h-auto object-cover"
-                />
+                <img src={surveyInfo.img} alt="Uploaded" className="w-full h-auto object-cover" />
                 <div className="absolute bottom-5 right-5 bg-gray-4/50 text-white p-2 rounded-md">
                   <button onClick={handleDeleteClick} aria-label="Delete image">
                     삭제하기
@@ -109,11 +105,7 @@ const SurveyInfo = ({ mode, onEditToggle }: Props) => {
           {surveyInfo.img && (
             <div className="aspect-[4/1] bg-font justify-center flex">
               <div className="relative overflow-hidden flex items-center">
-                <img
-                  src={surveyInfo.img}
-                  alt="Survey"
-                  className="w-full h-auto object-cover"
-                />
+                <img src={surveyInfo.img} alt="Survey" className="w-full h-auto object-cover" />
               </div>
             </div>
           )}
@@ -122,15 +114,12 @@ const SurveyInfo = ({ mode, onEditToggle }: Props) => {
               {surveyInfo.title}
             </h2>
             <p
-              className={`caption ${explanationArea ? 'pb-5' : ''}`}
+              className={`caption ${explanationArea ? "pb-5" : ""}`}
               aria-label="Survey description"
             >
-              {formatTextWithLineBreaks(surveyInfo.description || '')}
+              {formatTextWithLineBreaks(surveyInfo.description || "")}
             </p>
-            <span
-              className="bg-gray-1 p-2 rounded-full text-gray-4"
-              aria-label="Survey duration"
-            >
+            <span className="bg-gray-1 p-2 rounded-full text-gray-4" aria-label="Survey duration">
               {`${surveyInfo.startDate} ~ ${surveyInfo.endDate}`}
             </span>
           </div>

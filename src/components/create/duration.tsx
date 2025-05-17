@@ -1,9 +1,9 @@
 "use client";
 
-import { useSurveyStore } from "@/store/survey";
 import formatDate from "@/lib/utils/formatDate";
+import { useSurveyStore } from "@/store/survey";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import Button from "../ui/button";
+import { Button } from "../ui/button";
 import Calendar from "../ui/calendar";
 import TimePicker from "../ui/timePicker";
 
@@ -255,23 +255,21 @@ const SetDuration = () => {
               )}
               <div className="flex justify-center gap-2">
                 <Button
-                  text={"취소"}
                   className={"bg-green-light text-green-400 flex-1"}
                   onClick={toggleModal}
-                />
+                >취소</Button>
                 <Button
-                  text={"확인"}
                   className={"bg-green-300 text-white flex-1"}
                   onClick={saveDuration}
-                />
+                >확인</Button>
               </div>
             </div>
           </div>
           <div
             className="fixed top-0 left-0 w-full h-full bg-dark/70 z-30"
             aria-hidden="true"
-          ></div>
-        </>
+           />
+        </div>
       )}
     </div>
   );

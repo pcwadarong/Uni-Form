@@ -1,6 +1,6 @@
-import type { InfoType } from "@/types";
+import type { Detail } from "@/types";
 
-export const initSurveyInfo: InfoType = {
+export const initSurveyInfo: Detail = {
   questions: [
     {
       id: 1,

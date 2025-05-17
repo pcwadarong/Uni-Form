@@ -2,13 +2,12 @@ interface Props {
   id: string;
   endDate: string;
 }
-import parseDateString from '@/lib/utils/parseDateString';
+import parseDateString from "@/lib/utils/parseDateString";
 
 export default function Special({ id, endDate }: Props) {
   let date = 0;
   const currentDate = new Date();
-  const diffTime =
-    parseDateString(id, endDate).getTime() - currentDate.getTime();
+  const diffTime = parseDateString(id, endDate).getTime() - currentDate.getTime();
   date = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
   return (

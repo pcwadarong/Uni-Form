@@ -26,10 +26,9 @@ export interface Recruit {
 
 export interface Survey extends Recruit {
   comments: string[];
-  lastCommentId?: string;
 }
 
-export interface InfoType extends Recruit {
+export interface Detail extends Recruit {
   questions: Question[];
   mode: "editing" | "viewing";
 }
@@ -97,4 +96,4 @@ export interface Response {
   content: Answer[];
 }
 
-export type SortType = "public" | "latest" | "special" | "popular" | "latestComments" | "closing";
+export type SortType = "public" | "latest" | "special" | "popular" | "closing";

@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import SurveyInfo from '@/components/create/surveyInfo';
-import CircularProgress from '@/components/ui/circular';
-import questionComponentMap from '@/constants/questionComponentMap';
-import { useSurveyStore } from '@/store/survey';
-import { BroadcastChannel } from 'broadcast-channel';
-import { useEffect, useRef, useState } from 'react';
+import SurveyInfo from "@/components/create/surveyInfo";
+import CircularProgress from "@/components/ui/circular";
+import questionComponentMap from "@/constants/questionComponentMap";
+import { useSurveyStore } from "@/store/survey";
+import { BroadcastChannel } from "broadcast-channel";
+import { useEffect, useRef, useState } from "react";
 
 const loadStateFromLocalStorage = () => {
-  const serializedState = localStorage.getItem('survey 1');
+  const serializedState = localStorage.getItem("survey 1");
   if (serializedState === null) {
     return undefined;
   }
@@ -18,7 +18,7 @@ const loadStateFromLocalStorage = () => {
 const PreviewFormPage: React.FC = () => {
   const { surveyInfo, setSurveyInfo } = useSurveyStore();
   const [loading, setLoading] = useState(true);
-  const broadcast = new BroadcastChannel('zustand_channel');
+  const broadcast = new BroadcastChannel("zustand_channel");
   const isMount = useRef(false);
 
   const handleMessage = (event: MessageEvent) => {
@@ -49,7 +49,7 @@ const PreviewFormPage: React.FC = () => {
       isMount.current = true;
       return;
     }
-    localStorage.setItem('survey 1', JSON.stringify(surveyInfo));
+    localStorage.setItem("survey 1", JSON.stringify(surveyInfo));
   }, [surveyInfo]);
 
   return (
@@ -75,18 +75,15 @@ const PreviewFormPage: React.FC = () => {
               >
                 <div className="mb-2">
                   {q.isEssential && (
-                    <span
-                      aria-hidden="true"
-                      className="text-red ml-[-12px] mr-[3px]"
-                    >
+                    <span aria-hidden="true" className="text-red ml-[-12px] mr-[3px]">
                       *
                     </span>
                   )}
                   <span id={`question-title-${q.id}`} className="font-bold">
-                    Q. {q.title || '(질문 없음)'}
+                    Q. {q.title || "(질문 없음)"}
                   </span>
                   <p id={`question-description-${q.id}`} className="caption">
-                    {q.description || ''}
+                    {q.description || ""}
                   </p>
                 </div>
                 <QuestionComponent key={q.id} question={q} mode="testing" />
@@ -96,10 +93,7 @@ const PreviewFormPage: React.FC = () => {
           <div className="flex" role="group" aria-label="폼 액션 버튼 그룹">
             <div className="flex-1"></div>
             <div className="flex-1 text-center">
-              <button
-                className="py-3 px-8 bg-green-300 text-white rounded-md"
-                aria-label="폼 제출"
-              >
+              <button className="py-3 px-8 bg-green-300 text-white rounded-md" aria-label="폼 제출">
                 제출
               </button>
             </div>

@@ -1,4 +1,4 @@
-import { type ChangeEvent, useEffect, useRef } from 'react';
+import { type ChangeEvent, useEffect, useRef } from "react";
 
 interface AutoResizeTextareaProps {
   value: string | undefined;
@@ -10,8 +10,8 @@ interface AutoResizeTextareaProps {
 const AutoResizeTextarea: React.FC<AutoResizeTextareaProps> = ({
   value,
   onChange,
-  placeholder = '',
-  className = '',
+  placeholder = "",
+  className = "",
 }) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -20,15 +20,15 @@ const AutoResizeTextarea: React.FC<AutoResizeTextareaProps> = ({
 
     const resizeTextarea = () => {
       if (textarea) {
-        textarea.style.height = 'auto';
+        textarea.style.height = "auto";
         textarea.style.height = `${textarea.scrollHeight}px`;
       }
     };
 
-    textarea?.addEventListener('input', resizeTextarea);
+    textarea?.addEventListener("input", resizeTextarea);
 
     return () => {
-      textarea?.removeEventListener('input', resizeTextarea);
+      textarea?.removeEventListener("input", resizeTextarea);
     };
   }, []);
 

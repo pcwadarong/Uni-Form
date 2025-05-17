@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import DetailModal from '@/components/detailModal/detailModal';
-import ClosingRecruits from '@/components/main/ClosingRecruits';
-import LatestComments from '@/components/main/LatestComments';
-import RecentPopularSurveys from '@/components/main/RecentPopularSurveys';
-import SpecialSurveys from '@/components/main/SpecialSurvey';
-import { closeModal } from '@/lib/utils/handleModal';
-import { useSelectedSurveyStore } from '@/store/survey';
+import DetailModal from "@/components/detailModal/detailModal";
+import ClosingRecruits from "@/components/main/ClosingRecruits";
+import LatestComments from "@/components/main/LatestComments";
+import RecentPopularSurveys from "@/components/main/RecentPopularSurveys";
+import SpecialSurveys from "@/components/main/SpecialSurvey";
+import { closeModal } from "@/lib/utils/handleModal";
+import { useSelectedSurveyStore } from "@/store/survey";
 
 const Home: React.FC = () => {
   const { selectedItem } = useSelectedSurveyStore();
@@ -21,11 +21,11 @@ const Home: React.FC = () => {
             aria-hidden="true"
             onClick={closeModal}
             onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            closeModal
-            }
-          }}
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                closeModal;
+              }
+            }}
           />
         </div>
       )}

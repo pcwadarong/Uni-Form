@@ -30,9 +30,7 @@ export default function Footer() {
       <ul className="flex gap-4 items-center justify-center">
         {sns.map((item) => (
           <li key={item.name}>
-            <Link href={item.link}>
-              {item.icon}
-            </Link>
+            <Link href={item.link}>{item.icon}</Link>
           </li>
         ))}
       </ul>

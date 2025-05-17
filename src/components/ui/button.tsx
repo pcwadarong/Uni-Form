@@ -1,26 +1,27 @@
-interface Props {
-  text: string;
-  className: string;
-  onClick: () => void;
-  onMouseEnter?: () => void;
-  type?: 'button' | 'submit' | 'reset';
+import Link from "next/link";
+import type { AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
+
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  children: React.ReactNode;
 }
 
-export default function Button({
-  text,
-  className,
-  onClick,
-  onMouseEnter,
-  type = 'button',
-}: Props) {
+interface LinkButtonProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
+  href: string;
+  children: React.ReactNode;
+}
+
+export const Button = ({ children, className = "", ...props }: ButtonProps) => {
   return (
-    <button
-      type={type}
-      className={`py-2 px-8 rounded-md ${className}`}
-      onClick={onClick}
-      onMouseEnter={onMouseEnter}
-    >
-      {text}
+    <button className={`py-2 px-6 rounded-md cursor-pointer ${className}`} {...props}>
+      {children}
     </button>
   );
-}
+};
+
+export const LinkButton = ({ href, children, className = "", ...props }: LinkButtonProps) => {
+  return (
+    <Link href={href} className={`py-2 px-6 rounded-md cursor-pointer ${className}`} {...props}>
+      {children}
+    </Link>
+  );
+};

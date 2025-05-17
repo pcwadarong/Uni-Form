@@ -1,22 +1,15 @@
-'use client';
+"use client";
 
-import FileEditIcon from '@/components/svg/file';
-import { initSurveyInfo } from '@/constants/initSurveyInfo';
-import {
-  commonTemplate,
-  recruitTemplate,
-  surveyTemplate,
-} from '@/constants/templates';
-import { getRandomColor } from '@/lib/utils/getRandomColor';
-import { useSurveyStore } from '@/store/survey';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import FileEditIcon from "@/components/svg/file";
+import { initSurveyInfo } from "@/constants/initSurveyInfo";
+import { commonTemplate, recruitTemplate, surveyTemplate } from "@/constants/templates";
+import { getRandomColor } from "@/lib/utils/getRandomColor";
+import { useSurveyStore } from "@/store/survey";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
-const RandomColoredBox: React.FC<{ link: string; text: string }> = ({
-  link,
-  text,
-}) => {
-  const [randomClass, setRandomClass] = useState('');
+const RandomColoredBox: React.FC<{ link: string; text: string }> = ({ link, text }) => {
+  const [randomClass, setRandomClass] = useState("");
   const router = useRouter();
   const { setSurveyInfo } = useSurveyStore();
 
@@ -29,7 +22,7 @@ const RandomColoredBox: React.FC<{ link: string; text: string }> = ({
       setSurveyInfo(initSurveyInfo);
       router.push(link);
     } catch (error) {
-      console.error('Failed to set survey info:', error);
+      console.error("Failed to set survey info:", error);
       return;
     }
   };
@@ -54,8 +47,7 @@ const RandomColoredBox: React.FC<{ link: string; text: string }> = ({
 };
 
 const Form: React.FC = () => {
-  const gridClassNames =
-    'grid grid-cols-2 md:grid-cols-4 gap-4 xl:grid-cols-5 xl:gap-8';
+  const gridClassNames = "grid grid-cols-2 md:grid-cols-4 gap-4 xl:grid-cols-5 xl:gap-8";
 
   return (
     <section className="flex flex-col gap-10 w-full px-4 py-16 md:px-8 2xl:px-0 2xl:w-[1400px] text-center">

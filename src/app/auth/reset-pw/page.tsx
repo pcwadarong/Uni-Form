@@ -1,19 +1,19 @@
-'use client';
+"use client";
 
-import { resetPassword } from '@/lib/firebase/auth/sign-up';
-import { validateSignInput } from '@/lib/validation/validateSignInput';
-import { useEffect, useState } from 'react';
+import { resetPassword } from "@/lib/firebase/user/sign-up";
+import { validateSignInput } from "@/lib/validation/validateSignInput";
+import { useEffect, useState } from "react";
 const ResetPw: React.FC = () => {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const [status, setStatus] = useState(false);
 
   const handleResetPassword = () => {
     resetPassword(email);
-    alert('메일 전송 완료. 메일함을 확인해주세요.');
+    alert("메일 전송 완료. 메일함을 확인해주세요.");
   };
 
   useEffect(() => {
-    const isFormValid = validateSignInput('email', email);
+    const isFormValid = validateSignInput("email", email);
     setStatus(isFormValid);
   }, [email]);
 
@@ -27,11 +27,7 @@ const ResetPw: React.FC = () => {
         비밀번호 재설정 이메일을 보내드립니다. <br />
         발송된 이메일은 1시간 동안 유효합니다.
       </p>
-      <div
-        className="mt-10 max-w-96"
-        role="form"
-        aria-labelledby="login-heading"
-      >
+      <div className="mt-10 max-w-96" role="form" aria-labelledby="login-heading">
         <input
           onChange={(e) => setEmail(e.target.value)}
           value={email}
@@ -46,7 +42,7 @@ const ResetPw: React.FC = () => {
           disabled={!status}
           aria-disabled={!status}
           className={`text-white w-full rounded-xl bg-green-300 p-2 body2 mt-5 ${
-            status ? '' : 'opacity-50 cursor-not-allowed'
+            status ? "" : "opacity-50 cursor-not-allowed"
           }`}
         >
           비밀번호 재설정하기

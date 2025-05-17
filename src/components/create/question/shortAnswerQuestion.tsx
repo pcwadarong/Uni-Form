@@ -1,6 +1,6 @@
-import isModeDisabled from '@/lib/utils/isModeDisabled';
-import type { QuestionProps } from '@/types';
-import Options from '../options';
+import isModeDisabled from "@/lib/utils/isModeDisabled";
+import type { QuestionProps } from "@/types";
+import Options from "../options";
 
 const ShortAnswerQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
   const isDisabled = isModeDisabled(mode);
@@ -16,7 +16,7 @@ const ShortAnswerQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
         aria-label="참여자의 답변 입력란"
         aria-describedby={`question-${question.id}-description`}
       />
-      {mode === 'editing' && <Options id={question.id} />}
+      {mode === "editing" && <Options id={question.id} />}
     </>
   );
 };

@@ -1,5 +1,5 @@
-'use client';
-import CircularProgress from '@/components/ui/circular';
+"use client";
+import CircularProgress from "@/components/ui/circular";
 
 export default function Loading() {
   return (

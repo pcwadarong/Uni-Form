@@ -1,25 +1,25 @@
-'use client';
-import { signUp } from '@/lib/firebase/auth/sign-up';
-import { validateSignInput } from '@/lib/validation/validateSignInput';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+"use client";
+import { signUp } from "@/lib/firebase/user/sign-up";
+import { validateSignInput } from "@/lib/validation/validateSignInput";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Form() {
   const router = useRouter();
-  const [nickname, setNickname] = useState('');
-  const [password, setPassword] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [passwordConfirm, setPasswordConfirm] = useState<string>('');
+  const [nickname, setNickname] = useState("");
+  const [password, setPassword] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [passwordConfirm, setPasswordConfirm] = useState<string>("");
   const [status, setStatus] = useState(false);
 
   const passwordsMatch = password === passwordConfirm;
 
   useEffect(() => {
     const isFormValid =
-      validateSignInput('nickname', nickname) &&
-      validateSignInput('password', password) &&
+      validateSignInput("nickname", nickname) &&
+      validateSignInput("password", password) &&
       passwordsMatch &&
-      validateSignInput('email', email);
+      validateSignInput("email", email);
     setStatus(isFormValid);
   }, [nickname, password, passwordsMatch, email]);
 
@@ -27,25 +27,21 @@ export default function Form() {
     event.preventDefault();
     const success = await signUp(email, password, nickname);
     if (success) {
-      router.push('/auth/sign-in');
+      router.push("/auth/sign-in");
     } else {
-      console.error('Sign up failed');
+      console.error("Sign up failed");
     }
   };
 
   return (
     <>
-      <form
-        className="flex flex-col gap-6 subtitle"
-        onSubmit={handleSignUp}
-        autoComplete="on"
-      >
+      <form className="flex flex-col gap-6 subtitle" onSubmit={handleSignUp} autoComplete="on">
         <div>
           <label htmlFor="nickname">닉네임</label>
           <span className="ml-3 text-green-400">
-            {validateSignInput('nickname', nickname)
-              ? ''
-              : '2~6자의 영문, 한글, 숫자로 입력해주세요.'}
+            {validateSignInput("nickname", nickname)
+              ? ""
+              : "2~6자의 영문, 한글, 숫자로 입력해주세요."}
           </span>
           <div className="relative mt-2 flex w-full">
             <input
@@ -66,9 +62,9 @@ export default function Form() {
         <div>
           <label htmlFor="password">비밀번호</label>
           <span className="ml-3 text-red-500">
-            {validateSignInput('password', password) || !password
-              ? ''
-              : '영문, 숫자, 특수문자 포함 8~20자로 입력해주세요.'}
+            {validateSignInput("password", password) || !password
+              ? ""
+              : "영문, 숫자, 특수문자 포함 8~20자로 입력해주세요."}
           </span>
           <div className="relative mt-2">
             <input
@@ -87,7 +83,7 @@ export default function Form() {
         <div>
           <label htmlFor="passwordConfirm">비밀번호 재확인</label>
           <span className="ml-3 text-red-500">
-            {passwordsMatch ? '' : '비밀번호가 일치하지 않습니다.'}
+            {passwordsMatch ? "" : "비밀번호가 일치하지 않습니다."}
           </span>
           <div className="relative mt-2">
             <input
@@ -106,9 +102,9 @@ export default function Form() {
         <div>
           <label htmlFor="email">이메일</label>
           <span className="ml-3 text-red-500">
-            {validateSignInput('email', email) || !email
-              ? ''
-              : '유효한 이메일 주소를 입력해주세요.'}
+            {validateSignInput("email", email) || !email
+              ? ""
+              : "유효한 이메일 주소를 입력해주세요."}
           </span>
           <div className="relative mt-2">
             <input
@@ -128,7 +124,7 @@ export default function Form() {
           <button
             type="submit"
             className={`text-white w-full rounded-xl bg-green-300 p-4 body2 mt-5 ${
-              status ? '' : 'opacity-50 cursor-not-allowed'
+              status ? "" : "opacity-50 cursor-not-allowed"
             }`}
             disabled={!status}
           >

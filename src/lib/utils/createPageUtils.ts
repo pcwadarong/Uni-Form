@@ -1,4 +1,4 @@
-import type { Question } from '@/types';
+import type { Question } from "@/types";
 
 interface DeleteProps {
   question: Question;
@@ -6,11 +6,7 @@ interface DeleteProps {
   handleQuestionChange: (question: Question) => void;
 }
 
-export const deleteOption = ({
-  question,
-  id,
-  handleQuestionChange,
-}: DeleteProps) => {
+export const deleteOption = ({ question, id, handleQuestionChange }: DeleteProps) => {
   if (question.options && question.options.length > 1) {
     handleQuestionChange({
       ...question,

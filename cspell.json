@@ -5,7 +5,7 @@
     "oklch",
     "zustand",
   ],
-  "ignoreWords": ["daum", "bname", "chaen"],
+  "ignoreWords": ["daum", "bname", "chaen", "firestore"],
   "flagWords": [""],
   "ignorePaths": [".github/**"],
   "dictionaries": ["typescript", "css", "fonts"]

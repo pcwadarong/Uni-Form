@@ -1,26 +1,26 @@
-'use client';
+"use client";
 
-import Questions from '@/components/create/questions';
-import SurveyInfo from '@/components/create/surveyInfo';
-import Button from '@/components/ui/button';
-import { fetchDetail } from '@/lib/firebase/fetchDatas';
-import { decrypt } from '@/lib/utils/crypotoUtils';
-import { useResponseStore } from '@/store/response';
-import { useSurveyStore } from '@/store/survey';
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { usePathname } from 'next/navigation';
-import { useEffect } from 'react';
+import Questions from "@/components/create/questions";
+import SurveyInfo from "@/components/create/surveyInfo";
+import { Button } from "@/components/ui/button";
+import { fetchDetail } from "@/lib/firebase/fetchDatas";
+import { decrypt } from "@/lib/utils/crypotoUtils";
+import { useResponseStore } from "@/store/response";
+import { useSurveyStore } from "@/store/survey";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 
 const ResponsePage = () => {
   const pathname = usePathname();
-  const encryptedId = pathname.replace('/response/', '');
-  const itemId = encryptedId ? decrypt(encryptedId) : '';
+  const encryptedId = pathname.replace("/response/", "");
+  const itemId = encryptedId ? decrypt(encryptedId) : "";
   const { surveyInfo, setSurveyInfo } = useSurveyStore();
   const { response, initializeResponses } = useResponseStore();
-  const type = itemId.startsWith('survey') ? 'surveys' : 'recruits';
+  const type = itemId.startsWith("survey") ? "surveys" : "recruits";
 
   const { data } = useSuspenseQuery({
-    queryKey: ['selectedSurveyDetail', type, itemId],
+    queryKey: ["selectedSurveyDetail", type, itemId],
     queryFn: () => fetchDetail(type, itemId),
     staleTime: Number.POSITIVE_INFINITY,
   });
@@ -34,7 +34,7 @@ const ResponsePage = () => {
 
   const handleSaveResponse = () => {
     console.log(response);
-    alert('saved');
+    alert("saved");
   };
 
   return (
@@ -49,11 +49,9 @@ const ResponsePage = () => {
             mode="responding"
           />
         ))}
-        <Button
-          text={'제출하기'}
-          className={'text-white bg-green-300 w-fit m-auto'}
-          onClick={handleSaveResponse}
-        />
+        <Button className={"text-white bg-green-300 w-fit m-auto"} onClick={handleSaveResponse}>
+          제출하기
+        </Button>
       </div>
     </div>
   );

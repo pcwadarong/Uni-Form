@@ -1,24 +1,24 @@
-'use client';
+"use client";
 
-import SurveyItem from '@/components/survey/surveyItem';
-import SurveySkeleton from '@/components/survey/surveySkeleton';
-import { fetchSurveysOrRecruitsList } from '@/lib/firebase/fetchDatas';
-import type { Recruit, Survey } from '@/types';
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { Suspense } from 'react';
-import RecruitItem from '../recruit/recruitItem';
-import RecruitSkeleton from '../recruit/recruitSkeleton';
-import NoContent from './noContent';
+import SurveyItem from "@/components/survey/surveyItem";
+import SurveySkeleton from "@/components/survey/surveySkeleton";
+import { fetchSurveysOrRecruitsList } from "@/lib/firebase/fetchDatas";
+import type { Recruit, Survey } from "@/types";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { Suspense } from "react";
+import RecruitItem from "../recruit/recruitItem";
+import RecruitSkeleton from "../recruit/recruitSkeleton";
+import NoContent from "./noContent";
 
 interface Props {
   query: string;
-  topic: 'survey' | 'recruit';
+  topic: "survey" | "recruit";
 }
 
 const SearchedList: React.FC<Props> = ({ topic, query }) => {
   const { data: dataList } = useSuspenseQuery({
-    queryKey: ['datalist', { type: topic }],
-    queryFn: () => fetchSurveysOrRecruitsList(topic, 'public'),
+    queryKey: ["datalist", { type: topic }],
+    queryFn: () => fetchSurveysOrRecruitsList(topic, "public"),
   });
 
   const filteredList = dataList.filter((item) =>
@@ -35,7 +35,7 @@ const SearchedList: React.FC<Props> = ({ topic, query }) => {
             <ul className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
               <Suspense
                 fallback={
-                  topic === 'survey' ? (
+                  topic === "survey" ? (
                     <>
                       <SurveySkeleton />
                       <SurveySkeleton />
@@ -53,7 +53,7 @@ const SearchedList: React.FC<Props> = ({ topic, query }) => {
                 }
               >
                 {filteredList.map((item) =>
-                  topic === 'survey' ? (
+                  topic === "survey" ? (
                     <SurveyItem key={item.id} item={item as Survey} />
                   ) : (
                     <RecruitItem key={item.id} item={item as Recruit} />
