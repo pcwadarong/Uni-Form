@@ -23,11 +23,7 @@ const getKey = async (secret: string) => {
 export const encrypt = async (text: string, secret: string): Promise<string> => {
   const iv = crypto.getRandomValues(new Uint8Array(ivLength));
   const key = await getKey(secret);
-  const encrypted = await crypto.subtle.encrypt(
-    { name: "AES-GCM", iv },
-    key,
-    encoder.encode(text)
-  );
+  const encrypted = await crypto.subtle.encrypt({ name: "AES-GCM", iv }, key, encoder.encode(text));
 
   const encryptedBytes = new Uint8Array(encrypted);
   const combined = new Uint8Array(ivLength + encryptedBytes.length);

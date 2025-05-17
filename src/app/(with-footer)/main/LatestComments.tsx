@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import CommentItem from "@/components/survey/commentItem";
 import CommentSkeleton from "@/components/survey/commentSkeleton";

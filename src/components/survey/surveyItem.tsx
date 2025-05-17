@@ -15,7 +15,10 @@ export default function SurveyItem({ item }: { item: Form }) {
   const backgroundClass = useMemo(() => getRandomColor(), []);
 
   const handleClick = async () => {
-    const encryptedId = await encrypt("survey-2024-07-21T03:14:29.823Z", process.env.NEXT_PUBLIC_CRYPT_SECRET || '');
+    const encryptedId = await encrypt(
+      "survey-2024-07-21T03:14:29.823Z",
+      process.env.NEXT_PUBLIC_CRYPT_SECRET || "",
+    );
     router.push(`/entry/${encryptedId}`);
   };
 

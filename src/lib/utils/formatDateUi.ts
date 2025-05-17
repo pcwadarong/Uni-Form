@@ -20,8 +20,8 @@ const formatDateUi = (id: string, dateString: string): string => {
     const date = new Date(year, month - 1, day, 0, 0, 0);
     return formatDateString(date);
   }
-    const date = parseDateString(id, dateString);
-    return formatDateString(date);
+  const date = parseDateString(id, dateString);
+  return formatDateString(date);
 };
 
 export default formatDateUi;

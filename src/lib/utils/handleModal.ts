@@ -13,9 +13,8 @@ export const closeModal = () => {
   document.body.style.overflow = "auto";
 };
 
-export const handleEnterKeyPress =
-  (item: Form) => (event: React.KeyboardEvent<HTMLLIElement>) => {
-    if (event.key === "Enter") {
-      openDetailModal(item);
-    }
-  };
+export const handleEnterKeyPress = (item: Form) => (event: React.KeyboardEvent<HTMLLIElement>) => {
+  if (event.key === "Enter") {
+    openDetailModal(item);
+  }
+};

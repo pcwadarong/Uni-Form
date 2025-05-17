@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import SurveyItem from "@/components/survey/surveyItem";
 import SurveySkeleton from "@/components/survey/surveySkeleton";
