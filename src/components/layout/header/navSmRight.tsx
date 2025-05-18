@@ -23,14 +23,14 @@ export default function NavSmRight({ isOpened, toggleCategory, closeMenu }: Prop
 
   return (
     <div
-      className={`fixed inset-0 z-30 h-screen w-full transform overflow-auto bg-background p-10 pt-20 transition-transform duration-300 ease-out ${
+      className={`fixed inset-0 z-30 h-screen w-full transform overflow-auto bg-background p-8 pt-20 transition-transform duration-300 ease-out ${
         isOpened ? "translate-x-0" : "translate-x-full"
       }`}
     >
       <button
         type="button"
         onClick={toggleCategory}
-        className="absolute right-12 top-8 text-2xl"
+        className="absolute right-9 top-8 text-2xl"
         aria-label="메뉴 닫기"
       >
         &times;

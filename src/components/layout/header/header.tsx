@@ -39,8 +39,8 @@ export default function Header() {
   }
 
   return (
-    <nav className="w-screen flex flex-col items-center z-10 fixed backdrop-blur-sm bg-muted drop-shadow text-nowrap">
-      <div className="flex h-20 w-full px-8 2xl:w-[1400px] 2xl:px-0 items-center justify-between">
+    <nav className="w-screen flex flex-col items-center z-10 fixed backdrop-blur-sm bg-background dark:bg-muted drop-shadow text-nowrap">
+      <div className="flex h-20 w-full px-8 2xl:w-[1400px] 2xl:px-0 items-center justify-between gap-2 md:gap-8">
         <NavLeft handleMouseOver={handleMouseOver} handleMouseLeave={handleMouseLeave} />
         <NavSearch />
         <NavRight />
@@ -49,7 +49,9 @@ export default function Header() {
         <ul
           className="flex flex-grow w-full px-8 pb-6 gap-8 2xl:w-[1400px] 2xl:px-0 text-nowrap overflow-y-auto"
           onMouseOver={() => handleMouseOver(hoveredCategory)}
+          onFocus={() => handleMouseOver(hoveredCategory)}
           onMouseLeave={handleMouseLeave}
+          onBlur={handleMouseLeave}
         >
           {getCategoryLinks(hoveredCategory).map(([key, value]) => (
             <li key={key} className="hover:text-green-400 subtitle">

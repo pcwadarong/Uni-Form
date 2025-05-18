@@ -1,5 +1,5 @@
 const FileEditIcon = ({
-  color = "#010b13",
+  color = "currentColor",
   width = 20,
   height = 20,
   "aria-label": ariaLabel = "Edit File",

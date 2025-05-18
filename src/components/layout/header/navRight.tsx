@@ -1,7 +1,7 @@
+import FormIcon from "@/components/svg/form";
 import HamburgerIcon from "@/components/svg/hamburger";
 import useAuth from "@/hooks/useAuth";
 import useHandleLogout from "@/hooks/useHandleLogout";
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import UserMenu from "./navMdRight";
@@ -21,15 +21,12 @@ export default function NavRight() {
   };
 
   return (
-    <div className="flex gap-4">
-      <div className="flex gap-4 md:gap-8 items-center justify-end">
+    <>
+      <div className="space-x-8">
         {user ? (
           <>
-            <Link href="/user/notification">
-              <Image src={"/notification.svg"} alt="알림" width="20" height="20" />
-            </Link>
             <Link className="hidden sm:inline" href="/form">
-              <Image src={"/file.svg"} alt="폼 페이지" width="20" height="20" />
+              <FormIcon />
             </Link>
             <Link className="hidden lg:inline" href="/user">
               내 정보
@@ -48,8 +45,8 @@ export default function NavRight() {
             </Link>
           </>
         )}
-        <UserMenu />
       </div>
+      <UserMenu />
 
       <div className="sm:hidden flex">
         <button type="button" onClick={toggleCategory}>
@@ -57,6 +54,6 @@ export default function NavRight() {
         </button>
         <NavSmRight isOpened={isOpened} toggleCategory={toggleCategory} closeMenu={closeMenu} />
       </div>
-    </div>
+    </>
   );
 }

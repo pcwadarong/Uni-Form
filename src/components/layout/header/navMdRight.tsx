@@ -4,7 +4,7 @@ import UserIcon from "@/components/svg/user";
 import useAuth from "@/hooks/useAuth";
 import useHandleLogout from "@/hooks/useHandleLogout";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const UserMenu = () => {
   const { user } = useAuth();
@@ -12,18 +12,18 @@ const UserMenu = () => {
   const menuRef = useRef<HTMLDivElement>(null);
   const handleLogout = useHandleLogout();
 
-  const handleClickOutside = (event: MouseEvent) => {
-    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-      setShowUserMenu(false);
-    }
-  };
+  const handleClickOutside = useCallback((event: MouseEvent) => {
+  if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+    setShowUserMenu(false);
+  }
+}, []);
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [handleClickOutside]);
 
   return (
     <div className="relative hidden sm:flex md:hidden" ref={menuRef}>

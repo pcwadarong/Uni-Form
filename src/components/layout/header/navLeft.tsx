@@ -1,8 +1,7 @@
 "use client";
 
-import Link from "next/link";
-import Image from "next/image";
 import BrandLogo from "@/components/svg/logo";
+import Link from "next/link";
 
 interface Props {
   handleMouseOver: (category: string) => void;
@@ -11,25 +10,29 @@ interface Props {
 
 export default function NavLeft({ handleMouseOver, handleMouseLeave }: Props) {
   return (
-    <ul className="flex gap-4 md:gap-8 items-center">
-      <li className="w-10">
+    <ul className="flex gap-6 md:gap-8 items-center">
+      <li>
         <h1>
           <Link href="/">
-            <BrandLogo width={48}/>
+            <BrandLogo width={48} />
           </Link>
         </h1>
       </li>
       <li
         className="hidden sm:inline hover:underline underline-offset-8 decoration-green-300"
         onMouseOver={() => handleMouseOver("survey")}
+        onFocus={() => handleMouseOver("survey")}
         onMouseLeave={handleMouseLeave}
+        onBlur={handleMouseLeave}
       >
         <Link href="/survey/all">설문조사</Link>
       </li>
       <li
         className="hidden sm:inline hover:underline underline-offset-8 decoration-green-300"
         onMouseOver={() => handleMouseOver("recruit")}
+        onFocus={() => handleMouseOver("recruit")}
         onMouseLeave={handleMouseLeave}
+        onBlur={handleMouseLeave}
       >
         <Link href="/recruit/all">모집공고</Link>
       </li>
