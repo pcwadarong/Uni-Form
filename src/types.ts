@@ -1,3 +1,5 @@
+import type { Timestamp } from "firebase/firestore";
+
 export interface User {
   uid: string;
   nickname: string;
@@ -84,6 +86,7 @@ export interface Comment {
   surveyId: string;
   uid: string;
   content: string;
+  createdAt: number;
 }
 
 interface Answer {

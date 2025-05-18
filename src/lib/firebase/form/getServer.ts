@@ -56,19 +56,35 @@ export const fetchFormDetail = async (
 export const fetchCommentsServer = async (
   id: string,
   limitCount = 5,
-): Promise<Comment[] | null> => {
+): Promise<{
+  comments: Comment[];
+  lastDocId: string | null;
+  hasNextPage: boolean;
+  totalCount: number;
+}> => {
   try {
     const snapshot = await adminFirestore
       .collection("comments")
       .where("surveyId", "==", id)
+      .orderBy("createdAt", "desc")
       .orderBy("__name__", "desc")
-      .limit(limitCount)
+      .limit(limitCount + 1)
       .get();
 
-    if (snapshot.empty) return [];
+    if (snapshot.empty)
+      return {
+        comments: [],
+        lastDocId: null,
+        hasNextPage: false,
+        totalCount: 0,
+      };
+
+    const docs = snapshot.docs;
+    const hasNextPage = docs.length > limitCount;
+    const sliced = hasNextPage ? docs.slice(0, limitCount) : docs;
 
     const commentsWithNicknames = await Promise.all(
-      snapshot.docs.map(async (doc) => {
+      sliced.map(async (doc) => {
         const data = doc.data();
         const nickname = await fetchUserDataServer(data.uid, "nickname");
 
@@ -77,16 +93,29 @@ export const fetchCommentsServer = async (
           surveyId: data.surveyId,
           uid: data.uid,
           content: data.content,
+          createdAt: data.createdAt?.toMillis?.() ?? null,
           nickname: typeof nickname === "string" ? nickname : "",
         };
       }),
     );
 
-    return commentsWithNicknames;
+    const countSnap = await adminFirestore
+      .collection("comments")
+      .where("surveyId", "==", id)
+      .count()
+      .get();
+
+    const totalCount = countSnap.data().count || 0;
+
+    return {
+      comments: commentsWithNicknames,
+      lastDocId: hasNextPage ? docs[limitCount - 1].id : null,
+      hasNextPage,
+      totalCount,
+    };
   } catch (err) {
-    if (err instanceof FirebaseError) {
-      throw new Error(`Firebase loading error: ${err.code}`);
-    }
+    if (err instanceof FirebaseError) throw new Error(`Firebase loading error: ${err.code}`);
+
     throw err;
   }
 };
@@ -110,9 +139,8 @@ export const fetchResponses = async (id: string): Promise<Response[] | null> => 
 
     return responses;
   } catch (err) {
-    if (err instanceof FirebaseError) {
-      throw new Error(`Firebase loading error: ${err.code}`);
-    }
+    if (err instanceof FirebaseError) throw new Error(`Firebase loading error: ${err.code}`);
+
     throw err;
   }
 };

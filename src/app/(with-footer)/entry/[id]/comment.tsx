@@ -11,6 +11,7 @@ interface Props {
   isFetching: boolean;
   isLoading: boolean;
   isError?: boolean;
+  totalCount: number;
 }
 
 export default function Comments({
@@ -20,10 +21,11 @@ export default function Comments({
   isFetching,
   isLoading,
   isError,
+  totalCount,
 }: Props) {
   return (
     <section>
-      <h3>댓글 목록</h3>
+      <h3>{`댓글 목록 (${totalCount})`}</h3>
 
       {isLoading ? (
         <ul className="mt-4 space-y-3">
@@ -36,18 +38,16 @@ export default function Comments({
       ) : (
         <ul className="mt-4 space-y-3">
           {comments.map((comment) => (
-            <li
-              key={comment.id}
-              className="px-4 py-3 rounded-xl border border-gray-300"
-            >
+            <li key={comment.id} className="px-4 py-3 rounded-xl border border-gray-300">
               <h5 className="font-semibold">{comment.nickname}</h5>
+              <p>{new Date(comment.createdAt).toLocaleString()}</p>
               <p>{comment.content}</p>
             </li>
           ))}
         </ul>
       )}
 
-      {hasNextPage && !isLoading && !isError && (
+      {hasNextPage && comments.length < totalCount && !isLoading && !isError && (
         <div className="mt-4 text-center">
           <Button
             onClick={loadMore}

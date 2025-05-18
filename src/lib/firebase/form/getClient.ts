@@ -4,6 +4,8 @@ import {
   type DocumentData,
   type QueryDocumentSnapshot,
   collection,
+  doc,
+  getDoc,
   getDocs,
   limit,
   orderBy,
@@ -12,6 +14,20 @@ import {
   where,
 } from "firebase/firestore";
 import { fetchUserDataClient } from "../user/getClient";
+
+export const getCommentSnapshotById = async (
+  id: string,
+): Promise<QueryDocumentSnapshot<DocumentData> | null> => {
+  try {
+    const ref = doc(firestore, "comments", id);
+    const snap = await getDoc(ref);
+
+    return snap.exists() ? (snap as QueryDocumentSnapshot<DocumentData>) : null;
+  } catch (err) {
+    console.error("📛 Failed to get comment snapshot:", err);
+    return null;
+  }
+};
 
 export const fetchCommentsClient = async (
   id: string,
@@ -23,16 +39,25 @@ export const fetchCommentsClient = async (
   hasMore: boolean;
 }> => {
   try {
-    const commentRef = collection(firestore, "comments");
-    let baseQuery = query(commentRef, where("surveyId", "==", id), limit(pageSize));
+    const snapshot = await getDocs(
+      query(
+        collection(firestore, "comments"),
+        where("surveyId", "==", id),
+        orderBy("createdAt", "desc"),
+        orderBy("__name__", "desc"),
+        ...(lastVisible ? [startAfter(lastVisible)] : []),
+        limit(pageSize + 1),
+      ),
+    );
 
-    if (lastVisible) baseQuery = query(baseQuery, startAfter(lastVisible));
+    const docs = snapshot.docs;
+    const hasMore = docs.length > pageSize;
+    const sliced = hasMore ? docs.slice(0, pageSize) : docs;
+    const lastDoc = sliced.at(-1) ?? null;
 
-    const snapshot = await getDocs(baseQuery);
-    const lastDoc = snapshot.docs[snapshot.docs.length - 1];
-
+    console.log(sliced)
     const commentsWithNicknames: Comment[] = await Promise.all(
-      snapshot.docs.map(async (doc) => {
+      sliced.map(async (doc) => {
         const data = doc.data();
         const nickname = await fetchUserDataClient(data.uid, "nickname");
 
@@ -41,17 +66,16 @@ export const fetchCommentsClient = async (
           surveyId: data.surveyId,
           uid: data.uid,
           content: data.content,
+          createdAt: data.createdAt?.toMillis?.() ?? null,
           nickname: typeof nickname === "string" ? nickname : "",
         };
       }),
     );
 
-    const sorted = commentsWithNicknames.sort((a, b) => b.id.localeCompare(a.id));
-
     return {
-      comments: sorted,
+      comments: commentsWithNicknames,
       lastDoc,
-      hasMore: snapshot.size >= pageSize,
+      hasMore,
     };
   } catch (error) {
     console.error("Error fetching paginated comments:", error);

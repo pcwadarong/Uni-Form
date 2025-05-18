@@ -28,9 +28,9 @@ export default function ActionButtons() {
 
   return (
     <div className="mt-10 flex gap-5 font-bold">
-      <Share onClick={handleShare}/>
-      <BookMark onClick={handleBookmark} />
-      <Report onClick={handleReport}/>
+      <Share onClick={handleShare} className="cursor-pointer"/>
+      <BookMark onClick={handleBookmark} className="cursor-pointer"/>
+      <Report onClick={handleReport} className="cursor-pointer"/>
     </div>
   );
 }
