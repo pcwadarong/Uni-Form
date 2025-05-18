@@ -14,7 +14,7 @@ export default function NavLeft({ handleMouseOver, handleMouseLeave }: Props) {
       <li className="w-10">
         <h1>
           <Link href="/">
-            <Image src={"./logo.svg"} alt="logo" width="48" height="30" priority={true} />
+            <Image src={"/logo.svg"} alt="logo" width="48" height="30" priority={true} />
           </Link>
         </h1>
       </li>

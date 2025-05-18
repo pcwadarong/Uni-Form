@@ -1,5 +1,5 @@
 import Footer from "@/components/layout/footer";
-import ActionBtns from "@/components/ui/actionBtn";
+import ScrollToTop from "@/components/ui/scrollToTop";
 import { Suspense } from "react";
 import Loading from "../loading";
 
@@ -13,7 +13,7 @@ export default function RootLayout({
       <Suspense fallback={<Loading />}>
         {children}
         <Footer />
-        <ActionBtns />
+        <ScrollToTop />
       </Suspense>
     </>
   );

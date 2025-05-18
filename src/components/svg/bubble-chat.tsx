@@ -8,9 +8,8 @@ export default function BubbleChat({
       focusable="false"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
-      width="80"
-      height="78"
-      fill={fill}
+      width="70"
+      height="70"
       {...props}
     >
       <path
@@ -18,6 +17,7 @@ export default function BubbleChat({
         stroke="currentColor"
         strokeWidth="1.5"
         strokeLinejoin="round"
+        fill="none"
       />
       <path
         d="M11.9955 12H12.0045M15.991 12H16M8 12H8.00897"

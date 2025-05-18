@@ -12,7 +12,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${suit.className} relative body2 bg-background font-black`}>
+      <body className={`${suit.className} relative body2 bg-background text-foreground`}>
         <Providers>
           <Header />
           <div className="flex h-auto min-h-screen flex-col items-center pt-20 pb-28">

@@ -29,7 +29,7 @@ export default function NavSmRight({ isOpened, toggleCategory, closeMenu }: Prop
           onClick={toggleCategory}
           className="absolute right-8 top-8 text-gray-4 hover:text-dark"
         >
-          <Image src={"./cancel.svg"} alt="no comments" width="20" height="20" />
+          <Image src={"/cancel.svg"} alt="no comments" width="20" height="20" />
         </button>
         <Link href="/" className="flex items-start gap-2 mb-4" onClick={closeMenu}>
           <Image src={"/logo.svg"} alt="logo" width="30" height="20" priority={true} />

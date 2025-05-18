@@ -62,7 +62,7 @@
 //           className="absolute right-10 top-10 text-gray-4 hover:text-dark p-4 -m-4"
 //           aria-label="모달 닫기"
 //         >
-//           <Image src={"./cancel.svg"} alt="no comments" width="20" height="20" />
+//           <Image src={"/cancel.svg"} alt="no comments" width="20" height="20" />
 //         </button>
 //         <h4 className="title3 md:text-xl mt-3 mb-2 line-clamp-2">{item.title}</h4>
 //         <hr className="-mt-3 w-full border-green-300" />
@@ -94,7 +94,7 @@
 //                 </ul>
 //               ) : (
 //                 <div className="h-52 border-[1px] border-gray-2 bg-white rounded-xl text-gray-3 flex flex-col gap-3 justify-center items-center">
-//                   <Image src={"./bubble-chat.svg"} alt="no comments" width="80" height="78" />
+//                   <Image src={"/bubble-chat.svg"} alt="no comments" width="80" height="78" />
 //                   <p>아직 댓글이 없어요. 첫 댓글을 남겨보세요!</p>
 //                 </div>
 //               )}

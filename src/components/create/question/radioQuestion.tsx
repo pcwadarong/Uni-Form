@@ -84,7 +84,7 @@ const RadioQuestion: React.FC<QuestionProps> = ({ question, mode, onResponseChan
                               aria-label={`항목 ${index + 1} 삭제`}
                             >
                               <Image
-                                src={"./cancel.svg"}
+                                src={"/cancel.svg"}
                                 alt={`항목 ${index + 1} 삭제`}
                                 width="20"
                                 height="20"

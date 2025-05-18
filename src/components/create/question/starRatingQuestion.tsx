@@ -26,7 +26,7 @@ const StarRatingQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
           {[...Array(5)].map((_, i) => (
             <Image
               key={i}
-              src={"./star.svg"}
+              src={"/star.svg"}
               alt={`별 ${i + 1}`}
               width="45"
               height="45"

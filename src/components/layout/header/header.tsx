@@ -23,7 +23,7 @@ export default function Header() {
         <div className="flex h-20 w-full px-8 2xl:w-[1400px] 2xl:px-0 items-center justify-between">
           <h1>
             <Link href="/">
-              <Image src={"./logo.svg"} alt="logo" width="48" height="30" priority={true} />
+              <Image src={"/logo.svg"} alt="logo" width="48" height="30" priority={true} />
             </Link>
           </h1>
           <button className="py-1 px-3 bg-green-300 text-white rounded-md" onClick={quitPreview}>

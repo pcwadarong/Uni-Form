@@ -13,41 +13,40 @@ interface Props {
 
 export default function Comments({ comments, onLoadMore, hasNextPage, isFetchingNextPage }: Props) {
   return (
-    <>
-      <div className="overflow-hidden h-52 relative">
+    <section>
+      <h3>댓글 목록</h3>
+
         {!comments ? (
-          <ul className="flex flex-col gap-2">
+          <ul className="mt-4 space-y-3">
             {[...Array(3)].map((_, idx) => (
               <Skeleton key={idx} className="h-16 w-full rounded-xl border border-gray-2" />
             ))}
           </ul>
         ) : (
-          <ul>
-            <div className="absolute bottom-0 left-0 w-full h-14 bg-gradient-to-t from-gray-1" />
+          <ul className="mt-4 space-y-3">
             {comments.map((comment) => (
               <li
                 key={comment.id}
-                className="w-full p-3 rounded-xl mb-2 border-[1px] border-gray-2 bg-white"
+                className="px-4 py-3 rounded-xl border border-gray-300"
               >
                 <h5 className="font-semibold">{comment.nickname}</h5>
-                <p>{comment.content}</p>
+                <p className="">{comment.content}</p>
               </li>
             ))}
           </ul>
         )}
-      </div>
 
-      {hasNextPage && (
+      {(
         <div className="mt-4 text-center">
           <Button
             onClick={onLoadMore}
             disabled={isFetchingNextPage}
-            className="border text-sm disabled:opacity-50"
+            className="border border-gray-400 hover:bg-gray-200 text-sm disabled:opacity-50"
           >
             {isFetchingNextPage ? "불러오는 중..." : "더보기"}
           </Button>
         </div>
       )}
-    </>
+    </section>
   );
 }

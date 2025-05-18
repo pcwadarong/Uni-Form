@@ -94,7 +94,7 @@ const CheckboxQuestion: React.FC<QuestionProps> = ({ question, mode, onResponseC
                               aria-label={`${index + 1}번 항목 삭제`}
                             >
                               <Image
-                                src={"./cancel.svg"}
+                                src={"/cancel.svg"}
                                 alt="Delete option"
                                 width="20"
                                 height="20"

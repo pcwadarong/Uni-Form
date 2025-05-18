@@ -3,6 +3,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
+  --color-green-400: oklch(0.79 0.1699 161.94);
   --color-green-500: oklch(0.74 0.1657 159.94);
   --color-gray-200: oklch(0.94 0 0);
   --color-gray-300: oklch(0.85 0 0);
@@ -99,7 +100,7 @@
 .body2 {
   font-size: 1rem;
   font-weight: 400;
-  line-height: 2.25rem;
+  line-height: 1.8rem;
 }
 
 .subtitle {
@@ -128,4 +129,8 @@
   height: 1px;
   margin: -1px;
   overflow: hidden;
+}
+
+button {
+  cursor: pointer;
 }
