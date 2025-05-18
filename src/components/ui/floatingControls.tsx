@@ -4,7 +4,7 @@ import { useTheme } from "@/contexts/themeProvider";
 import Dark from "../svg/dark";
 import Light from "../svg/light";
 
-export default function ScrollToTop() {
+export default function FloatingControls() {
   const { theme, setTheme } = useTheme();
   const toggleTheme = () => {
     setTheme(theme === "light" ? "dark" : "light");
@@ -34,7 +34,7 @@ export default function ScrollToTop() {
         aria-label="테마 전환 버튼"
         className="drop-shadow-md bg-background w-11 h-11 rounded-full hover:bg-green-300 text-foreground/60 flex justify-center items-center border border-gray-300"
       >
-        {theme === "light" ? <Dark /> : <Light />}
+        {theme === "light" ? <Light /> : <Dark />}
       </button>
     </div>
   );
