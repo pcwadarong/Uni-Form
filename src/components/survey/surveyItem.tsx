@@ -47,7 +47,7 @@ export default function SurveyItem({ item }: { item: Form }) {
           />
         )}
       </div>
-      <div className="px-6 py-7 flex flex-col justify-between bg-white flex-grow">
+      <div className="px-6 py-7 flex flex-col justify-between bg-background dark:bg-muted flex-grow">
         <div>
           <Special id={item.id} point={item.point} endDate={item.endDate} />
           <h3 className="body1 md:text-xl mt-3 mb-2 line-clamp-2">{item.title}</h3>

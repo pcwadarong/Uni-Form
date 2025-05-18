@@ -85,7 +85,7 @@
 //                   {commentsList.map((comment) => (
 //                     <li
 //                       key={comment.id}
-//                       className="w-full p-3 rounded-xl mb-2 border-[1px] border-gray-2 bg-white"
+//                       className="w-full p-3 rounded-xl mb-2 border-[1px] border-gray-2 bg-foreground"
 //                     >
 //                       <h5 className="font-semibold">{comment.nickname}</h5>
 //                       <p>{comment.content}</p>
@@ -93,7 +93,7 @@
 //                   ))}
 //                 </ul>
 //               ) : (
-//                 <div className="h-52 border-[1px] border-gray-2 bg-white rounded-xl text-gray-3 flex flex-col gap-3 justify-center items-center">
+//                 <div className="h-52 border-[1px] border-gray-2 bg-foreground rounded-xl text-gray-3 flex flex-col gap-3 justify-center items-center">
 //                   <Image src={"/bubble-chat.svg"} alt="no comments" width="80" height="78" />
 //                   <p>아직 댓글이 없어요. 첫 댓글을 남겨보세요!</p>
 //                 </div>

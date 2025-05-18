@@ -17,7 +17,7 @@ const RecruitItem: React.FC<{ item: Recruit }> = ({ item }) => {
 
   return (
     <li
-      className="drop-shadow flex flex-col flex-1 justify-between overflow-hidden rounded-3xl h-[360px] cursor-pointer"
+      className="drop-shadow-md flex flex-col flex-1 justify-between overflow-hidden rounded-3xl h-[360px] cursor-pointer"
       onClick={() => openDetailModal(item)}
       onKeyDown={handleEnterKeyPress(item)}
       role="button"
@@ -34,7 +34,7 @@ const RecruitItem: React.FC<{ item: Recruit }> = ({ item }) => {
           />
         )}
       </div>
-      <div className="px-6 py-6 flex flex-col justify-between bg-white flex-grow">
+      <div className="px-6 py-6 flex flex-col justify-between bg-background dark:bg-muted flex-grow">
         <div>
           <Date id={item.id} endDate={item.endDate} />
           <h3 className="body1 md:text-xl mt-3 mb-2 line-clamp-2">{item.title}</h3>

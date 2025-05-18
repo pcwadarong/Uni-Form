@@ -138,7 +138,7 @@ const SetDuration = () => {
             role="dialog"
             aria-modal="true"
           >
-            <div className="bg-white p-8 rounded-2xl w-fit sm:w-[340px] flex flex-col gap-4">
+            <div className="bg-foreground p-8 rounded-2xl w-fit sm:w-[340px] flex flex-col gap-4">
               <h3 className="title3 text-center">설문 기간</h3>
               <div className="flex">
                 <span className="text-gray-4 font-semibold">시작</span>
@@ -181,7 +181,7 @@ const SetDuration = () => {
                       mode="single"
                       selected={beginDate}
                       onDayClick={setBeginDate}
-                      className="rounded-2xl bg-white xl:absolute top-11 xl:shadow-lg z-50"
+                      className="rounded-2xl bg-foreground xl:absolute top-11 xl:shadow-lg z-50"
                       fromDate={new Date()}
                     />
                   )}
@@ -238,7 +238,7 @@ const SetDuration = () => {
                       mode="single"
                       selected={finishDate}
                       onDayClick={setFinishDate}
-                      className="rounded-2xl bg-white xl:absolute top-11 xl:shadow-lg z-50"
+                      className="rounded-2xl bg-foreground xl:absolute top-11 xl:shadow-lg z-50"
                       fromDate={beginDate}
                     />
                   )}

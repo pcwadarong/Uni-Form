@@ -19,7 +19,7 @@ const ToggleBtn = ({ text, checked = false, onChange }: ToggleBtnProps) => {
         }`}
       >
         <div
-          className={`w-5 bg-white h-5 rounded-full absolute top-0.5 transition-transform duration-200 ${
+          className={`w-5 bg-foreground h-5 rounded-full absolute top-0.5 transition-transform duration-200 ${
             checked ? "translate-x-4" : "translate-x-0.5"
           }`}
         />

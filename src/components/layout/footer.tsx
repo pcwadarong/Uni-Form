@@ -1,25 +1,28 @@
 import Link from "next/link";
-import Image from "next/image";
+import FacebookIcon from "../svg/facebook";
+import GithubIcon from "../svg/github";
+import InstagramIcon from "../svg/instagram";
+import TwitterXIcon from "../svg/x";
 
 const sns = [
   {
     name: "github",
-    icon: <Image src={"/github.svg"} alt="github" width="22" height="22" />,
+    icon: <GithubIcon width={20}/>,
     link: "https://github.com/pcwadarong/Uni-Form",
   },
   {
     name: "facebook",
-    icon: <Image src={"/facebook.svg"} alt="github" width="21" height="21" />,
+    icon: <FacebookIcon width={19}/>,
     link: "https://www.facebook.com/",
   },
   {
     name: "instagram",
-    icon: <Image src={"/instagram.svg"} alt="github" width="23" height="23" />,
+    icon: <InstagramIcon />,
     link: "https://www.instagram.com/",
   },
   {
     name: "x",
-    icon: <Image src={"/x.svg"} alt="github" width="23" height="23" />,
+    icon: <TwitterXIcon />,
     link: "https://twitter.com/",
   },
 ];

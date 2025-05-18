@@ -1,14 +1,13 @@
-import Link from "next/link";
-import Image from "next/image";
-import { SURVEY_CATEGORY, RECRUIT_CATEGORY } from "@/constants/category";
-import useHandleLogout from "@/hooks/useHandleLogout";
-import useAuth from "@/hooks/useAuth";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { RECRUIT_CATEGORY, SURVEY_CATEGORY } from "@/constants/category";
+import useAuth from "@/hooks/useAuth";
+import useHandleLogout from "@/hooks/useHandleLogout";
+import Link from "next/link";
 
 interface Props {
   isOpened: boolean;
@@ -20,100 +19,107 @@ export default function NavSmRight({ isOpened, toggleCategory, closeMenu }: Prop
   const handleLogout = useHandleLogout();
   const { user } = useAuth();
 
+  const handleClickLink = () => closeMenu();
+
   return (
-    <div>
-      <div
-        className={`bg-white fixed top-0 right-0 w-96 max-w-full h-screen z-30 p-8 overflow-auto transform ${isOpened ? "translate-x-0" : "translate-x-full"} transition-transform duration-300 ease-out`}
-      >
-        <button
-          onClick={toggleCategory}
-          className="absolute right-8 top-8 text-gray-4 hover:text-dark"
-        >
-          <Image src={"/cancel.svg"} alt="no comments" width="20" height="20" />
-        </button>
-        <Link href="/" className="flex items-start gap-2 mb-4" onClick={closeMenu}>
-          <Image src={"/logo.svg"} alt="logo" width="30" height="20" priority={true} />
-          <span>Uni Form</span>
-        </Link>
-        <div className="flex flex-col mr-1">
-          <Accordion type="multiple">
-            <AccordionItem value="item-1">
-              <AccordionTrigger>설문조사</AccordionTrigger>
-              <AccordionContent>
-                <ul className="grid grid-cols-2 gap-4">
-                  {Object.entries(SURVEY_CATEGORY).map(([key, value]) => (
-                    <li key={key} className="hover:text-green-400">
-                      <Link href={`/survey/${value}`} onClick={() => closeMenu()}>
-                        {key}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-2">
-              <AccordionTrigger>모집공고</AccordionTrigger>
-              <AccordionContent>
-                <ul className="grid grid-cols-2 gap-4">
-                  {Object.entries(RECRUIT_CATEGORY).map(([key, value]) => (
-                    <li key={key} className="hover:text-green-400">
-                      <Link href={`/survey/${value}`} onClick={() => closeMenu()}>
-                        {key}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
-          <ul className="gap-4 flex flex-col border-t-[1px] py-6">
-            {user ? (
-              <>
-                <li>
-                  <Link className="hover:text-green-400" href="/form" onClick={() => closeMenu()}>
-                    설문 페이지
-                  </Link>
-                </li>
-                <li>
-                  <Link className="hover:text-green-400" href="/user" onClick={() => closeMenu()}>
-                    내 정보
-                  </Link>
-                </li>
-                <li>
-                  <button className="hover:text-green-400" onClick={handleLogout}>
-                    로그아웃
-                  </button>
-                </li>
-              </>
-            ) : (
-              <>
-                <li>
-                  <Link
-                    href="/auth/sign-in"
-                    className="hover:text-green-400"
-                    onClick={() => closeMenu()}
-                  >
-                    로그인
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/auth/sign-up"
-                    className="hover:text-green-400"
-                    onClick={() => closeMenu()}
-                  >
-                    회원가입
-                  </Link>
-                </li>
-              </>
-            )}
-          </ul>
-        </div>
-      </div>
-      <div
+    <div
+      className={`fixed inset-0 z-30 h-screen w-full transform overflow-auto bg-background p-10 pt-20 transition-transform duration-300 ease-out ${
+        isOpened ? "translate-x-0" : "translate-x-full"
+      }`}
+    >
+      <button
+        type="button"
         onClick={toggleCategory}
-        className={`fixed inset-0 h-screen z-20 bg-dark/70 transition-opacity duration-300 ${isOpened ? "opacity-100 visible" : "opacity-0 invisible"}`}
-      />
+        className="absolute right-12 top-8 text-2xl"
+        aria-label="메뉴 닫기"
+      >
+        &times;
+      </button>
+
+      <div className="mr-1 flex flex-col">
+        <Accordion type="multiple">
+          <AccordionItem value="item-1">
+            <AccordionTrigger>설문조사</AccordionTrigger>
+            <AccordionContent>
+              <ul className="grid grid-cols-2 gap-4">
+                {Object.entries(SURVEY_CATEGORY).map(([label, path]) => (
+                  <li key={label}>
+                    <Link
+                      href={`/survey/${path}`}
+                      onClick={handleClickLink}
+                      className="hover:text-green-400"
+                    >
+                      {label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="item-2">
+            <AccordionTrigger>모집공고</AccordionTrigger>
+            <AccordionContent>
+              <ul className="grid grid-cols-2 gap-4">
+                {Object.entries(RECRUIT_CATEGORY).map(([label, path]) => (
+                  <li key={label}>
+                    <Link
+                      href={`/survey/${path}`}
+                      onClick={handleClickLink}
+                      className="hover:text-green-400"
+                    >
+                      {label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+
+        <ul className="flex flex-col gap-4 border-t py-6">
+          {user ? (
+            <>
+              <li>
+                <Link href="/form" onClick={handleClickLink} className="hover:text-green-400">
+                  설문 페이지
+                </Link>
+              </li>
+              <li>
+                <Link href="/user" onClick={handleClickLink} className="hover:text-green-400">
+                  내 정보
+                </Link>
+              </li>
+              <li>
+                <button type="button" onClick={handleLogout} className="hover:text-green-400">
+                  로그아웃
+                </button>
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
+                <Link
+                  href="/auth/sign-in"
+                  onClick={handleClickLink}
+                  className="hover:text-green-400"
+                >
+                  로그인
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/auth/sign-up"
+                  onClick={handleClickLink}
+                  className="hover:text-green-400"
+                >
+                  회원가입
+                </Link>
+              </li>
+            </>
+          )}
+        </ul>
+      </div>
     </div>
   );
 }

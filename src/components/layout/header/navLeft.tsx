@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import BrandLogo from "@/components/svg/logo";
 
 interface Props {
   handleMouseOver: (category: string) => void;
@@ -14,7 +15,7 @@ export default function NavLeft({ handleMouseOver, handleMouseLeave }: Props) {
       <li className="w-10">
         <h1>
           <Link href="/">
-            <Image src={"/logo.svg"} alt="logo" width="48" height="30" priority={true} />
+            <BrandLogo width={48}/>
           </Link>
         </h1>
       </li>

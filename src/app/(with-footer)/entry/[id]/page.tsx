@@ -40,7 +40,7 @@ export default async function Entry({
   const diffTime = parseDateString(item.id, item.endDate).getTime() - currentDate.getTime();
 
   return (
-    <div className="bg-white m-y-auto w-full max-w-[1200px] shadow px-14 md:pt-20 pb-10 space-y-20">
+    <div className="bg-background dark:bg-muted m-y-auto w-full max-w-[1200px] shadow px-14 md:pt-20 pb-10 space-y-20">
       <section className="flex flex-col md:flex-row gap-10">
         <div className="md:hidden w-screen relative left-1/2 -translate-x-1/2 shadow overflow-hidden">
           {item.img && (

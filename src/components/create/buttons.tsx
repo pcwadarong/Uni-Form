@@ -74,10 +74,14 @@ const CreatePageButton = () => {
 
   return (
     <div className="flex gap-2 justify-end subtitle items-center">
-      <button type="button" className="py-1 px-3 bg-white rounded-md" onClick={handleOpenPreview}>
+      <button
+        type="button"
+        className="py-1 px-3 bg-foreground rounded-md"
+        onClick={handleOpenPreview}
+      >
         미리보기
       </button>
-      <button className="py-1 px-3 bg-white rounded-md" onClick={handleSaveDraft}>
+      <button className="py-1 px-3 bg-foreground rounded-md" onClick={handleSaveDraft}>
         임시저장
       </button>
       <button
@@ -97,7 +101,7 @@ const CreatePageButton = () => {
         </button>
         {showToggleMenu && (
           <div
-            className="absolute right-0 top-10 flex flex-col text-center rounded-lg overflow-hidden shadow-md bg-white"
+            className="absolute right-0 top-10 flex flex-col text-center rounded-lg overflow-hidden shadow-md bg-foreground"
             aria-labelledby="menu-button"
           >
             <button

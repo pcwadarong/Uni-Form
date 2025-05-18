@@ -15,7 +15,7 @@ const ClosingRecruits = () => {
   });
 
   return (
-    <section className="bg-white w-full px-4 md:px-8 2xl:px-0 flex justify-center py-16 drop-shadow-sm">
+    <section className="bg-background dark:bg-muted w-full px-4 md:px-8 2xl:px-0 flex justify-center py-16 drop-shadow-sm">
       <div className="w-full 2xl:w-[1400px]">
         <div className="flex justify-between items-end mb-6">
           <h2 className="title2">곧 마감되는 모집 공고를 살펴보세요</h2>

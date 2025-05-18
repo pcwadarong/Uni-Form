@@ -1,10 +1,11 @@
-import Link from "next/link";
-import Image from "next/image";
-import UserMenu from "./navMdRight";
-import { useState } from "react";
-import NavSmRight from "./navSmRight";
-import useHandleLogout from "@/hooks/useHandleLogout";
+import HamburgerIcon from "@/components/svg/hamburger";
 import useAuth from "@/hooks/useAuth";
+import useHandleLogout from "@/hooks/useHandleLogout";
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
+import UserMenu from "./navMdRight";
+import NavSmRight from "./navSmRight";
 
 export default function NavRight() {
   const [isOpened, setOpen] = useState(false);
@@ -33,7 +34,7 @@ export default function NavRight() {
             <Link className="hidden lg:inline" href="/user">
               내 정보
             </Link>
-            <button className="hidden lg:inline" onClick={handleLogout}>
+            <button type="button" className="hidden lg:inline" onClick={handleLogout}>
               로그아웃
             </button>
           </>
@@ -51,8 +52,8 @@ export default function NavRight() {
       </div>
 
       <div className="sm:hidden flex">
-        <button onClick={toggleCategory}>
-          <Image src={"/hamburger.svg"} alt="no comments" width="20" height="20" />
+        <button type="button" onClick={toggleCategory}>
+          <HamburgerIcon />
         </button>
         <NavSmRight isOpened={isOpened} toggleCategory={toggleCategory} closeMenu={closeMenu} />
       </div>

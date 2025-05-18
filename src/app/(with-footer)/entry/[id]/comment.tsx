@@ -39,8 +39,8 @@ export default function Comments({
         <ul className="mt-4 space-y-3">
           {comments.map((comment) => (
             <li key={comment.id} className="px-4 py-3 rounded-xl border border-gray-300">
-              <h5 className="font-semibold">{comment.nickname}</h5>
-              <p>{new Date(comment.createdAt).toLocaleString()}</p>
+              <span className="font-semibold">{comment.nickname}</span>
+              <span className="ml-2 caption">{new Date(comment.createdAt).toLocaleString()}</span>
               <p>{comment.content}</p>
             </li>
           ))}
