@@ -4,14 +4,19 @@ import Questions from "@/components/create/questions";
 import SurveyInfo from "@/components/create/surveyInfo";
 import { Button } from "@/components/ui/button";
 import { fetchDetail } from "@/lib/firebase/fetchDatas";
-import { decrypt } from "@/lib/utils/crypotoClient";
+import { decrypt } from "@/lib/utils/crypoto";
+import { notFound } from "next/navigation";
 import { useResponseStore } from "@/store/response";
 import { useSurveyStore } from "@/store/survey";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
-const ResponsePage = () => {
+export default async function ResponsePage ({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const pathname = usePathname();
   const encryptedId = pathname.replace("/response/", "");
   const itemId = encryptedId ? decrypt(encryptedId) : "";
@@ -57,4 +62,3 @@ const ResponsePage = () => {
   );
 };
 
-export default ResponsePage;

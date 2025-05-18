@@ -61,7 +61,7 @@ export const fetchCommentsServer = async (
     const snapshot = await adminFirestore
       .collection("comments")
       .where("surveyId", "==", id)
-      .orderBy("id", "desc")
+      .orderBy("__name__", "desc")
       .limit(limitCount)
       .get();
 

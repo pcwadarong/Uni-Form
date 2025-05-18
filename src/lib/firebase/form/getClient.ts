@@ -24,16 +24,9 @@ export const fetchCommentsClient = async (
 }> => {
   try {
     const commentRef = collection(firestore, "comments");
-    let baseQuery = query(
-      commentRef,
-      where("surveyId", "==", id),
-      orderBy("id", "desc"),
-      limit(pageSize),
-    );
+    let baseQuery = query(commentRef, where("surveyId", "==", id), limit(pageSize));
 
-    if (lastVisible) {
-      baseQuery = query(baseQuery, startAfter(lastVisible));
-    }
+    if (lastVisible) baseQuery = query(baseQuery, startAfter(lastVisible));
 
     const snapshot = await getDocs(baseQuery);
     const lastDoc = snapshot.docs[snapshot.docs.length - 1];
@@ -53,10 +46,12 @@ export const fetchCommentsClient = async (
       }),
     );
 
+    const sorted = commentsWithNicknames.sort((a, b) => b.id.localeCompare(a.id));
+
     return {
-      comments: commentsWithNicknames,
+      comments: sorted,
       lastDoc,
-      hasMore: snapshot.size === pageSize,
+      hasMore: snapshot.size >= pageSize,
     };
   } catch (error) {
     console.error("Error fetching paginated comments:", error);

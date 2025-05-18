@@ -30,7 +30,6 @@ export default function EntryClient({ item, initialComments }: Props) {
     getNextPageParam: (lastPage) => (lastPage.hasMore ? lastPage.lastDoc : undefined),
 
     initialPageParam: null,
-
     initialData: {
       pages: [
         {
@@ -48,9 +47,10 @@ export default function EntryClient({ item, initialComments }: Props) {
   return (
     <Comments
       comments={allComments}
-      onLoadMore={fetchNextPage}
+      loadMore={fetchNextPage}
       hasNextPage={hasNextPage ?? false}
-      isFetchingNextPage={isFetchingNextPage}
+      isFetching={isFetchingNextPage}
+      isLoading={data?.pages.length === 0}
     />
   );
 }

@@ -12,7 +12,6 @@ export interface User {
 export type UserField = "all" | "nickname" | "email" | "responses" | "comments" | "draft";
 
 export interface Form {
-  type: "survey" | "recruit";
   id: string;
   uid: string;
   title: string;

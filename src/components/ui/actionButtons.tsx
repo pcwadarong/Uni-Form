@@ -1,5 +1,8 @@
 "use client";
 
+import BookMark from "../svg/bookmark";
+import Share from "../svg/share";
+import Report from "../svg/report";
 import { useCallback } from "react";
 
 export default function ActionButtons() {
@@ -24,16 +27,10 @@ export default function ActionButtons() {
   }, []);
 
   return (
-    <div className="mt-10 space-x-8 font-bold">
-      <button type="button" onClick={handleShare}>
-        공유
-      </button>
-      <button type="button" onClick={handleBookmark}>
-        북마크
-      </button>
-      <button type="button" onClick={handleReport}>
-        신고
-      </button>
+    <div className="mt-10 flex gap-5 font-bold">
+      <Share onClick={handleShare}/>
+      <BookMark onClick={handleBookmark} />
+      <Report onClick={handleReport}/>
     </div>
   );
 }
