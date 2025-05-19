@@ -19,7 +19,7 @@ export default function Header() {
 
   if (pathName.includes("preview")) {
     return (
-      <nav className="w-screen flex flex-col items-center z-10 fixed backdrop-blur-sm bg-foreground drop-shadow text-nowrap">
+      <nav className="w-screen flex flex-col items-center z-10 fixed backdrop-blur-sm bg-content drop-shadow text-nowrap">
         <div className="flex h-20 w-full px-8 2xl:w-[1400px] 2xl:px-0 items-center justify-between">
           <h1>
             <Link href="/">
@@ -39,7 +39,7 @@ export default function Header() {
   }
 
   return (
-    <nav className="w-screen flex flex-col items-center z-10 fixed backdrop-blur-sm bg-background dark:bg-muted drop-shadow text-nowrap">
+    <nav className="w-screen flex flex-col items-center z-10 fixed backdrop-blur-sm bg-surface dark:bg-muted drop-shadow text-nowrap">
       <div className="flex h-20 w-full px-8 2xl:w-[1400px] 2xl:px-0 items-center justify-between gap-2 md:gap-8">
         <NavLeft handleMouseOver={handleMouseOver} handleMouseLeave={handleMouseLeave} />
         <NavSearch />

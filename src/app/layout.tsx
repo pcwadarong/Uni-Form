@@ -1,4 +1,5 @@
 import Header from "@/components/layout/header/header";
+import FloatingControls from "@/components/ui/floatingControls";
 import localFont from "next/font/local";
 import "./globals.css";
 import { Providers } from "../contexts/providers";
@@ -12,12 +13,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${suit.className} relative body2 bg-muted dark:bg-background text-foreground`}>
+      <body className={`${suit.className} relative body2 bg-muted dark:bg-surface text-content`}>
         <Providers>
           <Header />
           <div className="flex h-auto min-h-screen flex-col items-center pt-20 pb-28">
             {children}
           </div>
+          <FloatingControls />
         </Providers>
       </body>
     </html>

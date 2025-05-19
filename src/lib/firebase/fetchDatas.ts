@@ -1,4 +1,4 @@
-import type { Recruit, SortType, Survey } from "@/types";
+import type { SortType, Form } from "@/types";
 import {
   type DocumentData,
   collection,
@@ -31,17 +31,17 @@ const mapDocumentToData = (item: DocumentData, surveyType: "survey" | "recruit")
       ...commonFields,
       point: data.point ?? 0,
       comments: data.comments || [],
-    } as Survey;
+    };
   }
   return {
     ...commonFields,
-  } as Recruit;
+  };
 };
 
 export const fetchSurveysOrRecruitsList = async (
   surveyType: "survey" | "recruit",
   queryType: SortType,
-): Promise<Survey[] | Recruit[]> => {
+): Promise<Form[]> => {
   try {
     const ref =
       surveyType === "survey"
@@ -53,31 +53,31 @@ export const fetchSurveysOrRecruitsList = async (
         return await getDocs(ref).then((querySnapshot) => {
           return querySnapshot.docs
             .map((item) => mapDocumentToData(item, surveyType))
-            .filter(Boolean) as Survey[];
+            .filter(Boolean) as Form[];
         });
       }
 
       case "latest": {
         const q1 = query(ref, orderBy("id", "desc"), limit(4));
         const querySnapshot1 = await getDocs(q1);
-        return querySnapshot1.docs.map((item) => mapDocumentToData(item, surveyType)) as Survey[];
+        return querySnapshot1.docs.map((item) => mapDocumentToData(item, surveyType)) as Form[];
       }
 
       case "special": {
         const q2 = query(ref, orderBy("point", "desc"), limit(4));
         const querySnapshot2 = await getDocs(q2);
-        return querySnapshot2.docs.map((item) => mapDocumentToData(item, surveyType)) as Survey[];
+        return querySnapshot2.docs.map((item) => mapDocumentToData(item, surveyType)) as Form[];
       }
 
       case "popular": {
         const q3 = query(
           ref,
-          orderBy("responses.length", "desc"),
-          orderBy("comments.length", "desc"),
+          orderBy("responsesCount", "desc"),
+          orderBy("commentsCount", "desc"),
           limit(2),
         );
         const querySnapshot3 = await getDocs(q3);
-        return querySnapshot3.docs.map((item) => mapDocumentToData(item, surveyType)) as Survey[];
+        return querySnapshot3.docs.map((item) => mapDocumentToData(item, surveyType)) as Form[];
       }
 
       case "closing": {
@@ -94,7 +94,7 @@ export const fetchSurveysOrRecruitsList = async (
         const results1 = querySnapshot5.docs.map((item) => mapDocumentToData(item, surveyType));
         const results2 = querySnapshot6.docs.map((item) => mapDocumentToData(item, surveyType));
 
-        return [...results1, ...results2] as Survey[];
+        return [...results1, ...results2] as Form[];
       }
       default:
         throw new Error("Unsupported query type");

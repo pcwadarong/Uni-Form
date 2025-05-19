@@ -8,7 +8,7 @@ export default function FloatingControls() {
   const { theme, setTheme } = useTheme();
   const toggleTheme = () => {
     setTheme(theme === "light" ? "dark" : "light");
-    console.log(theme)
+    console.log(theme);
   };
 
   const toTheTop = () => {
@@ -22,7 +22,7 @@ export default function FloatingControls() {
     <div className="fixed bottom-10 right-10 leading-4 text-center sm:flex gap-3 hidden">
       <button
         type="button"
-        className="drop-shadow-md bg-background w-11 h-11 rounded-full hover:bg-green-300 text-xl font-bold text-foreground/60 border border-gray-300"
+        className="drop-shadow-md bg-surface w-11 h-11 rounded-full hover:bg-green-300 text-xl font-bold text-content/60 border border-gray-300"
         onClick={toTheTop}
         aria-label="위로 가기 버튼"
       >
@@ -32,7 +32,7 @@ export default function FloatingControls() {
         type="button"
         onClick={toggleTheme}
         aria-label="테마 전환 버튼"
-        className="drop-shadow-md bg-background w-11 h-11 rounded-full hover:bg-green-300 text-foreground/60 flex justify-center items-center border border-gray-300"
+        className="drop-shadow-md bg-surface w-11 h-11 rounded-full hover:bg-green-300 text-content/60 flex justify-center items-center border border-gray-300"
       >
         {theme === "light" ? <Light /> : <Dark />}
       </button>

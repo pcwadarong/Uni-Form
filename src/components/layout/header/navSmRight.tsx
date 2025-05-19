@@ -23,7 +23,7 @@ export default function NavSmRight({ isOpened, toggleCategory, closeMenu }: Prop
 
   return (
     <div
-      className={`fixed inset-0 z-30 h-screen w-full transform overflow-auto bg-background p-8 pt-20 transition-transform duration-300 ease-out ${
+      className={`fixed inset-0 z-30 h-screen w-full transform overflow-auto bg-surface p-8 pt-20 transition-transform duration-300 ease-out ${
         isOpened ? "translate-x-0" : "translate-x-full"
       }`}
     >

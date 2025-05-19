@@ -37,7 +37,7 @@ export const CategorySelection: React.FC<Props> = ({ topic, onFilterChange }) =>
   };
 
   return (
-    <div className="py-6 px-10 2xl:px-6 border-[1px] border-gray-2 bg-foreground rounded-3xl 2xl:w-64 w-full text-nowrap flex-none mb-10">
+    <div className="py-6 px-10 2xl:px-6 border-[1px] border-gray-2 bg-content rounded-3xl 2xl:w-64 w-full text-nowrap flex-none mb-10">
       {topic === "survey" && (
         <div className="flex 2xl:flex-col gap-10 2xl:gap-4 items-center 2xl:items-start mb-6">
           <p className="font-bold w-12 flex-none">포인트</p>

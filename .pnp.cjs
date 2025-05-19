@@ -30,6 +30,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@biomejs/biome", "npm:1.9.4"],\
           ["@hello-pangea/dnd", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:18.0.1"],\
+          ["@hookform/resolvers", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:5.0.1"],\
           ["@radix-ui/react-accordion", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:1.2.10"],\
           ["@radix-ui/react-checkbox", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:1.3.1"],\
           ["@radix-ui/react-select", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:2.2.4"],\
@@ -58,12 +59,14 @@ const RAW_RUNTIME_STATE =
           ["react-beautiful-dnd", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:13.1.1"],\
           ["react-day-picker", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:8.10.1"],\
           ["react-dom", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:18.3.1"],\
+          ["react-hook-form", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:7.56.4"],\
           ["tailwind-merge", "npm:3.3.0"],\
           ["tailwindcss", "npm:4.1.7"],\
           ["tailwindcss-animate", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:1.0.7"],\
           ["tw-animate-css", "npm:1.2.9"],\
           ["typescript", "patch:typescript@npm%3A5.8.3#optional!builtin<compat/typescript>::version=5.8.3&hash=5786d5"],\
           ["uniform", "workspace:."],\
+          ["zod", "npm:3.24.4"],\
           ["zustand", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:5.0.4"]\
         ],\
         "linkType": "SOFT"\
@@ -3707,6 +3710,29 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@hookform/resolvers", [\
+      ["npm:5.0.1", {\
+        "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/@hookform-resolvers-npm-5.0.1-130a645c20-10c0.zip/node_modules/@hookform/resolvers/",\
+        "packageDependencies": [\
+          ["@hookform/resolvers", "npm:5.0.1"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:5.0.1", {\
+        "packageLocation": "./.yarn/__virtual__/@hookform-resolvers-virtual-bfd374c4c1/4/AppData/Local/Yarn/Berry/cache/@hookform-resolvers-npm-5.0.1-130a645c20-10c0.zip/node_modules/@hookform/resolvers/",\
+        "packageDependencies": [\
+          ["@hookform/resolvers", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:5.0.1"],\
+          ["@standard-schema/utils", "npm:0.3.0"],\
+          ["@types/react-hook-form", null],\
+          ["react-hook-form", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:7.56.4"]\
+        ],\
+        "packagePeers": [\
+          "@types/react-hook-form",\
+          "react-hook-form"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["@img/sharp-darwin-arm64", [\
       ["npm:0.34.1", {\
         "packageLocation": "./.yarn/unplugged/@img-sharp-darwin-arm64-npm-0.34.1-a6aee51316/node_modules/@img/sharp-darwin-arm64/",\
@@ -4911,6 +4937,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/@radix-ui-rect-npm-1.1.1-8c5111b10d-10c0.zip/node_modules/@radix-ui/rect/",\
         "packageDependencies": [\
           ["@radix-ui/rect", "npm:1.1.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@standard-schema/utils", [\
+      ["npm:0.3.0", {\
+        "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/@standard-schema-utils-npm-0.3.0-37537c524c-10c0.zip/node_modules/@standard-schema/utils/",\
+        "packageDependencies": [\
+          ["@standard-schema/utils", "npm:0.3.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -8058,6 +8093,28 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["react-hook-form", [\
+      ["npm:7.56.4", {\
+        "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/react-hook-form-npm-7.56.4-aa20ec0e30-10c0.zip/node_modules/react-hook-form/",\
+        "packageDependencies": [\
+          ["react-hook-form", "npm:7.56.4"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:7.56.4", {\
+        "packageLocation": "./.yarn/__virtual__/react-hook-form-virtual-3ec6097090/4/AppData/Local/Yarn/Berry/cache/react-hook-form-npm-7.56.4-aa20ec0e30-10c0.zip/node_modules/react-hook-form/",\
+        "packageDependencies": [\
+          ["@types/react", "npm:18.3.21"],\
+          ["react", "npm:18.3.1"],\
+          ["react-hook-form", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:7.56.4"]\
+        ],\
+        "packagePeers": [\
+          "@types/react",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["react-is", [\
       ["npm:16.13.1", {\
         "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/react-is-npm-16.13.1-a9b9382b4f-10c0.zip/node_modules/react-is/",\
@@ -8776,6 +8833,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@biomejs/biome", "npm:1.9.4"],\
           ["@hello-pangea/dnd", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:18.0.1"],\
+          ["@hookform/resolvers", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:5.0.1"],\
           ["@radix-ui/react-accordion", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:1.2.10"],\
           ["@radix-ui/react-checkbox", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:1.3.1"],\
           ["@radix-ui/react-select", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:2.2.4"],\
@@ -8804,12 +8862,14 @@ const RAW_RUNTIME_STATE =
           ["react-beautiful-dnd", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:13.1.1"],\
           ["react-day-picker", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:8.10.1"],\
           ["react-dom", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:18.3.1"],\
+          ["react-hook-form", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:7.56.4"],\
           ["tailwind-merge", "npm:3.3.0"],\
           ["tailwindcss", "npm:4.1.7"],\
           ["tailwindcss-animate", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:1.0.7"],\
           ["tw-animate-css", "npm:1.2.9"],\
           ["typescript", "patch:typescript@npm%3A5.8.3#optional!builtin<compat/typescript>::version=5.8.3&hash=5786d5"],\
           ["uniform", "workspace:."],\
+          ["zod", "npm:3.24.4"],\
           ["zustand", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:5.0.4"]\
         ],\
         "linkType": "SOFT"\
@@ -9104,6 +9164,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/yocto-queue-npm-0.1.0-c6c9a7db29-10c0.zip/node_modules/yocto-queue/",\
         "packageDependencies": [\
           ["yocto-queue", "npm:0.1.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["zod", [\
+      ["npm:3.24.4", {\
+        "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/zod-npm-3.24.4-f67b364e5d-10c0.zip/node_modules/zod/",\
+        "packageDependencies": [\
+          ["zod", "npm:3.24.4"]\
         ],\
         "linkType": "HARD"\
       }]\

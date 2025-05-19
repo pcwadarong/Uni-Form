@@ -1,0 +1,56 @@
+"use server";
+
+import { signUp } from "@/lib/firebase/user/sign-up";
+import { signUpSchema } from "@/lib/validation/sign-schema";
+
+export async function signUpAction(
+  _: unknown,
+  formData: FormData,
+): Promise<{ status: boolean; error?: string }> {
+  const email = formData.get("email");
+  const nickname = formData.get("nickname");
+  const password = formData.get("password");
+  const confirmPassword = formData.get("confirmPassword");
+
+  if (
+    typeof email !== "string" ||
+    typeof nickname !== "string" ||
+    typeof password !== "string" ||
+    typeof confirmPassword !== "string"
+  ) {
+    return {
+      status: false,
+      error: "입력값이 올바르지 않습니다.",
+    };
+  }
+
+  const validation = signUpSchema.safeParse({
+    email,
+    nickname,
+    password,
+    confirmPassword,
+  });
+
+  if (!validation.success) {
+    const error = validation.error.flatten().fieldErrors;
+    return {
+      status: false,
+      error:
+        error.email?.[0] ||
+        error.password?.[0] ||
+        error.confirmPassword?.[0] ||
+        error.nickname?.[0] ||
+        "입력값을 다시 확인해주세요.",
+    };
+  }
+
+  if (!(await signUp(email, password, nickname)))
+    return {
+      status: false,
+      error: "회원가입 중 오류가 발생했습니다. 다시 시도해주세요.",
+    };
+
+  return {
+    status: true,
+  };
+}

@@ -76,7 +76,7 @@ const CheckModal: React.FC<Props> = ({ onClose }) => {
     >
       <div className="fixed inset-0 bg-dark/70" aria-hidden="true" onClick={handleOnClose}></div>
       <div
-        className="flex flex-col gap-4 relative z-50 p-5 w-full max-w-[600px] max-h-full overflow-auto bg-foreground rounded-2xl shadow-2xl md:p-30px md:pt-35px"
+        className="flex flex-col gap-4 relative z-50 p-5 w-full max-w-[600px] max-h-full overflow-auto bg-content rounded-2xl shadow-2xl md:p-30px md:pt-35px"
         ref={modalRef}
       >
         <Select

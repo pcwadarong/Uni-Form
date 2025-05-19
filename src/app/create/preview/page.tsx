@@ -70,7 +70,7 @@ const PreviewFormPage: React.FC = () => {
             return (
               <div
                 key={q.id}
-                className="bg-foreground rounded-2xl overflow-hidden shadow-md p-5"
+                className="bg-content rounded-2xl overflow-hidden shadow-md p-5"
                 aria-labelledby={`question-title-${q.id}`}
               >
                 <div className="mb-2">

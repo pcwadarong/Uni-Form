@@ -103,3 +103,8 @@ export interface Response {
 }
 
 export type SortType = "public" | "latest" | "special" | "popular" | "closing";
+
+export type ActionState = {
+  status: boolean;
+  error?: string;
+};

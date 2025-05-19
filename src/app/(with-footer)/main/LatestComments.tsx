@@ -15,7 +15,7 @@ const LatestComments: React.FC = () => {
   });
 
   return (
-    <section className="bg-background dark:bg-muted w-full px-4 md:px-8 2xl:px-0 flex justify-center py-16">
+    <section className="bg-surface dark:bg-muted w-full px-4 md:px-8 2xl:px-0 flex justify-center py-16">
       <div className="w-full 2xl:w-[1400px]">
         <div className="flex justify-between items-end mb-6">
           <h2 className="title2">최신 댓글을 살펴보세요</h2>

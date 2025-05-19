@@ -12,11 +12,16 @@ export const signInSchema = z.object({
 export const signUpSchema = signInSchema
   .extend({
     confirmPassword: z.string(),
+    nickname: z
+      .string()
+      .min(2, "닉네임은 2자 이상이어야 합니다.")
+      .max(6, "닉네임은 6자 이하여야 합니다.")
+      .regex(/^[가-힣a-zA-Z0-9]+$/, "한글, 영문, 숫자만 입력 가능합니다."),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "비밀번호가 일치하지 않습니다.",
     path: ["confirmPassword"],
   });
 
-export type SignInInput = z.infer<typeof signInSchema>;
 export type SignUpInput = z.infer<typeof signUpSchema>;
+export type SignInInput = z.infer<typeof signInSchema>;

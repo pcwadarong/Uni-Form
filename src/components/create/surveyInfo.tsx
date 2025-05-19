@@ -47,7 +47,7 @@ const SurveyInfo = ({ mode, onEditToggle }: Props) => {
   return (
     <div
       onClick={onEditToggle}
-      className={`bg-foreground rounded-2xl overflow-hidden shadow-md ${
+      className={`bg-content rounded-2xl overflow-hidden shadow-md ${
         mode === "editing" ? "border border-green-300" : ""
       }`}
     >
