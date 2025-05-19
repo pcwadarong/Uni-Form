@@ -1,13 +1,13 @@
 "use client";
 
-import SurveyItem from "@/components/survey/surveyItem";
-import SurveySkeleton from "@/components/survey/surveySkeleton";
+import SurveyItem from "@/components/form/formCardItem";
+import SurveySkeleton from "@/components/form/formCardSkeleton";
 import { fetchSurveysOrRecruitsList } from "@/lib/firebase/fetchDatas";
 import type { Recruit, Survey } from "@/types";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Suspense } from "react";
-import RecruitItem from "../recruit/recruitItem";
-import RecruitSkeleton from "../recruit/recruitSkeleton";
+import RecruitItem from "../form/recruitItem";
+import RecruitSkeleton from "../form/recruitSkeleton";
 import NoContent from "./noContent";
 
 interface Props {

@@ -1,6 +1,6 @@
 import BubbleChat from "@/components/svg/bubble-chat";
 
-import Reaction from "@/components/survey/reaction";
+import Reaction from "@/components/form/reaction";
 import ActionButtons from "@/components/ui/actionButtons";
 import { LinkButton } from "@/components/ui/button";
 import EntryClient from "./entryClient";

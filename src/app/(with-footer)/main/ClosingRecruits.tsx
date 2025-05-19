@@ -1,7 +1,7 @@
 "use client";
 
-import RecruitItem from "@/components/recruit/recruitItem";
-import RecruitSkeleton from "@/components/recruit/recruitSkeleton";
+import FormCardItem from "@/components/form/formCardItem";
+import Skeleton from "@/components/form/formCardSkeleton";
 import { fetchSurveysOrRecruitsList } from "@/lib/firebase/fetchDatas";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import Link from "next/link";
@@ -27,13 +27,13 @@ const ClosingRecruits = () => {
           <Suspense
             fallback={
               <>
-                <RecruitSkeleton />
-                <RecruitSkeleton />
+                <Skeleton type="recruit" />
+                <Skeleton type="recruit" />
               </>
             }
           >
             {closingRecruits.map((item) => (
-              <RecruitItem key={item.id} item={item} />
+              <FormCardItem type="recruit" key={item.id} item={item} />
             ))}
           </Suspense>
         </ul>

@@ -1,10 +1,13 @@
 "use client";
 
-import DetailModal from "@/components/detailModal/detailModal";
+import { CategorySelection } from "@/components/form/categorySelection";
+import FormCardItem from "@/components/form/formCardItem";
+import FormCardSkeleton from "@/components/form/formCardSkeleton";
+import NoContent from "@/components/list/noContent";
 import SortSelect from "@/components/list/sortSelect";
-import { CategorySelection } from "@/components/survey/categorySelection";
-import SurveyItem from "@/components/survey/surveyItem";
-import SurveySkeleton from "@/components/survey/surveySkeleton";
+import SortSelectMini from "@/components/list/sortSelectMini";
+import ToggleInProgressFilter from "@/components/list/toggleInProgressFilter";
+
 import { fetchSurveysOrRecruitsList } from "@/lib/firebase/fetchDatas";
 import { calculateDeadlineMatch } from "@/lib/utils/calculateDeadlineMatch";
 import {
@@ -12,18 +15,13 @@ import {
   getSelectedItems,
   onChangeSortType,
 } from "@/lib/utils/filterAndSortData";
-import { closeModal } from "@/lib/utils/handleModal";
-import { useSelectedSurveyStore } from "@/store/survey";
-import type { Recruit, Survey } from "@/types";
+
+import type { Form } from "@/types";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useEffect, useState } from "react";
-import RecruitItem from "../recruit/recruitItem";
-import RecruitSkeleton from "../recruit/recruitSkeleton";
+
 import FilterIcon from "../svg/filter";
-import NoContent from "./noContent";
-import SortSelectMini from "./sortSelectMini";
-import ToggleInProgressFilter from "./toggleInProgressFilter";
 
 interface Props {
   topic: "survey" | "recruit";
@@ -36,9 +34,9 @@ const List: React.FC<Props> = ({ topic, category }) => {
   const sortParam = searchParams.get("sort") || "random";
   const [isInProgressChecked, setIsInProgressChecked] = useState(false);
   const [filterDisplay, setFilterDisplay] = useState<"hidden" | "block">("hidden");
-  const [originalData, setOriginalData] = useState<Survey[] | Recruit[]>([]);
-  const [filteredData, setFilteredData] = useState<Survey[] | Recruit[]>([]);
-  const [dataList, setDataList] = useState<Survey[] | Recruit[]>([]);
+  const [originalData, setOriginalData] = useState<Form[]>([]);
+  const [filteredData, setFilteredData] = useState<Form[]>([]);
+  const [dataList, setDataList] = useState<Form[]>([]);
 
   const { data: initialData } = useSuspenseQuery({
     queryKey: ["list", topic],
@@ -78,7 +76,7 @@ const List: React.FC<Props> = ({ topic, category }) => {
     deadline: string;
   }) => {
     const newFilteredData = originalData.filter((item) => {
-      const itemPoint = (item as Survey).point;
+      const itemPoint = item.point;
       const isPointMatch =
         itemPoint !== undefined ? point === "all" || itemPoint >= Number.parseInt(point, 10) : true;
       const isDeadlineMatch = calculateDeadlineMatch(item, deadline);
@@ -98,23 +96,9 @@ const List: React.FC<Props> = ({ topic, category }) => {
     setIsInProgressChecked((prev) => !prev);
   };
 
-  const closeModalAndResetFilters = () => {
-    setIsInProgressChecked(false);
-    setFilterDisplay("hidden");
-    closeModal();
-  };
 
   return (
     <>
-      <div className="fixed inset-0 flex items-center justify-center z-50">
-        <DetailModal item={selectedItem} />
-        <div
-          className="fixed top-0 left-0 w-full h-full bg-dark/70 z-40"
-          aria-hidden="true"
-          onClick={closeModalAndResetFilters}
-        />
-      </div>
-
       <section className="2xl:flex w-full 2xl:w-[1400px] gap-10 my-20 px-4 2xl:px-0">
         <div className={filterDisplay}>
           <CategorySelection topic={topic} onFilterChange={onFilterChange} />
@@ -148,32 +132,10 @@ const List: React.FC<Props> = ({ topic, category }) => {
             <NoContent />
           ) : (
             <ul className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
-              <Suspense
-                fallback={
-                  topic === "survey" ? (
-                    <>
-                      <SurveySkeleton />
-                      <SurveySkeleton />
-                      <SurveySkeleton />
-                      <SurveySkeleton />
-                    </>
-                  ) : (
-                    <>
-                      <RecruitSkeleton />
-                      <RecruitSkeleton />
-                      <RecruitSkeleton />
-                      <RecruitSkeleton />
-                    </>
-                  )
-                }
-              >
-                {dataList.map((item) =>
-                  topic === "survey" ? (
-                    <SurveyItem key={item.id} item={item as Survey} />
-                  ) : (
-                    <RecruitItem key={item.id} item={item as Recruit} />
-                  ),
-                )}
+              <Suspense fallback={<FormCardSkeleton type={topic} />}>
+                {dataList.map((item) => (
+                  <FormCardItem type={topic} key={item.id} item={item} />
+                ))}
               </Suspense>
             </ul>
           )}

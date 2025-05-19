@@ -1,7 +1,7 @@
 "use client";
 
-import CommentItem from "@/components/survey/commentItem";
-import CommentSkeleton from "@/components/survey/commentSkeleton";
+import CommentItem from "@/components/form/commentItem";
+import CommentSkeleton from "@/components/form/commentSkeleton";
 import { fetchSurveysOrRecruitsList } from "@/lib/firebase/fetchDatas";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import Link from "next/link";

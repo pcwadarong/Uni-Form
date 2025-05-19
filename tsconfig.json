@@ -31,7 +31,7 @@
     "postcss.config.mjs",
     "src/lib/firebase/firebaseConfig.ts",
     "src/firebase/firebaseAdmin.js",
-    "src/components/survey/commentSkeleton.tsx"
+    "src/components/form/commentSkeleton.tsx"
   ],
   "exclude": ["node_modules"]
 }

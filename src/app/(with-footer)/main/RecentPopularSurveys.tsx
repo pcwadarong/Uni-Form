@@ -1,7 +1,7 @@
 "use client";
 
-import SurveyItem from "@/components/survey/surveyItem";
-import SurveySkeleton from "@/components/survey/surveySkeleton";
+import FormCardItem from "@/components/form/formCardItem";
+import FormCardSkeleton from "@/components/form/formCardSkeleton";
 import { fetchSurveysOrRecruitsList } from "@/lib/firebase/fetchDatas";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import Link from "next/link";
@@ -38,13 +38,13 @@ const RecentPopularSurveys = () => {
               <Suspense
                 fallback={
                   <>
-                    <SurveySkeleton />
-                    <SurveySkeleton />
+                    <FormCardSkeleton type="survey" />
+                    <FormCardSkeleton type="survey" />
                   </>
                 }
               >
                 {latestSurveysLimited.map((item) => (
-                  <SurveyItem key={item.id} item={item} />
+                  <FormCardItem type="survey" key={item.id} item={item} />
                 ))}
               </Suspense>
             </ul>
@@ -60,13 +60,13 @@ const RecentPopularSurveys = () => {
               <Suspense
                 fallback={
                   <>
-                    <SurveySkeleton />
-                    <SurveySkeleton />
+                    <FormCardSkeleton type="survey" />
+                    <FormCardSkeleton type="survey" />
                   </>
                 }
               >
                 {popularSurveysLimited.map((item) => (
-                  <SurveyItem key={item.id} item={item} />
+                  <FormCardItem type="survey" key={item.id} item={item} />
                 ))}
               </Suspense>
             </ul>
