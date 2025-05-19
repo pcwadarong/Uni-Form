@@ -1,5 +1,5 @@
-export const getRandomColor = () => {
-  const classes = ["green-100", "green-200", "green-300"];
-  const randomIndex = Math.floor(Math.random() * classes.length);
-  return classes[randomIndex];
+export const getColorById = (id: string) => {
+  const colors = ["green-50", "green-100", "green-300"];
+  const hash = Array.from(id).reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  return colors[hash % colors.length];
 };
