@@ -7,11 +7,10 @@ const SignIn: React.FC = () => {
       <h2 className="text-center mt-20 title2" id="login-heading">
         로그인
       </h2>
-      <div className="mt-10 w-96" role="form" aria-labelledby="login-heading">
+      <div className="mt-10 w-96" aria-labelledby="login-heading">
         <Form />
         <div
           className="flex gap-3 h-10 items-center subtitle text-gray-4 justify-center my-4"
-          role="navigation"
         >
           <Link
             className="flex-1 text-end"

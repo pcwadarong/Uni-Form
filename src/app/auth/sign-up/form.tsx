@@ -108,10 +108,10 @@ export default function Form() {
         </div>
         <div>
           <Button
+            type="submit"
             disabled={!isValid}
-            className={`text-white w-full bg-green-400 mt-5 ${
-              !isValid && "opacity-50 cursor-not-allowed"
-            }`}
+            isPending={isPending}
+            className="text-white w-full bg-green-400 mt-5"
           >
             가입하기
           </Button>

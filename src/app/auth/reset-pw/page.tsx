@@ -1,54 +1,67 @@
 "use client";
 
-import { resetPassword } from "@/lib/firebase/user/sign-up";
-import { validateSignInput } from "@/lib/validation/validateSignInput";
+import { resetPWAction } from "@/actions/auth";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { INITIAL_ACTION_STATE } from "@/constants/states";
+import type { ActionState } from "@/types";
+import { useRouter } from "next/navigation";
+import { useActionState } from "react";
 import { useEffect, useState } from "react";
-const ResetPw: React.FC = () => {
-  const [email, setEmail] = useState("");
-  const [status, setStatus] = useState(false);
 
-  const handleResetPassword = () => {
-    resetPassword(email);
-    alert("메일 전송 완료. 메일함을 확인해주세요.");
-  };
+const ResetPw: React.FC = () => {
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+
+  const [resetState, formAction, isPending] = useActionState<ActionState, FormData>(
+    resetPWAction,
+    INITIAL_ACTION_STATE,
+  );
 
   useEffect(() => {
-    const isFormValid = validateSignInput("email", email);
-    setStatus(isFormValid);
-  }, [email]);
+    if (!resetState) return;
+
+    if (!resetState.status) {
+      console.log(resetState.error);
+      return;
+    }
+
+    if (confirm("메일이 발송되었습니다. 로그인 화면으로 돌아가시겠습니까?")) {
+      router.push("/sign");
+    }
+    setEmail("");
+  }, [resetState, router]);
 
   return (
-    <>
-      <h2 className="text-center mt-20 title2" id="login-heading">
-        비밀전호를 잊어버리셨나요?
+    <main className="m-auto">
+      <h2 className="text-center title2" id="reset-password-heading">
+        비밀번호를 잊어버리셨나요?
       </h2>
       <p className="mt-5 text-center">
         유니폼에 가입했던 이메일을 입력해주세요. <br />
         비밀번호 재설정 이메일을 보내드립니다. <br />
         발송된 이메일은 1시간 동안 유효합니다.
       </p>
-      <div className="mt-10 max-w-96" role="form" aria-labelledby="login-heading">
-        <input
+      <form action={formAction} className="mt-15 w-96" aria-labelledby="reset-password">
+        <Input
           onChange={(e) => setEmail(e.target.value)}
           value={email}
           type="email"
-          className="w-full p-2 bg-red/0 border-b-[1px] focus:ring-2 focus:ring-gray-4 outline-none"
-          placeholder="이메일"
+          required
+          className="border-b"
+          placeholder="이메일 입력"
           aria-label="이메일 입력"
         />
-        <button
+        <Button
           type="submit"
-          onClick={handleResetPassword}
-          disabled={!status}
-          aria-disabled={!status}
-          className={`text-white w-full rounded-xl bg-green-300 p-2 body2 mt-5 ${
-            status ? "" : "opacity-50 cursor-not-allowed"
-          }`}
+          isPending={isPending}
+          className="text-white w-full bg-green-400 mt-5"
+          aria-label="비밀번호 재설정 링크 메일 발송"
         >
           비밀번호 재설정하기
-        </button>
-      </div>
-    </>
+        </Button>
+      </form>
+    </main>
   );
 };
 

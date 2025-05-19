@@ -1,3 +1,4 @@
+import { FirebaseError } from "firebase/app";
 import { createUserWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { auth, firestore } from "../firebaseConfig";
@@ -16,21 +17,35 @@ export const signUp = async (email: string, password: string, nickname: string) 
       comments: [],
     });
 
-    console.log("Sign up successful");
-    return true;
-  } catch (error) {
-    console.error("Error signing up:", error);
-    return false;
+    return {
+      status: true,
+      error: "",
+    };
+  } catch (err) {
+    if (err instanceof FirebaseError) {
+      return { status: false, error: `회원가입 오류: ${err.code}` };
+    }
+    return {
+      status: false,
+      error: `회원가입 실패: ${(err as Error).message}`,
+    };
   }
 };
 
-export const resetPassword = async (email: string) => {
+export const resetPasswordWithFirebase = async (email: string) => {
   try {
     await sendPasswordResetEmail(auth, email);
-    console.log("Passord reset email sent");
-    return true;
-  } catch (error) {
-    console.error("Error sending password reset email", error);
-    return false;
+    return { status: true, error: "" };
+  } catch (err) {
+    if (err instanceof FirebaseError) {
+      return {
+        status: false,
+        error: `비밀번호 재설정 오류: ${err.code}`,
+      };
+    }
+    return {
+      status: false,
+      error: `비밀번호 재설정 실패: ${(err as Error).message}`,
+    };
   }
 };

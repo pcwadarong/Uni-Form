@@ -23,7 +23,7 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
         // 디스에이블드
         "disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
 
-        // 포커스 스타일 단순화 (ring 제거, border만)
+        // 포커스
         "focus-visible:border-muted",
 
         // 유효성 검증

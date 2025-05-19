@@ -1,6 +1,6 @@
 "use server";
 
-import { signUp } from "@/lib/firebase/user/sign-up";
+import { resetPasswordWithFirebase, signUp } from "@/lib/firebase/user/sign-up";
 import { signUpSchema } from "@/lib/validation/sign-schema";
 
 export async function signUpAction(
@@ -44,13 +44,21 @@ export async function signUpAction(
     };
   }
 
-  if (!(await signUp(email, password, nickname)))
+  return await signUp(email, password, nickname);
+}
+
+export async function resetPWAction(
+  _: unknown,
+  formData: FormData,
+): Promise<{ status: boolean; error?: string }> {
+  const email = formData.get("email") as string;
+
+  if (typeof email !== "string") {
     return {
       status: false,
-      error: "회원가입 중 오류가 발생했습니다. 다시 시도해주세요.",
+      error: "입력값이 올바르지 않습니다.",
     };
+  }
 
-  return {
-    status: true,
-  };
+  return await resetPasswordWithFirebase(email);
 }
