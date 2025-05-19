@@ -10,14 +10,14 @@ const SignIn: React.FC = () => {
       <div className="mt-10 w-96" aria-labelledby="login-heading">
         <Form />
         <div
-          className="flex gap-3 h-10 items-center subtitle text-gray-4 justify-center my-4"
+          className="flex gap-3 items-center subtitle justify-center mt-10"
         >
           <Link
             className="flex-1 text-end"
             href="/auth/reset-pw"
             aria-label="비밀번호 재설정 페이지로 이동"
           >
-            비밀번호 재설정
+            비밀번호 찾기
           </Link>
           <p>|</p>
           <Link className="flex-1" href="/auth/sign-up" aria-label="회원가입 페이지로 이동">

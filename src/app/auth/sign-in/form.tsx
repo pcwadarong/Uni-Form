@@ -1,104 +1,91 @@
 "use client";
 
+import EmailIcon from "@/components/svg/email";
+import PasswordIcon from "@/components/svg/password";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+
 import { handleLogin } from "@/lib/firebase/user/sign-in";
+import { type SignInInput, signInSchema } from "@/lib/validation/sign-schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 
 const Form = () => {
   const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [status, setStatus] = useState(false);
-  const [loginErrorMessage, setLoginErrorMessage] = useState("");
 
-  const login = async (event: React.FormEvent, method: "email" | "google") => {
-    event.preventDefault();
-    const success = await handleLogin(method, email, password);
-    if (success) {
-      router.push("/");
-    } else {
-      setLoginErrorMessage(
-        "가입하지 않은 이메일이거나, 이메일 또는 비밀번호가 회원정보와 일치하지 않아 로그인에 실패하였습니다.",
-      );
-    }
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isValid },
+  } = useForm<SignInInput>({
+    resolver: zodResolver(signInSchema),
+    mode: "all",
+  });
+
+  const onSubmit = async (data: SignInInput) => {
+    const { email, password } = data;
+    const success = await handleLogin("email", email, password);
+    if (success) router.push("/");
+    else console.error("Sign in failed");
   };
 
-  useEffect(() => {
-    setStatus(!!(password && email));
-  }, [password, email]);
+  const handleGoogleLogin = async () => {
+    const success = await handleLogin("google");
+    if (success) router.push("/");
+    else console.error("Google sign in failed");
+  };
 
   return (
     <div>
       <form
         className="flex flex-col gap-6 subtitle"
-        onSubmit={(e) => login(e, "email")}
         autoComplete="on"
+        onSubmit={handleSubmit(onSubmit)}
       >
         <div>
-          <label htmlFor="id">이메일</label>
+          <label htmlFor="email">이메일</label>
+          <span className="ml-3 text-green-500">{errors.email?.message}</span>
           <div className="relative mt-2">
-            <Image
-              src={"/mail.svg"}
-              alt="user"
-              width="20"
-              height="20"
-              priority={true}
-              className="absolute top-3.5 left-3 text-gray-3"
-            />
-            <input
+            <EmailIcon className="absolute top-3 left-3" />
+            <Input
               id="email"
-              name="email"
               type="email"
-              value={email}
+              {...register("email")}
               required
               autoComplete="email"
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-3 pl-12 rounded-xl focus:outline-none"
+              className="pl-10"
             />
           </div>
         </div>
 
         <div>
           <label htmlFor="password">비밀번호</label>
+          <span className="ml-3 text-green-500">{errors.password?.message}</span>
           <div className="relative mt-2">
-            <Image
-              src={"/password.svg"}
-              alt="user"
-              width="20"
-              height="20"
-              priority={true}
-              className="absolute top-3 left-3 text-gray-3"
-            />
-            <input
+            <PasswordIcon className="absolute top-3 left-3" />
+            <Input
               id="password"
-              name="password"
               type="password"
-              value={password}
+              {...register("password")}
               required
               autoComplete="password"
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-3 pl-12 rounded-xl focus:outline-none"
+              className="pl-10"
             />
           </div>
         </div>
-        <p className="text-red-500">{loginErrorMessage}</p>
-        <div>
-          <button
-            type="submit"
-            className={`text-white w-full rounded-xl bg-green-300 p-4 text-base ${
-              status ? "" : "opacity-50 cursor-not-allowed"
-            }`}
-            disabled={!status}
-          >
-            로그인하기
-          </button>
-        </div>
+        <Button type="submit" disabled={!isValid} className="text-white w-full bg-green-400 mt-5">
+          가입하기
+        </Button>
       </form>
+
       <div className="mt-6 flex justify-center relative">
         <button
           type="submit"
-          onClick={(e) => login(e, "google")}
+          onClick={handleGoogleLogin}
           className="flex items-center gap-2 py-3 w-full justify-center px-4 border-[1px] rounded-full border-gray-4"
         >
           <Image src={"/google.svg"} alt="icon" width="20" height="20" priority={true} />

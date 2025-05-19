@@ -1,6 +1,11 @@
 import { auth, firestore } from "@/lib/firebase/firebaseConfig";
 import { FirebaseError } from "firebase/app";
-import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  type UserCredential,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 
 const emailSignIn = async (email: string, password: string) => {
@@ -58,8 +63,8 @@ export const handleLogin = async (
   email?: string,
   password?: string,
 ) => {
-  let userCredential;
-
+  let userCredential: UserCredential | null = null;
+  
   switch (method) {
     case "email":
       if (email && password) {
