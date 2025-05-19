@@ -37,7 +37,7 @@ export default function Header() {
 
   return (
     <nav className="w-screen flex flex-col items-center z-10 fixed backdrop-blur-sm bg-surface dark:bg-muted drop-shadow text-nowrap">
-      <div className="flex h-20 w-full px-8 2xl:w-[1400px] 2xl:px-0 items-center justify-between gap-2 md:gap-8">
+      <div className="flex md:grid md:grid-cols-3 h-20 w-full px-8 2xl:w-[1400px] 2xl:px-0 items-center justify-between gap-2 md:gap-8">
         <NavLeft handleMouseOver={handleMouseOver} handleMouseLeave={handleMouseLeave} />
         <NavSearch />
         <NavRight />

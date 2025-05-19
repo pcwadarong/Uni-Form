@@ -22,7 +22,7 @@ export default function NavRight() {
 
   return (
     <>
-      <div className="space-x-8">
+      <div className="space-x-8 justify-self-end">
         {user ? (
           <>
             <Link className="hidden sm:inline" href="/form">
