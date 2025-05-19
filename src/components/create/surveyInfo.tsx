@@ -47,19 +47,20 @@ const SurveyInfo = ({ mode, onEditToggle }: Props) => {
   return (
     <div
       onClick={onEditToggle}
-      className={`bg-content rounded-2xl overflow-hidden shadow-md ${
+      onKeyDown={onEditToggle}
+      className={`bg-tone1 rounded-2xl overflow-hidden shadow-md ${
         mode === "editing" ? "border border-green-300" : ""
       }`}
     >
       <p className="py-2 px-4 text-green-400">{}페이지</p>
       {mode === "editing" ? (
         <div>
-          <div className="aspect-[4/1] bg-font justify-center flex">
+          <div className="aspect-[4/1] bg-green-500 justify-center flex">
             {surveyInfo.img ? (
               <div className="relative overflow-hidden flex items-center">
                 <img src={surveyInfo.img} alt="Uploaded" className="w-full h-auto object-cover" />
                 <div className="absolute bottom-5 right-5 bg-gray-4/50 text-white p-2 rounded-md">
-                  <button onClick={handleDeleteClick} aria-label="Delete image">
+                  <button type="button" onClick={handleDeleteClick} aria-label="Delete image">
                     삭제하기
                   </button>
                 </div>
@@ -103,7 +104,7 @@ const SurveyInfo = ({ mode, onEditToggle }: Props) => {
       ) : (
         <div className="pb-2">
           {surveyInfo.img && (
-            <div className="aspect-[4/1] bg-font justify-center flex">
+            <div className="aspect-[4/1] bg-green-500 justify-center flex">
               <div className="relative overflow-hidden flex items-center">
                 <img src={surveyInfo.img} alt="Survey" className="w-full h-auto object-cover" />
               </div>

@@ -15,12 +15,12 @@ const ToggleBtn = ({ text, checked = false, onChange }: ToggleBtnProps) => {
         aria-checked={checked}
         aria-label={text}
         className={`w-[38px] rounded-full h-full overflow-hidden relative transition-colors duration-200 ${
-          checked ? "bg-green-300" : "bg-gray-3"
+          checked ? "bg-green-300" : "bg-gray-300"
         }`}
       >
         <div
-          className={`w-5 bg-content h-5 rounded-full absolute top-0.5 transition-transform duration-200 ${
-            checked ? "translate-x-4" : "translate-x-0.5"
+          className={`w-4 bg-surface h-4 rounded-full absolute top-1 transition-transform duration-200 ${
+            checked ? "translate-x-4.5" : "translate-x-1"
           }`}
         />
       </button>

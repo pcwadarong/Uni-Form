@@ -1,3 +1,4 @@
+import { Checkbox } from "@/components/ui/checkbox";
 import { deleteOption } from "@/lib/utils/createPageUtils";
 import { handleOptionDragEnd } from "@/lib/utils/handleDragEnd";
 import isModeDisabled from "@/lib/utils/isModeDisabled";
@@ -21,6 +22,10 @@ const CheckboxQuestion: React.FC<QuestionProps> = ({ question, mode, onResponseC
     if (onResponseChange) {
       onResponseChange(e.target.value);
     }
+
+    //   if (onResponseChange && typeof checked === "boolean" && checked) {
+    //   onResponseChange(option.value); // 체크된 경우에만 값 전달
+    // }
   };
 
   return (
@@ -83,6 +88,7 @@ const CheckboxQuestion: React.FC<QuestionProps> = ({ question, mode, onResponseC
                               className="flex-1 mb-2 focused_input"
                             />
                             <button
+                              type="button"
                               onClick={() =>
                                 deleteOption({
                                   question,
@@ -111,6 +117,7 @@ const CheckboxQuestion: React.FC<QuestionProps> = ({ question, mode, onResponseC
           </DragDropContext>
           <div className="flex gap-2 items-center">
             <button
+              type="button"
               onClick={() =>
                 handleQuestionChange({
                   ...question,
@@ -131,6 +138,7 @@ const CheckboxQuestion: React.FC<QuestionProps> = ({ question, mode, onResponseC
               <>
                 <span>또는</span>
                 <button
+                  type="button"
                   onClick={() =>
                     handleQuestionChange({
                       ...question,
@@ -151,6 +159,13 @@ const CheckboxQuestion: React.FC<QuestionProps> = ({ question, mode, onResponseC
         <>
           {question.options?.map((option) => (
             <label key={option.id} className="p-3 rounded-lg flex gap-2 bg-gray-1 mt-3 text-gray-3">
+              {/* onChange 핸들러 수정해야 함 */}
+              {/* <Checkbox 
+                name={`question-${question.id}`}
+                disabled={isDisabled}
+                value={option.value}
+                onCheckedChange={handleResponseChange}
+                aria-label={option.value}/> */}
               <input
                 type="checkbox"
                 name={`question-${question.id}`}

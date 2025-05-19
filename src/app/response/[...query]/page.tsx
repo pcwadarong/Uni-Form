@@ -54,7 +54,7 @@ export default async function ResponsePage ({
             mode="responding"
           />
         ))}
-        <Button className={"text-white bg-green-300 w-fit m-auto"} onClick={handleSaveResponse}>
+        <Button className={"text-white bg-green-400 w-fit m-auto"} onClick={handleSaveResponse}>
           제출하기
         </Button>
       </div>

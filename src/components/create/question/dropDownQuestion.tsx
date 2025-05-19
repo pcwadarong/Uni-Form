@@ -91,6 +91,7 @@ const DropDownQuestion: React.FC<QuestionProps> = ({ question, mode, onResponseC
                               aria-label={`${index + 1}번 항목`}
                             />
                             <button
+                              type="button"
                               onClick={() =>
                                 deleteOption({
                                   question,
@@ -114,6 +115,7 @@ const DropDownQuestion: React.FC<QuestionProps> = ({ question, mode, onResponseC
           </DragDropContext>
           <div className="flex gap-2 items-center">
             <button
+              type="button"
               onClick={() =>
                 handleQuestionChange({
                   ...question,
@@ -134,6 +136,7 @@ const DropDownQuestion: React.FC<QuestionProps> = ({ question, mode, onResponseC
               <>
                 <span>또는</span>
                 <button
+                  type="button"
                   onClick={() =>
                     handleQuestionChange({
                       ...question,
@@ -152,7 +155,8 @@ const DropDownQuestion: React.FC<QuestionProps> = ({ question, mode, onResponseC
         </>
       ) : (
         <>
-          <Select
+          {/* <Select
+            defaultValue=''
             disabled={isDisabled}
             aria-label="답변을 선택해주세요"
             onValueChange={handleResponseChange}
@@ -170,7 +174,7 @@ const DropDownQuestion: React.FC<QuestionProps> = ({ question, mode, onResponseC
                 </SelectItem>
               ))}
             </SelectContent>
-          </Select>
+          </Select> */}
         </>
       )}
     </>

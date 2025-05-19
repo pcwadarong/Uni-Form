@@ -1,5 +1,7 @@
 "use client";
 
+import FileEditIcon from "@/components/svg/file";
+import ImageIcon from "@/components/svg/image";
 import { useSurveyStore } from "@/store/survey";
 import type { QuestionProps } from "@/types";
 import Image from "next/image";
@@ -42,7 +44,7 @@ const FileQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
                 value="사진"
                 name="option"
                 checked={type === "사진"}
-                onClick={() => handleOptionClick("사진")}
+                onChange={() => handleOptionClick("사진")}
                 aria-labelledby="이미지 선택"
               />
               <label id="image-label" htmlFor="image" className="ml-1">
@@ -56,7 +58,7 @@ const FileQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
                 value="파일"
                 name="option"
                 checked={type === "파일"}
-                onClick={() => handleOptionClick("파일")}
+                onChange={() => handleOptionClick("파일")}
                 aria-labelledby="파일 선택"
               />
               <label id="file-label" htmlFor="file" className="ml-1">
@@ -84,12 +86,7 @@ const FileQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
               disabled={isDisabled}
               onChange={handleFileChange}
             />
-            <Image
-              src={type === "사진" ? "./image.svg" : "./file.svg"}
-              alt="logo"
-              width="20"
-              height="20"
-            />
+            {type === "사진" ? <ImageIcon /> : <FileEditIcon />}
             <p className={`pl-2 ${isDisabled && "text-gray-3"}`}>{`${type} 첨부`}</p>
           </label>
           <div id="file-upload-instructions">
@@ -106,6 +103,7 @@ const FileQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
               {type === "사진" ? (
                 <div className="relative w-fit">
                   <button
+                    type="button"
                     onClick={() => setFile(null)}
                     style={{ lineHeight: "1.3rem" }}
                     className="absolute right-3 top-3 w-6 h-6 bg-dark/50 rounded-full text-white flex justify-center"

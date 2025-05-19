@@ -74,14 +74,15 @@ const CreatePageButton = () => {
 
   return (
     <div className="flex gap-2 justify-end subtitle items-center">
-      <button type="button" className="py-1 px-3 bg-content rounded-md" onClick={handleOpenPreview}>
+      <button type="button" className="py-1 px-3 bg-tone1 rounded-md" onClick={handleOpenPreview}>
         미리보기
       </button>
-      <button className="py-1 px-3 bg-content rounded-md" onClick={handleSaveDraft}>
+      <button type="button" className="py-1 px-3 bg-tone1 rounded-md" onClick={handleSaveDraft}>
         임시저장
       </button>
       <button
-        className="py-1 px-3 bg-green-300 text-white rounded-md"
+        type="button"
+        className="py-1 px-3 bg-green-400 text-white rounded-md"
         aria-label="저장하기"
         onClick={handleValidate}
       >
@@ -89,6 +90,7 @@ const CreatePageButton = () => {
       </button>
       <div className="relative flex items-center" ref={menuRef}>
         <button
+          type="button"
           onClick={() => setShowToggleMenu((prev) => !prev)}
           aria-label="사용자 메뉴 토글"
           aria-expanded={showToggleMenu}
@@ -101,12 +103,14 @@ const CreatePageButton = () => {
             aria-labelledby="menu-button"
           >
             <button
+              type="button"
               className="rounded-md px-3 py-2 hover:bg-gray-2 text-nowrap"
               onClick={handleDuplicate}
             >
               복제하기
             </button>
             <button
+              type="button"
               className="text-red-500 px-3 py-2 rounded-md hover:bg-gray-2"
               onClick={handleDelete}
             >

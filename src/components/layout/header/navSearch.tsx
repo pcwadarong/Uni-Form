@@ -1,5 +1,6 @@
 "use client";
 
+import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -21,8 +22,8 @@ export default function NavSearch() {
 
   return (
     <div className="relative flex-1 w-full md:max-w-96 ml-3">
-      <input
-        className="w-full h-10 pl-4 pr-10 bg-gray-300/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-300 subtitle placeholder:text-gray-400"
+      <Input
+        className="w-full pr-10 bg-gray-300/20 focus:ring-2 focus:ring-green-300 subtitle"
         type="text"
         placeholder="관심사를 찾아보세요!"
         value={param}

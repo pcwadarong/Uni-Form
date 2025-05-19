@@ -124,7 +124,7 @@ const List: React.FC<Props> = ({ topic, category }) => {
             <div className="flex gap-6">
               <button
                 type="button"
-                className="bg-font flex items-center gap-[2.5px] text-white p-2 rounded-md"
+                className="bg-green-500 flex items-center gap-[2.5px] text-white p-2 rounded-md"
                 onClick={handleCategoryToggle}
               >
                 <FilterIcon width={20} height={20} aria-label="filter icon" />

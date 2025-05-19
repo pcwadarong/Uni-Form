@@ -1,6 +1,7 @@
 "use client";
 
-import Image from "next/image";
+import BrandLogo from "@/components/svg/logo";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { getCategoryLinks, useHover } from "../../../hooks/useHover";
@@ -19,20 +20,16 @@ export default function Header() {
 
   if (pathName.includes("preview")) {
     return (
-      <nav className="w-screen flex flex-col items-center z-10 fixed backdrop-blur-sm bg-content drop-shadow text-nowrap">
+      <nav className="w-screen flex flex-col items-center z-10 fixed backdrop-blur-sm bg-surface drop-shadow text-nowrap">
         <div className="flex h-20 w-full px-8 2xl:w-[1400px] 2xl:px-0 items-center justify-between">
           <h1>
             <Link href="/">
-              <Image src={"/logo.svg"} alt="logo" width="48" height="30" priority={true} />
+              <BrandLogo width={48} />
             </Link>
           </h1>
-          <button
-            type="button"
-            className="py-1 px-3 bg-green-300 text-white rounded-md"
-            onClick={quitPreview}
-          >
+          <Button onClick={quitPreview} className="bg-green-400 text-white">
             미리보기 종료
-          </button>
+          </Button>
         </div>
       </nav>
     );

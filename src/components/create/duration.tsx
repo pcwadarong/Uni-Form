@@ -125,21 +125,34 @@ const SetDuration = () => {
   }, []);
 
   return (
-    <div className="px-2 mb-4">
-      <span className="subtitle mr-2">설문 기간</span>
-      <button className="bg-gray-1 p-2 rounded-full text-gray-4" onClick={toggleModal}>
-        {`${surveyInfo.startDate} ~ ${surveyInfo.endDate}`}
-      </button>
-      {isOpened &&
-        (
-          <>
+    <>
+      {/* 날짜 버튼 */}
+      <div className="px-2 mb-4">
+        <span className="subtitle mr-2">설문 기간</span>
+        <button
+          type="button"
+          className="bg-gray-1 p-2 rounded-full text-gray-4"
+          onClick={toggleModal}
+        >
+          {`${surveyInfo.startDate} ~ ${surveyInfo.endDate}`}
+        </button>
+      </div>
+
+      {/* 모달 */}
+      {isOpened && (
+        <>
+          {/* Backdrop */}
+          <div className="fixed top-0 left-0 w-full h-full bg-dark/70 z-30" aria-hidden="true" />
+
+          {/* Dialog */}
           <div
             className="fixed inset-0 z-40 flex items-center justify-center p-4"
-            role="dialog"
             aria-modal="true"
           >
-            <div className="bg-content p-8 rounded-2xl w-fit sm:w-[340px] flex flex-col gap-4">
+            <div className="w-fit sm:w-[340px] bg-surface p-8 rounded-2xl flex flex-col gap-4">
               <h3 className="title3 text-center">설문 기간</h3>
+
+              {/* 시작일 설정 */}
               <div className="flex">
                 <span className="text-gray-4 font-semibold">시작</span>
                 <div>
@@ -167,12 +180,14 @@ const SetDuration = () => {
                   </label>
                 </div>
               </div>
+
               {beginVisible && (
-                <div className="flex flex-col items-start relative">
+                <div className="relative flex flex-col items-start">
                   <button
+                    type="button"
                     onClick={() => setBeginDateVisible(!beginDateVisible)}
                     aria-expanded={beginDateVisible}
-                    className="py-2 px-3 border-[1px] w-full border-gray-2 rounded-lg text-left mb-2"
+                    className="mb-2 w-full rounded-lg border border-gray-2 py-2 px-3 text-left"
                   >
                     {formatDate(beginDate).split(" / ")[0]}
                   </button>
@@ -181,22 +196,25 @@ const SetDuration = () => {
                       mode="single"
                       selected={beginDate}
                       onDayClick={setBeginDate}
-                      className="rounded-2xl bg-content xl:absolute top-11 xl:shadow-lg z-50"
                       fromDate={new Date()}
+                      className="z-50 rounded-2xl bg-content xl:absolute top-11 xl:shadow-lg"
                     />
                   )}
                   <button
+                    type="button"
                     onClick={() => setBeginTimeVisible(!beginTimeVisible)}
                     aria-expanded={beginTimeVisible}
-                    className="py-2 px-3 border-[1px] w-full border-gray-2 rounded-lg text-left"
+                    className="w-full rounded-lg border border-gray-2 py-2 px-3 text-left"
                   >
                     {formatDate(beginDate).split(" / ")[1]}
                   </button>
                   {beginTimeVisible && (
-                    <TimePickerMemo type={"begin"} date={beginDate} onChange={handleTimeChange} />
+                    <TimePickerMemo type="begin" date={beginDate} onChange={handleTimeChange} />
                   )}
                 </div>
               )}
+
+              {/* 종료일 설정 */}
               <div className="flex">
                 <span className="text-gray-4 font-semibold">종료</span>
                 <div>
@@ -224,12 +242,14 @@ const SetDuration = () => {
                   </label>
                 </div>
               </div>
+
               {finishVisible && (
-                <div className="flex flex-col items-end relative">
+                <div className="relative flex flex-col items-start">
                   <button
+                    type="button"
                     onClick={() => setFinishDateVisible(!finishDateVisible)}
                     aria-expanded={finishDateVisible}
-                    className="py-2 px-3 border-[1px] w-full border-gray-2 rounded-lg text-left mb-2"
+                    className="mb-2 w-full rounded-lg border border-gray-2 py-2 px-3 text-left"
                   >
                     {formatDate(finishDate).split(" / ")[0]}
                   </button>
@@ -238,41 +258,46 @@ const SetDuration = () => {
                       mode="single"
                       selected={finishDate}
                       onDayClick={setFinishDate}
-                      className="rounded-2xl bg-content xl:absolute top-11 xl:shadow-lg z-50"
                       fromDate={beginDate}
+                      className="z-50 rounded-2xl bg-content xl:absolute top-11 xl:shadow-lg"
                     />
                   )}
                   <button
+                    type="button"
                     onClick={() => setFinishTimeVisible(!finishTimeVisible)}
                     aria-expanded={finishTimeVisible}
-                    className="py-2 px-3 border-[1px] w-full border-gray-2 rounded-lg text-left"
+                    className="w-full rounded-lg border border-gray-2 py-2 px-3 text-left"
                   >
                     {formatDate(finishDate).split(" / ")[1]}
                   </button>
                   {finishTimeVisible && (
-                    <TimePickerMemo type={"finish"} date={finishDate} onChange={handleTimeChange} />
+                    <TimePickerMemo type="finish" date={finishDate} onChange={handleTimeChange} />
                   )}
                 </div>
               )}
+
+              {/* 버튼 */}
               <div className="flex justify-center gap-2">
                 <Button
-                  className={"bg-green-light text-green-400 flex-1"}
+                  type="button"
+                  className="flex-1 bg-green-50 text-green-400"
                   onClick={toggleModal}
-                >취소</Button>
+                >
+                  취소
+                </Button>
                 <Button
-                  className={"bg-green-300 text-white flex-1"}
+                  type="button"
+                  className="flex-1 bg-green-400 text-white"
                   onClick={saveDuration}
-                >확인</Button>
+                >
+                  확인
+                </Button>
               </div>
             </div>
           </div>
-          <div
-            className="fixed top-0 left-0 w-full h-full bg-dark/70 z-30"
-            aria-hidden="true"
-           />
-        </div>
-        )}
-    </div>
+        </>
+      )}
+    </>
   );
 };
 

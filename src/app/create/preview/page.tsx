@@ -1,6 +1,7 @@
 "use client";
 
 import SurveyInfo from "@/components/create/surveyInfo";
+import { Button } from "@/components/ui/button";
 import CircularProgress from "@/components/ui/circular";
 import questionComponentMap from "@/constants/questionComponentMap";
 import { useSurveyStore } from "@/store/survey";
@@ -57,7 +58,6 @@ const PreviewFormPage: React.FC = () => {
       {loading ? (
         <div
           className="flex w-screen h-screen justify-center items-center"
-          role="status"
           aria-live="polite"
         >
           <CircularProgress aria-label="설문지를 로드하는 중입니다." />
@@ -90,15 +90,16 @@ const PreviewFormPage: React.FC = () => {
               </div>
             );
           })}
-          <div className="flex" role="group" aria-label="폼 액션 버튼 그룹">
-            <div className="flex-1"></div>
+          <div className="flex" aria-label="폼 액션 버튼 그룹">
+            <div className="flex-1" />
             <div className="flex-1 text-center">
-              <button className="py-3 px-8 bg-green-300 text-white rounded-md" aria-label="폼 제출">
+              <Button className="bg-green-400 text-white" aria-label="폼 제출">
                 제출
-              </button>
+              </Button>
             </div>
             <div className="flex-1 text-end">
               <button
+                type="button"
                 className="p-3 hover:bg-dark/5 rounded-md"
                 onClick={() => {
                   window.location.reload();
