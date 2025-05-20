@@ -1,11 +1,12 @@
-import type { Detail, Question, QuestionType, Recruit, Survey } from "@/types";
+import { initSurveyInfo } from "@/constants/initSurveyInfo";
+import type { Detail, Form, Question, QuestionType } from "@/types";
 import { BroadcastChannel } from "broadcast-channel";
 import { create } from "zustand";
 
 // selected survey (open detail modal)
 interface SelectedSurveyStore {
-  selectedItem: Survey | Recruit | null;
-  setSelectedItem: (item: Survey | Recruit | null) => void;
+  selectedItem: Form | null;
+  setSelectedItem: (item: Form | null) => void;
 }
 
 export const useSelectedSurveyStore = create<SelectedSurveyStore>((set) => ({
@@ -24,31 +25,7 @@ interface SurveyStore {
 }
 
 export const useSurveyStore = create<SurveyStore>((set) => ({
-  surveyInfo: {
-    questions: [
-      {
-        id: 1,
-        type: "checkbox",
-        timestamp: "",
-        title: "",
-        isEssential: true,
-        options: [
-          { id: 1, value: "" },
-          { id: 2, value: "" },
-        ],
-      },
-    ],
-    id: "",
-    uid: "",
-    title: "",
-    description: "",
-    img: "",
-    startDate: "바로시작",
-    endDate: "제한없음",
-    category: "",
-    mode: "editing",
-    isEditable: false,
-  },
+  surveyInfo: initSurveyInfo,
   setSurveyInfo: (info) => {
     set((state) => {
       const newState = { surveyInfo: { ...state.surveyInfo, ...info } };

@@ -1,3 +1,4 @@
+import { initSurveyInfo } from "@/constants/initSurveyInfo";
 import { firestore } from "@/lib/firebase/firebaseConfig";
 import { useSurveyStore } from "@/store/survey";
 import type { Detail, Question } from "@/types";
@@ -42,36 +43,10 @@ export const useSaveResponse = () => {
       questions: validatedQuestions,
     };
 
-    const ititSurveyInfo: Detail = {
-      questions: [
-        {
-          id: 1,
-          type: "checkbox",
-          timestamp: "",
-          title: "",
-          isEssential: true,
-          options: [
-            { id: 1, value: "" },
-            { id: 2, value: "" },
-          ],
-        },
-      ],
-      id: "",
-      uid: "",
-      title: "",
-      description: "",
-      img: "",
-      startDate: "바로시작",
-      endDate: "제한없음",
-      category: "",
-      mode: "editing",
-      isEditable: false,
-    };
-
     try {
       await setDoc(doc(firestore, cat, id), filteredSurveyInfo);
       await setDoc(doc(firestore, "questions", id), questions);
-      setSurveyInfo(ititSurveyInfo);
+      setSurveyInfo(initSurveyInfo);
       router.push("/");
     } catch (error) {
       if (error instanceof FirebaseError) {

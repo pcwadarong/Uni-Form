@@ -53,11 +53,3 @@ export const onChangeSortType = (newType: string) => {
   url.searchParams.set("sort", newType);
   window.history.pushState({}, "", url.toString());
 };
-
-export const filterInProgressData = (data: Form[]) => {
-  const currentTime = Date.now();
-  return data.filter((item) => {
-    const endTime = parseDateString(item.id, item.endDate).getTime();
-    return endTime > currentTime;
-  });
-};

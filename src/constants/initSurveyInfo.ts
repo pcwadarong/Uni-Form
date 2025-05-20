@@ -1,5 +1,8 @@
 import type { Detail } from "@/types";
 
+export const LIMITLESS_DATE = new Date("2224-01-01T00:00:00Z").getTime(); // 제한 없음
+const NOW = Date.now(); // 바로 시작
+
 export const initSurveyInfo: Detail = {
   questions: [
     {
@@ -19,8 +22,8 @@ export const initSurveyInfo: Detail = {
   title: "",
   description: "",
   img: "",
-  startDate: "바로시작",
-  endDate: "제한없음",
+  startDate: NOW,
+  endDate: LIMITLESS_DATE,
   category: "",
   isPublic: false,
   isEditable: false,

@@ -1,10 +1,6 @@
-import type { Form } from "@/types";
-import parseDateString from "./parseDateString";
-
-export const calculateDeadlineMatch = (item: Form, deadline: string) => {
-  const currentDate = new Date();
-  const diffTime = parseDateString(item.id, item.endDate).getTime() - currentDate.getTime();
-  const date = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+export const calculateDeadlineMatch = (endDate: number, deadline: string) => {
+  const diffMs = endDate - Date.now();
+  const date = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
   return (
     deadline === "all" ||
     (deadline !== "15" && date <= Number.parseInt(deadline) && date >= 0) ||

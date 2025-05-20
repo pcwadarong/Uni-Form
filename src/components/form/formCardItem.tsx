@@ -1,7 +1,7 @@
 "use client";
 
 import { useEncryptedEntryNavigation } from "@/hooks/useEncryptedEntryNavigation";
-import formatDateUi from "@/lib/utils/formatDateUi";
+import formateDate from "@/lib/utils/formateDate";
 import { getColorById } from "@/lib/utils/getRandomColor";
 import type { Form } from "@/types";
 import Image from "next/image";
@@ -40,11 +40,11 @@ export default function FormCardItem({ item, type }: FormCardItemProps) {
       </div>
       <div className="px-6 py-6 flex flex-col justify-between bg-surface dark:bg-muted flex-1 w-full">
         <div>
-          <Special id={item.id} endDate={item.endDate} point={item.point} showPoint={showPoint} />
+          <Special endDate={item.endDate} point={item.point} showPoint={showPoint} />
           <h3 className="body1 md:text-xl mt-3 mb-2 line-clamp-2">{item.title}</h3>
         </div>
         <p className="caption text-gray-4 truncate">
-          {`${formatDateUi(item.id, item.startDate)} ~ ${formatDateUi(item.id, item.endDate)}`}
+          {`${formateDate(item.startDate, true)} ~ ${formateDate(item.endDate, true)}`}
         </p>
         {showPoint && (
           <Reaction responsesCount={item.responsesCount} commentsCount={item.commentsCount} />

@@ -1,26 +1,22 @@
-import parseDateString from "@/lib/utils/parseDateString";
-import type { Form } from "@/types";
-
 interface SpecialProps {
-  id: string;
-  endDate: string;
-  point?: Form["point"];
+  endDate: number;
+  point?: number;
   showPoint?: boolean; // recruit: false
 }
 
-export default function Special({ id, endDate, point = 0, showPoint = false }: SpecialProps) {
-  const currentDate = new Date();
-  const diffTime = parseDateString(id, endDate).getTime() - currentDate.getTime();
-  const date = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+export default function Special({ endDate, point = 0, showPoint = false }: SpecialProps) {
+  const diffMs = endDate - Date.now();
+  const isEndingSoon = diffMs > 0 && diffMs <= 7 * 24 * 60 * 60 * 1000;
+  const remainingDays = isEndingSoon ? Math.ceil(diffMs / (1000 * 60 * 60 * 24)) : null;
 
   return (
     <div className="flex space-x-2 truncate">
-      {date > 0 && date <= 7 && (
+      {remainingDays && (
         <span
           className="px-2 py-1 bg-demonstrate text-center text-red-500 caption rounded-md"
-          aria-label={`마감 ${date}일 전`}
+          aria-label={`마감 ${remainingDays}일 전`}
         >
-          마감 {date}일 전
+          마감 {remainingDays}일 전
         </span>
       )}
       {showPoint && point > 0 && (

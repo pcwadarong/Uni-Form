@@ -10,11 +10,7 @@ import ToggleInProgressFilter from "@/components/list/toggleInProgressFilter";
 
 import { fetchSurveysOrRecruitsList } from "@/lib/firebase/fetchDatas";
 import { calculateDeadlineMatch } from "@/lib/utils/calculateDeadlineMatch";
-import {
-  filterInProgressData,
-  getSelectedItems,
-  onChangeSortType,
-} from "@/lib/utils/filterAndSortData";
+import { getSelectedItems, onChangeSortType } from "@/lib/utils/filterAndSortData";
 
 import type { Form } from "@/types";
 import { useSuspenseQuery } from "@tanstack/react-query";
@@ -59,9 +55,9 @@ const List: React.FC<Props> = ({ topic, category }) => {
   useEffect(() => {
     const applyFilters = () => {
       let updatedData = [...filteredData];
-      if (isInProgressChecked) {
-        updatedData = filterInProgressData(updatedData);
-      }
+      if (isInProgressChecked)
+        updatedData = filteredData.filter((data) => data.endDate >= Date.now());
+
       setDataList(updatedData);
     };
 
@@ -79,13 +75,17 @@ const List: React.FC<Props> = ({ topic, category }) => {
       const itemPoint = item.point;
       const isPointMatch =
         itemPoint !== undefined ? point === "all" || itemPoint >= Number.parseInt(point, 10) : true;
-      const isDeadlineMatch = calculateDeadlineMatch(item, deadline);
+      const isDeadlineMatch = calculateDeadlineMatch(item.endDate, deadline);
 
       return isPointMatch && isDeadlineMatch;
     });
 
     setFilteredData(newFilteredData);
-    setDataList(isInProgressChecked ? filterInProgressData(newFilteredData) : newFilteredData);
+    setDataList(
+      isInProgressChecked
+        ? newFilteredData.filter((data) => data.endDate >= Date.now())
+        : newFilteredData,
+    );
   };
 
   const handleCategoryToggle = () => {
@@ -95,7 +95,6 @@ const List: React.FC<Props> = ({ topic, category }) => {
   const toggleInProgressFilter = () => {
     setIsInProgressChecked((prev) => !prev);
   };
-
 
   return (
     <>

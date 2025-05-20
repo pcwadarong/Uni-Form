@@ -1,6 +1,6 @@
 "use client";
 
-import formatDate from "@/lib/utils/formatDate";
+import formatDate from "@/lib/utils/formateDate";
 import { useSurveyStore } from "@/store/survey";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Button } from "../ui/button";

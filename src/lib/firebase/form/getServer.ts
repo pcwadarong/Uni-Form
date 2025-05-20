@@ -1,50 +1,43 @@
 import { adminFirestore } from "@/lib/firebase/firebaseAdminConfig";
 import type { Comment, Detail, Form, Response } from "@/types";
 import { FirebaseError } from "firebase/app";
+import type { DocumentData } from "firebase/firestore";
 import { fetchUserDataServer } from "../user/getServer";
 
-export const fetchFormInfo = async (
+export const fetchForm = async (
   surveyType: "surveys" | "recruits",
   id: string,
-): Promise<Form> => {
+  includeQuestions = false,
+): Promise<Form | Detail> => {
   try {
     const docRef = adminFirestore.collection(surveyType).doc(id);
     const docSnap = await docRef.get();
 
     if (!docSnap.exists) throw new Error("해당하는 폼이 존재하지 않습니다.");
 
-    const data = docSnap.data() as Detail;
-    return {
-      ...data,
+    const rawData = docSnap.data() as DocumentData;
+
+    const baseData = {
+      ...rawData,
       id: docSnap.id,
+      startDate: rawData.startDate?.toMillis?.() ?? null,
+      endDate: rawData.endDate?.toMillis?.() ?? null,
     };
-  } catch (err) {
-    if (err instanceof FirebaseError) {
-      throw new Error(`Firebase loading error: ${err.code}`);
+
+    if (includeQuestions) {
+      const questionsSnap = await adminFirestore
+        .collection("questions")
+        .where("id", "==", id)
+        .get();
+
+      const questionsArray = questionsSnap.docs[0]?.data()?.questions ?? [];
+      return {
+        ...baseData,
+        questions: questionsArray,
+      } as Detail;
     }
-    throw err;
-  }
-};
 
-export const fetchFormDetail = async (
-  surveyType: "surveys" | "recruits",
-  id: string,
-): Promise<Detail | null> => {
-  try {
-    const docRef = adminFirestore.collection(surveyType).doc(id);
-    const docSnap = await docRef.get();
-
-    if (!docSnap.exists) throw new Error("해당하는 폼이 존재하지 않습니다.");
-
-    const data = docSnap.data() as Detail;
-    const questionsSnap = await adminFirestore.collection("questions").where("id", "==", id).get();
-    const questionsArray = questionsSnap.docs[0]?.data()?.questions ?? [];
-
-    return {
-      ...data,
-      id: docSnap.id,
-      questions: questionsArray,
-    };
+    return baseData as Form;
   } catch (err) {
     if (err instanceof FirebaseError) {
       throw new Error(`Firebase loading error: ${err.code}`);

@@ -1,6 +1,7 @@
 "use client";
 
 import { formatTextWithLineBreaks } from "@/lib/utils/formatTextWithLineBreaks";
+import formateDate from "@/lib/utils/formateDate";
 import { useSurveyStore } from "@/store/survey";
 import { type ChangeEvent, useState } from "react";
 import FileEditIcon from "../svg/file";
@@ -121,7 +122,7 @@ const SurveyInfo = ({ mode, onEditToggle }: Props) => {
               {formatTextWithLineBreaks(surveyInfo.description || "")}
             </p>
             <span className="bg-gray-1 p-2 rounded-full text-gray-4" aria-label="Survey duration">
-              {`${surveyInfo.startDate} ~ ${surveyInfo.endDate}`}
+              {`${formateDate(surveyInfo.startDate)} ~ ${formateDate(surveyInfo.endDate)}`}
             </span>
           </div>
         </div>

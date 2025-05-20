@@ -7,10 +7,10 @@ import EntryClient from "./entryClient";
 
 import { RECRUIT_CATEGORY_LABELS, SURVEY_CATEGORY_LABELS } from "@/constants/category";
 
-import { fetchCommentsServer, fetchFormInfo } from "@/lib/firebase/form/getServer";
+import { fetchCommentsServer, fetchForm } from "@/lib/firebase/form/getServer";
 import { decrypt } from "@/lib/utils/crypoto";
-import formatDateUi from "@/lib/utils/formatDateUi";
 import { formatTextWithLineBreaks } from "@/lib/utils/formatTextWithLineBreaks";
+import formateDate from "@/lib/utils/formateDate";
 import parseDateString from "@/lib/utils/parseDateString";
 
 import Image from "next/image";
@@ -29,7 +29,7 @@ export default async function Entry({
   const type = itemId.startsWith("survey") ? "surveys" : "recruits";
   const CATEGORY_LABELS = type === "surveys" ? SURVEY_CATEGORY_LABELS : RECRUIT_CATEGORY_LABELS;
 
-  const item = await fetchFormInfo(type, itemId);
+  const item = await fetchForm(type, itemId);
   const {
     comments: initialComments,
     lastDocId,
@@ -37,7 +37,6 @@ export default async function Entry({
     totalCount,
   } = await fetchCommentsServer(item.id, 5);
   const currentDate = new Date();
-  const diffTime = parseDateString(item.id, item.endDate).getTime() - currentDate.getTime();
 
   return (
     <div className="bg-surface dark:bg-muted m-y-auto w-full max-w-[1200px] shadow px-14 md:pt-20 pb-10 space-y-20">
@@ -64,7 +63,7 @@ export default async function Entry({
             <hr className="w-full max-w-120 border border-green-300 mt-2 mb-3" />
 
             <div className="flex gap-3 mb-4">
-              <span className="caption text-gray-4 truncate">{`${formatDateUi(item.id, item.startDate)} ~ ${formatDateUi(item.id, item.endDate)}`}</span>
+              <span className="caption text-gray-4 truncate">{`${formateDate(item.startDate, true)} ~ ${formateDate(item.endDate, true)}`}</span>
               <Reaction responsesCount={item.responsesCount} commentsCount={item.commentsCount} />
             </div>
 
@@ -91,7 +90,7 @@ export default async function Entry({
               결과보기
             </LinkButton>
           )}
-          {diffTime && (
+          {item.endDate - Date.now() && (
             <LinkButton
               className={"bg-green-400 text-white w-full"}
               href={`/response/${encryptedId}`}

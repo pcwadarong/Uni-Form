@@ -1,5 +1,3 @@
-import type { Timestamp } from "firebase/firestore";
-
 export interface User {
   uid: string;
   nickname: string;
@@ -19,8 +17,8 @@ export interface Form {
   title: string;
   description: string | null;
   img: string | null;
-  startDate: string;
-  endDate: string;
+  startDate: number;
+  endDate: number;
   category: string;
   isEditable: boolean;
   isPublic: boolean;
