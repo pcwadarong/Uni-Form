@@ -1,7 +1,7 @@
 "use client";
 
 import UserIcon from "@/components/svg/user";
-import useAuth from "@/hooks/useAuth";
+import { useAuth } from "@/contexts/authProvider";
 import useHandleLogout from "@/hooks/useHandleLogout";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -13,10 +13,10 @@ const UserMenu = () => {
   const handleLogout = useHandleLogout();
 
   const handleClickOutside = useCallback((event: MouseEvent) => {
-  if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-    setShowUserMenu(false);
-  }
-}, []);
+    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      setShowUserMenu(false);
+    }
+  }, []);
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);

@@ -1,6 +1,6 @@
 import FormIcon from "@/components/svg/form";
 import HamburgerIcon from "@/components/svg/hamburger";
-import useAuth from "@/hooks/useAuth";
+import { useAuth } from "@/contexts/authProvider";
 import useHandleLogout from "@/hooks/useHandleLogout";
 import Link from "next/link";
 import { useState } from "react";

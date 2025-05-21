@@ -1,4 +1,4 @@
-import useAuth from "@/hooks/useAuth";
+import { useAuth } from "@/contexts/authProvider";
 import { useRouter } from "next/navigation";
 import { useCallback } from "react";
 

@@ -5,7 +5,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { RECRUIT_CATEGORY, SURVEY_CATEGORY } from "@/constants/category";
-import useAuth from "@/hooks/useAuth";
+import { useAuth } from "@/contexts/authProvider";
 import useHandleLogout from "@/hooks/useHandleLogout";
 import Link from "next/link";
 
