@@ -17,6 +17,7 @@ export interface Form {
   title: string;
   description: string | null;
   img: string | null;
+  createdAt: number;
   startDate: number;
   endDate: number;
   category: string;
@@ -100,7 +101,7 @@ export interface Response {
   content: Answer[];
 }
 
-export type SortType = "public" | "latest" | "special" | "popular" | "closing";
+export type SortType = "public" | "recent" | "highPoint" | "popular" | "endingSoon";
 
 export type ActionState = {
   status: boolean;

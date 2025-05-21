@@ -2,7 +2,6 @@ import { decrypt } from "@/lib/utils/crypoto";
 import { notFound } from "next/navigation";
 //import SurveyInfo from '@/components/create/surveyInfo';
 //import { useSuspenseQuery } from '@tanstack/react-query';
-//import { fetchDetail } from '@/firebase/fetchDatas';
 //import { useSurveyStore } from '@/store/survey';
 //import { useEffect } from 'react';
 //import Questions from '@/components/create/questions';

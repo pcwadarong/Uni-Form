@@ -1,18 +1,12 @@
-"use client";
+export const revalidate = 60 * 5;
 
 import CommentItem from "@/components/form/commentItem";
 import CommentSkeleton from "@/components/form/commentSkeleton";
-import { fetchSurveysOrRecruitsList } from "@/lib/firebase/fetchDatas";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { fetchFormList } from "@/lib/firebase/form/getListServer";
 import Link from "next/link";
-import { Suspense } from "react";
 
-const LatestComments: React.FC = () => {
-  const { data: latestComments } = useSuspenseQuery({
-    queryKey: ["latestComments"],
-    queryFn: () => fetchSurveysOrRecruitsList("survey", "latestComments"),
-    staleTime: 5 * 60 * 1000,
-  });
+const LatestComments = async () => {
+  const latestComments = await fetchFormList("survey", "recent");
 
   return (
     <section className="bg-surface dark:bg-muted w-full px-4 md:px-8 2xl:px-0 flex justify-center py-16">
@@ -23,22 +17,13 @@ const LatestComments: React.FC = () => {
             모든 설문 보기 →
           </Link>
         </div>
-        <Suspense
-          fallback={
-            <div className="grid md:grid-cols-2 gap-4 md:gap-8 mb-8">
-              <CommentSkeleton />
-              <CommentSkeleton />
-              <CommentSkeleton />
-              <CommentSkeleton />
-            </div>
-          }
-        >
-          <ul className="grid md:grid-cols-2 gap-4 md:gap-8 mb-8">
-            {latestComments.map((item) => (
-              <CommentItem key={item.id} item={item} />
-            ))}
-          </ul>
-        </Suspense>
+        <ul className="grid md:grid-cols-2 gap-4 md:gap-8 mb-8">
+          {latestComments.length > 0
+            ? latestComments.map((item) => (
+                <CommentItem key={item.id} item={item} />
+              ))
+            : Array.from({ length: 4 }).map((_, i) => <CommentSkeleton key={i} />)}
+        </ul>
       </div>
     </section>
   );

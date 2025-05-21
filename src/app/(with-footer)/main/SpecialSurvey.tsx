@@ -1,18 +1,12 @@
-"use client";
+export const revalidate = 60 * 5; // 5분
 
 import FormCardItem from "@/components/form/formCardItem";
 import FormCardSkeleton from "@/components/form/formCardSkeleton";
-import { fetchSurveysOrRecruitsList } from "@/lib/firebase/fetchDatas";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { fetchFormList } from "@/lib/firebase/form/getListServer";
 import Link from "next/link";
-import { Suspense } from "react";
 
-const SpecialSurveys = () => {
-  const { data: specialSurveys } = useSuspenseQuery({
-    queryKey: ["speicalSurvey"],
-    queryFn: () => fetchSurveysOrRecruitsList("survey", "special"),
-    staleTime: 5 * 60 * 1000,
-  });
+const SpecialSurveys = async () => {
+  const specialSurveys = await fetchFormList("survey", "highPoint");
 
   return (
     <section className="w-full px-4 md:px-8 2xl:px-0 flex justify-center py-16">
@@ -24,23 +18,13 @@ const SpecialSurveys = () => {
           </Link>
         </div>
         <ul className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
-          <Suspense
-            fallback={
-              <>
-                <FormCardSkeleton type="survey" />
-                <FormCardSkeleton type="survey" />
-                <FormCardSkeleton type="survey" />
-                <FormCardSkeleton type="survey" />
-              </>
-            }
-          >
-            {specialSurveys.map((item) => (
-              <FormCardItem type="survey" key={item.id} item={item} />
-            ))}
-          </Suspense>
+          {specialSurveys.length > 0
+            ? specialSurveys.map((item) => <FormCardItem type="survey" key={item.id} item={item} />)
+            : Array.from({ length: 4 }).map((_, i) => <FormCardSkeleton key={i} type="survey" />)}
         </ul>
       </div>
     </section>
   );
 };
+
 export default SpecialSurveys;

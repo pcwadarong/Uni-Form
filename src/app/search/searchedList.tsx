@@ -6,9 +6,9 @@ import { fetchSurveysOrRecruitsList } from "@/lib/firebase/fetchDatas";
 import type { Recruit, Survey } from "@/types";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Suspense } from "react";
+import NoContent from "../../components/list/noContent";
 import RecruitItem from "../form/recruitItem";
 import RecruitSkeleton from "../form/recruitSkeleton";
-import NoContent from "./noContent";
 
 interface Props {
   query: string;

@@ -1,18 +1,12 @@
-"use client";
+export const revalidate = 60 * 5;
 
 import FormCardItem from "@/components/form/formCardItem";
 import Skeleton from "@/components/form/formCardSkeleton";
-import { fetchSurveysOrRecruitsList } from "@/lib/firebase/fetchDatas";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { fetchFormList } from "@/lib/firebase/form/getListServer";
 import Link from "next/link";
-import { Suspense } from "react";
 
-const ClosingRecruits = () => {
-  const { data: closingRecruits } = useSuspenseQuery({
-    queryKey: ["closingRecruits"],
-    queryFn: () => fetchSurveysOrRecruitsList("recruit", "closing"),
-    staleTime: 5 * 60 * 1000,
-  });
+const ClosingRecruits = async () => {
+  const closingRecruits = await fetchFormList("recruit", "endingSoon");
 
   return (
     <section className="bg-surface dark:bg-muted w-full px-4 md:px-8 2xl:px-0 flex justify-center py-16 drop-shadow-sm">
@@ -24,18 +18,13 @@ const ClosingRecruits = () => {
           </Link>
         </div>
         <ul className="grid md:grid-cols-3 gap-4 md:gap-8">
-          <Suspense
-            fallback={
-              <>
-                <Skeleton type="recruit" />
-                <Skeleton type="recruit" />
-              </>
-            }
-          >
-            {closingRecruits.map((item) => (
-              <FormCardItem type="recruit" key={item.id} item={item} />
-            ))}
-          </Suspense>
+          {closingRecruits.length > 0
+            ? closingRecruits.map((item) => (
+                <FormCardItem type="recruit" key={item.id} item={item} />
+              ))
+            : Array.from({ length: 2 }).map((_, i) => (
+                <Skeleton key={i} type="recruit" />
+              ))}
         </ul>
       </div>
     </section>
