@@ -3,8 +3,10 @@
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { Comment } from "@/types";
+import DeleteComment from "./deleteComment";
 
 interface Props {
+  formId: string;
   comments: Comment[];
   loadMore: () => void;
   hasNextPage: boolean;
@@ -15,6 +17,7 @@ interface Props {
 }
 
 export default function Comments({
+  formId,
   comments,
   loadMore,
   hasNextPage,
@@ -42,6 +45,7 @@ export default function Comments({
               <span className="font-semibold">{comment.nickname}</span>
               <span className="ml-2 caption">{new Date(comment.createdAt).toLocaleString()}</span>
               <p>{comment.content}</p>
+              <DeleteComment formId={formId} commentId={comment.id} />
             </li>
           ))}
         </ul>

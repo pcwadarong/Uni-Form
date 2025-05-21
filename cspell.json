@@ -2,7 +2,16 @@
   "version": "0.2",
   "language": "en",
   "words": ["oklch", "zustand"],
-  "ignoreWords": ["daum", "bname", "chaen", "firestore", "ciphertext", "crypoto", "pangea"],
+  "ignoreWords": [
+    "daum",
+    "bname",
+    "chaen",
+    "firestore",
+    "ciphertext",
+    "crypoto",
+    "pangea",
+    "sonner"
+  ],
   "flagWords": [""],
   "ignorePaths": [".github/**"],
   "dictionaries": ["typescript", "css", "fonts"]

@@ -62,7 +62,7 @@ export const fetchCommentsClient = async (
 
         return {
           id: doc.id,
-          surveyId: data.surveyId,
+          formId: data.formId,
           uid: data.uid,
           content: data.content,
           createdAt: data.createdAt?.toMillis?.() ?? null,

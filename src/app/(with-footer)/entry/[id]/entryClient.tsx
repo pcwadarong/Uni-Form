@@ -100,6 +100,7 @@ function CommentQueryClient({
 
   return (
     <Comments
+      formId={item.id}
       comments={allComments}
       loadMore={fetchNextPage}
       hasNextPage={hasNextPage ?? false}

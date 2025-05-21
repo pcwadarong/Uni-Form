@@ -4,6 +4,7 @@ import { useSurveyStore } from "@/store/survey";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
 import CheckModal from "./checkModal";
 
 const CreatePageButton = () => {
@@ -26,19 +27,19 @@ const CreatePageButton = () => {
   };
 
   const handleSaveDraft = () => {
-    alert("아직 지원되지 않는 기능입니다. 조금만 기다려주시면 감사하겠습니다.");
+    toast("아직 지원되지 않는 기능입니다. 조금만 기다려주시면 감사하겠습니다.");
   };
 
   const handleValidate = () => {
     const validateSurveyInfo = (): boolean => {
       if (!surveyInfo.title) {
-        alert("설문 제목을 입력해 주세요.");
+        toast("설문 제목을 입력해 주세요.");
         return false;
       }
 
       const incompleteQuestions = surveyInfo.questions.filter((q) => !q.title);
       if (incompleteQuestions.length > 0) {
-        alert("모든 질문의 제목을 입력해 주세요.");
+        toast("모든 질문의 제목을 입력해 주세요.");
         return false;
       }
       return true;
@@ -56,7 +57,7 @@ const CreatePageButton = () => {
   };
 
   const handleDuplicate = () => {
-    alert("아직 지원되지 않는 기능입니다. 조금만 기다려주시면 감사하겠습니다.");
+    toast("아직 지원되지 않는 기능입니다. 조금만 기다려주시면 감사하겠습니다.");
   };
 
   const handleDelete = () => {

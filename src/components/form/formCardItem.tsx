@@ -15,10 +15,11 @@ interface FormCardItemProps {
 }
 
 export default function FormCardItem({ item, type }: FormCardItemProps) {
-  const { navigate, handleKeyDown } = useEncryptedEntryNavigation(type);
+  const { navigate, handleKeyDown } = useEncryptedEntryNavigation();
   const backgroundClass = useMemo(() => getColorById(item.id), [item]);
   const showPoint = type === "survey";
 
+  console.log(item.startDate)
   return (
     <button
       type="button"

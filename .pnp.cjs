@@ -55,12 +55,14 @@ const RAW_RUNTIME_STATE =
           ["firebase-admin", "npm:13.4.0"],\
           ["lucide-react", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:0.510.0"],\
           ["next", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:15.3.2"],\
+          ["next-themes", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:0.4.6"],\
           ["postcss", "npm:8.5.3"],\
           ["react", "npm:18.3.1"],\
           ["react-beautiful-dnd", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:13.1.1"],\
           ["react-day-picker", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:8.10.1"],\
           ["react-dom", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:18.3.1"],\
           ["react-hook-form", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:7.56.4"],\
+          ["sonner", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:2.0.3"],\
           ["tailwind-merge", "npm:3.3.0"],\
           ["tailwindcss", "npm:4.1.7"],\
           ["tailwindcss-animate", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:1.0.7"],\
@@ -7790,6 +7792,32 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["next-themes", [\
+      ["npm:0.4.6", {\
+        "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/next-themes-npm-0.4.6-7c480d5b1d-10c0.zip/node_modules/next-themes/",\
+        "packageDependencies": [\
+          ["next-themes", "npm:0.4.6"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:0.4.6", {\
+        "packageLocation": "./.yarn/__virtual__/next-themes-virtual-d515505903/4/AppData/Local/Yarn/Berry/cache/next-themes-npm-0.4.6-7c480d5b1d-10c0.zip/node_modules/next-themes/",\
+        "packageDependencies": [\
+          ["@types/react", "npm:18.3.21"],\
+          ["@types/react-dom", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:18.3.7"],\
+          ["next-themes", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:0.4.6"],\
+          ["react", "npm:18.3.1"],\
+          ["react-dom", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:18.3.1"]\
+        ],\
+        "packagePeers": [\
+          "@types/react-dom",\
+          "@types/react",\
+          "react-dom",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["no-case", [\
       ["npm:3.0.4", {\
         "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/no-case-npm-3.0.4-12884c3d98-10c0.zip/node_modules/no-case/",\
@@ -8570,6 +8598,32 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["sonner", [\
+      ["npm:2.0.3", {\
+        "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/sonner-npm-2.0.3-ccaf61e3c6-10c0.zip/node_modules/sonner/",\
+        "packageDependencies": [\
+          ["sonner", "npm:2.0.3"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:2.0.3", {\
+        "packageLocation": "./.yarn/__virtual__/sonner-virtual-ac01718c40/4/AppData/Local/Yarn/Berry/cache/sonner-npm-2.0.3-ccaf61e3c6-10c0.zip/node_modules/sonner/",\
+        "packageDependencies": [\
+          ["@types/react", "npm:18.3.21"],\
+          ["@types/react-dom", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:18.3.7"],\
+          ["react", "npm:18.3.1"],\
+          ["react-dom", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:18.3.1"],\
+          ["sonner", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:2.0.3"]\
+        ],\
+        "packagePeers": [\
+          "@types/react-dom",\
+          "@types/react",\
+          "react-dom",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["source-map-js", [\
       ["npm:1.2.1", {\
         "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/source-map-js-npm-1.2.1-b9a47d7e1a-10c0.zip/node_modules/source-map-js/",\
@@ -8930,12 +8984,14 @@ const RAW_RUNTIME_STATE =
           ["firebase-admin", "npm:13.4.0"],\
           ["lucide-react", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:0.510.0"],\
           ["next", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:15.3.2"],\
+          ["next-themes", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:0.4.6"],\
           ["postcss", "npm:8.5.3"],\
           ["react", "npm:18.3.1"],\
           ["react-beautiful-dnd", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:13.1.1"],\
           ["react-day-picker", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:8.10.1"],\
           ["react-dom", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:18.3.1"],\
           ["react-hook-form", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:7.56.4"],\
+          ["sonner", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:2.0.3"],\
           ["tailwind-merge", "npm:3.3.0"],\
           ["tailwindcss", "npm:4.1.7"],\
           ["tailwindcss-animate", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:1.0.7"],\

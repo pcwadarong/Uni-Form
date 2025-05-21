@@ -81,7 +81,7 @@ export type QuestionType =
 export interface Comment {
   id: string;
   nickname?: string;
-  surveyId: string;
+  formId: string;
   uid: string;
   content: string;
   createdAt: number;

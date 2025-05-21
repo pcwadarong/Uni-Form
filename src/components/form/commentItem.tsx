@@ -6,7 +6,7 @@ import type { Form } from "@/types";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
 const CommentItem: React.FC<{ item: Form }> = ({ item }) => {
-  const { navigate, handleKeyDown } = useEncryptedEntryNavigation("survey");
+  const { navigate, handleKeyDown } = useEncryptedEntryNavigation();
 
   const { data: commentsList } = useSuspenseQuery({
     queryKey: ["comments", item.id],

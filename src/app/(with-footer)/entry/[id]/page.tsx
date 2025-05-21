@@ -3,7 +3,7 @@ import BubbleChat from "@/components/svg/bubble-chat";
 import Reaction from "@/components/form/reaction";
 import ActionButtons from "@/components/ui/actionButtons";
 import { LinkButton } from "@/components/ui/button";
-import CreateComments from "./createComments";
+import CreateComments from "./createComment";
 import EntryClient from "./entryClient";
 
 import { RECRUIT_CATEGORY_LABELS, SURVEY_CATEGORY_LABELS } from "@/constants/category";

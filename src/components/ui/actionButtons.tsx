@@ -1,9 +1,10 @@
 "use client";
 
-import BookMark from "../svg/bookmark";
-import Share from "../svg/share";
-import Report from "../svg/report";
 import { useCallback } from "react";
+import { toast } from "sonner";
+import BookMark from "../svg/bookmark";
+import Report from "../svg/report";
+import Share from "../svg/share";
 
 export default function ActionButtons() {
   const handleShare = useCallback(() => {
@@ -11,26 +12,26 @@ export default function ActionButtons() {
     navigator.clipboard
       .writeText(url)
       .then(() => {
-        alert("링크가 복사되었습니다.");
+        toast("링크가 복사되었습니다.");
       })
       .catch(() => {
-        alert("복사에 실패했습니다. 수동으로 복사해주세요.");
+        toast("복사에 실패했습니다. 수동으로 복사해주세요.");
       });
   }, []);
 
   const handleBookmark = useCallback(() => {
-    alert("북마크 되었습니다.");
+    toast("북마크 되었습니다.");
   }, []);
 
   const handleReport = useCallback(() => {
-    alert("신고 접수되었습니다.");
+    toast("신고 접수되었습니다.");
   }, []);
 
   return (
     <div className="mt-10 flex gap-5 font-bold">
-      <Share onClick={handleShare} className="cursor-pointer"/>
-      <BookMark onClick={handleBookmark} className="cursor-pointer"/>
-      <Report onClick={handleReport} className="cursor-pointer"/>
+      <Share onClick={handleShare} className="cursor-pointer" />
+      <BookMark onClick={handleBookmark} className="cursor-pointer" />
+      <Report onClick={handleReport} className="cursor-pointer" />
     </div>
   );
 }

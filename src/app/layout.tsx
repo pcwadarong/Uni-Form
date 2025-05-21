@@ -2,11 +2,12 @@ import Header from "@/components/layout/header/header";
 import FloatingControls from "@/components/ui/floatingControls";
 import localFont from "next/font/local";
 import "./globals.css";
+import { Toaster } from "@/components/ui/sonner";
 import { Providers } from "../contexts/providers";
 
 const suit = localFont({ src: "../fonts/SUIT.woff2" });
 
-export default function RootLayout({
+export default function RootLayout(                                                                                                                        {
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -19,6 +20,7 @@ export default function RootLayout({
           <div className="flex h-auto min-h-screen flex-col items-center pt-20 pb-28">
             {children}
           </div>
+          <Toaster />
           <FloatingControls />
         </Providers>
       </body>
