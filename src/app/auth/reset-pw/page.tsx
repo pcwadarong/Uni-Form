@@ -22,7 +22,7 @@ const ResetPw: React.FC = () => {
     if (!resetState) return;
 
     if (!resetState.status) {
-      console.log(resetState.error);
+      console.error(resetState.error);
       return;
     }
 

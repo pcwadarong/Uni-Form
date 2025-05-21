@@ -55,7 +55,6 @@ export const fetchCommentsClient = async (
     const sliced = hasMore ? docs.slice(0, pageSize) : docs;
     const lastDoc = sliced.at(-1) ?? null;
 
-    console.log(sliced)
     const commentsWithNicknames: Comment[] = await Promise.all(
       sliced.map(async (doc) => {
         const data = doc.data();

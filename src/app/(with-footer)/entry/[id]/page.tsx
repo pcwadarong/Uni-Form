@@ -3,15 +3,15 @@ import BubbleChat from "@/components/svg/bubble-chat";
 import Reaction from "@/components/form/reaction";
 import ActionButtons from "@/components/ui/actionButtons";
 import { LinkButton } from "@/components/ui/button";
+import CreateComments from "./createComments";
 import EntryClient from "./entryClient";
 
 import { RECRUIT_CATEGORY_LABELS, SURVEY_CATEGORY_LABELS } from "@/constants/category";
 
+import { formatTextWithLineBreaks } from "@/components/ui/formatTextWithLineBreaks";
 import { fetchCommentsServer, fetchForm } from "@/lib/firebase/form/getServer";
 import { decrypt } from "@/lib/utils/crypoto";
-import { formatTextWithLineBreaks } from "@/lib/utils/formatTextWithLineBreaks";
 import formateDate from "@/lib/utils/formateDate";
-import parseDateString from "@/lib/utils/parseDateString";
 
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -36,7 +36,6 @@ export default async function Entry({
     hasNextPage: initialHasNextPage,
     totalCount,
   } = await fetchCommentsServer(item.id, 5);
-  const currentDate = new Date();
 
   return (
     <div className="bg-surface dark:bg-muted m-y-auto w-full max-w-[1200px] shadow px-14 md:pt-20 pb-10 space-y-20">
@@ -102,6 +101,7 @@ export default async function Entry({
         </aside>
       </section>
 
+      <CreateComments id={item.id} />
       {initialComments && initialComments.length > 0 ? (
         <EntryClient
           item={item}

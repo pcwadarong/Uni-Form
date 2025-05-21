@@ -3,14 +3,11 @@
 import { encrypt } from "@/lib/utils/crypoto";
 import { useRouter } from "next/navigation";
 
-export function useEncryptedEntryNavigation(prefix = "survey") {
+export function useEncryptedEntryNavigation() {
   const router = useRouter();
 
   const navigate = async (itemId: string) => {
-    const encryptedId = await encrypt(
-      `${prefix}-${itemId}`,
-      process.env.NEXT_PUBLIC_CRYPT_SECRET || "",
-    );
+    const encryptedId = await encrypt(itemId, process.env.NEXT_PUBLIC_CRYPT_SECRET || "");
     router.push(`/entry/${encryptedId}`);
   };
 

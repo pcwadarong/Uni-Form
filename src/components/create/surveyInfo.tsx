@@ -1,6 +1,6 @@
 "use client";
 
-import { formatTextWithLineBreaks } from "@/lib/utils/formatTextWithLineBreaks";
+import { formatTextWithLineBreaks } from "@/components/ui/formatTextWithLineBreaks";
 import formateDate from "@/lib/utils/formateDate";
 import { useSurveyStore } from "@/store/survey";
 import { type ChangeEvent, useState } from "react";

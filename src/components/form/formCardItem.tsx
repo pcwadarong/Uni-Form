@@ -2,7 +2,7 @@
 
 import { useEncryptedEntryNavigation } from "@/hooks/useEncryptedEntryNavigation";
 import formateDate from "@/lib/utils/formateDate";
-import { getColorById } from "@/lib/utils/getRandomColor";
+import getColorById from "@/lib/utils/getRandomColor";
 import type { Form } from "@/types";
 import Image from "next/image";
 import { useMemo } from "react";

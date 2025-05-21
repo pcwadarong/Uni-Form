@@ -3,19 +3,12 @@
 import FileEditIcon from "@/components/svg/file";
 import { initSurveyInfo } from "@/constants/initSurveyInfo";
 import { commonTemplate, recruitTemplate, surveyTemplate } from "@/constants/templates";
-import { getRandomColor } from "@/lib/utils/getRandomColor";
 import { useSurveyStore } from "@/store/survey";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 
 const RandomColoredBox: React.FC<{ link: string; text: string }> = ({ link, text }) => {
-  const [randomClass, setRandomClass] = useState("");
   const router = useRouter();
   const { setSurveyInfo } = useSurveyStore();
-
-  useEffect(() => {
-    setRandomClass(getRandomColor());
-  }, []);
 
   const moveToCreatePage = async () => {
     try {
@@ -28,9 +21,7 @@ const RandomColoredBox: React.FC<{ link: string; text: string }> = ({ link, text
   };
 
   return (
-    <li
-      className={`relative rounded-3xl h-auto mb-2 drop-shadow-md aspect-square bg-${randomClass} flex items-center justify-center`}
-    >
+    <li className="relative rounded-3xl h-auto mb-2 drop-shadow-md aspect-square bg-green-200 flex items-center justify-center">
       <button
         type="button"
         onClick={moveToCreatePage}

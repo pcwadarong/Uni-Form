@@ -1,7 +1,7 @@
 import { initSurveyInfo } from "@/constants/initSurveyInfo";
 import { firestore } from "@/lib/firebase/firebaseConfig";
 import { useSurveyStore } from "@/store/survey";
-import type { Detail, Question } from "@/types";
+import type { Question } from "@/types";
 import { FirebaseError } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";

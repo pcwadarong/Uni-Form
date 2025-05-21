@@ -8,7 +8,6 @@ export default function FloatingControls() {
   const { theme, setTheme } = useTheme();
   const toggleTheme = () => {
     setTheme(theme === "light" ? "dark" : "light");
-    console.log(theme);
   };
 
   const toTheTop = () => {
