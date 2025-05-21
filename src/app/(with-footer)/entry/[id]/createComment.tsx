@@ -43,8 +43,6 @@ export default function CreateComments({ id }: { id: string }) {
 
     const formData = new FormData(e.currentTarget);
     formData.set("formId", id);
-    formData.set("author", uid);
-
     formAction(formData);
   };
 

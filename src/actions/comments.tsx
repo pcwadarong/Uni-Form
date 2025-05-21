@@ -2,6 +2,7 @@
 
 import { createComment } from "@/lib/firebase/form/create";
 import { deleteComment } from "@/lib/firebase/form/delete";
+import { getServerUid } from "@/lib/firebase/user/getServerUid";
 import { revalidatePath } from "next/cache";
 
 export async function createCommentsAction(
@@ -9,27 +10,25 @@ export async function createCommentsAction(
   formData: FormData,
 ): Promise<{ status: boolean; error?: string }> {
   const formId = formData.get("formId");
-  const uid = formData.get("author");
   const content = formData.get("content");
   const createdAt = new Date().toISOString();
 
-  if (typeof formId !== "string" || typeof uid !== "string" || typeof content !== "string")
+  if (typeof formId !== "string" || typeof content !== "string")
     return { status: false, error: "입력값 오류" };
+
+  const uid = await getServerUid();
+  if (!uid) return { status: false, error: "로그인이 필요합니다." };
 
   const commentId = `${formId}-${crypto.randomUUID()}`;
 
   try {
     await createComment(commentId, formId, uid, content, createdAt);
     revalidatePath(`/entry/${formId}`);
-
-    return {
-      status: true,
-      error: "",
-    };
+    return { status: true };
   } catch (err) {
     return {
       status: false,
-      error: `댓글 삭제 실패: ${err}`,
+      error: err instanceof Error ? err.message : String(err),
     };
   }
 }
@@ -41,22 +40,22 @@ export async function deleteCommentsAction(
   const formId = formData.get("formId");
   const commentId = formData.get("commentId");
 
-  if (typeof formId !== "string" || typeof commentId !== "string") {
+  if (typeof formId !== "string" || typeof commentId !== "string")
     return { status: false, error: "입력값 오류" };
-  }
+
+  const uid = await getServerUid();
+  if (!uid) return { status: false, error: "로그인이 필요합니다." };
 
   try {
-    await deleteComment(commentId);
-    revalidatePath(`/entry/${formId}`);
+    const result = await deleteComment(commentId, uid);
+    if (!result.status) return { status: false, error: result.error };
 
-    return {
-      status: true,
-      error: "",
-    };
+    revalidatePath(`/entry/${formId}`);
+    return { status: true };
   } catch (err) {
     return {
       status: false,
-      error: `댓글 삭제 실패: ${err}`,
+      error: `댓글 삭제 실패: ${err instanceof Error ? err.message : String(err)}`,
     };
   }
 }

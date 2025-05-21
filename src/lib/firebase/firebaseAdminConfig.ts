@@ -13,4 +13,5 @@ if (!admin.apps.length) {
   });
 }
 
-export const adminFirestore = admin.firestore();
+export const adminFirestore = admin.firestore(); //firebase instance database
+export const adminAuth = admin.auth(); //authentication

@@ -64,7 +64,7 @@ export const handleLogin = async (
   password?: string,
 ) => {
   let userCredential: UserCredential | null = null;
-  
+
   switch (method) {
     case "email":
       if (email && password) {
@@ -74,13 +74,29 @@ export const handleLogin = async (
         return false;
       }
       break;
+
     case "google":
       userCredential = await googleSignIn();
       break;
+
     default:
       console.error("Unknown login method:", method);
       return false;
   }
 
-  return userCredential !== null;
+  if (!userCredential) return false;
+
+  const token = await userCredential.user.getIdToken();
+  try {
+    await fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token }),
+    });
+  } catch (err) {
+    console.error("Failed to send token to server:", err);
+    return false;
+  }
+
+  return true;
 };

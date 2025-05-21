@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useAuth } from "@/contexts/authProvider";
 import type { Comment } from "@/types";
 import DeleteComment from "./deleteComment";
 
@@ -26,6 +27,8 @@ export default function Comments({
   isError,
   totalCount,
 }: Props) {
+  const { uid } = useAuth();
+
   return (
     <section>
       <h3>{`댓글 목록 (${totalCount})`}</h3>
@@ -45,7 +48,7 @@ export default function Comments({
               <span className="font-semibold">{comment.nickname}</span>
               <span className="ml-2 caption">{new Date(comment.createdAt).toLocaleString()}</span>
               <p>{comment.content}</p>
-              <DeleteComment formId={formId} commentId={comment.id} />
+              {uid === comment.uid && <DeleteComment formId={formId} commentId={comment.id} />}
             </li>
           ))}
         </ul>

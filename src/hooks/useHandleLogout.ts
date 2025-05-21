@@ -8,6 +8,7 @@ const useHandleLogout = () => {
 
   const handleLogout = useCallback(async () => {
     await logout();
+    await fetch("api/logout", { method: "POST" });
     router.push("/");
   }, [logout, router]);
 
