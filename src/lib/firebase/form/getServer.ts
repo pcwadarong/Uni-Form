@@ -46,22 +46,45 @@ export const fetchForm = async (
   }
 };
 
-export const fetchComment = async (id: string): Promise<Comment | null> => {
+export const fetchLatestCommentsWithFormTitles = async (
+  limitCount = 4,
+): Promise<Comment[] | null> => {
   try {
-    const docRef = adminFirestore.collection("comments").doc(id);
-    const docSnap = await docRef.get();
+    const snapshot = await adminFirestore
+      .collection("comments")
+      .orderBy("createdAt", "desc")
+      .limit(limitCount)
+      .get();
 
-    if (!docSnap.exists) throw new Error("해당하는 댓글이 존재하지 않습니다.");
-    const rawData = docSnap.data() as DocumentData;
+    if (snapshot.empty) return [];
 
-    const formDocSnap = await adminFirestore.collection("surveys").doc(rawData.formId).get();
-    const formTitle = formDocSnap.exists ? (formDocSnap.data()?.title ?? "제목 없음") : "제목 없음";
+    const comments = snapshot.docs;
 
-    return {
-      ...rawData,
-      id: docSnap.id,
-      formTitle,
-    } as Comment;
+    const results = await Promise.all(
+      comments.map(async (doc) => {
+        const data = doc.data() as DocumentData;
+
+        if (!data.formId || typeof data.formId !== "string")
+          throw new Error(`Invalid formId in comment: ${doc.id}`);
+
+        const formDocSnap = await adminFirestore.collection("surveys").doc(data.formId).get();
+
+        const formTitle = formDocSnap.exists
+          ? (formDocSnap.data()?.title ?? "제목 없음")
+          : "제목 없음";
+
+        return {
+          id: doc.id,
+          uid: data.uid,
+          formId: data.formId,
+          content: data.content,
+          createdAt: data.createdAt?.toMillis?.() ?? null,
+          formTitle,
+        };
+      }),
+    );
+
+    return results;
   } catch (err) {
     if (err instanceof FirebaseError) {
       throw new Error(`Firebase loading error: ${err.code}`);
@@ -69,6 +92,30 @@ export const fetchComment = async (id: string): Promise<Comment | null> => {
     throw err;
   }
 };
+
+// export const fetchComment = async (id: string): Promise<Comment | null> => {
+//   try {
+//     const docRef = adminFirestore.collection("comments").doc(id);
+//     const docSnap = await docRef.get();
+
+//     if (!docSnap.exists) throw new Error("해당하는 댓글이 존재하지 않습니다.");
+//     const rawData = docSnap.data() as DocumentData;
+
+//     const formDocSnap = await adminFirestore.collection("surveys").doc(rawData.formId).get();
+//     const formTitle = formDocSnap.exists ? (formDocSnap.data()?.title ?? "제목 없음") : "제목 없음";
+
+//     return {
+//       ...rawData,
+//       id: docSnap.id,
+//       formTitle,
+//     } as Comment;
+//   } catch (err) {
+//     if (err instanceof FirebaseError) {
+//       throw new Error(`Firebase loading error: ${err.code}`);
+//     }
+//     throw err;
+//   }
+// };
 
 export const fetchCommentsServer = async (
   id: string,

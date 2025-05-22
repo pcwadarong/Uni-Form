@@ -13,7 +13,7 @@ interface FormListSectionProps {
 
 const FormListSection = async ({ title, link, sortType }: FormListSectionProps) => {
   const forms = await fetchFormList("survey", sortType);
-
+  
   return (
     <article className="flex-1">
       <div className="flex justify-between items-end mb-6">

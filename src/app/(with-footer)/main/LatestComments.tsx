@@ -2,24 +2,26 @@ export const revalidate = 60 * 5;
 
 import CommentItem from "@/components/form/commentCardItem";
 import CommentSkeleton from "@/components/form/commentSkeleton";
-import { fetchFormList } from "@/lib/firebase/form/getListServer";
+import { fetchLatestCommentsWithFormTitles } from "@/lib/firebase/form/getServer";
 import Link from "next/link";
 
 const LatestComments = async () => {
-  const latestComments = await fetchFormList("survey", "recent");
+  const latestComments = await fetchLatestCommentsWithFormTitles();
 
   return (
     <section className="bg-surface dark:bg-muted w-full px-4 md:px-8 2xl:px-0 flex justify-center py-16">
       <div className="w-full 2xl:w-[1400px]">
         <div className="flex justify-between items-end mb-6">
-          <h2 className="title2">최신 댓글을 살펴보세요</h2>
+          <h2 className="title2">최신 댓글이 달린 설문조사를 살펴보세요</h2>
           <Link href="/survey/all" className="caption">
             모든 설문 보기 →
           </Link>
         </div>
         <ul className="grid md:grid-cols-2 gap-4 md:gap-8 mb-8">
-          {latestComments.length > 0
-            ? latestComments.map((item) => <CommentItem key={item.id} id={item.id} />)
+          {latestComments && latestComments.length > 0
+            ? latestComments.map((item) => (
+                <CommentItem key={item.id} id={item.id} title={item.formTitle ?? '제목 없음'} content={item.content} />
+              ))
             : Array.from({ length: 4 }).map((_, i) => <CommentSkeleton key={i} />)}
         </ul>
       </div>
