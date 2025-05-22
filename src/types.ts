@@ -105,6 +105,6 @@ export interface Response {
 export type SortType = "public" | "recent" | "highPoint" | "popular" | "endingSoon";
 
 export type ActionState = {
-  status: boolean;
+  status: boolean | null;
   error?: string;
 };

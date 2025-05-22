@@ -129,7 +129,7 @@ export const fetchCommentsServer = async (
   try {
     const snapshot = await adminFirestore
       .collection("comments")
-      .where("surveyId", "==", id)
+      .where("formId", "==", id)
       .orderBy("createdAt", "desc")
       .orderBy("__name__", "desc")
       .limit(limitCount + 1)
@@ -165,7 +165,7 @@ export const fetchCommentsServer = async (
 
     const countSnap = await adminFirestore
       .collection("comments")
-      .where("surveyId", "==", id)
+      .where("formId", "==", id)
       .count()
       .get();
 

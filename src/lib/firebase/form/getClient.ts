@@ -42,7 +42,7 @@ export const fetchCommentsClient = async (
     const snapshot = await getDocs(
       query(
         collection(firestore, "comments"),
-        where("surveyId", "==", id),
+        where("formId", "==", id),
         orderBy("createdAt", "desc"),
         orderBy("__name__", "desc"),
         ...(lastVisible ? [startAfter(lastVisible)] : []),

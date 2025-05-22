@@ -24,9 +24,10 @@ export default function CreateComments({ id }: { id: string }) {
   );
 
   useEffect(() => {
-    if (!result) return;
+    if (result.status === null) return;
     if (!result.status) {
-      console.error(result.error);
+      console.warn("댓글 작성 실패:", result.error);
+      toast.error("댓글 작성에 실패했습니다. 다시 시도해주세요.");
     } else {
       toast("댓글이 작성되었습니다.");
       formRef.current?.reset();
