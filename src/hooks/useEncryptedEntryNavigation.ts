@@ -11,7 +11,7 @@ export function useEncryptedEntryNavigation() {
     router.push(`/entry/${encryptedId}`);
   };
 
-  const handleKeyDown = (itemId: string) => (e: React.KeyboardEvent<HTMLButtonElement>) => {
+  const handleKeyDown = (itemId: string) => (e: React.KeyboardEvent<HTMLElement>) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       navigate(itemId);

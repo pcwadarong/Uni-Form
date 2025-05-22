@@ -46,7 +46,9 @@ export default function Comments({
           {comments.map((comment) => (
             <li key={comment.id} className="px-4 py-3 rounded-xl border border-gray-300">
               <span className="font-semibold">{comment.nickname}</span>
-              <span className="ml-2 caption">{new Date(comment.createdAt).toLocaleString()}</span>
+              <span className="ml-2 caption">
+                {comment.createdAt && new Date(comment.createdAt).toLocaleString()}
+              </span>
               <p>{comment.content}</p>
               {uid === comment.uid && <DeleteComment formId={formId} commentId={comment.id} />}
             </li>

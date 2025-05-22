@@ -1,8 +1,8 @@
 export const dynamic = "force-dynamic";
 
 import FormCardItem from "@/components/form/formCardItem";
+import NoContent from "@/components/list/noContent";
 import { fetchFormList } from "@/lib/firebase/form/getListServer";
-import NoContent from "../../components/list/noContent";
 
 interface Props {
   query: string;

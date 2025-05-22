@@ -1,6 +1,6 @@
 export const revalidate = 60 * 5;
 
-import CommentItem from "@/components/form/commentItem";
+import CommentItem from "@/components/form/commentCardItem";
 import CommentSkeleton from "@/components/form/commentSkeleton";
 import { fetchFormList } from "@/lib/firebase/form/getListServer";
 import Link from "next/link";
@@ -19,9 +19,7 @@ const LatestComments = async () => {
         </div>
         <ul className="grid md:grid-cols-2 gap-4 md:gap-8 mb-8">
           {latestComments.length > 0
-            ? latestComments.map((item) => (
-                <CommentItem key={item.id} item={item} />
-              ))
+            ? latestComments.map((item) => <CommentItem key={item.id} id={item.id} />)
             : Array.from({ length: 4 }).map((_, i) => <CommentSkeleton key={i} />)}
         </ul>
       </div>

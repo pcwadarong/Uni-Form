@@ -3,7 +3,7 @@
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
-import { CategorySelection } from "@/components/form/categorySelection";
+import { CategorySelection } from "@/components/list/categorySelection";
 import FormCardItem from "@/components/form/formCardItem";
 import NoContent from "@/components/list/noContent";
 import SortSelect from "@/components/list/sortSelect";

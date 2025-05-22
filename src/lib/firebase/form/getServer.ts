@@ -25,12 +25,12 @@ export const fetchForm = async (
     };
 
     if (includeQuestions) {
-      const questionsSnap = await adminFirestore
-        .collection("questions")
-        .where("id", "==", id)
-        .get();
+      const questionsDocSnap = await adminFirestore.collection("questions").doc(id).get();
 
-      const questionsArray = questionsSnap.docs[0]?.data()?.questions ?? [];
+      const questionsArray = questionsDocSnap.exists
+        ? (questionsDocSnap.data()?.questions ?? [])
+        : [];
+
       return {
         ...baseData,
         questions: questionsArray,
@@ -38,6 +38,30 @@ export const fetchForm = async (
     }
 
     return baseData as Form;
+  } catch (err) {
+    if (err instanceof FirebaseError) {
+      throw new Error(`Firebase loading error: ${err.code}`);
+    }
+    throw err;
+  }
+};
+
+export const fetchComment = async (id: string): Promise<Comment | null> => {
+  try {
+    const docRef = adminFirestore.collection("comments").doc(id);
+    const docSnap = await docRef.get();
+
+    if (!docSnap.exists) throw new Error("해당하는 댓글이 존재하지 않습니다.");
+    const rawData = docSnap.data() as DocumentData;
+
+    const formDocSnap = await adminFirestore.collection("surveys").doc(rawData.formId).get();
+    const formTitle = formDocSnap.exists ? (formDocSnap.data()?.title ?? "제목 없음") : "제목 없음";
+
+    return {
+      ...rawData,
+      id: docSnap.id,
+      formTitle,
+    } as Comment;
   } catch (err) {
     if (err instanceof FirebaseError) {
       throw new Error(`Firebase loading error: ${err.code}`);
@@ -123,11 +147,9 @@ export const fetchResponses = async (id: string): Promise<Response[] | null> => 
       const data = doc.data();
 
       return {
+        ...data,
         id: doc.id,
-        surveyId: data.surveyId,
-        uid: data.uid,
-        content: data.content,
-      };
+      } as Response;
     });
 
     return responses;
