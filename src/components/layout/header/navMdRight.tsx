@@ -35,6 +35,9 @@ const UserMenu = () => {
         <div className="absolute right-0 top-8 flex flex-col text-center rounded-lg overflow-hidden shadow-md bg-muted caption drop-shadow">
           {user ? (
             <>
+              <Link href="/form" className="px-4 py-2">
+                설문 만들기
+              </Link>
               <Link href="/user" className="px-4 py-2">
                 내 정보
               </Link>

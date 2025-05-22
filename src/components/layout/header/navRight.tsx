@@ -22,10 +22,10 @@ export default function NavRight() {
 
   return (
     <>
-      <div className="space-x-8 justify-self-end">
+      <div className="flex gap-8 justify-self-end items-center">
         {user ? (
           <>
-            <Link className="hidden sm:inline" href="/form">
+            <Link className="hidden lg:inline" href="/form">
               <FormIcon />
             </Link>
             <Link className="hidden lg:inline" href="/user">

@@ -78,7 +78,7 @@ const Form = () => {
           </div>
         </div>
         <Button type="submit" disabled={!isValid} className="text-white w-full bg-green-400 mt-5">
-          가입하기
+          로그인
         </Button>
       </form>
 

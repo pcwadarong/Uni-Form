@@ -1,12 +1,18 @@
+import { getServerUid } from "@/lib/firebase/user/getServerUid";
 import type { User, UserField } from "@/types";
 import { FirebaseError } from "firebase/app";
 import { adminFirestore } from "../firebaseAdminConfig";
 
 export const fetchUserDataServer = async (
-  uid: string,
   field: UserField = "all",
 ): Promise<User | string[] | string | null> => {
   try {
+    const uid = await getServerUid();
+    if (!uid) {
+      console.error('로그인이 필요합니다.');
+      return null;
+    }
+
     const userRef = adminFirestore.collection("users").doc(uid);
     const userSnap = await userRef.get();
 
