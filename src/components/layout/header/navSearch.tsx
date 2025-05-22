@@ -35,7 +35,7 @@ export default function NavSearch() {
         className="absolute top-1/2 right-3 transform -translate-y-1/2 cursor-pointer"
         onClick={handleSearch}
       >
-        <Image src={"/search.svg"} alt="search" width="20" height="20" />
+        <Image src={"/search.svg"} alt="search" width="20" height="20" priority/>
       </button>
     </div>
   );

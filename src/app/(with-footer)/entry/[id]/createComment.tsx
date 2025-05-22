@@ -49,7 +49,9 @@ export default function CreateComments({ id }: { id: string }) {
 
   return (
     <section>
-      <h3 id="create-comments">댓글 작성</h3>
+      <h3 id="create-comments" className="body1">
+        댓글 작성
+      </h3>
       <form
         ref={formRef}
         onSubmit={handleSubmit}

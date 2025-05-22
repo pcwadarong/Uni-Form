@@ -9,10 +9,11 @@ import EntryClient from "./entryClient";
 import { RECRUIT_CATEGORY_LABELS, SURVEY_CATEGORY_LABELS } from "@/constants/category";
 
 import { formatTextWithLineBreaks } from "@/components/ui/formatTextWithLineBreaks";
-import { fetchCommentsServer, fetchForm } from "@/lib/firebase/form/getServer";
+import { fetchCommentsServer, fetchForm, fetchSimilarForms } from "@/lib/firebase/form/getServer";
 import { decrypt } from "@/lib/utils/crypoto";
 import formateDate from "@/lib/utils/formateDate";
 
+import FormCardItem from "@/components/form/formCardItem";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
@@ -36,6 +37,7 @@ export default async function Entry({
     hasNextPage: initialHasNextPage,
     totalCount,
   } = await fetchCommentsServer(item.id, 5);
+  const similarForms = await fetchSimilarForms(itemId, type, item.category);
 
   return (
     <div className="bg-surface dark:bg-muted m-y-auto w-full max-w-[1200px] shadow px-14 md:pt-20 pb-10 space-y-20">
@@ -118,8 +120,16 @@ export default async function Entry({
       )}
 
       <section>
-        <h3>비슷한 설문</h3>
-        <div>비슷한 설문 3개 보여주기</div>
+        <h3 className="body1">비슷한 설문</h3>
+        <ul className="grid sm:grid-cols-3 gap-4 md:gap-8 mt-4">
+          {similarForms?.map((form) => (
+            <FormCardItem
+              key={form.id}
+              item={form}
+              type={type === "surveys" ? "survey" : "recruit"}
+            />
+          ))}
+        </ul>
       </section>
     </div>
   );

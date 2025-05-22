@@ -186,7 +186,7 @@ export const fetchCommentsServer = async (
 
 export const fetchResponses = async (id: string): Promise<Response[] | null> => {
   try {
-    const snapshot = await adminFirestore.collection("responses").where("surveyId", "==", id).get();
+    const snapshot = await adminFirestore.collection("responses").where("formId", "==", id).get();
 
     if (snapshot.empty) return [];
 
@@ -200,6 +200,47 @@ export const fetchResponses = async (id: string): Promise<Response[] | null> => 
     });
 
     return responses;
+  } catch (err) {
+    if (err instanceof FirebaseError) throw new Error(`Firebase loading error: ${err.code}`);
+
+    throw err;
+  }
+};
+
+export const fetchSimilarForms = async (
+  currentId: string,
+  surveyType: "surveys" | "recruits",
+  cat: string,
+): Promise<Form[] | null> => {
+  try {
+    const ref = adminFirestore.collection(surveyType);
+
+    const convertDateFields = (rawData: DocumentData, id: string) =>
+      ({
+        ...rawData,
+        id,
+        startDate: rawData.startDate?.toMillis?.() ?? null,
+        endDate: rawData.endDate?.toMillis?.() ?? null,
+        createdAt: rawData.createdAt?.toMillis?.() ?? null,
+      }) as Form;
+
+    // first filtering: same category
+    const categorySnapshot = await ref.where("category", "==", cat).get();
+    const matchedDocs = categorySnapshot.docs
+      .filter((doc) => doc.id !== currentId)
+      .map((doc) => convertDateFields(doc.data(), doc.id));
+
+    if (matchedDocs.length >= 3) return matchedDocs.slice(0, 3);
+
+    const additionalSnapshot = await ref.orderBy("__name__", "desc").limit(6).get();
+    const additionalDocs = additionalSnapshot.docs
+      .filter((doc) => doc.id !== currentId)
+      .filter((doc) => doc.data().category !== cat)
+      .map((doc) => convertDateFields(doc.data(), doc.id));
+
+    const combined = [...matchedDocs, ...additionalDocs].slice(0, 3);
+
+    return combined;
   } catch (err) {
     if (err instanceof FirebaseError) throw new Error(`Firebase loading error: ${err.code}`);
 

@@ -10,7 +10,8 @@
     "ciphertext",
     "crypoto",
     "pangea",
-    "sonner"
+    "sonner",
+    "toMillis"
   ],
   "flagWords": [""],
   "ignorePaths": [".github/**"],

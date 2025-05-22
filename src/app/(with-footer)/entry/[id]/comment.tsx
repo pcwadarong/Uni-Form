@@ -31,7 +31,7 @@ export default function Comments({
 
   return (
     <section>
-      <h3>{`댓글 목록 (${totalCount})`}</h3>
+      <h3 className="body1">{`댓글 목록 (${totalCount})`}</h3>
 
       {isLoading ? (
         <ul className="mt-4 space-y-3">

@@ -7,7 +7,7 @@ import { Providers } from "../contexts/providers";
 
 const suit = localFont({ src: "../fonts/SUIT.woff2" });
 
-export default function RootLayout(                                                                                                                        {
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -22,6 +22,7 @@ export default function RootLayout(                                             
           </div>
           <Toaster />
           <FloatingControls />
+          <div id="modal-root" />
         </Providers>
       </body>
     </html>

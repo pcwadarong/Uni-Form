@@ -97,7 +97,7 @@ interface Answer {
 
 export interface Response {
   id: string;
-  surveyId: string;
+  formId: string;
   uid: string;
   content: Answer[];
 }
