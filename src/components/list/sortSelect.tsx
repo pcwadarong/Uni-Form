@@ -5,20 +5,33 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useSortHandler } from "@/hooks/useSortHandler";
 
 interface SortSelectProps {
-  onChangeSortType: (value: string) => void;
-  defaultValue: string;
+  defaultValue?: string;
+  variant?: "full" | "mini";
 }
 
-const SortSelect: React.FC<SortSelectProps> = ({ onChangeSortType, defaultValue }) => {
-  const options = [
+const optionSet = {
+  full: [
     { value: "point-asc", label: "리워드 높은 순" },
     { value: "random", label: "랜덤 순" },
     { value: "popular-asc", label: "인기 순" },
     { value: "date-desc", label: "최신 순" },
-    // { value: 'update-asc', label: '끌올 순' }, // 부가 기능으로 업데이트 예정
-  ];
+    // { value: "update-asc", label: "끌올 순" },
+  ],
+  mini: [
+    { value: "date-desc", label: "최신 순" },
+    { value: "random", label: "랜덤 순" },
+  ],
+};
+
+export default function SortSelect({
+  defaultValue = "date-desc",
+  variant = "full",
+}: SortSelectProps) {
+  const onChangeSortType = useSortHandler;
+  const options = optionSet[variant];
 
   return (
     <Select value={defaultValue} onValueChange={onChangeSortType}>
@@ -27,13 +40,11 @@ const SortSelect: React.FC<SortSelectProps> = ({ onChangeSortType, defaultValue 
       </SelectTrigger>
       <SelectContent>
         {options.map((option) => (
-          <SelectItem key={option.value} value={option.value} role="option">
+          <SelectItem key={option.value} value={option.value}>
             {option.label}
           </SelectItem>
         ))}
       </SelectContent>
     </Select>
   );
-};
-
-export default SortSelect;
+}

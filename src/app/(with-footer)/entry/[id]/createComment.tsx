@@ -55,7 +55,14 @@ export default function CreateComments({ id }: { id: string }) {
         aria-labelledby="create-comments"
         className="flex gap-2 mt-4"
       >
-        <Input required name="content" placeholder="댓글을 입력하세요." className="border-2" />
+        <Input
+          required
+          name="content"
+          placeholder={
+            uid === "unknown" ? "로그인하면 댓글을 남길 수 있습니다." : "댓글을 남겨보세요."
+          }
+          className="border-2"
+        />
         <Button type="submit" disabled={isPending} className="text-white bg-green-400 text-nowrap">
           {isPending ? "작성 중..." : "작성하기"}
         </Button>
