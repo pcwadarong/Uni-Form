@@ -1,6 +1,5 @@
 "use client";
 
-import { closeModal } from "@/lib/utils/handleModal";
 import { useRouter } from "next/navigation";
 import type { ReactNode } from "react";
 import { useEffect, useRef } from "react";
@@ -27,12 +26,12 @@ const Modal = ({ children }: { children: ReactNode }) => {
       onClose={() => router.back()}
       onKeyDown={() => {}}
       ref={dialogRef}
-      className="w-full sm:max-w-screen md:max-w-[470px] max-h-full p-7 pt-25px md:p-30px md:pt-35px m-auto flex flex-col gap-3 overflow-auto bg-muted rounded-2xl shadow-2xl backdrop:bg-black/70"
+      className="w-screen sm:w-[470px] max-h-full p-7 pt-25px md:p-30px md:pt-35px m-auto flex flex-col gap-3 overflow-auto bg-muted rounded-2xl shadow-2xl backdrop:bg-black/70"
     >
       <button
         type="button"
-        onClick={closeModal}
-        className="absolute right-10 top-10 text-gray-400 hover:text-green-300 p-4 -m-4"
+        onClick={() => router.back()}
+        className="absolute right-6 top-6 text-gray-400 hover:text-green-300 p-4 -m-4 title2"
         aria-label="모달 닫기"
       >
         &times;

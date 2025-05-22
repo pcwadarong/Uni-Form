@@ -53,7 +53,7 @@ export default async function Entry({
             />
           )}
         </div>
-        <main className="flex flex-col justify-between">
+        <div className="flex flex-col justify-between">
           <div>
             <div className="space-x-2 text-gray-400 subtitle mb-3">
               <span>{type === "surveys" ? "#설문조사" : "#모집공고"}</span>
@@ -71,7 +71,7 @@ export default async function Entry({
             {item.description && <p>{formatTextWithLineBreaks(item.description)}</p>}
           </div>
           <ActionButtons />
-        </main>
+        </div>
 
         <aside className="flex md:flex-col w-full md:w-60 gap-3">
           {item.img && (

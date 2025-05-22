@@ -20,7 +20,7 @@ const LatestComments = async () => {
         <ul className="grid md:grid-cols-2 gap-4 md:gap-8 mb-8">
           {latestComments && latestComments.length > 0
             ? latestComments.map((item) => (
-                <CommentItem key={item.id} id={item.id} title={item.formTitle ?? '제목 없음'} content={item.content} />
+                <CommentItem key={item.id} item={item} />
               ))
             : Array.from({ length: 4 }).map((_, i) => <CommentSkeleton key={i} />)}
         </ul>

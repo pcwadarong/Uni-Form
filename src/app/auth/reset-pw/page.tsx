@@ -33,7 +33,7 @@ const ResetPw: React.FC = () => {
   }, [resetState, router]);
 
   return (
-    <main className="m-auto">
+    <div className="m-auto">
       <h2 className="text-center title2" id="reset-password-heading">
         비밀번호를 잊어버리셨나요?
       </h2>
@@ -61,7 +61,7 @@ const ResetPw: React.FC = () => {
           비밀번호 재설정하기
         </Button>
       </form>
-    </main>
+    </div>
   );
 };
 

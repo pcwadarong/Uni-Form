@@ -94,7 +94,7 @@ function ViewDetailButton({ encryptedId }: { encryptedId: string }) {
     <div className="text-center">
       <LinkButton
         className="bg-green-100 text-green-500"
-        href={`/analyze/${encryptedId}`}
+        href={`/entry/${encryptedId}`}
         target="_blank"
         rel="noopener noreferrer"
       >
