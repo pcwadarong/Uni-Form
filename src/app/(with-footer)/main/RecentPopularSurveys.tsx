@@ -38,12 +38,12 @@ const RecentPopularSurveys = async () => {
         <div className="flex flex-col md:flex-row gap-14 md:gap-8">
           <FormListSection
             title="새로 등록된 설문조사"
-            link="/survey/all?sort=date-desc"
+            link="/survey?cat=all?sort=date-desc"
             sortType="recent"
           />
           <FormListSection
             title="현재 인기가 많은 설문조사"
-            link="/survey/all?sort=popular-asc"
+            link="/survey?cat=all?sort=popular-asc"
             sortType="popular"
           />
         </div>

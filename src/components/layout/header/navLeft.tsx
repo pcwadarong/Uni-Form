@@ -25,7 +25,7 @@ export default function NavLeft({ handleMouseOver, handleMouseLeave }: Props) {
         onMouseLeave={handleMouseLeave}
         onBlur={handleMouseLeave}
       >
-        <Link href="/survey/all">설문조사</Link>
+        <Link href="/survey?cat=all">설문조사</Link>
       </li>
       <li
         className="hidden sm:inline hover:underline underline-offset-8 decoration-green-300"
@@ -34,7 +34,7 @@ export default function NavLeft({ handleMouseOver, handleMouseLeave }: Props) {
         onMouseLeave={handleMouseLeave}
         onBlur={handleMouseLeave}
       >
-        <Link href="/recruit/all">모집공고</Link>
+        <Link href="/recruit?cat=all">모집공고</Link>
       </li>
     </ul>
   );

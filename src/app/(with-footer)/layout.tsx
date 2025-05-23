@@ -10,7 +10,9 @@ export default function RootLayout({
   return (
     <>
       <Suspense fallback={<Loading />}>
-        {children}
+        <div className="w-full flex flex-col items-center min-h-screen -mt-20 pb-36">
+          <div className="h-20"/>
+          {children}</div>
         <Footer />
       </Suspense>
     </>

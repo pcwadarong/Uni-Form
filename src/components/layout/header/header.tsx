@@ -44,7 +44,7 @@ export default function Header() {
       </div>
       {isSubMenuOpen && (
         <ul
-          className="flex flex-grow w-full px-8 pb-6 gap-8 2xl:w-[1400px] 2xl:px-0 text-nowrap overflow-y-auto"
+          className="flex flex-1 w-full px-8 pb-6 gap-8 2xl:w-[1400px] 2xl:px-0 text-nowrap overflow-y-auto"
           onMouseOver={() => handleMouseOver(hoveredCategory)}
           onFocus={() => handleMouseOver(hoveredCategory)}
           onMouseLeave={handleMouseLeave}
@@ -52,7 +52,7 @@ export default function Header() {
         >
           {getCategoryLinks(hoveredCategory).map(([key, value]) => (
             <li key={key} className="hover:text-green-400 subtitle">
-              <Link href={`/${hoveredCategory}${value}`}>{key}</Link>
+              <Link href={`/${hoveredCategory}?cat=${value}`}>{key}</Link>
             </li>
           ))}
         </ul>

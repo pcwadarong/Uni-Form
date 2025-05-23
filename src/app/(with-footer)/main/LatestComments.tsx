@@ -13,7 +13,7 @@ const LatestComments = async () => {
       <div className="w-full 2xl:w-[1400px]">
         <div className="flex justify-between items-end mb-6">
           <h2 className="title2">최신 댓글이 달린 설문조사를 살펴보세요</h2>
-          <Link href="/survey/all" className="caption">
+          <Link href="/survey?cat=all" className="caption">
             모든 설문 보기 →
           </Link>
         </div>

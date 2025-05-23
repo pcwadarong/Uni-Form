@@ -29,7 +29,7 @@ const sns = [
 
 export default function Footer() {
   return (
-    <footer className="flex flex-col justify-center items-center gap-4 pt-14 -mb-14 text-gray-400">
+    <footer className="flex flex-col justify-center items-center gap-4 text-gray-400 -mt-36 pt-10">
       <ul className="flex gap-4 items-center">
         {sns.map((item) => (
           <li key={item.name}>
