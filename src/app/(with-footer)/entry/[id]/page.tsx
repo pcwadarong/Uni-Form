@@ -1,18 +1,21 @@
-import FormCardItem from "@/components/form/formCardItem";
 import Reaction from "@/components/form/reaction";
 import ActionButtons from "@/components/ui/actionButtons";
 import { LinkButton } from "@/components/ui/button";
-import CreateComments from "./createComment";
-import EntryClient from "./entryClient";
+import CreateComments from "./comment/createComment";
+import EntryClient from "./comment/entryClient";
+import SimilarForms from "./similarForms";
 
 import BubbleChat from "@/components/svg/bubble-chat";
 import { formatTextWithLineBreaks } from "@/components/ui/formatTextWithLineBreaks";
 import { RECRUIT_CATEGORY_LABELS, SURVEY_CATEGORY_LABELS } from "@/constants/category";
+import type { Comment, Form } from "@/types/types";
+
+import { getServerUid } from "@/lib/firebase/auth/getServerUid";
 import { fetchCommentsServer } from "@/lib/firebase/comment/getCommentsServer";
 import { fetchForm, fetchSimilarForms } from "@/lib/firebase/form/getFormServer";
+import { handleAnsweredFormIds } from "@/lib/firebase/user/handlers/handleAnsweredFormIds";
 import { decrypt } from "@/lib/utils/crypoto";
 import formateDate from "@/lib/utils/formateDate";
-import type { Comment, Form } from "@/types/types";
 
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -24,19 +27,27 @@ export default async function Entry({
 }: {
   params: Promise<{ id: string }>;
 }) {
+  // 주소창 해석해서 formId 알아내기
   const { id: encryptedId } = await params;
   const itemId = await decrypt(encryptedId, process.env.CRYPT_SECRET || "");
   if (!itemId) return notFound();
-  const type = itemId.startsWith("survey") ? "surveys" : "recruits";
 
+  // 해당하는 doc에서 데이터 가져오기
+  const type = itemId.startsWith("survey") ? "surveys" : "recruits";
   const item = await fetchForm(type, itemId);
+
+  // 초기 댓글 5개 + 1개 매칭하여 가져오기
   const {
     comments: initialComments,
     lastDocId,
     hasNextPage: initialHasNextPage,
     totalCount,
   } = await fetchCommentsServer(item.id, 5);
-  const similarForms = (await fetchSimilarForms(itemId, type, item.category)) ?? [];
+
+  // 현재 로그인한 사용자가 대답한 설문인지 확인하기
+  const currentUid = await getServerUid();
+  const answeredFormIds = currentUid ? await handleAnsweredFormIds(currentUid) : [];
+  const hasAnswered = answeredFormIds.includes(item.id);
 
   return (
     <div className="m-y-auto w-full max-w-[1200px] px-14 pb-10 space-y-20 shadow bg-surface dark:bg-muted">
@@ -48,7 +59,7 @@ export default async function Entry({
           <ActionButtons />
         </main>
 
-        <EntryAside item={item} encryptedId={encryptedId} />
+        <EntryAside item={item} encryptedId={encryptedId} hasAnswered={hasAnswered} />
       </section>
 
       <EntryCommentSection
@@ -59,7 +70,7 @@ export default async function Entry({
         totalCount={totalCount}
       />
 
-      <SimilarFormsSection similarForms={similarForms} type={type} />
+      <SimilarForms itemId={itemId} category={item.category} />
     </div>
   );
 }
@@ -85,7 +96,15 @@ function EntryHeader({ item, type }: { item: Form; type: string }) {
   );
 }
 
-function EntryAside({ item, encryptedId }: { item: Form; encryptedId: string }) {
+function EntryAside({
+  item,
+  encryptedId,
+  hasAnswered,
+}: {
+  item: Form;
+  encryptedId: string;
+  hasAnswered: boolean;
+}) {
   return (
     <aside className="flex w-full gap-3 md:w-60 md:flex-col">
       {item.img && (
@@ -102,11 +121,19 @@ function EntryAside({ item, encryptedId }: { item: Form; encryptedId: string }) 
           결과보기
         </LinkButton>
       )}
-      {item.endDate - Date.now() > 0 && (
-        <LinkButton className="w-full bg-green-400 text-white" href={`/response/${encryptedId}`}>
-          참여하기
-        </LinkButton>
-      )}
+      {item.endDate - Date.now() > 0 &&
+        (hasAnswered ? (
+          <LinkButton
+            className="w-full bg-blue-400 text-white"
+            href={`/edit-response/${encryptedId}`}
+          >
+            수정하기
+          </LinkButton>
+        ) : (
+          <LinkButton className="w-full bg-green-400 text-white" href={`/response/${encryptedId}`}>
+            참여하기
+          </LinkButton>
+        ))}
     </aside>
   );
 }
@@ -142,23 +169,6 @@ function EntryCommentSection({
         </section>
       )}
     </>
-  );
-}
-
-function SimilarFormsSection({ similarForms, type }: { similarForms: Form[]; type: string }) {
-  return (
-    <section>
-      <h3 className="body1">비슷한 설문</h3>
-      <ul className="mt-4 grid gap-4 sm:grid-cols-3 md:gap-8">
-        {similarForms?.map((form: Form) => (
-          <FormCardItem
-            key={form.id}
-            item={form}
-            type={type === "surveys" ? "survey" : "recruit"}
-          />
-        ))}
-      </ul>
-    </section>
   );
 }
 
