@@ -19,9 +19,9 @@ export default function RootLayout({
       <body className={`${suit.className} relative body2 bg-muted dark:bg-surface text-content`}>
         <Providers>
           <Header />
-          <main className="flex h-auto min-h-screen flex-col items-center pt-20 pb-28">
+          <div className="flex h-auto min-h-screen flex-col items-center pt-20 pb-28">
             {children}
-          </main>
+          </div>
           <Toaster />
           <FloatingControls />
           {modal}
