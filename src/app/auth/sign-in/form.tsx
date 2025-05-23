@@ -12,6 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 const Form = () => {
   const router = useRouter();
@@ -28,9 +29,13 @@ const Form = () => {
 
   const onSubmit = async (data: SignInInput) => {
     const { email, password } = data;
-    const success = await handleLogin("email", email, password);
-    if (success) router.push("/");
-    else console.error("Sign in failed");
+    const { status, error } = await handleLogin("email", email, password);
+
+    if (!status) toast(error ?? "로그인에 실패했습니다.");
+    else {
+      reset();
+      router.push("/");
+    }
   };
 
   const handleGoogleLogin = async () => {

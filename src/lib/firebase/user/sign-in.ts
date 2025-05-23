@@ -7,22 +7,28 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
+import { getFirebaseErrorMessage } from "../errorMessages";
 
-const emailSignIn = async (email: string, password: string) => {
+const emailSignIn = async (
+  email: string,
+  password: string,
+): Promise<{ status: boolean; credential?: UserCredential; error?: string }> => {
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    return userCredential;
+    return { status: true, credential: userCredential };
   } catch (error) {
     if (error instanceof FirebaseError) {
-      console.error("Error logging in:", error.code, error.message);
-    } else {
-      console.error("Unknown error logging in:", error);
+      return { status: false, error: getFirebaseErrorMessage(error.code) };
     }
-    return null;
+    return { status: false, error: "알 수 없는 오류가 발생했습니다." };
   }
 };
 
-const googleSignIn = async () => {
+const googleSignIn = async (): Promise<{
+  status: boolean;
+  credential?: UserCredential;
+  error?: string;
+}> => {
   try {
     const provider = new GoogleAuthProvider();
     const userCredential = await signInWithPopup(auth, provider);
@@ -37,24 +43,25 @@ const googleSignIn = async () => {
     await setDoc(
       doc(firestore, "users", user.uid),
       {
-        email: user.email,
-        nickname: nickname,
-        role: "user",
+        nickname,
         createdSurveys: [],
         responses: [],
         comments: [],
+        drafts: [],
+        school: { university: "", major: "", grade: "" },
+        gender: "",
+        age: null,
+        region: "",
       },
       { merge: true },
     );
 
-    return userCredential;
+    return { status: true, credential: userCredential };
   } catch (error) {
     if (error instanceof FirebaseError) {
-      console.error("Error logging in with Google:", error.code, error.message);
-    } else {
-      console.error("Unknown error logging in with Google:", error);
+      return { status: false, error: getFirebaseErrorMessage(error.code) };
     }
-    return null;
+    return { status: false, error: "구글 로그인 중 오류가 발생했습니다." };
   }
 };
 
@@ -62,41 +69,37 @@ export const handleLogin = async (
   method: "email" | "google",
   email?: string,
   password?: string,
-) => {
-  let userCredential: UserCredential | null = null;
+): Promise<{ status: boolean; error?: string }> => {
+  let result: { status: boolean; credential?: UserCredential; error?: string };
 
   switch (method) {
     case "email":
       if (email && password) {
-        userCredential = await emailSignIn(email, password);
+        result = await emailSignIn(email, password);
       } else {
-        console.error("Email and password are required for email login");
-        return false;
+        return { status: false, error: "이메일과 비밀번호가 필요합니다." };
       }
       break;
 
     case "google":
-      userCredential = await googleSignIn();
+      result = await googleSignIn();
       break;
 
     default:
-      console.error("Unknown login method:", method);
-      return false;
+      return { status: false, error: "알 수 없는 로그인 방식입니다." };
   }
 
-  if (!userCredential) return false;
+  if (!result.status || !result.credential) return { status: false, error: result.error };
 
-  const token = await userCredential.user.getIdToken();
   try {
+    const token = await result.credential.user.getIdToken();
     await fetch("/api/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ token }),
     });
+    return { status: true };
   } catch (err) {
-    console.error("Failed to send token to server:", err);
-    return false;
+    return { status: false, error: "세션 설정에 실패했습니다." };
   }
-
-  return true;
 };

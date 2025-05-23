@@ -10,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { startTransition, useActionState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 export default function Form() {
   const router = useRouter();
@@ -40,13 +41,11 @@ export default function Form() {
   };
 
   useEffect(() => {
-    if (result) {
-      if (!result.status) {
-        console.error(result.error);
-      } else {
-        router.push("/auth/sign-in");
-        reset();
-      }
+    if (result.status === null) return;
+    if (!result.status) toast(result.error ?? "회원가입에 실패했습니다.");
+    else {
+      router.push("/auth/sign-in");
+      reset();
     }
   }, [result, router, reset]);
 

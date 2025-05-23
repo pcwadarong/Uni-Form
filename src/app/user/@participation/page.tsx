@@ -1,11 +1,9 @@
-import { fetchUserDataServer } from "@/lib/firebase/user/getServer";
-import { getServerUid } from "@/lib/firebase/user/getServerUid";
-import type { User } from "@/types";
-import { notFound } from "next/navigation";
+import { type UserParticipationFields, fetchUserDataServer } from "@/lib/firebase/user/getServer";
 
 export default async function Page() {
-  const uid = await getServerUid();
-  if (!uid) return notFound();
-  const data = (await fetchUserDataServer("all")) as User;
+  const { bookmarks, responses } = (await fetchUserDataServer({
+    field: "participation",
+  })) as UserParticipationFields;
+
   return <div>북마크, 답변한 설문</div>;
 }

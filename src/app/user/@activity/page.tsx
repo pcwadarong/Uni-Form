@@ -1,11 +1,8 @@
-import { fetchUserDataServer } from "@/lib/firebase/user/getServer";
-import { getServerUid } from "@/lib/firebase/user/getServerUid";
-import type { User } from "@/types";
-import { notFound } from "next/navigation";
+import { type UserActivityFields, fetchUserDataServer } from "@/lib/firebase/user/getServer";
 
 export default async function Page() {
-  const uid = await getServerUid();
-  if (!uid) return notFound();
-  const data = (await fetchUserDataServer("all")) as User;
+  const { comments, createdForms, drafts } = (await fetchUserDataServer({
+    field: "activity",
+  })) as UserActivityFields;
   return <div>내 활동 보기</div>;
 }

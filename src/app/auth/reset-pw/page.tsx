@@ -8,6 +8,7 @@ import type { ActionState } from "@/types";
 import { useRouter } from "next/navigation";
 import { useActionState } from "react";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 const ResetPw: React.FC = () => {
   const router = useRouter();
@@ -19,17 +20,15 @@ const ResetPw: React.FC = () => {
   );
 
   useEffect(() => {
-    if (!resetState) return;
-
+    if (resetState.status === null) return;
     if (!resetState.status) {
-      console.error(resetState.error);
+      toast(resetState.error ?? "비밀번호 재설정에 실패했습니다.");
       return;
     }
-
     if (confirm("메일이 발송되었습니다. 로그인 화면으로 돌아가시겠습니까?")) {
+      setEmail("");
       router.push("/sign");
     }
-    setEmail("");
   }, [resetState, router]);
 
   return (

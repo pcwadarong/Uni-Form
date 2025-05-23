@@ -1,15 +1,22 @@
 export interface User {
   uid: string;
-  nickname: string;
-  email: string;
-  role: string;
-  createdSurveys: string[];
+  nickname?: string;
+
+  createdForms: string[];
   responses: string[];
+  bookmarks: string[];
   comments: string[];
   drafts: string[];
-}
 
-export type UserField = "all" | "nickname" | "email" | "responses" | "comments" | "draft";
+  school?: {
+    university: string;
+    major: string;
+    grade: string;
+  };
+  gender?: string;
+  age?: number;
+  region?: string;
+}
 
 export interface Form {
   id: string;

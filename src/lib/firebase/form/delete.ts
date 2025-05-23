@@ -1,5 +1,4 @@
 import { firestore } from "@/lib/firebase/firebaseConfig";
-import { auth } from "firebase-admin";
 import { deleteDoc, doc, getDoc } from "firebase/firestore";
 
 export async function deleteComment(commentId: string, currentUid: string) {

@@ -1,3 +1,4 @@
+import { getFirebaseErrorMessage } from "@/lib/firebase/errorMessages";
 import { FirebaseError } from "firebase/app";
 import { createUserWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { adminFirestore } from "../firebaseAdminConfig";
@@ -8,14 +9,24 @@ export const signUp = async (email: string, password: string, nickname: string) 
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
-    await adminFirestore.collection("users").doc(user.uid).set({
-      nickname,
-      email,
-      role: "user",
-      createdSurveys: [],
-      responses: [],
-      comments: [],
-    });
+    await adminFirestore
+      .collection("users")
+      .doc(user.uid)
+      .set({
+        nickname,
+        createdSurveys: [],
+        responses: [],
+        comments: [],
+        drafts: [],
+        school: {
+          university: "",
+          major: "",
+          grade: "",
+        },
+        gender: "",
+        age: null,
+        region: "",
+      });
 
     return {
       status: true,
@@ -23,7 +34,7 @@ export const signUp = async (email: string, password: string, nickname: string) 
     };
   } catch (err) {
     if (err instanceof FirebaseError) {
-      return { status: false, error: `서버 회원가입 오류: ${err.code}` };
+      return { status: false, error: getFirebaseErrorMessage(err.code) };
     }
     return {
       status: false,
@@ -38,10 +49,7 @@ export const resetPasswordWithFirebase = async (email: string) => {
     return { status: true, error: "" };
   } catch (err) {
     if (err instanceof FirebaseError) {
-      return {
-        status: false,
-        error: `서버 비밀번호 재설정 오류: ${err.code}`,
-      };
+      return { status: false, error: getFirebaseErrorMessage(err.code) };
     }
     return {
       status: false,

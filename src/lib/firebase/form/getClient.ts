@@ -13,7 +13,7 @@ import {
   startAfter,
   where,
 } from "firebase/firestore";
-import { fetchUserDataClient } from "../user/getClient";
+import { fetchUserNicknameClient } from "../user/getClient";
 
 export const getCommentSnapshotById = async (
   id: string,
@@ -58,7 +58,7 @@ export const fetchCommentsClient = async (
     const commentsWithNicknames: Comment[] = await Promise.all(
       sliced.map(async (doc) => {
         const data = doc.data();
-        const nickname = await fetchUserDataClient(data.uid, "nickname");
+        const nickname = await fetchUserNicknameClient(data.uid);
 
         return {
           id: doc.id,

@@ -2,7 +2,7 @@ import { adminFirestore } from "@/lib/firebase/firebaseAdminConfig";
 import type { Comment, Detail, Form, Response } from "@/types";
 import { FirebaseError } from "firebase/app";
 import type { DocumentData } from "firebase/firestore";
-import { fetchUserDataServer } from "../user/getServer";
+import { fetchCommentUserNickname } from "../user/getServer";
 
 export const fetchForm = async (
   surveyType: "surveys" | "recruits",
@@ -150,7 +150,7 @@ export const fetchCommentsServer = async (
     const commentsWithNicknames = await Promise.all(
       sliced.map(async (doc) => {
         const data = doc.data();
-        const nickname = await fetchUserDataServer(data.uid, "nickname");
+        const nickname = await fetchCommentUserNickname(data.uid);
 
         return {
           id: doc.id,

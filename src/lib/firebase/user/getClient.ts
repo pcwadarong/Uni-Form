@@ -1,12 +1,8 @@
-import type { User, UserField } from "@/types";
 import { FirebaseError } from "firebase/app";
 import { doc, getDoc } from "firebase/firestore";
 import { firestore } from "../firebaseConfig";
 
-export const fetchUserDataClient = async (
-  uid: string,
-  fields: UserField = "all",
-): Promise<User | string[] | string | null> => {
+export const fetchUserNicknameClient = async (uid: string): Promise<string | null> => {
   try {
     const userDoc = doc(firestore, "users", uid);
     const userSnapshot = await getDoc(userDoc);
@@ -17,25 +13,12 @@ export const fetchUserDataClient = async (
     }
 
     const userData = userSnapshot.data();
-
-    switch (fields) {
-      case "nickname":
-        return userData.nickname;
-
-      case "email":
-        return userData.email;
-
-      case "responses":
-        return userData.responses;
-
-      default:
-        return userData as User;
-    }
+    return typeof userData.nickname === "string" ? userData.nickname : null;
   } catch (err) {
     if (err instanceof FirebaseError) {
-      console.error(`Firebase error while fetching user: ${err.code}`);
+      console.error(`Firebase error while fetching nickname: ${err.code}`);
     } else {
-      console.error("Error getting user data:", err);
+      console.error("Error getting user nickname:", err);
     }
     return null;
   }

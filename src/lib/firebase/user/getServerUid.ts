@@ -1,5 +1,5 @@
-import { cookies } from "next/headers";
 import { adminAuth } from "@/lib/firebase/firebaseAdminConfig";
+import { cookies } from "next/headers";
 
 export async function getServerUid(): Promise<string | null> {
   const cookieStore = await cookies();

@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  images: { domains: ["firebase.google.com"] },
+  images: { domains: ["firebase.google.com", "lh3.googleusercontent.com"] },
   experimental: {
     serverActions: {
       bodySizeLimit: "10mb",
