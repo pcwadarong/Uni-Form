@@ -1,19 +1,18 @@
-import BubbleChat from "@/components/svg/bubble-chat";
-
+import FormCardItem from "@/components/form/formCardItem";
 import Reaction from "@/components/form/reaction";
 import ActionButtons from "@/components/ui/actionButtons";
 import { LinkButton } from "@/components/ui/button";
 import CreateComments from "./createComment";
 import EntryClient from "./entryClient";
 
-import { RECRUIT_CATEGORY_LABELS, SURVEY_CATEGORY_LABELS } from "@/constants/category";
-
+import BubbleChat from "@/components/svg/bubble-chat";
 import { formatTextWithLineBreaks } from "@/components/ui/formatTextWithLineBreaks";
+import { RECRUIT_CATEGORY_LABELS, SURVEY_CATEGORY_LABELS } from "@/constants/category";
 import { fetchCommentsServer, fetchForm, fetchSimilarForms } from "@/lib/firebase/form/getServer";
 import { decrypt } from "@/lib/utils/crypoto";
 import formateDate from "@/lib/utils/formateDate";
+import type { Comment, Form } from "@/types";
 
-import FormCardItem from "@/components/form/formCardItem";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
@@ -28,7 +27,6 @@ export default async function Entry({
   const itemId = await decrypt(encryptedId, process.env.CRYPT_SECRET || "");
   if (!itemId) return notFound();
   const type = itemId.startsWith("survey") ? "surveys" : "recruits";
-  const CATEGORY_LABELS = type === "surveys" ? SURVEY_CATEGORY_LABELS : RECRUIT_CATEGORY_LABELS;
 
   const item = await fetchForm(type, itemId);
   const {
@@ -37,72 +35,96 @@ export default async function Entry({
     hasNextPage: initialHasNextPage,
     totalCount,
   } = await fetchCommentsServer(item.id, 5);
-  const similarForms = await fetchSimilarForms(itemId, type, item.category);
+  const similarForms = (await fetchSimilarForms(itemId, type, item.category)) ?? [];
 
   return (
-    <div className="bg-surface dark:bg-muted m-y-auto w-full max-w-[1200px] shadow px-14 md:pt-20 pb-10 space-y-20">
-      <section className="flex flex-col md:flex-row gap-10">
-        <div className="md:hidden w-screen relative left-1/2 -translate-x-1/2 shadow overflow-hidden">
-          {item.img && (
-            <Image
-              src={item.img}
-              width={240}
-              height={150}
-              alt={"form 이미지"}
-              className="w-full max-h-[370px] object-cover"
-            />
-          )}
-        </div>
+    <div className="m-y-auto w-full max-w-[1200px] px-14 pb-10 space-y-20 shadow bg-surface dark:bg-muted">
+      <section className="flex flex-col gap-10 md:flex-row">
+        <MobileImage img={item.img ?? ""} />
+
         <main className="flex flex-col justify-between">
-          <div>
-            <div className="space-x-2 text-gray-400 subtitle mb-3">
-              <span>{type === "surveys" ? "#설문조사" : "#모집공고"}</span>
-              <span>{`#${CATEGORY_LABELS[item.category]}`}</span>
-            </div>
-
-            <h2 className="title3 md:text-xl line-clamp-2">{item.title}</h2>
-            <hr className="w-full max-w-120 border border-green-300 mt-2 mb-3" />
-
-            <div className="flex gap-3 mb-4">
-              <span className="caption text-gray-4 truncate">{`${formateDate(item.startDate, true)} ~ ${formateDate(item.endDate, true)}`}</span>
-              <Reaction responsesCount={item.responsesCount} commentsCount={item.commentsCount} />
-            </div>
-
-            {item.description && <p>{formatTextWithLineBreaks(item.description)}</p>}
-          </div>
+          <EntryHeader item={item} type={type} />
           <ActionButtons />
         </main>
 
-        <aside className="flex md:flex-col w-full md:w-60 gap-3">
-          {item.img && (
-            <Image
-              src={item.img}
-              width={240}
-              height={150}
-              alt={"form 이미지"}
-              className="hidden md:flex border border-gray-300 rounded-md"
-            />
-          )}
-          {item.isPublic && (
-            <LinkButton
-              className={"bg-green-100 text-green-500 w-full"}
-              href={`/analyze/${encryptedId}`}
-            >
-              결과보기
-            </LinkButton>
-          )}
-          {item.endDate - Date.now() && (
-            <LinkButton
-              className={"bg-green-400 text-white w-full"}
-              href={`/response/${encryptedId}`}
-            >
-              참여하기
-            </LinkButton>
-          )}
-          {/* {item.isEditable && <Button text={'수정하기'} className={'bg-green-300 text-white'} />} */}
-        </aside>
+        <EntryAside item={item} encryptedId={encryptedId} />
       </section>
 
+      <EntryCommentSection
+        item={item}
+        initialComments={initialComments}
+        lastDocId={lastDocId}
+        initialHasNextPage={initialHasNextPage}
+        totalCount={totalCount}
+      />
+
+      <SimilarFormsSection similarForms={similarForms} type={type} />
+    </div>
+  );
+}
+
+function EntryHeader({ item, type }: { item: Form; type: string }) {
+  const CATEGORY_LABELS = type === "surveys" ? SURVEY_CATEGORY_LABELS : RECRUIT_CATEGORY_LABELS;
+  return (
+    <div>
+      <div className="mb-3 space-x-2 text-gray-400 subtitle">
+        <span>{type === "surveys" ? "#설문조사" : "#모집공고"}</span>
+        <span>{`#${CATEGORY_LABELS[item.category]}`}</span>
+      </div>
+      <h2 className="title3 line-clamp-2 md:text-xl">{item.title}</h2>
+      <hr className="mt-2 mb-3 w-full max-w-120 border border-green-300" />
+      <div className="mb-4 flex gap-3">
+        <span className="caption truncate text-gray-4">
+          {`${formateDate(item.startDate, true)} ~ ${formateDate(item.endDate, true)}`}
+        </span>
+        <Reaction responsesCount={item.responsesCount} commentsCount={item.commentsCount} />
+      </div>
+      {item.description && <p>{formatTextWithLineBreaks(item.description)}</p>}
+    </div>
+  );
+}
+
+function EntryAside({ item, encryptedId }: { item: Form; encryptedId: string }) {
+  return (
+    <aside className="flex w-full gap-3 md:w-60 md:flex-col">
+      {item.img && (
+        <Image
+          src={item.img}
+          width={240}
+          height={150}
+          alt="form 이미지"
+          className="hidden rounded-md border border-gray-300 md:flex"
+        />
+      )}
+      {item.isPublic && (
+        <LinkButton className="w-full bg-green-100 text-green-500" href={`/analyze/${encryptedId}`}>
+          결과보기
+        </LinkButton>
+      )}
+      {item.endDate - Date.now() > 0 && (
+        <LinkButton className="w-full bg-green-400 text-white" href={`/response/${encryptedId}`}>
+          참여하기
+        </LinkButton>
+      )}
+    </aside>
+  );
+}
+
+function EntryCommentSection({
+  item,
+  initialComments,
+  lastDocId,
+  initialHasNextPage,
+  totalCount,
+}: {
+  item: Form;
+  initialComments: Comment[];
+  lastDocId: string | null;
+  initialHasNextPage: boolean;
+  totalCount: number;
+}) {
+  return (
+    <>
       <CreateComments id={item.id} />
       {initialComments && initialComments.length > 0 ? (
         <EntryClient
@@ -113,24 +135,43 @@ export default async function Entry({
           totalCount={totalCount}
         />
       ) : (
-        <section className="min-h-52 border font-bold rounded-2xl opacity-20 flex flex-col justify-center items-center gap-4">
+        <section className="flex min-h-52 flex-col items-center justify-center gap-4 rounded-2xl border font-bold opacity-20">
           <BubbleChat />
           <p>아직 댓글이 없어요. 첫 댓글을 남겨보세요!</p>
         </section>
       )}
+    </>
+  );
+}
 
-      <section>
-        <h3 className="body1">비슷한 설문</h3>
-        <ul className="grid sm:grid-cols-3 gap-4 md:gap-8 mt-4">
-          {similarForms?.map((form) => (
-            <FormCardItem
-              key={form.id}
-              item={form}
-              type={type === "surveys" ? "survey" : "recruit"}
-            />
-          ))}
-        </ul>
-      </section>
+function SimilarFormsSection({ similarForms, type }: { similarForms: Form[]; type: string }) {
+  return (
+    <section>
+      <h3 className="body1">비슷한 설문</h3>
+      <ul className="mt-4 grid gap-4 sm:grid-cols-3 md:gap-8">
+        {similarForms?.map((form: Form) => (
+          <FormCardItem
+            key={form.id}
+            item={form}
+            type={type === "surveys" ? "survey" : "recruit"}
+          />
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+function MobileImage({ img }: { img: string }) {
+  if (!img) return null;
+  return (
+    <div className="relative left-1/2 w-screen -translate-x-1/2 overflow-hidden shadow md:hidden">
+      <Image
+        src={img}
+        width={240}
+        height={150}
+        alt="form 이미지"
+        className="max-h-[370px] w-full object-cover"
+      />
     </div>
   );
 }

@@ -18,6 +18,7 @@ const Modal = ({ children }: { children: ReactNode }) => {
 
   return createPortal(
     <dialog
+      ref={dialogRef}
       onClick={(e: React.MouseEvent<HTMLDialogElement>) => {
         if (e.target === e.currentTarget) {
           router.back();
@@ -25,13 +26,13 @@ const Modal = ({ children }: { children: ReactNode }) => {
       }}
       onClose={() => router.back()}
       onKeyDown={() => {}}
-      ref={dialogRef}
-      className="w-screen sm:w-[470px] max-h-full p-7 pt-25px md:p-30px md:pt-35px m-auto flex flex-col gap-3 overflow-auto bg-muted rounded-2xl shadow-2xl backdrop:bg-black/70"
+      className="m-auto flex max-h-full w-screen flex-col gap-3 overflow-auto rounded-2xl bg-muted p-7 pt-[25px] shadow-2xl backdrop:bg-black/70 sm:w-[470px] md:p-[30px] md:pt-[35px]"
+      aria-modal="true"
     >
       <button
         type="button"
         onClick={() => router.back()}
-        className="absolute right-6 top-6 text-gray-400 hover:text-green-300 p-4 -m-4 title2"
+        className="title2 absolute right-6 top-6 -m-4 p-4 text-gray-400 hover:text-green-300"
         aria-label="모달 닫기"
       >
         &times;

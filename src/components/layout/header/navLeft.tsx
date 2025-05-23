@@ -10,7 +10,7 @@ interface Props {
 
 export default function NavLeft({ handleMouseOver, handleMouseLeave }: Props) {
   return (
-    <ul className="flex gap-6 md:gap-8 items-center">
+    <ul className="flex items-center gap-6 md:gap-8">
       <li>
         <h1>
           <Link href="/">
@@ -19,7 +19,7 @@ export default function NavLeft({ handleMouseOver, handleMouseLeave }: Props) {
         </h1>
       </li>
       <li
-        className="hidden sm:inline hover:underline underline-offset-8 decoration-green-300"
+        className="hidden sm:inline decoration-green-300 underline-offset-8 hover:underline"
         onMouseOver={() => handleMouseOver("survey")}
         onFocus={() => handleMouseOver("survey")}
         onMouseLeave={handleMouseLeave}
@@ -28,7 +28,7 @@ export default function NavLeft({ handleMouseOver, handleMouseLeave }: Props) {
         <Link href="/survey?cat=all">설문조사</Link>
       </li>
       <li
-        className="hidden sm:inline hover:underline underline-offset-8 decoration-green-300"
+        className="hidden sm:inline decoration-green-300 underline-offset-8 hover:underline"
         onMouseOver={() => handleMouseOver("recruit")}
         onFocus={() => handleMouseOver("recruit")}
         onMouseLeave={handleMouseLeave}

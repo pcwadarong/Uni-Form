@@ -6,7 +6,7 @@ type ToggleBtnProps = {
 
 const ToggleBtn = ({ text, checked = false, onChange }: ToggleBtnProps) => {
   return (
-    <div className="flex gap-2 items-center h-6">
+    <div className="flex h-6 items-center gap-2">
       <span>{text}</span>
       <button
         type="button"
@@ -14,13 +14,13 @@ const ToggleBtn = ({ text, checked = false, onChange }: ToggleBtnProps) => {
         role="switch"
         aria-checked={checked}
         aria-label={text}
-        className={`w-[38px] rounded-full h-full overflow-hidden relative transition-colors duration-200 ${
+        className={`relative h-full w-[38px] overflow-hidden rounded-full transition-colors duration-200 ${
           checked ? "bg-green-300" : "bg-gray-300"
         }`}
       >
         <div
-          className={`w-4 bg-surface h-4 rounded-full absolute top-1 transition-transform duration-200 ${
-            checked ? "translate-x-4.5" : "translate-x-1"
+          className={`absolute top-1 h-4 w-4 rounded-full bg-surface transition-transform duration-200 ${
+            checked ? "translate-x-[18px]" : "translate-x-1"
           }`}
         />
       </button>

@@ -21,7 +21,7 @@ export default function ErrorFallback({ error, reset }: { error: Error; reset: (
   return (
     <div className="m-auto text-center">
       <h3>오류가 발생했습니다.</h3>
-      <Button onClick={onClickButton} className="mt-2 bg-green-300 w-fit text-sm">
+      <Button onClick={onClickButton} className="mt-2 w-fit text-sm bg-green-300">
         다시 시도하기
       </Button>
     </div>

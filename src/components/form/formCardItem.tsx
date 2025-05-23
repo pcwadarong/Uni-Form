@@ -25,12 +25,13 @@ export default function FormCardItem({ item, type }: FormCardItemProps) {
         type="button"
         onClick={() => navigate(item.id)}
         onKeyDown={handleKeyDown(item.id)}
-        className="drop-shadow-md flex flex-col flex-1 justify-between overflow-hidden rounded-3xl h-[360px] cursor-pointer text-left w-full"
+        className="flex h-[360px] w-full flex-1 flex-col justify-between overflow-hidden rounded-3xl text-left drop-shadow-md cursor-pointer"
+        aria-label={`${item.title} 상세보기`}
       >
-        <div className={`h-36 w-full bg-${backgroundClass} overflow-hidden`}>
+        <div className={`h-36 w-full overflow-hidden bg-${backgroundClass}`}>
           {item.img && (
             <Image
-              className="w-full h-full object-cover"
+              className="h-full w-full object-cover"
               src={item.img}
               alt={`${type === "survey" ? "설문" : "모집"} 이미지`}
               width={100}
@@ -38,12 +39,12 @@ export default function FormCardItem({ item, type }: FormCardItemProps) {
             />
           )}
         </div>
-        <div className="px-6 py-6 flex flex-col justify-between bg-surface dark:bg-muted flex-1 w-full">
+        <div className="flex w-full flex-1 flex-col justify-between px-6 py-6 bg-surface dark:bg-muted">
           <div>
             <Special endDate={item.endDate} point={item.point} showPoint={showPoint} />
             <h3 className="body1 md:text-xl mt-3 mb-2 line-clamp-2">{item.title}</h3>
           </div>
-          <p className="caption text-gray-4 truncate">
+          <p className="caption truncate text-gray-4">
             {`${formateDate(item.startDate, true)} ~ ${formateDate(item.endDate, true)}`}
           </p>
           {showPoint && (

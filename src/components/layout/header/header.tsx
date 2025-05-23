@@ -20,8 +20,8 @@ export default function Header() {
 
   if (pathName.includes("preview")) {
     return (
-      <nav className="w-screen flex flex-col items-center z-10 fixed backdrop-blur-sm bg-surface drop-shadow text-nowrap">
-        <div className="flex h-20 w-full px-8 2xl:w-[1400px] 2xl:px-0 items-center justify-between">
+      <nav className="fixed z-10 flex w-screen flex-col items-center bg-surface backdrop-blur-sm drop-shadow text-nowrap">
+        <div className="flex h-20 w-full items-center justify-between px-8 2xl:w-[1400px] 2xl:px-0">
           <h1>
             <Link href="/">
               <BrandLogo width={48} />
@@ -36,22 +36,22 @@ export default function Header() {
   }
 
   return (
-    <nav className="w-screen flex flex-col items-center z-10 fixed backdrop-blur-sm bg-surface dark:bg-muted drop-shadow text-nowrap">
-      <div className="flex md:grid md:grid-cols-3 h-20 w-full px-8 2xl:w-[1400px] 2xl:px-0 items-center justify-between gap-2 md:gap-8">
+    <nav className="fixed z-10 flex w-screen flex-col items-center bg-surface backdrop-blur-sm drop-shadow text-nowrap dark:bg-muted">
+      <div className="flex h-20 w-full items-center justify-between gap-2 px-8 md:grid md:grid-cols-3 md:gap-8 2xl:w-[1400px] 2xl:px-0">
         <NavLeft handleMouseOver={handleMouseOver} handleMouseLeave={handleMouseLeave} />
         <NavSearch />
         <NavRight />
       </div>
       {isSubMenuOpen && (
         <ul
-          className="flex flex-1 w-full px-8 pb-6 gap-8 2xl:w-[1400px] 2xl:px-0 text-nowrap overflow-y-auto"
+          className="flex w-full flex-1 gap-8 overflow-y-auto px-8 pb-6 text-nowrap 2xl:w-[1400px] 2xl:px-0"
           onMouseOver={() => handleMouseOver(hoveredCategory)}
           onFocus={() => handleMouseOver(hoveredCategory)}
           onMouseLeave={handleMouseLeave}
           onBlur={handleMouseLeave}
         >
           {getCategoryLinks(hoveredCategory).map(([key, value]) => (
-            <li key={key} className="hover:text-green-400 subtitle">
+            <li key={key} className="subtitle hover:text-green-400">
               <Link href={`/${hoveredCategory}?cat=${value}`}>{key}</Link>
             </li>
           ))}

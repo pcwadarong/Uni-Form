@@ -37,22 +37,22 @@ export default async function EntryIntercept({ params }: { params: Promise<{ id:
 function FormContent({ item }: { item: Form }) {
   return (
     <section className="space-y-3">
-      <div className="md:hidden w-screen relative left-1/2 -translate-x-1/2 shadow overflow-hidden">
+      <div className="relative left-1/2 w-screen -translate-x-1/2 overflow-hidden shadow md:hidden">
         {item.img && (
           <Image
             src={item.img}
             width={240}
             height={150}
             alt="form 이미지"
-            className="w-full max-h-[370px] object-cover"
+            className="max-h-[370px] w-full object-cover"
           />
         )}
       </div>
-      <h2 className="title3 md:text-xl line-clamp-2">{item.title}</h2>
+      <h2 className="line-clamp-2 title3 md:text-xl">{item.title}</h2>
       <hr className="w-full border border-green-300" />
       {item.description && <p>{formatTextWithLineBreaks(item.description)}</p>}
       <div className="flex justify-between">
-        <span className="caption text-gray-4 truncate">
+        <span className="caption truncate text-gray-4">
           {`${formatDate(item.startDate, true)} ~ ${formatDate(item.endDate, true)}`}
         </span>
         <Reaction responsesCount={item.responsesCount} commentsCount={item.commentsCount} />
@@ -65,14 +65,21 @@ function CommentsSection({ comments }: { comments: Comment[] }) {
   const hasComments = comments && comments.length > 0;
 
   return (
-    <section className="relative mt-6 h-72 overflow-hidden">
+    <section
+      className="relative mt-6 h-72 overflow-hidden"
+      aria-labelledby="comments-section-heading"
+    >
+      <h2 id="comments-section-heading" className="sr-only">
+        댓글 섹션
+      </h2>
+
       {hasComments ? (
         <ul className="space-y-3">
-          <div className="absolute bottom-0 w-full h-14 bg-gradient-to-t from-muted" />
+          <div className="absolute bottom-0 h-14 w-full bg-gradient-to-t from-muted" />
           {comments.map((comment) => (
-            <li key={comment.id} className="px-4 py-3 rounded-xl border border-gray-300 bg-surface">
+            <li key={comment.id} className="rounded-xl border border-gray-300 bg-surface px-4 py-3">
               <span className="font-semibold">{comment.nickname}</span>
-              <span className="ml-2 caption">
+              <span className="caption ml-2">
                 {comment.createdAt && new Date(comment.createdAt).toLocaleString()}
               </span>
               <p>{comment.content}</p>
@@ -80,7 +87,7 @@ function CommentsSection({ comments }: { comments: Comment[] }) {
           ))}
         </ul>
       ) : (
-        <div className="min-h-52 border font-bold rounded-2xl opacity-20 flex flex-col justify-center items-center gap-4">
+        <div className="flex min-h-52 flex-col items-center justify-center gap-4 rounded-2xl border font-bold opacity-20">
           <BubbleChat />
           <p>아직 댓글이 없어요. 첫 댓글을 남겨보세요!</p>
         </div>

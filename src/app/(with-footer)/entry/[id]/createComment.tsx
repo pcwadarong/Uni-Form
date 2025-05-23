@@ -48,7 +48,7 @@ export default function CreateComments({ id }: { id: string }) {
   };
 
   return (
-    <section>
+    <section aria-labelledby="create-comments">
       <h3 id="create-comments" className="body1">
         댓글 작성
       </h3>
@@ -56,7 +56,7 @@ export default function CreateComments({ id }: { id: string }) {
         ref={formRef}
         onSubmit={handleSubmit}
         aria-labelledby="create-comments"
-        className="flex gap-2 mt-4"
+        className="mt-4 flex gap-2"
       >
         <Input
           required
@@ -66,7 +66,7 @@ export default function CreateComments({ id }: { id: string }) {
           }
           className="border-2"
         />
-        <Button type="submit" disabled={isPending} className="text-white bg-green-400 text-nowrap">
+        <Button type="submit" disabled={isPending} className="text-nowrap bg-green-400 text-white">
           {isPending ? "작성 중..." : "작성하기"}
         </Button>
       </form>

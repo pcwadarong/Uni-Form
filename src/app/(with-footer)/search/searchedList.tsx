@@ -16,12 +16,12 @@ const SearchedList = async ({ topic, query }: Props) => {
   );
 
   return (
-    <section className="2xl:flex w-full 2xl:w-[1400px] gap-10 my-20 px-4 2xl:px-0">
+    <section className="gap-10 my-20 px-4 w-full 2xl:flex 2xl:px-0 2xl:w-[1400px]">
       <div className="grow">
         {filteredList.length === 0 ? (
           <NoContent />
         ) : (
-          <ul className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+          <ul className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-8">
             {filteredList.map((item) => (
               <FormCardItem type={topic} key={item.id} item={item} />
             ))}

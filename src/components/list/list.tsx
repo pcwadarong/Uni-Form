@@ -3,8 +3,8 @@
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
-import { CategorySelection } from "@/components/list/categorySelection";
 import FormCardItem from "@/components/form/formCardItem";
+import { CategorySelection } from "@/components/list/categorySelection";
 import NoContent from "@/components/list/noContent";
 import SortSelect from "@/components/list/sortSelect";
 import ToggleInProgressFilter from "@/components/list/toggleInProgressFilter";
@@ -77,16 +77,19 @@ const List = ({ initialData, topic, category, sort }: Props) => {
   };
 
   return (
-    <section className="2xl:flex w-full 2xl:w-[1400px] gap-10 my-20 px-4 2xl:px-0">
+    <section
+      className="2xl:flex w-full gap-10 px-4 my-20 2xl:w-[1400px] 2xl:px-0"
+      aria-labelledby="content-section-heading"
+    >
       <div className={filterDisplay}>
         <CategorySelection topic={topic} onFilterChange={onFilterChange} />
       </div>
       <div className="grow">
-        <div className="flex justify-between items-center px-3 pb-6 2xl:pt-0">
+        <div className="flex items-center justify-between px-3 pb-6 2xl:pt-0">
           <div className="flex gap-6">
             <button
               type="button"
-              className="bg-green-500 flex items-center gap-[2.5px] text-white p-2 rounded-md"
+              className="flex items-center gap-[2.5px] rounded-md bg-green-500 p-2 text-white"
               onClick={handleCategoryToggle}
             >
               <FilterIcon width={20} height={20} aria-label="filter icon" />
@@ -100,12 +103,16 @@ const List = ({ initialData, topic, category, sort }: Props) => {
               onChange={toggleInProgressFilter}
             />
           </div>
-          {topic === "survey" ? <SortSelect defaultValue="popular-asc" /> : <SortSelect variant="mini" />}
+          {topic === "survey" ? (
+            <SortSelect defaultValue="popular-asc" />
+          ) : (
+            <SortSelect variant="mini" />
+          )}
         </div>
         {finalData.length === 0 ? (
           <NoContent />
         ) : (
-          <ul className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+          <ul className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-8">
             {finalData.map((item) => (
               <FormCardItem type={topic} key={item.id} item={item} />
             ))}

@@ -23,8 +23,8 @@ export const Button = ({
   const isInactive = disabled || isPending;
 
   const buttonClass = clsx(
-    "py-2 px-6 rounded-md text-center",
-    isInactive && "cursor-not-allowed opacity-60",
+    "rounded-md py-2 px-6 text-center",
+    isInactive && "opacity-60 cursor-not-allowed",
     className,
   );
 
@@ -45,7 +45,7 @@ export const LinkButton = ({ href, children, className = "", ...props }: LinkBut
   return (
     <Link
       href={href}
-      className={`py-2 px-6 rounded-md cursor-pointer text-center ${className}`}
+      className={`rounded-md py-2 px-6 text-center cursor-pointer ${className}`}
       {...props}
     >
       {children}

@@ -110,7 +110,7 @@ export default function Form() {
             type="submit"
             disabled={!isValid}
             isPending={isPending}
-            className="text-white w-full bg-green-400 mt-5"
+            className="text-white mt-5 w-full bg-green-400"
           >
             가입하기
           </Button>

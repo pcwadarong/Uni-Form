@@ -27,12 +27,18 @@ const UserMenu = () => {
 
   return (
     <div className="relative hidden sm:flex md:hidden" ref={menuRef}>
-      <button type="button" onClick={() => setShowUserMenu((prev) => !prev)}>
+      <button
+        type="button"
+        onClick={() => setShowUserMenu((prev) => !prev)}
+        aria-haspopup="true"
+        aria-expanded={showUserMenu}
+        aria-label="사용자 메뉴 열기"
+      >
         <UserIcon />
       </button>
 
       {showUserMenu && (
-        <div className="absolute right-0 top-8 flex flex-col text-center rounded-lg overflow-hidden shadow-md bg-muted caption drop-shadow">
+        <div className="absolute right-0 top-8 flex flex-col overflow-hidden rounded-lg bg-muted text-center shadow-md drop-shadow caption">
           {user ? (
             <>
               <Link href="/form" className="px-4 py-2">

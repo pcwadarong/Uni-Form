@@ -21,9 +21,9 @@ export default function NavSearch() {
   };
 
   return (
-    <div className="relative flex-1 w-full ml-3">
+    <div className="relative flex-1 ml-3 w-full">
       <Input
-        className="w-full pr-10 bg-gray-300/20 focus:ring-2 focus:ring-green-300 subtitle"
+        className="bg-gray-300/20 pr-10 w-full subtitle focus:ring-2 focus:ring-green-300"
         type="text"
         placeholder="관심사를 찾아보세요!"
         value={param}

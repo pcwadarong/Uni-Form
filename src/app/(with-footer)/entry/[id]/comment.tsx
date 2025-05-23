@@ -30,13 +30,17 @@ export default function Comments({
   const { uid } = useAuth();
 
   return (
-    <section>
-      <h3 className="body1">{`댓글 목록 (${totalCount})`}</h3>
+    <section aria-labelledby="comment-list-heading">
+      <h3 id="comment-list-heading" className="body1">
+        {`댓글 목록 (${totalCount})`}
+      </h3>
 
       {isLoading ? (
         <ul className="mt-4 space-y-3">
           {[...Array(3)].map((_, idx) => (
-            <Skeleton key={idx} className="h-16 w-full rounded-xl border border-gray-2" />
+            <li key={idx}>
+              <Skeleton className="w-full h-16 rounded-xl border border-gray-200" />
+            </li>
           ))}
         </ul>
       ) : isError ? (
@@ -44,7 +48,7 @@ export default function Comments({
       ) : (
         <ul className="mt-4 space-y-3">
           {comments.map((comment) => (
-            <li key={comment.id} className="px-4 py-3 rounded-xl border border-gray-300">
+            <li key={comment.id} className="rounded-xl border border-gray-300 px-4 py-3">
               <span className="font-semibold">{comment.nickname}</span>
               <span className="ml-2 caption">
                 {comment.createdAt && new Date(comment.createdAt).toLocaleString()}
@@ -61,7 +65,7 @@ export default function Comments({
           <Button
             onClick={loadMore}
             disabled={isFetching}
-            className="border border-gray-400 hover:bg-gray-200 text-sm disabled:opacity-50"
+            className="text-sm border border-gray-400 hover:bg-gray-200 disabled:opacity-50"
           >
             {isFetching ? "불러오는 중..." : "더보기"}
           </Button>
