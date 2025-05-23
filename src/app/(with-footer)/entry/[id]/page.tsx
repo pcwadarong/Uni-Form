@@ -8,10 +8,11 @@ import EntryClient from "./entryClient";
 import BubbleChat from "@/components/svg/bubble-chat";
 import { formatTextWithLineBreaks } from "@/components/ui/formatTextWithLineBreaks";
 import { RECRUIT_CATEGORY_LABELS, SURVEY_CATEGORY_LABELS } from "@/constants/category";
-import { fetchCommentsServer, fetchForm, fetchSimilarForms } from "@/lib/firebase/form/getServer";
+import { fetchCommentsServer } from "@/lib/firebase/comment/getCommentsServer";
+import { fetchForm, fetchSimilarForms } from "@/lib/firebase/form/getFormServer";
 import { decrypt } from "@/lib/utils/crypoto";
 import formateDate from "@/lib/utils/formateDate";
-import type { Comment, Form } from "@/types";
+import type { Comment, Form } from "@/types/types";
 
 import Image from "next/image";
 import { notFound } from "next/navigation";

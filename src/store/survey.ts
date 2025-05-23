@@ -1,5 +1,5 @@
 import { initSurveyInfo } from "@/constants/initSurveyInfo";
-import type { Detail, Form, Question, QuestionType } from "@/types";
+import type { Detail, Form, Question, QuestionType } from "@/types/types";
 import { BroadcastChannel } from "broadcast-channel";
 import { create } from "zustand";
 

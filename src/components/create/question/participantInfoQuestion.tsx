@@ -2,7 +2,7 @@
 
 import isModeDisabled from "@/lib/utils/isModeDisabled";
 import { useSurveyStore } from "@/store/survey";
-import type { QuestionProps } from "@/types";
+import type { QuestionProps } from "@/types/types";
 import Options from "../options";
 
 const ParticipantInfoQuestion: React.FC<QuestionProps> = ({ question, mode }) => {

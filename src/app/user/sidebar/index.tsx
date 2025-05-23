@@ -1,4 +1,4 @@
-import { fetchAuthUserInfo } from "@/lib/firebase/user/getServer";
+import { fetchAuthUserInfo } from "@/lib/firebase/user/fetchUserDataServer";
 import SidebarClient from "./client";
 
 export default async function Sidebar() {

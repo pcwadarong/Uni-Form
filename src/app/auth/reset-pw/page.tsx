@@ -4,7 +4,7 @@ import { resetPWAction } from "@/actions/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { INITIAL_ACTION_STATE } from "@/constants/states";
-import type { ActionState } from "@/types";
+import type { ActionState } from "@/types/types";
 import { useRouter } from "next/navigation";
 import { useActionState } from "react";
 import { useEffect, useState } from "react";

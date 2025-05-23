@@ -1,23 +1,3 @@
-export interface User {
-  uid: string;
-  nickname?: string;
-
-  createdForms: string[];
-  responses: string[];
-  bookmarks: string[];
-  comments: string[];
-  drafts: string[];
-
-  school?: {
-    university: string;
-    major: string;
-    grade: string;
-  };
-  gender?: string;
-  age?: number;
-  region?: string;
-}
-
 export interface Form {
   id: string;
   uid: string;

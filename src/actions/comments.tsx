@@ -1,8 +1,8 @@
 "use server";
 
-import { createComment } from "@/lib/firebase/form/create";
-import { deleteComment } from "@/lib/firebase/form/delete";
-import { getServerUid } from "@/lib/firebase/user/getServerUid";
+import { getServerUid } from "@/lib/firebase/auth/getServerUid";
+import { createComment } from "@/lib/firebase/comment/createComments";
+import { deleteComment } from "@/lib/firebase/comment/deleteComments";
 import { revalidatePath } from "next/cache";
 
 export async function createCommentsAction(

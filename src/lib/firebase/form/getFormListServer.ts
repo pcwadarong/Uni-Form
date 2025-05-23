@@ -1,5 +1,5 @@
 import { adminFirestore } from "@/lib/firebase/firebaseAdminConfig";
-import type { Form, SortType } from "@/types";
+import type { Form, SortType } from "@/types/types";
 import type { QueryDocumentSnapshot } from "firebase-admin/firestore";
 
 const mapDocumentToForm = (doc: QueryDocumentSnapshot, formType: "survey" | "recruit"): Form => {

@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAuth } from "@/contexts/authProvider";
-import type { Comment } from "@/types";
+import type { Comment } from "@/types/types";
 import DeleteComment from "./deleteComment";
 
 interface Props {

@@ -1,5 +1,5 @@
 import ListClient from "@/components/list/list";
-import { fetchFormList } from "@/lib/firebase/form/getListServer";
+import { fetchFormList } from "@/lib/firebase/form/getFormListServer";
 
 export default async function ListServerWrapper({
   searchParams,

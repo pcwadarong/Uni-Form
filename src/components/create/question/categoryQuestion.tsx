@@ -1,5 +1,5 @@
 import isModeDisabled from "@/lib/utils/isModeDisabled";
-import type { QuestionProps } from "@/types";
+import type { QuestionProps } from "@/types/types";
 import Options from "../options";
 
 const CategoryQuestion: React.FC<QuestionProps> = ({ question, mode }) => {

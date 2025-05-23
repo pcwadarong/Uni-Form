@@ -3,7 +3,7 @@
 import FileEditIcon from "@/components/svg/file";
 import ImageIcon from "@/components/svg/image";
 import { useSurveyStore } from "@/store/survey";
-import type { QuestionProps } from "@/types";
+import type { QuestionProps } from "@/types/types";
 import Image from "next/image";
 import { useState } from "react";
 import Options from "../options";

@@ -1,4 +1,7 @@
-import { type UserActivityFields, fetchUserDataServer } from "@/lib/firebase/user/getServer";
+import {
+  type UserActivityFields,
+  fetchUserDataServer,
+} from "@/lib/firebase/user/fetchUserDataServer";
 
 export default async function Page() {
   const { comments, createdForms, drafts } = (await fetchUserDataServer({

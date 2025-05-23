@@ -2,7 +2,7 @@
 
 import { deleteCommentsAction } from "@/actions/comments";
 import { INITIAL_ACTION_STATE } from "@/constants/states";
-import type { ActionState } from "@/types";
+import type { ActionState } from "@/types/types";
 import { useActionState, useEffect } from "react";
 import { toast } from "sonner";
 

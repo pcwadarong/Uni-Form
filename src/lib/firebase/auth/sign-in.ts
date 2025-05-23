@@ -44,10 +44,7 @@ const googleSignIn = async (): Promise<{
       doc(firestore, "users", user.uid),
       {
         nickname,
-        createdSurveys: [],
-        responses: [],
-        comments: [],
-        drafts: [],
+        bookmarks: [],
         school: { university: "", major: "", grade: "" },
         gender: "",
         age: null,

@@ -1,4 +1,4 @@
-import { fetchUserDataServer, fetchUserFullProfile } from "@/lib/firebase/user/getServer";
+import { fetchUserDataServer, fetchUserFullProfile } from "@/lib/firebase/user/fetchUserDataServer";
 
 export default async function Page() {
   const data = await fetchUserFullProfile();

@@ -2,7 +2,7 @@ export const revalidate = 60 * 5;
 
 import CommentItem from "@/components/form/commentCardItem";
 import CommentSkeleton from "@/components/form/commentSkeleton";
-import { fetchLatestCommentsWithFormTitles } from "@/lib/firebase/form/getServer";
+import { fetchLatestCommentsWithFormTitles } from "@/lib/firebase/form/getFormServer";
 import Link from "next/link";
 
 const LatestComments = async () => {

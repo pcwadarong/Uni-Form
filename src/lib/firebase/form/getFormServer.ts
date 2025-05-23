@@ -1,9 +1,9 @@
 import { adminFirestore } from "@/lib/firebase/firebaseAdminConfig";
-import type { Comment, Detail, Form, Response } from "@/types";
+import type { Comment, Detail, Form, Response } from "@/types/types";
 import { FirebaseError } from "firebase/app";
 import type { DocumentData } from "firebase/firestore";
-import { fetchCommentUserNickname } from "../user/getServer";
 
+// form의 detail (문항 미포함) - entry에서 사용
 export const fetchForm = async (
   surveyType: "surveys" | "recruits",
   id: string,
@@ -46,6 +46,7 @@ export const fetchForm = async (
   }
 };
 
+// 최근 댓글이 달린 게시물 - main페이지에서 사용
 export const fetchLatestCommentsWithFormTitles = async (
   limitCount = 4,
 ): Promise<Comment[] | null> => {
@@ -93,120 +94,7 @@ export const fetchLatestCommentsWithFormTitles = async (
   }
 };
 
-// export const fetchComment = async (id: string): Promise<Comment | null> => {
-//   try {
-//     const docRef = adminFirestore.collection("comments").doc(id);
-//     const docSnap = await docRef.get();
-
-//     if (!docSnap.exists) throw new Error("해당하는 댓글이 존재하지 않습니다.");
-//     const rawData = docSnap.data() as DocumentData;
-
-//     const formDocSnap = await adminFirestore.collection("surveys").doc(rawData.formId).get();
-//     const formTitle = formDocSnap.exists ? (formDocSnap.data()?.title ?? "제목 없음") : "제목 없음";
-
-//     return {
-//       ...rawData,
-//       id: docSnap.id,
-//       formTitle,
-//     } as Comment;
-//   } catch (err) {
-//     if (err instanceof FirebaseError) {
-//       throw new Error(`Firebase loading error: ${err.code}`);
-//     }
-//     throw err;
-//   }
-// };
-
-export const fetchCommentsServer = async (
-  id: string,
-  limitCount = 5,
-): Promise<{
-  comments: Comment[];
-  lastDocId: string | null;
-  hasNextPage: boolean;
-  totalCount: number;
-}> => {
-  try {
-    const snapshot = await adminFirestore
-      .collection("comments")
-      .where("formId", "==", id)
-      .orderBy("createdAt", "desc")
-      .orderBy("__name__", "desc")
-      .limit(limitCount + 1)
-      .get();
-
-    if (snapshot.empty)
-      return {
-        comments: [],
-        lastDocId: null,
-        hasNextPage: false,
-        totalCount: 0,
-      };
-
-    const docs = snapshot.docs;
-    const hasNextPage = docs.length > limitCount;
-    const sliced = hasNextPage ? docs.slice(0, limitCount) : docs;
-
-    const commentsWithNicknames = await Promise.all(
-      sliced.map(async (doc) => {
-        const data = doc.data();
-        const nickname = await fetchCommentUserNickname(data.uid);
-
-        return {
-          id: doc.id,
-          formId: data.formId,
-          uid: data.uid,
-          content: data.content,
-          createdAt: data.createdAt?.toMillis?.() ?? null,
-          nickname: typeof nickname === "string" ? nickname : "",
-        };
-      }),
-    );
-
-    const countSnap = await adminFirestore
-      .collection("comments")
-      .where("formId", "==", id)
-      .count()
-      .get();
-
-    const totalCount = countSnap.data().count || 0;
-
-    return {
-      comments: commentsWithNicknames,
-      lastDocId: hasNextPage ? docs[limitCount - 1].id : null,
-      hasNextPage,
-      totalCount,
-    };
-  } catch (err) {
-    if (err instanceof FirebaseError) throw new Error(`Firebase loading error: ${err.code}`);
-
-    throw err;
-  }
-};
-
-export const fetchResponses = async (id: string): Promise<Response[] | null> => {
-  try {
-    const snapshot = await adminFirestore.collection("responses").where("formId", "==", id).get();
-
-    if (snapshot.empty) return [];
-
-    const responses: Response[] = snapshot.docs.map((doc) => {
-      const data = doc.data();
-
-      return {
-        ...data,
-        id: doc.id,
-      } as Response;
-    });
-
-    return responses;
-  } catch (err) {
-    if (err instanceof FirebaseError) throw new Error(`Firebase loading error: ${err.code}`);
-
-    throw err;
-  }
-};
-
+// 비슷한 form 추천
 export const fetchSimilarForms = async (
   currentId: string,
   surveyType: "surveys" | "recruits",

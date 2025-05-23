@@ -11,7 +11,7 @@ import ToggleInProgressFilter from "@/components/list/toggleInProgressFilter";
 
 import { calculateDeadlineMatch } from "@/lib/utils/calculateDeadlineMatch";
 import { getSelectedItems } from "@/lib/utils/filterAndSortData";
-import type { Form } from "@/types";
+import type { Form } from "@/types/types";
 import FilterIcon from "../svg/filter";
 
 interface Props {

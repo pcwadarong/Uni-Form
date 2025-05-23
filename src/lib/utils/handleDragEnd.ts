@@ -1,4 +1,4 @@
-import type { Option, Question } from "@/types";
+import type { Option, Question } from "@/types/types";
 import type { DropResult } from "react-beautiful-dnd";
 
 export const handleQuestionDragEnd = (

@@ -6,7 +6,7 @@ import Questions from "@/components/create/questions";
 import SurveyInfo from "@/components/create/surveyInfo";
 import { handleQuestionDragEnd } from "@/lib/utils/handleDragEnd";
 import { useSurveyStore } from "@/store/survey";
-import type { Question } from "@/types";
+import type { Question } from "@/types/types";
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 import { useEffect, useState } from "react";
 

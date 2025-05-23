@@ -9,7 +9,7 @@ import { deleteOption } from "@/lib/utils/createPageUtils";
 import { handleOptionDragEnd } from "@/lib/utils/handleDragEnd";
 import isModeDisabled from "@/lib/utils/isModeDisabled";
 import { useSurveyStore } from "@/store/survey";
-import type { Option, Question, QuestionProps } from "@/types";
+import type { Option, Question, QuestionProps } from "@/types/types";
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 import Image from "next/image";
 import Options from "../options";

@@ -1,7 +1,7 @@
 import questionComponentMap from "@/constants/questionComponentMap";
 import { useResponseStore } from "@/store/response";
 import { useSurveyStore } from "@/store/survey";
-import type { Question, QuestionProps, QuestionType } from "@/types";
+import type { Question, QuestionProps, QuestionType } from "@/types/types";
 import type { DraggableProvided } from "@hello-pangea/dnd";
 import { useEffect, useState } from "react";
 import AutoResizeTextarea from "../ui/textarea";

@@ -1,6 +1,7 @@
 "use server";
 
-import { resetPasswordWithFirebase, signUp } from "@/lib/firebase/user/sign-up";
+import { resetPasswordWithFirebase } from "@/lib/firebase/auth/resetPW";
+import { signUp } from "@/lib/firebase/auth/sign-up";
 import { signUpSchema } from "@/lib/validation/sign-schema";
 
 export async function signUpAction(

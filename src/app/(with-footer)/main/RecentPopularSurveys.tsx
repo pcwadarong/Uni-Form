@@ -2,7 +2,7 @@ export const revalidate = 60 * 5;
 
 import FormCardItem from "@/components/form/formCardItem";
 import FormCardSkeleton from "@/components/form/formCardSkeleton";
-import { fetchFormList } from "@/lib/firebase/form/getListServer";
+import { fetchFormList } from "@/lib/firebase/form/getFormListServer";
 import Link from "next/link";
 
 interface FormListSectionProps {

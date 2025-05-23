@@ -1,4 +1,4 @@
-import type { Form } from "@/types";
+import type { Form } from "@/types/types";
 
 export const getSelectedItems = (items: Form[], sortType: string): Form[] => {
   return [...items].sort((a, b) => {

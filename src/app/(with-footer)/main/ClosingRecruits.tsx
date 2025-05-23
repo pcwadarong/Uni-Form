@@ -2,7 +2,7 @@ export const revalidate = 60 * 5;
 
 import FormCardItem from "@/components/form/formCardItem";
 import Skeleton from "@/components/form/formCardSkeleton";
-import { fetchFormList } from "@/lib/firebase/form/getListServer";
+import { fetchFormList } from "@/lib/firebase/form/getFormListServer";
 import Link from "next/link";
 
 const ClosingRecruits = async () => {

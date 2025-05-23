@@ -1,3 +1,5 @@
+// 해당 댓글의 uid에 맞는 nickname을 users doc에서 매칭함: client용
+
 import { FirebaseError } from "firebase/app";
 import { doc, getDoc } from "firebase/firestore";
 import { firestore } from "../firebaseConfig";

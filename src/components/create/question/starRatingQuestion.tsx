@@ -1,8 +1,8 @@
-import Image from "next/image";
-import { QuestionProps } from "@/types";
-import Options from "../options";
 import { useSurveyStore } from "@/store/survey";
-import { useState, useEffect } from "react";
+import type { QuestionProps } from "@/types/types";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import Options from "../options";
 //import isModeDisabled from '@/utils/isModeDisabled';
 
 const StarRatingQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
@@ -11,7 +11,7 @@ const StarRatingQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
   const [comment, setComment] = useState("1~5");
 
   const handleRatingStepChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const ratingStep = parseFloat(e.target.value) as 0.5 | 1;
+    const ratingStep = Number.parseFloat(e.target.value) as 0.5 | 1;
     updateQuestion(question.id, { ...question, ratingStep });
   };
 

@@ -5,7 +5,7 @@ import PasswordIcon from "@/components/svg/password";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-import { handleLogin } from "@/lib/firebase/user/sign-in";
+import { handleLogin } from "@/lib/firebase/auth/sign-in";
 import { type SignInInput, signInSchema } from "@/lib/validation/sign-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 

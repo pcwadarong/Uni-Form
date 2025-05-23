@@ -4,10 +4,11 @@ import { LinkButton } from "@/components/ui/button";
 import { formatTextWithLineBreaks } from "@/components/ui/formatTextWithLineBreaks";
 import Modal from "@/components/ui/modal";
 
-import { fetchCommentsServer, fetchForm } from "@/lib/firebase/form/getServer";
+import { fetchCommentsServer } from "@/lib/firebase/comment/getCommentsServer";
+import { fetchForm } from "@/lib/firebase/form/getFormServer";
 import { decrypt } from "@/lib/utils/crypoto";
 import formatDate from "@/lib/utils/formateDate";
-import type { Comment, Form } from "@/types";
+import type { Comment, Form } from "@/types/types";
 
 import Image from "next/image";
 import { notFound } from "next/navigation";

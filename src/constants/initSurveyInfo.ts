@@ -1,4 +1,4 @@
-import type { Detail } from "@/types";
+import type { Detail } from "@/types/types";
 
 export const LIMITLESS_DATE = new Date("2224-01-01T00:00:00Z").getTime(); // 제한 없음
 const NOW = Date.now(); // 바로 시작

@@ -10,7 +10,7 @@ import ScoreQuestion from "@/components/create/question/scoreQuestion";
 import ShortAnswerQuestion from "@/components/create/question/shortAnswerQuestion";
 import StarRatingQuestion from "@/components/create/question/starRatingQuestion";
 import TableQuestion from "@/components/create/question/tableQuestion";
-import type { QuestionProps } from "@/types";
+import type { QuestionProps } from "@/types/types";
 
 export const questionComponentMap: { [key: string]: React.FC<QuestionProps> } = {
   category: CategoryQuestion,

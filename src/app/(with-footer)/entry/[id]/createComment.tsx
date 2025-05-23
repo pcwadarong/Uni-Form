@@ -7,7 +7,7 @@ import { createCommentsAction } from "@/actions/comments";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { INITIAL_ACTION_STATE } from "@/constants/states";
-import type { ActionState } from "@/types";
+import type { ActionState } from "@/types/types";
 import { toast } from "sonner";
 
 export default function CreateComments({ id }: { id: string }) {
