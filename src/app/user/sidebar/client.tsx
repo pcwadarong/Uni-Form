@@ -49,7 +49,7 @@ export default function SidebarClient({ nickname, profileURL, email }: Props) {
               <Link
                 href={href}
                 className={clsx(
-                  "block box-content py-4 font-medium text-content/50 transition-colors duration-200 border-b-2 lg:p-0 hover:text-green-400",
+                  "block box-content py-4 font-medium text-content/50 transition-colors duration-200 border-b-2 lg:p-0 hover:text-green-400 lg:border-none",
                   isActive ? "text-green-400 border-green-400" : "border-transparent",
                 )}
                 aria-current={isActive ? "page" : undefined}

@@ -20,7 +20,7 @@
   --color-tone2: oklch(0.97 0 0);       /* light gray */
   --color-tone2-reverse: oklch(0.14 0 235); /* black */
 
-  --destructive: oklch(0.577 0.245 27.325); /* red */
+  --color-destructive: oklch(0.577 0.245 27.325); /* red */
 }
 
 .dark {

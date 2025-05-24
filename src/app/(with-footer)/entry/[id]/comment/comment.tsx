@@ -49,12 +49,16 @@ export default function Comments({
         <ul className="mt-4 space-y-3">
           {comments.map((comment) => (
             <li key={comment.id} className="rounded-xl border border-gray-300 px-4 py-3">
-              <span className="font-semibold">{comment.nickname}</span>
-              <span className="ml-2 caption">
-                {comment.createdAt && new Date(comment.createdAt).toLocaleString()}
-              </span>
+              <div className="flex items-center">
+                <span className="font-semibold">{comment.nickname}</span>
+                <span className="ml-2 caption">
+                  {comment.createdAt && new Date(comment.createdAt).toLocaleString()}
+                </span>
+                <div className="flex-1 text-end">
+                  {uid === comment.uid && <DeleteComment formId={formId} commentId={comment.id} />}
+                </div>
+              </div>
               <p>{comment.content}</p>
-              {uid === comment.uid && <DeleteComment formId={formId} commentId={comment.id} />}
             </li>
           ))}
         </ul>

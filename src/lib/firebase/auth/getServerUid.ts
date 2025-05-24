@@ -8,7 +8,7 @@ export async function getServerUid(): Promise<string | null> {
   if (!token) return null;
 
   try {
-    const decoded = await adminAuth.verifyIdToken(token);
+    const decoded = await adminAuth.verifySessionCookie(token, true);
     return decoded.uid;
   } catch {
     return null;

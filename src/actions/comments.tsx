@@ -22,7 +22,7 @@ export async function createCommentsAction(
   const commentId = `${formId}-${crypto.randomUUID()}`;
 
   try {
-    await createComment(commentId, formId, uid, content, createdAt);
+    await createComment(commentId, formId, uid, content);
     revalidatePath(`/entry/${formId}`);
     return { status: true };
   } catch (err) {

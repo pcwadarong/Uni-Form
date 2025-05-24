@@ -1,19 +1,19 @@
-import { firestore } from "@/lib/firebase/firebaseConfig";
-import { deleteDoc, doc, getDoc } from "firebase/firestore";
+import { adminFirestore } from "@/lib/firebase/firebaseAdminConfig";
 
 export async function deleteComment(commentId: string, currentUid: string) {
-  if (!commentId) return { status: false, error: "삭제할 댓글 ID가 없습니다." };
+  const commentRef = adminFirestore.collection("comments").doc(commentId);
+  const commentSnap = await commentRef.get();
 
-  const commentRef = doc(firestore, "comments", commentId);
-  const commentSnap = await getDoc(commentRef);
-  if (!commentSnap.exists()) return { status: false, error: "댓글을 찾을 수 없습니다." };
+  if (!commentSnap.exists) {
+    return { status: false, error: "댓글을 찾을 수 없습니다." };
+  }
 
   const commentData = commentSnap.data();
 
-  if (commentData.uid !== currentUid) {
+  if (!commentData) return { status: false, error: "댓글 데이터가 유효하지 않습니다." };
+  if (commentData.uid !== currentUid)
     return { status: false, error: "본인 댓글만 삭제할 수 있습니다." };
-  }
 
-  await deleteDoc(commentRef);
+  await commentRef.delete();
   return { status: true };
 }

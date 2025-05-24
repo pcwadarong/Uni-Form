@@ -1,8 +1,6 @@
 import FormCardItem from "@/components/form/formCardItem";
-import {
-  type UserParticipationFields,
-  fetchUserDataServer,
-} from "@/lib/firebase/user/fetchUserDataServer";
+import { fetchUserDataServer } from "@/lib/firebase/user/fetchUserDataServer";
+import type { UserParticipationFields } from "@/types/userType";
 
 export default async function Page() {
   const { bookmarks, responses } = (await fetchUserDataServer({

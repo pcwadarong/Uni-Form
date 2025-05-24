@@ -1,4 +1,4 @@
-import { FieldValue } from "firebase-admin/firestore";
+import { FieldValue, Timestamp } from "firebase-admin/firestore";
 import { adminFirestore } from "../firebaseAdminConfig";
 
 export async function createComment(
@@ -6,13 +6,12 @@ export async function createComment(
   formId: string,
   uid: string,
   content: string,
-  createdAt: string,
 ) {
   try {
     // 댓글 등록
     await adminFirestore.collection("comments").doc(commentId).set({
       content,
-      createdAt,
+      createdAt: Timestamp.now(),
       formId,
       uid,
     });

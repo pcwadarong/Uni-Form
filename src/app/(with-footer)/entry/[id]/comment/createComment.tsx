@@ -1,16 +1,17 @@
 "use client";
 
-import { getAuth } from "firebase/auth";
-import { type FormEvent, useActionState, useEffect, useMemo, useRef } from "react";
-
 import { createCommentsAction } from "@/actions/comments";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { INITIAL_ACTION_STATE } from "@/constants/states";
 import type { ActionState } from "@/types/types";
+import { useQueryClient } from "@tanstack/react-query";
+import { getAuth } from "firebase/auth";
+import { type FormEvent, useActionState, useEffect, useMemo, useRef } from "react";
 import { toast } from "sonner";
 
 export default function CreateComments({ id }: { id: string }) {
+  const queryClient = useQueryClient();
   const formRef = useRef<HTMLFormElement>(null);
 
   const uid = useMemo(() => {
@@ -30,9 +31,10 @@ export default function CreateComments({ id }: { id: string }) {
       toast("댓글 작성에 실패했습니다. 다시 시도해주세요.");
     } else {
       toast("댓글이 작성되었습니다.");
+      queryClient.invalidateQueries({ queryKey: ["comments", id] });
       formRef.current?.reset();
     }
-  }, [result]);
+  }, [result, id, queryClient]);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -61,6 +63,7 @@ export default function CreateComments({ id }: { id: string }) {
         <Input
           required
           name="content"
+          disabled={isPending}
           placeholder={
             uid === "unknown" ? "로그인하면 댓글을 남길 수 있습니다." : "댓글을 남겨보세요."
           }
