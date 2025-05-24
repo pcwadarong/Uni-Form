@@ -2,7 +2,7 @@ import type { Comment, Form } from "./types";
 
 export interface User {
   uid: string;
-  nickname?: string;
+  displayName?: string;
   school?: {
     university: string;
     major: string;

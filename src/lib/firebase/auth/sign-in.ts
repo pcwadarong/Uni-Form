@@ -34,16 +34,16 @@ const googleSignIn = async (): Promise<{
     const userCredential = await signInWithPopup(auth, provider);
     const user = userCredential.user;
 
-    let nickname = "uniform";
+    let displayName = "uniform";
     if (user.displayName) {
-      const nicknameMatch = user.displayName.match(/\(([^)]+)\)/);
-      nickname = nicknameMatch ? nicknameMatch[1] : user.displayName;
+      const displayNameMatch = user.displayName.match(/\(([^)]+)\)/);
+      displayName = displayNameMatch ? displayNameMatch[1] : user.displayName;
     }
 
     await setDoc(
       doc(firestore, "users", user.uid),
       {
-        nickname,
+        displayName,
         bookmarks: [],
         school: { university: "", major: "", grade: "" },
         gender: "",

@@ -1,6 +1,6 @@
 import { getAuth } from "firebase-admin/auth";
 
-export const fetchUserNicknameServer = async (uid: string): Promise<string | null> => {
+export const fetchUserDisplayNameServer = async (uid: string): Promise<string | null> => {
   try {
     const user = await getAuth().getUser(uid);
     return user.displayName ?? null;

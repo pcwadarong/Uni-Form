@@ -12,7 +12,7 @@ export const signInSchema = z.object({
 export const signUpSchema = signInSchema
   .extend({
     confirmPassword: z.string(),
-    nickname: z
+    displayName: z
       .string()
       .min(2, "닉네임은 2자 이상이어야 합니다.")
       .max(6, "닉네임은 6자 이하여야 합니다.")

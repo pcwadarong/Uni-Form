@@ -57,12 +57,12 @@ export default function Form() {
         onSubmit={handleSubmit(onSubmit)}
       >
         <div>
-          <label htmlFor="nickname">닉네임</label>
-          <span className="ml-3 text-green-500">{errors.nickname?.message}</span>
+          <label htmlFor="displayName">닉네임</label>
+          <span className="ml-3 text-green-500">{errors.displayName?.message}</span>
           <Input
-            id="nickname"
+            id="displayName"
             type="text"
-            {...register("nickname")}
+            {...register("displayName")}
             placeholder="2~6자의 영문, 한글, 숫자"
             className="mt-2"
           />

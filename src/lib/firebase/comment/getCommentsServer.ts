@@ -3,7 +3,7 @@
 import type { Comment } from "@/types/types";
 import { FirebaseError } from "firebase/app";
 import { adminFirestore } from "../firebaseAdminConfig";
-import { fetchUserNicknameServer } from "../user/fetchUserNicknameServer";
+import { fetchUserDisplayNameServer } from "../user/fetchUserDisplayNameServer";
 
 export const fetchCommentsServer = async (
   id: string,
@@ -35,10 +35,10 @@ export const fetchCommentsServer = async (
     const hasNextPage = docs.length > limitCount;
     const sliced = hasNextPage ? docs.slice(0, limitCount) : docs;
 
-    const commentsWithNicknames = await Promise.all(
+    const commentsWithDisplayNames = await Promise.all(
       sliced.map(async (doc) => {
         const data = doc.data();
-        const nickname = await fetchUserNicknameServer(data.uid);
+        const displayName = await fetchUserDisplayNameServer(data.uid);
 
         return {
           id: doc.id,
@@ -46,7 +46,7 @@ export const fetchCommentsServer = async (
           uid: data.uid,
           content: data.content,
           createdAt: data.createdAt?.toMillis?.() ?? null,
-          nickname: typeof nickname === "string" ? nickname : "",
+          displayName: typeof displayName === "string" ? displayName : "",
         };
       }),
     );
@@ -60,7 +60,7 @@ export const fetchCommentsServer = async (
     const totalCount = countSnap.data().count || 0;
 
     return {
-      comments: commentsWithNicknames,
+      comments: commentsWithDisplayNames,
       lastDocId: hasNextPage ? docs[limitCount - 1].id : null,
       hasNextPage,
       totalCount,

@@ -79,7 +79,7 @@ function CommentsSection({ comments }: { comments: Comment[] }) {
           <div className="absolute bottom-0 h-14 w-full bg-gradient-to-t from-muted" />
           {comments.map((comment) => (
             <li key={comment.id} className="rounded-xl border border-gray-300 bg-surface px-4 py-3">
-              <span className="font-semibold">{comment.nickname}</span>
+              <span className="font-semibold">{comment.displayName}</span>
               <span className="caption ml-2">
                 {comment.createdAt && new Date(comment.createdAt).toLocaleString()}
               </span>

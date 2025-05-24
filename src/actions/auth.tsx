@@ -9,13 +9,13 @@ export async function signUpAction(
   formData: FormData,
 ): Promise<{ status: boolean; error?: string }> {
   const email = formData.get("email");
-  const nickname = formData.get("nickname");
+  const displayName = formData.get("displayName");
   const password = formData.get("password");
   const confirmPassword = formData.get("confirmPassword");
 
   if (
     typeof email !== "string" ||
-    typeof nickname !== "string" ||
+    typeof displayName !== "string" ||
     typeof password !== "string" ||
     typeof confirmPassword !== "string"
   ) {
@@ -27,7 +27,7 @@ export async function signUpAction(
 
   const validation = signUpSchema.safeParse({
     email,
-    nickname,
+    displayName,
     password,
     confirmPassword,
   });
@@ -40,12 +40,12 @@ export async function signUpAction(
         error.email?.[0] ||
         error.password?.[0] ||
         error.confirmPassword?.[0] ||
-        error.nickname?.[0] ||
+        error.displayName?.[0] ||
         "입력값을 다시 확인해주세요.",
     };
   }
 
-  return await signUp(email, password, nickname);
+  return await signUp(email, password, displayName);
 }
 
 export async function resetPWAction(

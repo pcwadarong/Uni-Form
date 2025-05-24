@@ -50,7 +50,7 @@ export default function Comments({
           {comments.map((comment) => (
             <li key={comment.id} className="rounded-xl border border-gray-300 px-4 py-3">
               <div className="flex items-center">
-                <span className="font-semibold">{comment.nickname}</span>
+                <span className="font-semibold">{comment.displayName}</span>
                 <span className="ml-2 caption">
                   {comment.createdAt && new Date(comment.createdAt).toLocaleString()}
                 </span>

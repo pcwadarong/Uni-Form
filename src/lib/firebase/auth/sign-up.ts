@@ -4,7 +4,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { adminFirestore } from "../firebaseAdminConfig";
 import { auth } from "../firebaseConfig";
 
-export const signUp = async (email: string, password: string, nickname: string) => {
+export const signUp = async (email: string, password: string, displayName: string) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
@@ -13,7 +13,7 @@ export const signUp = async (email: string, password: string, nickname: string) 
       .collection("users")
       .doc(user.uid)
       .set({
-        nickname,
+        displayName,
         bookmarks: [],
         school: {
           university: "",

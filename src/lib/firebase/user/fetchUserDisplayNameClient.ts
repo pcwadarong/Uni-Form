@@ -1,10 +1,10 @@
-// 해당 댓글의 uid에 맞는 nickname을 users doc에서 매칭함: client용
+// 해당 댓글의 uid에 맞는 displayName을 users doc에서 매칭함: client용
 
 import { FirebaseError } from "firebase/app";
 import { doc, getDoc } from "firebase/firestore";
 import { firestore } from "../firebaseConfig";
 
-export const fetchUserNicknameClient = async (uid: string): Promise<string | null> => {
+export const fetchUserDisplayNameClient = async (uid: string): Promise<string | null> => {
   try {
     const userDoc = doc(firestore, "users", uid);
     const userSnapshot = await getDoc(userDoc);
@@ -15,12 +15,12 @@ export const fetchUserNicknameClient = async (uid: string): Promise<string | nul
     }
 
     const userData = userSnapshot.data();
-    return typeof userData.nickname === "string" ? userData.nickname : null;
+    return typeof userData.displayName === "string" ? userData.displayName : null;
   } catch (err) {
     if (err instanceof FirebaseError) {
-      console.error(`Firebase error while fetching nickname: ${err.code}`);
+      console.error(`Firebase error while fetching displayName: ${err.code}`);
     } else {
-      console.error("Error getting user nickname:", err);
+      console.error("Error getting user displayName:", err);
     }
     return null;
   }

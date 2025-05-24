@@ -6,7 +6,7 @@ export default async function Sidebar() {
 
   return (
     <SidebarClient
-      nickname={authInfo?.displayName || "username"}
+      displayName={authInfo?.displayName || "username"}
       profileURL={authInfo?.photoURL || null}
       email={authInfo?.email || null}
     />

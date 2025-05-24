@@ -12,12 +12,12 @@ const menu = [
 ];
 
 type Props = {
-  nickname?: string;
+  displayName?: string;
   profileURL?: string | null;
   email?: string | null;
 };
 
-export default function SidebarClient({ nickname, profileURL, email }: Props) {
+export default function SidebarClient({ displayName, profileURL, email }: Props) {
   const pathname = usePathname();
 
   return (
@@ -27,16 +27,17 @@ export default function SidebarClient({ nickname, profileURL, email }: Props) {
       style={{ boxShadow: "4px 0 6px rgba(0,0,0,0.1)" }}
     >
       <div className="m-auto hidden w-fit lg:block">
-        <div className="relative overflow-hidden rounded-full bg-gray-300">
+        <div className="relative overflow-hidden aspect-square rounded-full bg-gray-300 shadow">
           <Image
             src={profileURL || "/preview.jpg"}
-            alt={`${nickname ?? "사용자"}의 프로필 이미지`}
+            alt={`${displayName ?? "사용자"}의 프로필 이미지`}
             width={100}
             height={100}
             className="h-full w-full object-cover"
+            priority={true}
           />
         </div>
-        <p className="mt-4 font-semibold title3">{nickname}</p>
+        <p className="mt-4 font-semibold title3">{displayName}</p>
         <p className="caption text-sm text-content/50">{email}</p>
         <hr className="mt-6 mb-10 border-gray-300" />
       </div>

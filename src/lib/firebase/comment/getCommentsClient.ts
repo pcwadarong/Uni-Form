@@ -13,7 +13,7 @@ import {
   startAfter,
   where,
 } from "firebase/firestore";
-import { fetchUserNicknameClient } from "../user/fetchUserNicknameClient";
+import { fetchUserDisplayNameClient } from "../user/fetchUserDisplayNameClient";
 
 export const getCommentSnapshotById = async (
   id: string,
@@ -55,10 +55,10 @@ export const fetchCommentsClient = async (
     const sliced = hasMore ? docs.slice(0, pageSize) : docs;
     const lastDoc = sliced.at(-1) ?? null;
 
-    const commentsWithNicknames: Comment[] = await Promise.all(
+    const commentsWithDisplayNames: Comment[] = await Promise.all(
       sliced.map(async (doc) => {
         const data = doc.data();
-        const nickname = await fetchUserNicknameClient(data.uid);
+        const displayName = await fetchUserDisplayNameClient(data.uid);
 
         return {
           id: doc.id,
@@ -66,13 +66,13 @@ export const fetchCommentsClient = async (
           uid: data.uid,
           content: data.content,
           createdAt: data.createdAt?.toMillis?.() ?? null,
-          nickname: typeof nickname === "string" ? nickname : "",
+          displayName: typeof displayName === "string" ? displayName : "",
         };
       }),
     );
 
     return {
-      comments: commentsWithNicknames,
+      comments: commentsWithDisplayNames,
       lastDoc,
       hasMore,
     };
