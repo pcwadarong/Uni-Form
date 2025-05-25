@@ -34,7 +34,7 @@ const ResetPw: React.FC = () => {
   return (
     <main className="m-auto mt-20">
       <h2 className="text-center title2" id="reset-password-heading">
-        비밀번호를 잊어버리셨나요?
+        비밀번호 재설정
       </h2>
       <p className="mt-5 text-center">
         유니폼에 가입했던 이메일을 입력해주세요. <br />

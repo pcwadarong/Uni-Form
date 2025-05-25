@@ -1,4 +1,3 @@
-import type { UserInfo } from "firebase-admin/auth";
 import type { FieldError, UseFormRegisterReturn } from "react-hook-form";
 import type { Comment, Form } from "./types";
 
@@ -6,14 +5,14 @@ export interface User {
   uid: string;
   displayName?: string;
   school?: {
-    university: string;
-    major: string;
-    grade: string;
+    university?: string;
+    major?: string;
+    grade?: string;
   };
   gender?: string;
   age?: number;
   region?: string;
-  bookmarks: string[];
+  bookmarks?: string[];
 }
 
 export type UserField =

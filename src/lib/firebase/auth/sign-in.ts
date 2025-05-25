@@ -45,10 +45,10 @@ const googleSignIn = async (): Promise<{
       {
         displayName,
         bookmarks: [],
-        school: { university: "", major: "", grade: "" },
-        gender: "",
+        school: { university: "", major: "", grade: "선택 안 함", },
+        gender: "선택 안 함",
         age: null,
-        region: "",
+        region: "선택 안 함",
       },
       { merge: true },
     );

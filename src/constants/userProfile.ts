@@ -1,4 +1,7 @@
+export const GENDER_OPTIONS = ["선택 안 함", "남성", "여성"] as [string, ...string[]];
+
 export const GRADE_OPTIONS = [
+  "선택 안 함",
   "1학년",
   "2학년",
   "3학년",
@@ -8,11 +11,10 @@ export const GRADE_OPTIONS = [
   "대학원생",
   "교수자",
   "기타",
-] as const;
-
-export const GENDER_OPTIONS = ["남성", "여성", "밝히지 않음"] as const;
+] as [string, ...string[]];
 
 export const REGION_OPTIONS = [
+  "선택 안 함",
   "서울특별시",
   "부산광역시",
   "대구광역시",
@@ -30,7 +32,8 @@ export const REGION_OPTIONS = [
   "경상북도",
   "경상남도",
   "제주특별자치도",
-] as const;
+] as [string, ...string[]];
+
 
 // 타입으로 사용하기 위한 유니온 추출
 export type GradeType = (typeof GRADE_OPTIONS)[number];

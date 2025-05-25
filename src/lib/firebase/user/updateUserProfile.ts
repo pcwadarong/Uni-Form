@@ -9,17 +9,6 @@ interface ProfileData {
   age?: string;
 }
 
-interface UpdatePayload {
-  school?: {
-    university?: string;
-    major?: string;
-    grade?: string;
-  };
-  gender?: string;
-  region?: string;
-  age?: number;
-}
-
 export async function updateUserProfile(data: ProfileData, uid: string) {
   const userRef = adminFirestore.collection("users").doc(uid);
   const userSnap = await userRef.get();
@@ -29,27 +18,22 @@ export async function updateUserProfile(data: ProfileData, uid: string) {
   }
 
   const userData = userSnap.data();
-  if (!userData || userData.uid !== uid) {
+  if (!userData || userSnap.id !== uid) {
     return { status: false, error: "본인 정보만 수정할 수 있습니다." };
   }
 
-  const updatePayload: UpdatePayload = {};
+  const updatePayload: Record<string, unknown> = {};
 
-  // 기존 값과 비교 후 변경된 경우에만 포함
   const originalSchool = userData.school || {};
 
-  const schoolUpdates: UpdatePayload["school"] = {};
   if (data.university && data.university !== originalSchool.university) {
-    schoolUpdates.university = data.university;
+    updatePayload.school = { ...(updatePayload.school as object), university: data.university };
   }
   if (data.major && data.major !== originalSchool.major) {
-    schoolUpdates.major = data.major;
+    updatePayload.school = { ...(updatePayload.school as object), major: data.major };
   }
   if (data.grade && data.grade !== originalSchool.grade) {
-    schoolUpdates.grade = data.grade;
-  }
-  if (Object.keys(schoolUpdates).length > 0) {
-    updatePayload.school = schoolUpdates;
+    updatePayload.school = { ...(updatePayload.school as object), grade: data.grade };
   }
 
   if (data.gender && data.gender !== userData.gender) {
@@ -74,5 +58,19 @@ export async function updateUserProfile(data: ProfileData, uid: string) {
 
   await userRef.update(updatePayload);
 
+  return { status: true };
+}
+
+export async function updateDisplayName(displayName: string, uid: string) {
+  const userRef = adminFirestore.collection("users").doc(uid);
+  const userSnap = await userRef.get();
+
+  if (!userSnap.exists) return { status: false, error: "사용자를 찾을 수 없습니다." };
+
+  const userData = userSnap.data();
+  if (!userData || userData.uid !== uid)
+    return { status: false, error: "본인 정보만 수정할 수 있습니다." };
+
+  await userRef.update({ displayName });
   return { status: true };
 }

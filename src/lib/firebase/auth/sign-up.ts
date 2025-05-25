@@ -1,6 +1,6 @@
 import { getFirebaseErrorMessage } from "@/lib/firebase/errorMessages";
 import { FirebaseError } from "firebase/app";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { adminFirestore } from "../firebaseAdminConfig";
 import { auth } from "../firebaseConfig";
 
@@ -8,6 +8,8 @@ export const signUp = async (email: string, password: string, displayName: strin
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
+
+    await updateProfile(user, { displayName });
 
     await adminFirestore
       .collection("users")
@@ -18,11 +20,11 @@ export const signUp = async (email: string, password: string, displayName: strin
         school: {
           university: "",
           major: "",
-          grade: "",
+          grade: "선택 안 함",
         },
-        gender: "",
+        gender: "선택 안 함",
         age: null,
-        region: "",
+        region: "선택 안 함",
       });
 
     return {
@@ -39,4 +41,3 @@ export const signUp = async (email: string, password: string, displayName: strin
     };
   }
 };
-
