@@ -46,6 +46,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react-beautiful-dnd", "npm:13.1.8"],\
           ["@types/react-dom", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:18.3.7"],\
           ["broadcast-channel", "npm:7.1.0"],\
+          ["browser-image-compression", "npm:2.0.2"],\
           ["class-variance-authority", "npm:0.7.1"],\
           ["clsx", "npm:2.1.1"],\
           ["cookie", "npm:1.0.2"],\
@@ -6090,6 +6091,16 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["browser-image-compression", [\
+      ["npm:2.0.2", {\
+        "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/browser-image-compression-npm-2.0.2-21a831f9cb-10c0.zip/node_modules/browser-image-compression/",\
+        "packageDependencies": [\
+          ["browser-image-compression", "npm:2.0.2"],\
+          ["uzip", "npm:0.20201231.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["browserslist", [\
       ["npm:4.24.5", {\
         "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/browserslist-npm-4.24.5-89b9b4ad09-10c0.zip/node_modules/browserslist/",\
@@ -8975,6 +8986,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react-beautiful-dnd", "npm:13.1.8"],\
           ["@types/react-dom", "virtual:e474dbbf9f47a47aacbcacc04053838a5457bfb15e5a5e82c805c552b2ab7176f2ff6c507613060eb00c238335aaf789fc5ab9cdfdbb37cd70c4b89db4b57505#npm:18.3.7"],\
           ["broadcast-channel", "npm:7.1.0"],\
+          ["browser-image-compression", "npm:2.0.2"],\
           ["class-variance-authority", "npm:0.7.1"],\
           ["clsx", "npm:2.1.1"],\
           ["cookie", "npm:1.0.2"],\
@@ -9156,6 +9168,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/uuid-npm-9.0.1-39a8442bc6-10c0.zip/node_modules/uuid/",\
         "packageDependencies": [\
           ["uuid", "npm:9.0.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["uzip", [\
+      ["npm:0.20201231.0", {\
+        "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/uzip-npm-0.20201231.0-122f770c6a-10c0.zip/node_modules/uzip/",\
+        "packageDependencies": [\
+          ["uzip", "npm:0.20201231.0"]\
         ],\
         "linkType": "HARD"\
       }]\

@@ -1,4 +1,4 @@
-import { getFirebaseErrorMessage } from "@/lib/firebase/errorMessages"; // 에러 메시지 유틸 경로에 맞게 수정
+import { getFirebaseErrorMessage } from "@/lib/firebase/errorMessages";
 import { FirebaseError } from "firebase/app";
 import {
   EmailAuthProvider,

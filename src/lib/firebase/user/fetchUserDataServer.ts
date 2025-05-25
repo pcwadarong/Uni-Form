@@ -1,5 +1,7 @@
+// users docs에서 선택적으로 데이터 조합하여 반환
+
 import { getServerUid } from "@/lib/firebase/auth/getServerUid";
-import type { Comment, Form } from "@/types/types";
+import type { Form } from "@/types/types";
 import type {
   User,
   UserActivityFields,

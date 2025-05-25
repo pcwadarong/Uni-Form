@@ -3,8 +3,9 @@
 import { updateUserProfileAction } from "@/actions/userProfile";
 
 import { Button } from "@/components/ui/button";
-import AccountProfileSection from "./accountProfileSection";
+import DisplayNameForm from "./displayNameForm";
 import InputBlock from "./inputBlock";
+import ProfileImageForm from "./profileImageForm";
 import SelectBlock from "./selectBlock";
 
 import { useRouter } from "next/navigation";
@@ -62,10 +63,11 @@ export default function ClientProfileForm({ profile }: { profile: UserProfileFie
 
   useEffect(() => {
     if (result.status === null) return;
-    if (!result.status) toast(result.error ?? "회원정보 수정이 실패했습니다.");
-    else {
-      toast("회원정보가 업데이트 되었습니다.");
-    }
+    toast(
+      result.status
+        ? "회원정보가 업데이트 되었습니다."
+        : (result.error ?? "회원정보 수정이 실패했습니다."),
+    );
   }, [result]);
 
   const onSubmitProfileForm = async (data: ProfileUpdateInput) => {
@@ -81,11 +83,24 @@ export default function ClientProfileForm({ profile }: { profile: UserProfileFie
 
   return (
     <div className="p-6 space-y-10">
-      {!isGoogleUser && <AccountProfileSection profile={profile} user={user} />}
+      {!isGoogleUser && (
+        <section aria-labelledby="account-image-displayName-section-title">
+          <h2 id="account-image-displayName-section-title" className="body1 mb-4">
+            기본 계정 정보
+          </h2>
+          <div className="flex flex-wrap gap-4">
+            <ProfileImageForm user={user} photoURL={profile.photoURL ?? ""} />
+            <DisplayNameForm displayName={profile.displayName ?? ""} />
+          </div>
+          <hr className="mt-10 border-gray-300" />
+        </section>
+      )}
 
       <form>
-        <section>
-          <h2 className="body1 mb-4">학교 정보</h2>
+        <section aria-labelledby="account-school-section-title">
+          <h2 id="account-school-section-title" className="body1 mb-4">
+            학교 정보
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <InputBlock
               label="대학교"
@@ -109,8 +124,8 @@ export default function ClientProfileForm({ profile }: { profile: UserProfileFie
           </div>
         </section>
 
-        <section>
-          <div className="my-4 flex items-center gap-4">
+        <section aria-labelledby="account-personalInfo-section-title">
+          <div id="account-personalInfo-section-title" className="my-4 flex items-center gap-4">
             <h2 className="body1">추가 개인정보</h2>
             <span className="caption text-content/50">* 오직 설문 입력용으로만 사용됩니다.</span>
           </div>
@@ -143,7 +158,7 @@ export default function ClientProfileForm({ profile }: { profile: UserProfileFie
             <button
               type="button"
               className="text-sm text-red-500 underline underline-offset-4"
-               onClick={() => router.push("/auth/withdraw")}
+              onClick={() => router.push("/auth/withdraw")}
             >
               탈퇴하기
             </button>

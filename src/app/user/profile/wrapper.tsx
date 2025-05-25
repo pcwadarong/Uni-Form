@@ -1,5 +1,5 @@
 import { fetchUserFullProfile } from "@/lib/firebase/user/fetchUserFullProfile";
-import ClientProfileForm from "./form";
+import ClientProfileForm from "./fullForm";
 
 export default async function Wrapper() {
   const profile = await fetchUserFullProfile();

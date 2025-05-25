@@ -9,7 +9,7 @@ import NavSmRight from "./navSmRight";
 
 export default function NavRight() {
   const [isOpened, setOpen] = useState(false);
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const handleLogout = useHandleLogout();
 
   const toggleCategory = () => {
@@ -23,15 +23,21 @@ export default function NavRight() {
   return (
     <>
       <div className="flex gap-8 justify-self-end items-center">
-        {user ? (
+        {loading ? (
+          <span className="text-sm text-gray-500">로딩 중...</span>
+        ) : user ? (
           <>
-            <Link className="hidden lg:inline" href="/form">
+            <Link className="hidden md:inline" href="/form">
               <FormIcon />
             </Link>
-            <Link className="hidden lg:inline" href="/user">
+            <Link className="hidden md:inline" href="/user">
               내 정보
             </Link>
-            <button type="button" className="hidden lg:inline" onClick={handleLogout}>
+            <button
+              type="button"
+              className="hidden md:inline"
+              onClick={handleLogout}
+            >
               로그아웃
             </button>
           </>
@@ -46,13 +52,18 @@ export default function NavRight() {
           </>
         )}
       </div>
+
       <UserMenu />
 
       <div className="sm:hidden flex">
         <button type="button" onClick={toggleCategory}>
           <HamburgerIcon />
         </button>
-        <NavSmRight isOpened={isOpened} toggleCategory={toggleCategory} closeMenu={closeMenu} />
+        <NavSmRight
+          isOpened={isOpened}
+          toggleCategory={toggleCategory}
+          closeMenu={closeMenu}
+        />
       </div>
     </>
   );
