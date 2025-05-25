@@ -11,7 +11,6 @@ export async function createCommentsAction(
 ): Promise<{ status: boolean; error?: string }> {
   const formId = formData.get("formId");
   const content = formData.get("content");
-  const createdAt = new Date().toISOString();
 
   if (typeof formId !== "string" || typeof content !== "string")
     return { status: false, error: "입력값 오류" };

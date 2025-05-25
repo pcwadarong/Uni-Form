@@ -4,7 +4,7 @@ import { signUpAction } from "@/actions/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { INITIAL_ACTION_STATE } from "@/constants/states";
-import { type SignUpInput, signUpSchema } from "@/lib/validation/sign-schema";
+import { type SignUpInput, signUpSchema } from "@/lib/validation/authSchema";
 import type { ActionState } from "@/types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import { handleLogin } from "@/lib/firebase/auth/sign-in";
-import { type SignInInput, signInSchema } from "@/lib/validation/sign-schema";
+import { type SignInInput, signInSchema } from "@/lib/validation/authSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import Image from "next/image";

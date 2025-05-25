@@ -13,11 +13,14 @@ export const fetchUserAuthInfo = async (uid?: string) => {
 
     const user = await getAuth().getUser(resolvedUid);
 
+    const primaryProviderId = user.providerData.length > 0 ? user.providerData[0].providerId : null;
+
     return {
       uid: user.uid,
       email: user.email,
       displayName: user.displayName,
       photoURL: user.photoURL,
+      providerId: primaryProviderId,
       role: user.customClaims?.role ?? "user",
     };
   } catch (err) {

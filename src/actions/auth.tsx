@@ -2,7 +2,7 @@
 
 import { resetPasswordWithFirebase } from "@/lib/firebase/auth/resetPW";
 import { signUp } from "@/lib/firebase/auth/sign-up";
-import { signUpSchema } from "@/lib/validation/sign-schema";
+import { signUpSchema } from "@/lib/validation/authSchema";
 
 export async function signUpAction(
   _: unknown,
