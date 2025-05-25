@@ -63,7 +63,7 @@ export default function Form() {
             id="displayName"
             type="text"
             {...register("displayName")}
-            placeholder="2~6자의 영문, 한글, 숫자"
+            placeholder="2~10자의 영문, 한글, 숫자"
             className="mt-2"
           />
         </div>

@@ -15,7 +15,7 @@ export const signUpSchema = signInSchema
     displayName: z
       .string()
       .min(2, "닉네임은 2자 이상이어야 합니다.")
-      .max(6, "닉네임은 6자 이하여야 합니다.")
+      .max(10, "닉네임은 10자 이하여야 합니다.")
       .regex(/^[가-힣a-zA-Z0-9]+$/, "한글, 영문, 숫자만 입력 가능합니다."),
   })
   .refine((data) => data.password === data.confirmPassword, {

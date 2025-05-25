@@ -1,10 +1,11 @@
-// server component: app/profile/page.tsx
-import { fetchUserFullProfile } from "@/lib/firebase/user/fetchUserFullProfile";
-import ClientProfileForm from "./form";
+import { Suspense } from "react";
+import ProfileSkeleton from "./skeleton";
+import Wrapper from "./wrapper";
 
-export default async function Page() {
-  const profile = await fetchUserFullProfile();
-  if (!profile) return <div>사용자 정보를 불러올 수 없습니다.</div>;
-
-  return <ClientProfileForm profile={profile} />;
+export default function Page() {
+  return (
+    <Suspense fallback={<ProfileSkeleton />}>
+      <Wrapper />
+    </Suspense>
+  );
 }

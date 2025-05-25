@@ -25,7 +25,7 @@ import type { ActionState } from "@/types/types";
 import type { UserAuth, UserProfileFields } from "@/types/userType";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { deleteUser, getAuth } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { startTransition, useActionState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 
@@ -77,21 +77,6 @@ export default function ClientProfileForm({ profile }: { profile: UserProfileFie
     startTransition(() => {
       formAction(formData);
     });
-  };
-
-  const handleDeleteUser = async () => {
-    if (!user) return;
-    if (!confirm("정말 탈퇴하시겠습니까? 복구할 수 없습니다.")) return;
-
-    await deleteUser(user);
-    try {
-      await deleteUser(user);
-      toast.success("계정이 삭제되었습니다.");
-      router.push("/");
-    } catch (error) {
-      toast.error("탈퇴 중 오류가 발생했습니다.");
-      console.error(error);
-    }
   };
 
   return (
@@ -158,7 +143,7 @@ export default function ClientProfileForm({ profile }: { profile: UserProfileFie
             <button
               type="button"
               className="text-sm text-red-500 underline underline-offset-4"
-              onClick={handleDeleteUser}
+               onClick={() => router.push("/auth/withdraw")}
             >
               탈퇴하기
             </button>

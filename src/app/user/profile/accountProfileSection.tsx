@@ -41,7 +41,7 @@ export default function AccountProfileSection({
     toast("닉네임이 변경되었습니다.");
   };
 
-  const containerClass = "rounded-xl shadow-md bg-tone1 p-6 grow shrink-0";
+  const containerClass = "rounded-xl shadow-md bg-tone1 p-6 grow md:shrink-0";
 
   return (
     <section>
@@ -77,7 +77,7 @@ export default function AccountProfileSection({
               id="displayName"
               type="text"
               className="bg-muted dark:bg-surface"
-              placeholder="한글, 영문, 숫자 포함 2~6자"
+              placeholder="한글, 영문, 숫자 포함 2~10자"
               value={displayName}
               disabled={isPending}
               onChange={(e) => setDisplayName(e.target.value)}
