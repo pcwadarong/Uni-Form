@@ -6,9 +6,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const menu = [
-  { label: "회원정보 수정", href: "/user/profile" },
-  { label: "북마크, 답변한 설문", href: "/user/participation" },
-  { label: "내 활동 보기", href: "/user/activity" },
+  { label: "프로필 수정", href: "/user/profile" },
+  { label: "북마크, 나의 답변", href: "/user/participation" },
+  { label: "내가 만든 설문", href: "/user/myForms" },
+  { label: "작성한 댓글", href: "/user/myComments" },
 ];
 
 type Props = {
@@ -23,8 +24,7 @@ export default function SidebarClient({ displayName, profileURL, email }: Props)
   return (
     <aside
       aria-label="사용자 사이드바 메뉴"
-      className="w-full bg-tone1 text-center text-nowrap px-8 lg:w-88 lg:h-dvh lg:-mt-20 lg:pt-40"
-      style={{ boxShadow: "4px 0 6px rgba(0,0,0,0.1)" }}
+      className="w-full bg-tone1 text-center text-nowrap px-8 lg:w-88 lg:h-dvh lg:-mt-20 lg:pt-40 lg:shadow-[4px_0_6px_rgba(0,0,0,0.1)]"
     >
       <div className="m-auto hidden w-fit lg:block">
         <div className="relative overflow-hidden aspect-square rounded-full bg-gray-300 shadow">

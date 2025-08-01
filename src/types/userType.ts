@@ -20,7 +20,7 @@ export type UserField =
   | "profile"
   | "createdForms"
   | "participation"
-  | "activity"
+  | "myForms"
   | "drafts"
   | "answeredFormIds";
 
@@ -41,7 +41,6 @@ export type UserParticipationFields = {
 export type UserActivityFields = {
   createdForms: Form[];
   drafts: Form[];
-  comments: Comment[];
 };
 
 export type UserFieldMap = Record<

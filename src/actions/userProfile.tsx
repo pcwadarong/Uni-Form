@@ -1,7 +1,7 @@
 "use server";
 
 import { getServerUid } from "@/lib/firebase/auth/getServerUid";
-import { updateDisplayName, updateUserProfile } from "@/lib/firebase/user/updateUserProfile";
+import { updateDisplayName, updateUserProfile } from "@/lib/firebase/user/server/updateUserProfile";
 import { displayNameSchema, profileUpdateSchema } from "@/lib/validation/userProfileSchema";
 
 export async function updateUserProfileAction(

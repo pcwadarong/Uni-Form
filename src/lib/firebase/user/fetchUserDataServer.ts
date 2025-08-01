@@ -12,12 +12,12 @@ import type {
 import { FirebaseError } from "firebase/app";
 
 import { adminFirestore } from "@/lib/firebase/firebaseAdminConfig";
-import { handleActivity } from "./handlers/handleActivity";
-import { handleAnsweredFormIds } from "./handlers/handleAnsweredFormIds";
-import { handleCreatedForms } from "./handlers/handleCreatedForms";
-import { handleDrafts } from "./handlers/handleDrafts";
-import { handleParticipation } from "./handlers/handleParticipation";
-import { handleProfile } from "./handlers/handleProfile";
+import { handleActivity } from "./server/handler/handleActivity";
+import { handleAnsweredFormIds } from "./server/handler/handleAnsweredFormIds";
+import { handleCreatedForms } from "./server/handler/handleCreatedForms";
+import { handleDrafts } from "./server/handler/handleDrafts";
+import { handleParticipation } from "./server/handler/handleParticipation";
+import { handleProfile } from "./server/handler/handleProfile";
 
 type FetchUserParams = {
   uid?: string;
@@ -61,7 +61,7 @@ export const fetchUserDataServer = async ({
       case "drafts":
         return await handleDrafts(resolvedUid);
 
-      case "activity":
+      case "myForms":
         return await handleActivity(resolvedUid);
 
       case "answeredFormIds":

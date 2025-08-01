@@ -1,4 +1,4 @@
-import { fetchUserFullProfile } from "@/lib/firebase/user/fetchUserFullProfile";
+import { fetchUserFullProfile } from "@/lib/firebase/user/server/fetchUserFullProfile";
 import ClientProfileForm from "./fullForm";
 
 export default async function Wrapper() {

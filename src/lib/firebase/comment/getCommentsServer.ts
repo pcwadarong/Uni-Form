@@ -3,7 +3,7 @@
 import type { Comment } from "@/types/types";
 import { FirebaseError } from "firebase/app";
 import { adminFirestore } from "../firebaseAdminConfig";
-import { fetchUserDisplayNameServer } from "../user/fetchUserDisplayNameServer";
+import { fetchUserDisplayNameServer } from "../user/server/fetchUserDisplayNameServer";
 
 export const fetchCommentsServer = async (
   id: string,

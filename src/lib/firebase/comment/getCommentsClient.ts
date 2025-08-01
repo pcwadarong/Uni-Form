@@ -13,7 +13,7 @@ import {
   startAfter,
   where,
 } from "firebase/firestore";
-import { fetchUserDisplayNameClient } from "../user/fetchUserDisplayNameClient";
+import { fetchUserDisplayNameClient } from "../user/client/fetchUserDisplayNameClient";
 
 export const getCommentSnapshotById = async (
   id: string,

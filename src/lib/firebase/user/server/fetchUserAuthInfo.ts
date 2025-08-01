@@ -1,7 +1,7 @@
 // firebase authentication 에서 기본 제공하는 user 데이터를 import
 
 import { getAuth } from "firebase-admin/auth";
-import { getServerUid } from "../auth/getServerUid";
+import { getServerUid } from "../../auth/getServerUid";
 
 export const fetchUserAuthInfo = async (uid?: string) => {
   try {

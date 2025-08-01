@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { syncProfileImage } from "@/lib/firebase/user/updateProfileImage";
+import { syncProfileImage } from "@/lib/firebase/user/client/updateProfileImage";
 import imageCompression from "browser-image-compression";
 import type { User } from "firebase/auth";
 import Image from "next/image";

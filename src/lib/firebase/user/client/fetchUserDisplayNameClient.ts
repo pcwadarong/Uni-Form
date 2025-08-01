@@ -2,7 +2,7 @@
 
 import { FirebaseError } from "firebase/app";
 import { doc, getDoc } from "firebase/firestore";
-import { firestore } from "../firebaseConfig";
+import { firestore } from "../../firebaseConfig";
 
 export const fetchUserDisplayNameClient = async (uid: string): Promise<string | null> => {
   try {

@@ -6,6 +6,8 @@ import {
   deleteUser,
   reauthenticateWithCredential,
 } from "firebase/auth";
+import { deleteDoc, doc } from "firebase/firestore";
+import { firestore } from "../firebaseConfig";
 
 export const withdrawUser = async (
   user: User | null,
@@ -23,6 +25,10 @@ export const withdrawUser = async (
     const credential = EmailAuthProvider.credential(email, password);
     await reauthenticateWithCredential(user, credential);
     await deleteUser(user);
+
+    const userDocRef = doc(firestore, "users", user.uid);
+    await deleteDoc(userDocRef);
+
     return { status: true, error: "" };
   } catch (err) {
     if (err instanceof FirebaseError) {

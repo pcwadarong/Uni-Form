@@ -2,8 +2,8 @@ export const revalidate = 60 * 5;
 
 import FormCardItem from "@/components/form/formCardItem";
 import FormCardSkeleton from "@/components/form/formCardSkeleton";
+import SectionHeader from "@/components/ui/sectionHeader";
 import { fetchFormList } from "@/lib/firebase/form/getFormListServer";
-import Link from "next/link";
 
 interface FormListSectionProps {
   title: string;
@@ -16,14 +16,10 @@ const FormListSection = async ({ title, link, sortType }: FormListSectionProps) 
 
   return (
     <section className="flex-1" aria-labelledby={`${sortType}-title`}>
-      <div className="mb-6 flex items-end justify-between">
-        <h2 id={`${sortType}-title`} className="title2">
-          {title}
-        </h2>
-        <Link href={link} className="caption">
-          모든 설문 보기 →
-        </Link>
-      </div>
+      <SectionHeader
+        title={title}
+        linkHref={link}
+      />
       <ul className="grid grid-cols-2 gap-4 md:gap-8">
         {forms.length > 0
           ? forms.map((item) => <FormCardItem type="survey" key={item.id} item={item} />)

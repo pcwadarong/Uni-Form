@@ -3,7 +3,7 @@
 import type { FirebaseError } from "firebase/app";
 import { updateProfile } from "firebase/auth";
 import { deleteObject, getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { auth, storage } from "../firebaseConfig";
+import { auth, storage } from "../../firebaseConfig";
 
 export async function syncProfileImage(
   userId: string,

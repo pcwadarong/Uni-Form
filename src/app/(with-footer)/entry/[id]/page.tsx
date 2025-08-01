@@ -12,8 +12,8 @@ import type { Comment, Form } from "@/types/types";
 
 import { getServerUid } from "@/lib/firebase/auth/getServerUid";
 import { fetchCommentsServer } from "@/lib/firebase/comment/getCommentsServer";
-import { fetchForm, fetchSimilarForms } from "@/lib/firebase/form/getFormServer";
-import { handleAnsweredFormIds } from "@/lib/firebase/user/handlers/handleAnsweredFormIds";
+import { fetchForm } from "@/lib/firebase/form/getFormServer";
+import { handleAnsweredFormIds } from "@/lib/firebase/user/server/handler/handleAnsweredFormIds";
 import { decrypt } from "@/lib/utils/crypoto";
 import formateDate from "@/lib/utils/formateDate";
 

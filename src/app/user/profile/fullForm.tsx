@@ -181,7 +181,7 @@ export default function ClientProfileForm({ profile }: { profile: UserProfileFie
                 }
               }}
               isPending={isPending}
-              className="bg-green-400 text-white"
+              className="bg-green-400 text-white text-nowrap"
             >
               {isPending ? "저장 중..." : "저장하기"}
             </Button>
@@ -189,7 +189,7 @@ export default function ClientProfileForm({ profile }: { profile: UserProfileFie
               type="button"
               onClick={() => reset()}
               disabled={isPending}
-              className="bg-white text-green-400 border-green-300 border dark:bg-muted"
+              className="bg-white text-green-400 border-green-300 border dark:bg-muted text-nowrap"
             >
               취소하기
             </Button>

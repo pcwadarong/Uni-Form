@@ -1,7 +1,6 @@
 import { adminFirestore } from "@/lib/firebase/firebaseAdminConfig";
 import { getAuth } from "firebase-admin/auth";
-import { updateProfile } from "firebase/auth";
-import { getServerUid } from "../auth/getServerUid";
+import { getServerUid } from "../../auth/getServerUid";
 
 interface ProfileData {
   university?: string;

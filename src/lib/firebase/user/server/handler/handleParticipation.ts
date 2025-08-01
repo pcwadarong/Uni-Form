@@ -13,6 +13,7 @@ export const handleParticipation = async (
     .collection("responses")
     .where("uid", "==", uid)
     .orderBy("createdAt", "desc")
+    .limit(3)
     .get();
 
   const formIds = responsesSnap.docs.map((doc) => doc.data().formId as string);
