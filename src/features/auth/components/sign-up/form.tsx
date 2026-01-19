@@ -2,10 +2,10 @@
 
 import { INITIAL_ACTION_STATE } from "@/constants/states";
 import { signUpAction } from "@/features/auth/actions/auth";
+import type { ActionState } from "@/features/shared/types";
 import { Button } from "@/features/shared/ui/button";
 import { Input } from "@/features/shared/ui/input";
 import { type SignUpInput, signUpSchema } from "@/lib/validation/authSchema";
-import type { ActionState } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { startTransition, useActionState, useEffect } from "react";
