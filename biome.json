@@ -7,7 +7,14 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "ignore": ["dist/**/*", "node_modules/**/*", ".pnp.*", ".yarn/**/*", ".next/**/*", "public/**/*"]
+    "ignore": [
+      "dist/**/*",
+      "node_modules/**/*",
+      ".pnp.*",
+      ".yarn/**/*",
+      ".next/**/*",
+      "public/**/*"
+    ]
   },
   "formatter": {
     "enabled": true,
@@ -26,14 +33,14 @@
     "rules": {
       "recommended": true,
       "suspicious": {
-        "noArrayIndexKey": "off", // 배열 인덱스를 키로 사용하는 것 허용 (UI 라이브러리 특성 고려)
-        "noExplicitAny": "warn"    // any 사용 시 경고
+        "noArrayIndexKey": "off",
+        "noExplicitAny": "warn"
       },
       "style": {
-        "useImportType": "error"   // Type-only import 강제
+        "useImportType": "error"
       },
       "correctness": {
-        "noUnusedVariables": "warn" // 사용하지 않는 변수 경고
+        "noUnusedVariables": "warn"
       }
     }
   },
@@ -46,7 +53,7 @@
       "quoteProperties": "asNeeded",
       "semicolons": "always",
       "trailingCommas": "all",
-      "quoteStyle": "double" // 일관성을 위해 double quote 권장
+      "quoteStyle": "double"
     }
   },
   "json": {
