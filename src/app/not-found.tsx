@@ -1,6 +1,6 @@
 "use client";
 
-import { LinkButton } from "@/components/ui/button";
+import { LinkButton } from "@/features/shared/ui/button";
 
 export default function NotFound() {
   return (

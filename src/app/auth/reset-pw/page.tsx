@@ -1,9 +1,9 @@
 "use client";
 
-import { resetPWAction } from "@/actions/auth";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { INITIAL_ACTION_STATE } from "@/constants/states";
+import { resetPWAction } from "@/features/auth/actions/auth";
+import { Button } from "@/features/shared/ui/button";
+import { Input } from "@/features/shared/ui/input";
 import type { ActionState } from "@/types";
 import { useRouter } from "next/navigation";
 import { useActionState } from "react";

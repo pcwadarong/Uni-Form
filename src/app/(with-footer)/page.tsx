@@ -1,7 +1,7 @@
-import ClosingRecruits from "@/app/(with-footer)/main/ClosingRecruits";
-import LatestComments from "@/app/(with-footer)/main/LatestComments";
-import RecentPopularSurveys from "@/app/(with-footer)/main/RecentPopularSurveys";
-import SpecialSurveys from "@/app/(with-footer)/main/SpecialSurvey";
+import ClosingRecruits from "@/features/survey/list/components/main/ClosingRecruits";
+import LatestComments from "@/features/survey/list/components/main/LatestComments";
+import RecentPopularSurveys from "@/features/survey/list/components/main/RecentPopularSurveys";
+import SpecialSurveys from "@/features/survey/list/components/main/SpecialSurvey";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {

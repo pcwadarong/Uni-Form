@@ -1,4 +1,4 @@
-import ListClient from "@/components/list/list";
+import ListClient from "@/features/survey/list/components/list";
 import { fetchFormList } from "@/lib/firebase/form/getFormListServer";
 
 export default async function ListServerWrapper({

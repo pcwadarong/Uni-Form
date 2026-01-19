@@ -1,5 +1,5 @@
-import FormCardItem from "@/components/form/formCardItem";
-import SectionHeader from "@/components/ui/sectionHeader";
+import SectionHeader from "@/features/shared/ui/sectionHeader";
+import FormCardItem from "@/features/survey/form/components/formCardItem";
 import { fetchUserDataServer } from "@/lib/firebase/user/fetchUserDataServer";
 import type { UserActivityFields } from "@/types/userType";
 

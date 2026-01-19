@@ -78,7 +78,7 @@ const List = ({ initialData, topic, category, sort }: Props) => {
 
   return (
     <section
-      className="my-20 w-full gap-10 px-4 2xl:flex 2xl:w-[1400px] 2xl:px-0"
+      className="my-20 w-full gap-10 px-4 2xl:flex 2xl:w-350 2xl:px-0"
       aria-labelledby="content-section-heading"
     >
       <div className={filterDisplay}>

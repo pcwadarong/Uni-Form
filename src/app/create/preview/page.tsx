@@ -1,10 +1,10 @@
 "use client";
 
-import SurveyInfo from "@/components/create/surveyInfo";
-import { Button } from "@/components/ui/button";
-import CircularProgress from "@/components/ui/circular";
 import questionComponentMap from "@/constants/questionComponentMap";
-import { useSurveyStore } from "@/store/survey";
+import { Button } from "@/features/shared/ui/button";
+import CircularProgress from "@/features/shared/ui/circular";
+import SurveyInfo from "@/features/survey/create/components/surveyInfo";
+import { useSurveyStore } from "@/features/survey/create/store/survey";
 import { BroadcastChannel } from "broadcast-channel";
 import { useCallback, useEffect, useRef, useState } from "react";
 

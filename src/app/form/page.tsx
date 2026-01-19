@@ -1,10 +1,10 @@
 "use client";
 
-import FileEditIcon from "@/components/svg/file";
 import { initSurveyInfo } from "@/constants/initSurveyInfo";
 import { commonTemplate, recruitTemplate, surveyTemplate } from "@/constants/templates";
+import FileEditIcon from "@/features/shared/icons/file";
+import { useSurveyStore } from "@/features/survey/create/store/survey";
 import getColorById from "@/lib/utils/getRandomColor";
-import { useSurveyStore } from "@/store/survey";
 import { useRouter } from "next/navigation";
 
 const RandomColoredBox: React.FC<{ link: string; text: string }> = ({ link, text }) => {
@@ -45,7 +45,7 @@ const Form: React.FC = () => {
   const gridClassNames = "grid grid-cols-2 gap-4 md:grid-cols-4 xl:grid-cols-5 xl:gap-8";
 
   return (
-    <section className="flex w-full flex-col gap-10 px-4 py-16 text-center md:px-8 2xl:w-[1400px] 2xl:px-0">
+    <section className="flex w-full flex-col gap-10 px-4 py-16 text-center md:px-8 2xl:w-350 2xl:px-0">
       <ul className={gridClassNames} aria-label="공통 템플릿 목록">
         {Object.entries(commonTemplate).map(([key, value]) => (
           <RandomColoredBox key={key} link={`/create${value}`} text={key} />

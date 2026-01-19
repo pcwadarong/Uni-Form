@@ -1,13 +1,13 @@
-import Reaction from "@/components/form/reaction";
-import ActionButtons from "@/components/ui/actionButtons";
-import { LinkButton } from "@/components/ui/button";
-import CreateComments from "./comment/createComment";
-import EntryClient from "./comment/entryClient";
-import SimilarForms from "./similarForms";
+import ActionButtons from "@/features/shared/ui/actionButtons";
+import { LinkButton } from "@/features/shared/ui/button";
+import CreateComments from "@/features/survey/entry/components/comment/createComment";
+import EntryClient from "@/features/survey/entry/components/comment/entryClient";
+import SimilarForms from "@/features/survey/entry/components/similarForms";
+import Reaction from "@/features/survey/form/components/reaction";
 
-import BubbleChat from "@/components/svg/bubble-chat";
-import { formatTextWithLineBreaks } from "@/components/ui/formatTextWithLineBreaks";
 import { RECRUIT_CATEGORY_LABELS, SURVEY_CATEGORY_LABELS } from "@/constants/category";
+import BubbleChat from "@/features/shared/icons/bubble-chat";
+import { formatTextWithLineBreaks } from "@/features/shared/ui/formatTextWithLineBreaks";
 import type { Comment, Form } from "@/types";
 
 import { getServerUid } from "@/lib/firebase/auth/getServerUid";
@@ -50,7 +50,7 @@ export default async function Entry({
   const hasAnswered = answeredFormIds.includes(item.id);
 
   return (
-    <div className="my-auto w-full max-w-[1200px] space-y-20 bg-surface px-14 pb-10 shadow dark:bg-muted">
+    <div className="my-auto w-full max-w-75 space-y-20 bg-surface px-14 pb-10 shadow dark:bg-muted">
       <section className="flex flex-col gap-10 md:flex-row">
         <MobileImage img={item.img ?? ""} />
 
@@ -181,7 +181,7 @@ function MobileImage({ img }: { img: string }) {
         width={240}
         height={150}
         alt="form 이미지"
-        className="max-h-[370px] w-full object-cover"
+        className="max-h-23 w-full object-cover"
       />
     </div>
   );

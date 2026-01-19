@@ -1,4 +1,4 @@
-import { useSelectedSurveyStore } from "@/store/survey";
+import { useSelectedSurveyStore } from "@/features/survey/create/store/survey";
 
 export const closeModal = () => {
   const setSelectedItem = useSelectedSurveyStore.getState().setSelectedItem;

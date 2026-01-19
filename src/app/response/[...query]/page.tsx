@@ -1,12 +1,12 @@
 "use client";
 
-import Questions from "@/components/create/questions";
-import SurveyInfo from "@/components/create/surveyInfo";
-// import { Button } from "@/components/ui/button"; // TODO: 완성되지 않은 로직으로 인해 주석 처리
+import Questions from "@/features/survey/create/components/questions";
+import SurveyInfo from "@/features/survey/create/components/surveyInfo";
+import { useSurveyStore } from "@/features/survey/create/store/survey";
+// import { Button } from "@/features/shared/ui/button"; // TODO: 완성되지 않은 로직으로 인해 주석 처리
 //import { fetchDetail } from "@/lib/firebase/fetchDatas";
 // import { decrypt } from "@/lib/utils/crypoto";
-import { useResponseStore } from "@/store/response";
-import { useSurveyStore } from "@/store/survey";
+import { useResponseStore } from "@/features/survey/form/store/response";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";

@@ -22,11 +22,11 @@ const AddBtns = () => {
   };
 
   return (
-    <div className="flex h-14 items-center border-gray-2 border-t-[1px]">
+    <div className="flex h-14 items-center border-gray-2 border-t">
       <button
         type="button"
         onClick={addQuestion}
-        className="flex-1 border-gray-2 border-r-[1px]"
+        className="flex-1 border-gray-2 border-r"
         aria-label="항목 추가"
       >
         + 항목 추가

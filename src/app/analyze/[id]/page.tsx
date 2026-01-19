@@ -1,10 +1,10 @@
 import { decrypt } from "@/lib/utils/crypoto";
 import { notFound } from "next/navigation";
-//import SurveyInfo from '@/components/create/surveyInfo';
+//import SurveyInfo from '@/features/survey/create/components/surveyInfo';
 //import { useSuspenseQuery } from '@tanstack/react-query';
-//import { useSurveyStore } from '@/store/survey';
+//import { useSurveyStore } from '@/features/survey/create/store/survey';
 //import { useEffect } from 'react';
-//import Questions from '@/components/create/questions';
+//import Questions from '@/features/survey/create/components/questions';
 
 export const dynamic = "force-dynamic";
 

@@ -1,4 +1,4 @@
-import Footer from "@/components/layout/footer";
+import Footer from "@/features/shared/layout/footer";
 import { Suspense } from "react";
 import Loading from "../loading";
 

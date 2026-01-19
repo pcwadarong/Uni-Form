@@ -1,11 +1,11 @@
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@/features/shared/ui/skeleton";
 
 export default function ProfileSkeleton() {
   return (
     <div className="space-y-20 p-6">
       <div className="flex flex-wrap gap-4">
         {[...Array(2)].map((_, index) => (
-          <Skeleton key={`two-col-${index}`} className="h-32 w-[354px] grow md:shrink-0" />
+          <Skeleton key={`two-col-${index}`} className="h-32 w-23 grow md:shrink-0" />
         ))}
       </div>
       {[...Array(2)].map((_, sectionIndex) => (
