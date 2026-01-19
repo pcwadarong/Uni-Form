@@ -32,7 +32,7 @@ function SelectTrigger({
       data-size={size}
       className={cn(
         // 상태 스타일
-        "border-muted data-placeholder:text-muted",
+        "border-muted data-[placeholder]:text-muted",
         "focus-visible:border-muted focus-visible:ring-[3px] focus-visible:ring-muted/50",
         "aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40",
 
@@ -98,7 +98,7 @@ function SelectContent({
           className={cn(
             "p-1",
             position === "popper" &&
-              "h-(--radix-select-trigger-height) w-full min-w-(--radix-select-trigger-width) scroll-my-1",
+              "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)] scroll-my-1",
           )}
         >
           {children}
@@ -130,7 +130,7 @@ function SelectItem({
       className={cn(
         "focus:bg-tone1 focus:text-tone1-reverse",
         "relative flex w-full cursor-default select-none items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm outline-none",
-        "data-disabled:pointer-events-none data-disabled:opacity-50",
+        "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
         "[&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0",
         "*:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
         className,

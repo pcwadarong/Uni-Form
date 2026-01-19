@@ -45,7 +45,7 @@ function FormContent({ item }: { item: Form }) {
             width={240}
             height={150}
             alt="form 이미지"
-            className="max-h-23 w-full object-cover"
+            className="max-h-[370px] w-full object-cover"
           />
         )}
       </div>
