@@ -1,14 +1,14 @@
-import Reaction from "@/components/form/reaction";
-import BubbleChat from "@/components/svg/bubble-chat";
-import { LinkButton } from "@/components/ui/button";
-import { formatTextWithLineBreaks } from "@/components/ui/formatTextWithLineBreaks";
-import Modal from "@/components/ui/modal";
+import BubbleChat from "@/features/shared/icons/bubble-chat";
+import { LinkButton } from "@/features/shared/ui/button";
+import { formatTextWithLineBreaks } from "@/features/shared/ui/formatTextWithLineBreaks";
+import Modal from "@/features/shared/ui/modal";
+import Reaction from "@/features/survey/form/components/reaction";
 
 import { fetchCommentsServer } from "@/lib/firebase/comment/getCommentsServer";
 import { fetchForm } from "@/lib/firebase/form/getFormServer";
 import { decrypt } from "@/lib/utils/crypoto";
 import formatDate from "@/lib/utils/formateDate";
-import type { Comment, Form } from "@/types/types";
+import type { Comment, Form } from "@/types";
 
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -45,7 +45,7 @@ function FormContent({ item }: { item: Form }) {
             width={240}
             height={150}
             alt="form 이미지"
-            className="max-h-[370px] w-full object-cover"
+            className="max-h-23 w-full object-cover"
           />
         )}
       </div>
@@ -76,7 +76,7 @@ function CommentsSection({ comments }: { comments: Comment[] }) {
 
       {hasComments ? (
         <ul className="space-y-3">
-          <div className="absolute bottom-0 h-14 w-full bg-gradient-to-t from-muted" />
+          <div className="absolute bottom-0 h-14 w-full bg-linear-to-t from-muted" />
           {comments.map((comment) => (
             <li key={comment.id} className="rounded-xl border border-gray-300 bg-surface px-4 py-3">
               <span className="font-semibold">{comment.displayName}</span>

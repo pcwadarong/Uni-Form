@@ -1,9 +1,9 @@
-import Header from "@/components/layout/header/header";
-import FloatingControls from "@/components/ui/floatingControls";
+import { Providers } from "@/features/shared/contexts/providers";
+import Header from "@/features/shared/layout/header/header";
+import FloatingControls from "@/features/shared/ui/floatingControls";
+import { Toaster } from "@/features/shared/ui/sonner";
 import localFont from "next/font/local";
 import "./globals.css";
-import { Toaster } from "@/components/ui/sonner";
-import { Providers } from "../contexts/providers";
 
 const suit = localFont({ src: "../fonts/SUIT.woff2" });
 

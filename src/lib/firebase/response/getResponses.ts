@@ -1,6 +1,6 @@
 //analysis: responses 모아서 분석
 import { adminFirestore } from "@/lib/firebase/firebaseAdminConfig";
-import type { Response } from "@/types/types";
+import type { Response } from "@/types";
 import { FirebaseError } from "firebase/app";
 
 export const fetchResponseListByFormId = async (id: string): Promise<Response[] | null> => {

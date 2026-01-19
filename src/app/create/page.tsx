@@ -1,12 +1,12 @@
 "use client";
 
-import AppreciateMessage from "@/components/create/appreciateMessage";
-import CreatePageButton from "@/components/create/buttons";
-import Questions from "@/components/create/questions";
-import SurveyInfo from "@/components/create/surveyInfo";
+import AppreciateMessage from "@/features/survey/create/components/appreciateMessage";
+import CreatePageButton from "@/features/survey/create/components/buttons";
+import Questions from "@/features/survey/create/components/questions";
+import SurveyInfo from "@/features/survey/create/components/surveyInfo";
+import { useSurveyStore } from "@/features/survey/create/store/survey";
 import { handleQuestionDragEnd } from "@/lib/utils/handleDragEnd";
-import { useSurveyStore } from "@/store/survey";
-import type { Question } from "@/types/types";
+import type { Question } from "@/types";
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 import { useEffect, useState } from "react";
 

@@ -1,4 +1,4 @@
-import SearchedList from "./searchedList";
+import SearchedList from "@/features/survey/list/components/search/searchedList";
 
 const SearchedResults = async ({
   searchParams,

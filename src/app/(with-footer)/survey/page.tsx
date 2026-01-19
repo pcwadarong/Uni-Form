@@ -1,19 +1,20 @@
-import ListClient from "@/components/list/list";
+import ListClient from "@/features/survey/list/components/list";
 import { fetchFormList } from "@/lib/firebase/form/getFormListServer";
 
 export default async function ListServerWrapper({
   searchParams,
 }: {
-  searchParams: { cat?: string; sort?: string };
+  searchParams: Promise<{ cat?: string; sort?: string }>;
 }) {
+  const { cat, sort } = await searchParams;
   const initialData = await fetchFormList("survey", "public");
 
   return (
     <ListClient
       initialData={initialData}
       topic="survey"
-      category={searchParams.cat ?? "all"}
-      sort={searchParams.sort ?? "random"}
+      category={cat ?? "all"}
+      sort={sort ?? "random"}
     />
   );
 }

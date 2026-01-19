@@ -1,5 +1,5 @@
 import { adminFirestore } from "@/lib/firebase/firebaseAdminConfig";
-import type { Comment } from "@/types/types";
+import type { Comment } from "@/types";
 
 //entry comments server와 동일
 export const handleComments = async (uid: string): Promise<Comment[]> => {

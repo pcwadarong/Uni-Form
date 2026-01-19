@@ -1,4 +1,4 @@
-import FormCardItem from "@/components/form/formCardItem";
+import FormCardItem from "@/features/survey/form/components/formCardItem";
 import { fetchUserDataServer } from "@/lib/firebase/user/fetchUserDataServer";
 import type { UserParticipationFields } from "@/types/userType";
 import Link from "next/link";

@@ -1,4 +1,4 @@
-import type { Question } from "@/types/types";
+import type { Question } from "@/types";
 
 interface DeleteProps {
   question: Question;

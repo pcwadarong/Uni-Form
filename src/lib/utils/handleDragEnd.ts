@@ -1,4 +1,4 @@
-import type { Option, Question } from "@/types/types";
+import type { Option, Question } from "@/types";
 import type { DropResult } from "@hello-pangea/dnd";
 
 export const handleQuestionDragEnd = (

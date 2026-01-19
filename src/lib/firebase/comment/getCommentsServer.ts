@@ -1,6 +1,6 @@
 // 댓글 리스트 - entry에서 사용
 
-import type { Comment } from "@/types/types";
+import type { Comment } from "@/types";
 import { FirebaseError } from "firebase/app";
 import { adminFirestore } from "../firebaseAdminConfig";
 import { fetchUserDisplayNameServer } from "../user/server/fetchUserDisplayNameServer";
