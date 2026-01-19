@@ -1,4 +1,4 @@
-import type { Response } from "@/types/types";
+import type { Response } from "@/types";
 import { create } from "zustand";
 
 interface ResponseState {

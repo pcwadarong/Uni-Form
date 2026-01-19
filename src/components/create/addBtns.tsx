@@ -1,5 +1,5 @@
 import { useSurveyStore } from "@/store/survey";
-import type { Question } from "@/types/types";
+import type { Question } from "@/types";
 
 const AddBtns = () => {
   const { surveyInfo, setSurveyInfo } = useSurveyStore();

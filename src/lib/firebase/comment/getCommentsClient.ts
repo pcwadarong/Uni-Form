@@ -1,5 +1,5 @@
 import { firestore } from "@/lib/firebase/firebaseConfig";
-import type { Comment } from "@/types/types";
+import type { Comment } from "@/types";
 import {
   type DocumentData,
   type QueryDocumentSnapshot,

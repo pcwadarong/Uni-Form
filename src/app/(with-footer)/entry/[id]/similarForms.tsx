@@ -1,6 +1,6 @@
 import FormCardItem from "@/components/form/formCardItem";
 import { fetchSimilarForms } from "@/lib/firebase/form/getFormServer";
-import type { Form } from "@/types/types";
+import type { Form } from "@/types";
 
 export default async function SimilarForms({
   itemId,

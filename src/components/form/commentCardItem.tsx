@@ -1,7 +1,7 @@
 "use client";
 
 import { useEncryptedEntryNavigation } from "@/hooks/useEncryptedEntryNavigation";
-import type { Comment } from "@/types/types";
+import type { Comment } from "@/types";
 
 interface Props {
   item: Comment;

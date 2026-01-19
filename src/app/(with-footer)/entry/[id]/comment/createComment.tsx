@@ -4,7 +4,7 @@ import { createCommentsAction } from "@/actions/comments";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { INITIAL_ACTION_STATE } from "@/constants/states";
-import type { ActionState } from "@/types/types";
+import type { ActionState } from "@/types";
 import { useQueryClient } from "@tanstack/react-query";
 import { getAuth } from "firebase/auth";
 import { type FormEvent, useActionState, useEffect, useMemo, useRef } from "react";

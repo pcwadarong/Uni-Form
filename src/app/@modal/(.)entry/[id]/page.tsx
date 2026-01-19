@@ -8,7 +8,7 @@ import { fetchCommentsServer } from "@/lib/firebase/comment/getCommentsServer";
 import { fetchForm } from "@/lib/firebase/form/getFormServer";
 import { decrypt } from "@/lib/utils/crypoto";
 import formatDate from "@/lib/utils/formateDate";
-import type { Comment, Form } from "@/types/types";
+import type { Comment, Form } from "@/types";
 
 import Image from "next/image";
 import { notFound } from "next/navigation";

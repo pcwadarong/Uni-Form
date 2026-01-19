@@ -1,7 +1,7 @@
 // my forms (isPublic)
 
 import { adminFirestore } from "@/lib/firebase/firebaseAdminConfig";
-import type { Form } from "@/types/types";
+import type { Form } from "@/types";
 
 export const handleCreatedForms = async (uid: string): Promise<Form[]> => {
   const [surveysSnap, recruitsSnap] = await Promise.all([

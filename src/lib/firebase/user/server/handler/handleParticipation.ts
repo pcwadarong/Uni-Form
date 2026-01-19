@@ -2,7 +2,7 @@
 
 import { adminFirestore } from "@/lib/firebase/firebaseAdminConfig";
 import { batchQueryByIds } from "@/lib/utils/batchQueryByIds";
-import type { Form } from "@/types/types";
+import type { Form } from "@/types";
 import type { UserParticipationFields } from "@/types/userType";
 
 export const handleParticipation = async (

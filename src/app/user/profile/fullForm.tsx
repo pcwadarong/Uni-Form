@@ -22,7 +22,7 @@ import {
 } from "@/constants/userProfile";
 import { type ProfileUpdateInput, profileUpdateSchema } from "@/lib/validation/userProfileSchema";
 
-import type { ActionState } from "@/types/types";
+import type { ActionState } from "@/types";
 import type { UserAuth, UserProfileFields } from "@/types/userType";
 
 import { zodResolver } from "@hookform/resolvers/zod";

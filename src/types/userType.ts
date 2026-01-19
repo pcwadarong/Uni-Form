@@ -1,5 +1,5 @@
 import type { FieldError, UseFormRegisterReturn } from "react-hook-form";
-import type { Comment, Form } from "./types";
+import type { Form } from ".";
 
 export interface User {
   uid: string;

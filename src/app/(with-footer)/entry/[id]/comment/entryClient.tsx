@@ -5,7 +5,7 @@ import {
   fetchCommentsClient,
   getCommentSnapshotById,
 } from "@/lib/firebase/comment/getCommentsClient";
-import type { Comment, Form } from "@/types/types";
+import type { Comment, Form } from "@/types";
 import { type InfiniteData, useInfiniteQuery } from "@tanstack/react-query";
 import type { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";

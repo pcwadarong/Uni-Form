@@ -8,7 +8,7 @@ import SimilarForms from "./similarForms";
 import BubbleChat from "@/components/svg/bubble-chat";
 import { formatTextWithLineBreaks } from "@/components/ui/formatTextWithLineBreaks";
 import { RECRUIT_CATEGORY_LABELS, SURVEY_CATEGORY_LABELS } from "@/constants/category";
-import type { Comment, Form } from "@/types/types";
+import type { Comment, Form } from "@/types";
 
 import { getServerUid } from "@/lib/firebase/auth/getServerUid";
 import { fetchCommentsServer } from "@/lib/firebase/comment/getCommentsServer";

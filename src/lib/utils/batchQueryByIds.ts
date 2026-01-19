@@ -1,6 +1,6 @@
 // 리밋 방지를 위해 최대 10개씩 나눠서 병렬 조회
 
-import type { Form } from "@/types/types";
+import type { Form } from "@/types";
 import { FieldPath } from "firebase-admin/firestore";
 import { adminFirestore } from "../firebase/firebaseAdminConfig";
 

@@ -1,5 +1,5 @@
 import { useSurveyStore } from "@/store/survey";
-import type { QuestionProps } from "@/types/types";
+import type { QuestionProps } from "@/types";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Options from "../options";

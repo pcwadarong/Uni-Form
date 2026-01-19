@@ -1,5 +1,5 @@
 import { adminFirestore } from "@/lib/firebase/firebaseAdminConfig";
-import type { Form } from "@/types/types";
+import type { Form } from "@/types";
 import { FirebaseError } from "firebase/app";
 
 export const handleDrafts = async (uid: string, _lastDocId?: string): Promise<Form[]> => {

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { INITIAL_ACTION_STATE } from "@/constants/states";
 import { type SignUpInput, signUpSchema } from "@/lib/validation/authSchema";
-import type { ActionState } from "@/types/types";
+import type { ActionState } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { startTransition, useActionState, useEffect } from "react";
