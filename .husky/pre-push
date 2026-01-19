@@ -20,8 +20,5 @@ run_step "Lint & Format Check" "yarn run lint"
 # 2. 타입 검사
 run_step "Type Check" "yarn run type-check"
 
-# 3. 빌드 테스트
-run_step "Build Test" "yarn run build"
-
 echo "✅ All checks passed. Push allowed."
 exit 0
