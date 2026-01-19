@@ -37,7 +37,7 @@ const ResetPw: React.FC = () => {
       <form
         className="mt-15 flex w-96 flex-col gap-4"
         onSubmit={handleDeleteUser}
-        aria-labelledby="reset-password"
+        aria-labelledby="reset-password-heading"
       >
         <Input
           type="email"
