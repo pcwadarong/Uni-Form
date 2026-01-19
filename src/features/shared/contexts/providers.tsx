@@ -1,6 +1,6 @@
 "use client";
 
-import { AuthProvider } from "@/contexts/authProvider";
+import { AuthProvider } from "@/features/auth/contexts/authProvider";
 import { QueryClient, QueryClientProvider, isServer } from "@tanstack/react-query";
 import { ReactQueryStreamedHydration } from "@tanstack/react-query-next-experimental";
 import { ThemeProvider } from "./themeProvider";

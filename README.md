@@ -74,7 +74,6 @@
 - tailwindcss : CSS 프레임워크
 - shadcn/ui : 깔끔한 UI 라이브러리
 - @hello-pangea/dnd (react-beautiful-dnd) : 목록의 드래그 이벤트를 지원하는 리액트 라이브러리의 확장판
-- material-icon: includes the 2,100+ official Material Icons converted to SvgIcon component
 
 ### Sign in, up
 

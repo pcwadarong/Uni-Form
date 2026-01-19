@@ -1,5 +1,5 @@
+import Form from "@/features/auth/components/sign-in/form";
 import Link from "next/link";
-import Form from "./form";
 
 const SignIn: React.FC = () => {
   return (
