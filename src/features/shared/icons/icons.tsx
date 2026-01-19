@@ -23,7 +23,7 @@ const SVGIcon = ({
   if (!Icon) return null;
 
   // size가 sm, md 같은 키일 경우 IconSizes에서 찾고, 숫자일 경우 그대로 사용
-  const pixelSize = typeof size === "string" ? IconSizes[size] : size;
+  const pixelSize = typeof size === "string" && size in IconSizes ? IconSizes[size as IconSizeTypes] : typeof size === 'number' ? size : IconSizes.md;
 
   return (
     <Icon
