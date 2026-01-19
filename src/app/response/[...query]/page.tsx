@@ -3,7 +3,7 @@
 import Questions from "@/components/create/questions";
 import SurveyInfo from "@/components/create/surveyInfo";
 // import { Button } from "@/components/ui/button"; // TODO: 완성되지 않은 로직으로 인해 주석 처리
-import { fetchDetail } from "@/lib/firebase/fetchDatas";
+//import { fetchDetail } from "@/lib/firebase/fetchDatas";
 // import { decrypt } from "@/lib/utils/crypoto";
 import { useResponseStore } from "@/store/response";
 import { useSurveyStore } from "@/store/survey";
@@ -28,7 +28,17 @@ export default function ResponsePage({
 
   const { data } = useSuspenseQuery({
     queryKey: ["selectedSurveyDetail", type, itemId],
-    queryFn: () => fetchDetail(type, itemId),
+    queryFn: async () => {
+      // TODO: fetchDetail 구현 시 아래 로직으로 대체
+      // return fetchDetail(type, itemId);
+
+      // 임시 Mock 데이터 반환 (컴포넌트 구조 확인용)
+      return {
+        title: "불러오는 중...",
+        description: "",
+        questions: [], // 빈 배열을 넣어 map 에러 방지
+      };
+    },
     staleTime: Number.POSITIVE_INFINITY,
   });
 

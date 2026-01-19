@@ -4,13 +4,13 @@ import { create } from "zustand";
 interface ResponseState {
   response: Response;
   setResponse: (questionId: string, newResponse: string | number | string[] | number[]) => void;
-  initializeResponses: (surveyId: string, questions: { id: number; timestamp: string }[]) => void;
+  initializeResponses: (formId: string, questions: { id: number; timestamp: string }[]) => void;
 }
 
 export const useResponseStore = create<ResponseState>((set) => ({
   response: {
     id: "",
-    surveyId: "",
+    formId: "",
     uid: "",
     content: [],
   },
@@ -23,11 +23,11 @@ export const useResponseStore = create<ResponseState>((set) => ({
         ),
       },
     })),
-  initializeResponses: (surveyId, questions) =>
+  initializeResponses: (formId, questions) =>
     set({
       response: {
         id: "",
-        surveyId: surveyId,
+        formId: formId,
         uid: "",
         content: questions.map((question) => ({
           questionId: question.id,

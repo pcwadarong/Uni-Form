@@ -1,7 +1,7 @@
 "use client";
 
 import { formatTextWithLineBreaks } from "@/components/ui/formatTextWithLineBreaks";
-import formateDate from "@/lib/utils/formateDate";
+import formatDate from "@/lib/utils/formateDate";
 import { useSurveyStore } from "@/store/survey";
 import { type ChangeEvent, useState } from "react";
 import FileEditIcon from "../svg/file";
@@ -16,7 +16,7 @@ interface Props {
 const SurveyInfo = ({ mode, onEditToggle }: Props) => {
   const { surveyInfo, setSurveyInfo } = useSurveyStore();
   const [explanationArea, setExplanationArea] = useState<string | undefined>(
-    surveyInfo.description,
+    surveyInfo.description ?? "",
   );
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -56,7 +56,7 @@ const SurveyInfo = ({ mode, onEditToggle }: Props) => {
       <p className="px-4 py-2 text-green-400">{}페이지</p>
       {mode === "editing" ? (
         <div>
-          <div className="flex aspect-[4/1] justify-center bg-green-500">
+          <div className="flex aspect-4/1 justify-center bg-green-500">
             {surveyInfo.img ? (
               <div className="relative flex items-center overflow-hidden">
                 <img src={surveyInfo.img} alt="Uploaded" className="h-auto w-full object-cover" />
@@ -105,7 +105,7 @@ const SurveyInfo = ({ mode, onEditToggle }: Props) => {
       ) : (
         <div className="pb-2">
           {surveyInfo.img && (
-            <div className="flex aspect-[4/1] justify-center bg-green-500">
+            <div className="flex aspect-4/1 justify-center bg-green-500">
               <div className="relative flex items-center overflow-hidden">
                 <img src={surveyInfo.img} alt="Survey" className="h-auto w-full object-cover" />
               </div>
@@ -122,7 +122,13 @@ const SurveyInfo = ({ mode, onEditToggle }: Props) => {
               {formatTextWithLineBreaks(surveyInfo.description || "")}
             </p>
             <span className="rounded-full bg-gray-1 p-2 text-gray-4" aria-label="Survey duration">
-              {`${formateDate(surveyInfo.startDate)} ~ ${formateDate(surveyInfo.endDate)}`}
+              {surveyInfo.startDate === 0
+                ? "바로 시작"
+                : formatDate(surveyInfo.startDate).split(" / ")[0]}
+              {" ~ "}
+              {surveyInfo.endDate === 0
+                ? "제한 없음"
+                : formatDate(surveyInfo.endDate).split(" / ")[0]}
             </span>
           </div>
         </div>

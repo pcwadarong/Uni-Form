@@ -34,6 +34,7 @@ const SetDuration = () => {
   const [beginDate, setBeginDate] = useState<Date | undefined>(initialBeginDate);
   const [finishDate, setFinishDate] = useState<Date | undefined>(initialFinishDate);
 
+  // 모달 제어 및 body 고정 로직 통합
   useEffect(() => {
     if (isOpened) {
       setBeginDate(roundMinutes(new Date()));
@@ -47,12 +48,7 @@ const SetDuration = () => {
     };
   }, [isOpened]);
 
-  useEffect(() => {
-    if (beginDateVisible && finishDateVisible) {
-      setBeginDateVisible(false);
-    }
-  }, [beginDateVisible, finishDateVisible]);
-
+  // 시작/종료 날짜 선택창 상호 배타적 노출 제어 (하나로 통합)
   useEffect(() => {
     if (beginDateVisible && finishDateVisible) {
       setFinishDateVisible(false);
@@ -60,59 +56,54 @@ const SetDuration = () => {
   }, [beginDateVisible, finishDateVisible]);
 
   const toggleModal = useCallback(() => {
-    setIsOpened(!isOpened);
-    setBeginVisible(false);
-    setBeginDateVisible(false);
-    setBeginTimeVisible(false);
-    setFinishVisible(false);
-    setFinishDateVisible(false);
-    setFinishTimeVisible(false);
-  }, [isOpened]);
+    setIsOpened((prev) => !prev);
+    [
+      setBeginVisible,
+      setBeginDateVisible,
+      setBeginTimeVisible,
+      setFinishVisible,
+      setFinishDateVisible,
+      setFinishTimeVisible,
+    ].forEach((fn) => fn(false));
+  }, []);
 
   const saveDuration = useCallback(() => {
-    let begin = "바로 시작";
-    let finish = "제한 없음";
+    // '바로 시작'일 경우 0, 아닐 경우 선택된 시간의 타임스탬프
+    const begin = beginVisible && beginDate ? beginDate.getTime() : 0;
 
-    if (beginVisible)
-      begin = `${formatDate(beginDate).split(" / ")[0]}. ${formatDate(beginDate).split(" / ")[1]}`;
-    if (finishVisible)
-      finish = `${formatDate(finishDate).split(" / ")[0]}. ${formatDate(finishDate).split(" / ")[1]}`;
+    // '제한 없음'일 경우 0 (혹은 매우 큰 값), 아닐 경우 선택된 시간
+    const finish = finishVisible && finishDate ? finishDate.getTime() : 0;
 
-    setSurveyInfo({ ...surveyInfo, startDate: begin, endDate: finish });
-    setIsOpened(!isOpened);
-  }, [beginVisible, finishVisible, beginDate, finishDate, setSurveyInfo, surveyInfo, isOpened]);
+    setSurveyInfo({
+      ...surveyInfo,
+      startDate: begin,
+      endDate: finish,
+    });
+    setIsOpened(false);
+  }, [beginVisible, finishVisible, beginDate, finishDate, setSurveyInfo, surveyInfo]);
 
   const handleTimeChange = useCallback(
     (type: "begin" | "finish", period: string, hours: number, minutes: number) => {
-      const date = type === "begin" ? beginDate : finishDate;
-      if (date) {
-        const newDate = new Date(date);
-        let adjustedHours = hours;
+      const targetDate = type === "begin" ? beginDate : finishDate;
+      if (!targetDate) return;
 
-        if (period === "PM" && hours !== 12) {
-          adjustedHours = hours + 12;
-        } else if (period === "AM" && hours === 12) {
-          adjustedHours = 0;
-        }
-        newDate.setHours(adjustedHours);
-        newDate.setMinutes(minutes);
+      const newDate = new Date(targetDate);
+      let adjustedHours = hours;
 
-        if (type === "finish" && beginDate) {
-          const beginTime = new Date(beginDate);
-          if (
-            newDate.toDateString() === beginTime.toDateString() &&
-            newDate.getTime() < beginTime.getTime()
-          ) {
-            alert("종료 시간은 시작 시간보다 이를 수 없습니다.");
-            return;
-          }
-        }
-        if (type === "begin") {
-          setBeginDate(newDate);
-        } else {
-          setFinishDate(newDate);
-        }
+      if (period === "PM" && hours !== 12) adjustedHours += 12;
+      else if (period === "AM" && hours === 12) adjustedHours = 0;
+
+      newDate.setHours(adjustedHours);
+      newDate.setMinutes(minutes);
+
+      // 시간 순서 검증
+      if (type === "finish" && beginDate && newDate < beginDate) {
+        alert("종료 시간은 시작 시간보다 이를 수 없습니다.");
+        return;
       }
+
+      if (type === "begin") setBeginDate(newDate);
+      else setFinishDate(newDate);
     },
     [beginDate, finishDate],
   );
@@ -135,7 +126,11 @@ const SetDuration = () => {
           className="rounded-full bg-gray-1 p-2 text-gray-4"
           onClick={toggleModal}
         >
-          {`${surveyInfo.startDate} ~ ${surveyInfo.endDate}`}
+          {surveyInfo.startDate === 0
+            ? "바로 시작"
+            : formatDate(surveyInfo.startDate).split(" / ")[0]}
+          {" ~ "}
+          {surveyInfo.endDate === 0 ? "제한 없음" : formatDate(surveyInfo.endDate).split(" / ")[0]}
         </button>
       </div>
 
@@ -150,7 +145,7 @@ const SetDuration = () => {
             className="fixed inset-0 z-40 flex items-center justify-center p-4"
             aria-modal="true"
           >
-            <div className="flex w-fit flex-col gap-4 rounded-2xl bg-surface p-8 sm:w-[340px]">
+            <div className="flex w-fit flex-col gap-4 rounded-2xl bg-surface p-8 sm:w-85">
               <h3 className="title3 text-center">설문 기간</h3>
 
               {/* 시작일 설정 */}
@@ -190,7 +185,7 @@ const SetDuration = () => {
                     aria-expanded={beginDateVisible}
                     className="mb-2 w-full rounded-lg border border-gray-2 px-3 py-2 text-left"
                   >
-                    {formatDate(beginDate).split(" / ")[0]}
+                    {beginDate ? formatDate(beginDate.getTime()).split(" / ")[0] : "날짜 선택"}
                   </button>
                   {beginDateVisible && (
                     <CalendarMemo
@@ -207,7 +202,7 @@ const SetDuration = () => {
                     aria-expanded={beginTimeVisible}
                     className="w-full rounded-lg border border-gray-2 px-3 py-2 text-left"
                   >
-                    {formatDate(beginDate).split(" / ")[1]}
+                    {beginDate ? formatDate(beginDate.getTime()).split(" / ")[1] : "시간 선택"}
                   </button>
                   {beginTimeVisible && (
                     <TimePickerMemo type="begin" date={beginDate} onChange={handleTimeChange} />
@@ -252,7 +247,7 @@ const SetDuration = () => {
                     aria-expanded={finishDateVisible}
                     className="mb-2 w-full rounded-lg border border-gray-2 px-3 py-2 text-left"
                   >
-                    {formatDate(finishDate).split(" / ")[0]}
+                    {finishDate ? formatDate(finishDate.getTime()).split(" / ")[0] : "날짜 선택"}
                   </button>
                   {finishDateVisible && (
                     <CalendarMemo
@@ -269,7 +264,7 @@ const SetDuration = () => {
                     aria-expanded={finishTimeVisible}
                     className="w-full rounded-lg border border-gray-2 px-3 py-2 text-left"
                   >
-                    {formatDate(finishDate).split(" / ")[1]}
+                    {finishDate ? formatDate(finishDate.getTime()).split(" / ")[1] : "시간 선택"}
                   </button>
                   {finishTimeVisible && (
                     <TimePickerMemo type="finish" date={finishDate} onChange={handleTimeChange} />
@@ -277,7 +272,6 @@ const SetDuration = () => {
                 </div>
               )}
 
-              {/* 버튼 */}
               <div className="flex justify-center gap-2">
                 <Button
                   type="button"
