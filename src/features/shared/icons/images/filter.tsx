@@ -1,4 +1,4 @@
-import type { IconProps } from "../types";
+import type { IconProps } from "../";
 
 export default function FilterIcon({
   title,

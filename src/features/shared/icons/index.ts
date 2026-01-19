@@ -63,5 +63,7 @@ export type IconSizeTypes = keyof typeof IconSizes;
 export interface IconProps extends React.SVGProps<SVGSVGElement> {
   title?: string;
   color?: string;
-  size?: number | string;
+  width?: number | string;
+  height?: number | string;
+  fill?: string;
 }
