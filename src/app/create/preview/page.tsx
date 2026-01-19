@@ -19,7 +19,35 @@ const loadStateFromLocalStorage = () => {
 const PreviewFormPage: React.FC = () => {
   const { surveyInfo, setSurveyInfo } = useSurveyStore();
   const [loading, setLoading] = useState(true);
-  const broadcast = new BroadcastChannel("zustand_channel");
+const PreviewFormPage: React.FC = () => {
+  const { surveyInfo, setSurveyInfo } = useSurveyStore();
+  const [loading, setLoading] = useState(true);
+  const broadcastRef = useRef<BroadcastChannel | null>(null);
+  const isMount = useRef(false);
+
+  useEffect(() => {
+    broadcastRef.current = new BroadcastChannel("zustand_channel");
+    return () => {
+      broadcastRef.current?.close();
+    };
+  }, []);
+
+  const handleMessage = useCallback(
+    (event: MessageEvent) => {
+      const newState = event.data;
+      if (JSON.stringify(newState) !== JSON.stringify(surveyInfo)) {
+        setSurveyInfo(newState);
+      }
+    },
+    [surveyInfo, setSurveyInfo],
+  );
+
+  useEffect(() => {
+    const broadcast = broadcastRef.current;
+    if (broadcast) {
+      broadcast.onmessage = handleMessage;
+    }
+  }, [handleMessage]);
   const isMount = useRef(false);
 
   const handleMessage = useCallback(
