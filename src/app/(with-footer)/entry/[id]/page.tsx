@@ -6,7 +6,7 @@ import SimilarForms from "@/features/survey/entry/components/similarForms";
 import Reaction from "@/features/survey/form/components/reaction";
 
 import { RECRUIT_CATEGORY_LABELS, SURVEY_CATEGORY_LABELS } from "@/constants/category";
-import BubbleChat from "@/features/shared/icons/bubble-chat";
+import SVGIcon from "@/features/shared/icons/icons";
 import { formatTextWithLineBreaks } from "@/features/shared/ui/formatTextWithLineBreaks";
 import type { Comment, Form } from "@/types";
 
@@ -164,7 +164,7 @@ function EntryCommentSection({
         />
       ) : (
         <section className="flex min-h-52 flex-col items-center justify-center gap-4 rounded-2xl border font-bold opacity-20">
-          <BubbleChat />
+          <SVGIcon name="BubbleChatIcon" />
           <p>아직 댓글이 없어요. 첫 댓글을 남겨보세요!</p>
         </section>
       )}

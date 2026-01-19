@@ -1,5 +1,6 @@
 import BookmarkIcon from "./images/bookmark";
 import BubbleChatIcon from "./images/bubble-chat";
+import CancelIcon from "./images/cancel";
 import DarkIcon from "./images/dark";
 import EmailIcon from "./images/email";
 import FacebookIcon from "./images/facebook";
@@ -12,15 +13,19 @@ import ImageIcon from "./images/image";
 import InstagramIcon from "./images/instagram";
 import SunIcon from "./images/light";
 import BrandLogo from "./images/logo";
+import MeatballIcon from "./images/meatball";
 import PasswordIcon from "./images/password";
 import ReportIcon from "./images/report";
+import SearchIcon from "./images/search";
 import ShareIcon from "./images/share";
+import FilledStarIcon from "./images/star";
 import UserIcon from "./images/user";
 import TwitterXIcon from "./images/x";
 
 export const IconMap = {
   BookmarkIcon,
   BubbleChatIcon,
+  CancelIcon,
   DarkIcon,
   EmailIcon,
   FacebookIcon,
@@ -33,9 +38,12 @@ export const IconMap = {
   InstagramIcon,
   SunIcon,
   BrandLogo,
+  MeatballIcon,
   PasswordIcon,
   ReportIcon,
+  SearchIcon,
   ShareIcon,
+  FilledStarIcon,
   UserIcon,
   TwitterXIcon,
 } as const;

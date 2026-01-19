@@ -1,7 +1,6 @@
 import { useAuth } from "@/features/auth/contexts/authProvider";
 import useHandleLogout from "@/features/auth/hooks/useHandleLogout";
-import FormIcon from "@/features/shared/icons/form";
-import HamburgerIcon from "@/features/shared/icons/hamburger";
+import SVGIcon from "@/features/shared/icons/icons";
 import Link from "next/link";
 import { useState } from "react";
 import UserMenu from "./navMdRight";
@@ -28,7 +27,7 @@ export default function NavRight() {
         ) : user ? (
           <>
             <Link className="hidden md:inline" href="/form">
-              <FormIcon />
+              <SVGIcon name="FormIcon" />
             </Link>
             <Link className="hidden md:inline" href="/user">
               내 정보
@@ -53,7 +52,7 @@ export default function NavRight() {
 
       <div className="flex sm:hidden">
         <button type="button" onClick={toggleCategory}>
-          <HamburgerIcon />
+          <SVGIcon name="HamburgerIcon" />
         </button>
         <NavSmRight isOpened={isOpened} toggleCategory={toggleCategory} closeMenu={closeMenu} />
       </div>

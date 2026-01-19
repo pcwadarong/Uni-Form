@@ -1,7 +1,7 @@
 "use client";
 
+import SVGIcon from "@/features/shared/icons/icons";
 import { useSurveyStore } from "@/features/survey/create/store/survey";
-import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
@@ -96,7 +96,7 @@ const CreatePageButton = () => {
           aria-label="사용자 메뉴 토글"
           aria-expanded={showToggleMenu}
         >
-          <Image src={"/meatball.svg"} alt="meatball menu icon" width="20" height="20" />
+          <SVGIcon name="MeatballIcon" />
         </button>
         {showToggleMenu && (
           <div

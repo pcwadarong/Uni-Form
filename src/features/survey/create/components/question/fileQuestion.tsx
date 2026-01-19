@@ -1,7 +1,6 @@
 "use client";
 
-import FileEditIcon from "@/features/shared/icons/file";
-import ImageIcon from "@/features/shared/icons/image";
+import SVGIcon from "@/features/shared/icons/icons";
 import { useSurveyStore } from "@/features/survey/create/store/survey";
 import type { QuestionProps } from "@/types";
 import Image from "next/image";
@@ -86,7 +85,7 @@ const FileQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
               disabled={isDisabled}
               onChange={handleFileChange}
             />
-            {type === "사진" ? <ImageIcon /> : <FileEditIcon />}
+            {type === "사진" ? <SVGIcon name="ImageIcon" /> : <SVGIcon name="FileEditIcon" />}
             <p className={`pl-2 ${isDisabled && "text-gray-3"}`}>{`${type} 첨부`}</p>
           </label>
           <div id="file-upload-instructions">

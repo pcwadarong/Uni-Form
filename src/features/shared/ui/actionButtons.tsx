@@ -1,8 +1,6 @@
 "use client";
 
-import BookMark from "@/features/shared/icons/bookmark";
-import Report from "@/features/shared/icons/report";
-import Share from "@/features/shared/icons/share";
+import SVGIcon from "@/features/shared/icons/icons";
 import { useCallback } from "react";
 import { toast } from "sonner";
 
@@ -29,9 +27,9 @@ export default function ActionButtons() {
 
   return (
     <div className="mt-10 flex gap-5 font-bold">
-      <Share onClick={handleShare} className="cursor-pointer" />
-      <BookMark onClick={handleBookmark} className="cursor-pointer" />
-      <Report onClick={handleReport} className="cursor-pointer" />
+      <SVGIcon name="ShareIcon" onClick={handleShare} className="cursor-pointer" />
+      <SVGIcon name="BookmarkIcon" onClick={handleBookmark} className="cursor-pointer" />
+      <SVGIcon name="ReportIcon" onClick={handleReport} className="cursor-pointer" />
     </div>
   );
 }

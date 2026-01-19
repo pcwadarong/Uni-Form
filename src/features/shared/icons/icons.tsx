@@ -2,12 +2,14 @@ import type React from "react";
 import { IconMap, type IconMapTypes, type IconSizeTypes, IconSizes } from "../icons";
 
 interface SVGIconProps extends React.SVGProps<SVGSVGElement> {
+  title?: string;
   name: IconMapTypes;
   size?: IconSizeTypes | number;
   color?: string;
 }
 
 const SVGIcon = ({
+  title,
   name,
   size = "md",
   color = "currentColor",
@@ -25,6 +27,7 @@ const SVGIcon = ({
 
   return (
     <Icon
+      title={title}
       className={className}
       color={color}
       fill={fill}

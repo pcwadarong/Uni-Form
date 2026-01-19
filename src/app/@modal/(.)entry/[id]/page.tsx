@@ -1,4 +1,4 @@
-import BubbleChat from "@/features/shared/icons/bubble-chat";
+import SVGIcon from "@/features/shared/icons/icons";
 import { LinkButton } from "@/features/shared/ui/button";
 import { formatTextWithLineBreaks } from "@/features/shared/ui/formatTextWithLineBreaks";
 import Modal from "@/features/shared/ui/modal";
@@ -89,7 +89,7 @@ function CommentsSection({ comments }: { comments: Comment[] }) {
         </ul>
       ) : (
         <div className="flex min-h-52 flex-col items-center justify-center gap-4 rounded-2xl border font-bold opacity-20">
-          <BubbleChat />
+          <SVGIcon name="BubbleChatIcon" size={70} />
           <p>아직 댓글이 없어요. 첫 댓글을 남겨보세요!</p>
         </div>
       )}
