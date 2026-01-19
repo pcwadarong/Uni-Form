@@ -1,6 +1,6 @@
-import type { IconProps } from "./types";
+import type { IconProps } from "../types";
 
-export default function BookMark({
+export default function BookMarkIcon({
   title,
   fill = "none",
   color = "currentColor",

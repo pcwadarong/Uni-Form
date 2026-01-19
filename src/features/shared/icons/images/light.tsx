@@ -1,9 +1,8 @@
-import type { IconProps } from "./types";
+import type { IconProps } from "../types";
 
 export default function SunIcon({
   title,
   color = "currentColor",
-  fill = "none",
   width = 20,
   height = 20,
   ...props

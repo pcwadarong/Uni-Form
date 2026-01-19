@@ -1,6 +1,6 @@
-import type { IconProps } from "./types";
+import type { IconProps } from "../types";
 
-export default function Share({
+export default function ShareIcon({
   title,
   color = "currentColor",
   fill = "none",

@@ -1,6 +1,6 @@
-import type { IconProps } from "./types";
+import type { IconProps } from "../types";
 
-export default function BubbleChat({
+export default function BubbleChatIcon({
   title,
   color = "currentColor",
   fill = "none",

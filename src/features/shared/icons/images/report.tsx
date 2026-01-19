@@ -1,6 +1,6 @@
-import type { IconProps } from "./types";
+import type { IconProps } from "../types";
 
-export default function Report({
+export default function ReportIcon({
   title,
   color = "currentColor",
   fill = "none",
