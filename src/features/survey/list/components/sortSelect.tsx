@@ -12,26 +12,34 @@ interface SortSelectProps {
   variant?: "full" | "mini";
 }
 
-const optionSet = {
+/**
+ * 정렬 옵션 설정
+ */
+const OPTION_SET = {
   full: [
     { value: "point-asc", label: "리워드 높은 순" },
     { value: "random", label: "랜덤 순" },
     { value: "popular-asc", label: "인기 순" },
     { value: "date-desc", label: "최신 순" },
-    // { value: "update-asc", label: "끌올 순" },
   ],
   mini: [
     { value: "date-desc", label: "최신 순" },
     { value: "random", label: "랜덤 순" },
   ],
-};
+} as const;
 
+/**
+ * 정렬 선택 컴포넌트
+ * 설문/모집 목록의 정렬 기준을 선택
+ * @param defaultValue - 기본 선택값
+ * @param variant - 정렬 옵션 세트 (full 또는 mini)
+ */
 export default function SortSelect({
   defaultValue = "date-desc",
   variant = "full",
 }: SortSelectProps) {
-  const onChangeSortType = useSortHandler;
-  const options = optionSet[variant];
+  const { onChangeSortType } = useSortHandler();
+  const options = OPTION_SET[variant];
 
   return (
     <Select value={defaultValue} onValueChange={onChangeSortType}>

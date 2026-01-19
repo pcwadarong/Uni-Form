@@ -12,6 +12,12 @@ interface QuestionSelectProps {
   handleTypeChange: (value: string) => void;
 }
 
+/**
+ * 질문 타입 선택 컴포넌트
+ * 질문의 타입(단일 객관식, 복수 객관식 등)을 선택
+ * @param value - 현재 선택된 타입
+ * @param handleTypeChange - 타입 변경 핸들러
+ */
 const QuestionSelect: React.FC<QuestionSelectProps> = ({ value, handleTypeChange }) => {
   return (
     <Select defaultValue={value} onValueChange={handleTypeChange}>

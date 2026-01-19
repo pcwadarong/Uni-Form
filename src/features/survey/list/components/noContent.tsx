@@ -1,5 +1,9 @@
 import Image from "next/image";
 
+/**
+ * 콘텐츠 없음 UI 컴포넌트
+ * 검색 결과가 없을 때 표시되는 빈 상태 메시지
+ */
 const NoContent = () => {
   return (
     <div className="mt-10 flex flex-col items-center text-gray-500">

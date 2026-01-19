@@ -7,6 +7,11 @@ import { useSurveyStore } from "@/features/survey/create/store/survey";
 import formatDate from "@/lib/utils/formateDate";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
+/**
+ * 분을 30분 단위로 반올림
+ * @param date - 반올림할 날짜
+ * @returns 반올림된 날짜
+ */
 const roundMinutes = (date: Date) => {
   const minutes = date.getMinutes();
   if (minutes < 30) {
@@ -18,6 +23,10 @@ const roundMinutes = (date: Date) => {
   return date;
 };
 
+/**
+ * 설문 기간 설정 컴포넌트
+ * 시작일시 및 종료일시 설정 UI 제공
+ */
 const SetDuration = () => {
   const { surveyInfo, setSurveyInfo } = useSurveyStore();
   const [isOpened, setIsOpened] = useState(false);
@@ -55,6 +64,10 @@ const SetDuration = () => {
     }
   }, [beginDateVisible, finishDateVisible]);
 
+  /**
+   * 모달 토글 핸들러
+   * 모든 하위 상태 초기화
+   */
   const toggleModal = useCallback(() => {
     setIsOpened((prev) => !prev);
     [
@@ -67,11 +80,12 @@ const SetDuration = () => {
     ].forEach((fn) => fn(false));
   }, []);
 
+  /**
+   * 기간 저장 핸들러
+   * 선택된 시작일시 및 종료일시를 설문 정보에 저장
+   */
   const saveDuration = useCallback(() => {
-    // '바로 시작'일 경우 0, 아닐 경우 선택된 시간의 타임스탬프
     const begin = beginVisible && beginDate ? beginDate.getTime() : 0;
-
-    // '제한 없음'일 경우 0 (혹은 매우 큰 값), 아닐 경우 선택된 시간
     const finish = finishVisible && finishDate ? finishDate.getTime() : 0;
 
     setSurveyInfo({
@@ -82,6 +96,13 @@ const SetDuration = () => {
     setIsOpened(false);
   }, [beginVisible, finishVisible, beginDate, finishDate, setSurveyInfo, surveyInfo]);
 
+  /**
+   * 시간 변경 핸들러
+   * @param type - 시작 또는 종료 구분
+   * @param period - AM/PM
+   * @param hours - 시
+   * @param minutes - 분
+   */
   const handleTimeChange = useCallback(
     (type: "begin" | "finish", period: string, hours: number, minutes: number) => {
       const targetDate = type === "begin" ? beginDate : finishDate;

@@ -7,6 +7,10 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import CheckModal from "./checkModal";
 
+/**
+ * 설문 생성 페이지 버튼 컴포넌트
+ * 미리보기, 임시저장, 저장, 복제, 삭제 기능 제공
+ */
 const CreatePageButton = () => {
   const [showToggleMenu, setShowToggleMenu] = useState<boolean>(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -15,56 +19,84 @@ const CreatePageButton = () => {
   const { surveyInfo } = useSurveyStore();
   const [showModal, setShowModal] = useState<boolean>(false);
 
+  /**
+   * 외부 클릭 감지 핸들러
+   * 메뉴 외부 클릭 시 메뉴 닫기
+   * @param event - 마우스 이벤트
+   */
   const handleClickOutside = useCallback((event: MouseEvent) => {
     if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
       setShowToggleMenu(false);
     }
   }, []);
 
-  const handleOpenPreview = () => {
+  /**
+   * 미리보기 열기 핸들러
+   * 새 창에서 미리보기 페이지 열기
+   */
+  const handleOpenPreview = useCallback(() => {
     window.open(`${currentPath}/preview`, "_blank", "noopener,noreferrer");
     localStorage.setItem("survey 1", JSON.stringify(surveyInfo));
-  };
+  }, [currentPath, surveyInfo]);
 
-  const handleSaveDraft = () => {
+  /**
+   * 임시 저장 핸들러
+   */
+  const handleSaveDraft = useCallback(() => {
     toast("아직 지원되지 않는 기능입니다. 조금만 기다려주시면 감사하겠습니다.");
-  };
+  }, []);
 
-  const handleValidate = () => {
-    const validateSurveyInfo = (): boolean => {
-      if (!surveyInfo.title) {
-        toast("설문 제목을 입력해 주세요.");
-        return false;
-      }
+  /**
+   * 설문 정보 유효성 검사
+   * @returns 유효성 검사 통과 여부
+   */
+  const validateSurveyInfo = useCallback((): boolean => {
+    if (!surveyInfo.title) {
+      toast("설문 제목을 입력해 주세요.");
+      return false;
+    }
 
-      const incompleteQuestions = surveyInfo.questions.filter((q) => !q.title);
-      if (incompleteQuestions.length > 0) {
-        toast("모든 질문의 제목을 입력해 주세요.");
-        return false;
-      }
-      return true;
-    };
+    const incompleteQuestions = surveyInfo.questions.filter((q) => !q.title);
+    if (incompleteQuestions.length > 0) {
+      toast("모든 질문의 제목을 입력해 주세요.");
+      return false;
+    }
+    return true;
+  }, [surveyInfo]);
 
+  /**
+   * 저장 유효성 검사 및 모달 열기
+   */
+  const handleValidate = useCallback(() => {
     if (validateSurveyInfo()) {
       setShowModal(true);
       document.body.style.overflow = "hidden";
     }
-  };
+  }, [validateSurveyInfo]);
 
-  const handleCloseModal = () => {
+  /**
+   * 모달 닫기 핸들러
+   */
+  const handleCloseModal = useCallback(() => {
     setShowModal(false);
     document.body.style.overflow = "auto";
-  };
+  }, []);
 
-  const handleDuplicate = () => {
+  /**
+   * 복제 핸들러
+   */
+  const handleDuplicate = useCallback(() => {
     toast("아직 지원되지 않는 기능입니다. 조금만 기다려주시면 감사하겠습니다.");
-  };
+  }, []);
 
-  const handleDelete = () => {
+  /**
+   * 삭제 핸들러
+   */
+  const handleDelete = useCallback(() => {
     if (confirm("정말 삭제하시겠습니까?")) {
       router.push("/");
     }
-  };
+  }, [router]);
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);

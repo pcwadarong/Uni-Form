@@ -3,6 +3,12 @@ interface ToggleInProgressFilterProps {
   onChange: () => void;
 }
 
+/**
+ * 진행 중 필터 토글 컴포넌트
+ * 진행 중인 설문/모집만 필터링하는 체크박스
+ * @param checked - 체크 상태
+ * @param onChange - 변경 핸들러
+ */
 const ToggleInProgressFilter: React.FC<ToggleInProgressFilterProps> = ({ checked, onChange }) => {
   return (
     <div className="flex items-center gap-2">

@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import FormCardItem from "@/features/survey/form/components/formCardItem";
 import { CategorySelection } from "@/features/survey/list/components/categorySelection";
@@ -76,6 +76,14 @@ const List = ({ initialData, topic, category, sort }: Props) => {
     setIsInProgressChecked((prev) => !prev);
   };
 
+  /**
+   * 정렬 컴포넌트 설정
+   */
+  const sortSelectProps = useMemo(
+    () => (topic === "survey" ? { defaultValue: "popular-asc" } : { variant: "mini" as const }),
+    [topic],
+  );
+
   return (
     <section
       className="my-20 w-full gap-10 px-4 2xl:flex 2xl:w-350 2xl:px-0"
@@ -103,11 +111,7 @@ const List = ({ initialData, topic, category, sort }: Props) => {
               onChange={toggleInProgressFilter}
             />
           </div>
-          {topic === "survey" ? (
-            <SortSelect defaultValue="popular-asc" />
-          ) : (
-            <SortSelect variant="mini" />
-          )}
+          <SortSelect {...sortSelectProps} />
         </div>
         {finalData.length === 0 ? (
           <NoContent />

@@ -1,9 +1,9 @@
 "use client";
 
+import type { Form } from "@/features/survey/types";
 import getColorById from "@/features/survey/utils/getRandomColor";
 import { useEncryptedEntryNavigation } from "@/features/user/hooks/useEncryptedEntryNavigation";
 import formateDate from "@/lib/utils/formateDate";
-import type { Form } from "@/types";
 import Image from "next/image";
 import { useMemo } from "react";
 import Reaction from "./reaction";
@@ -14,9 +14,15 @@ interface FormCardItemProps {
   type: "survey" | "recruit";
 }
 
+/**
+ * 설문/모집 카드 아이템 컴포넌트
+ * 설문 또는 모집공고 카드를 렌더링하고 상세 페이지로 이동
+ * @param item - 표시할 설문/모집 데이터
+ * @param type - 설문 또는 모집공고 구분
+ */
 export default function FormCardItem({ item, type }: FormCardItemProps) {
   const { navigate, handleKeyDown } = useEncryptedEntryNavigation();
-  const backgroundClass = useMemo(() => getColorById(item.id), [item]);
+  const backgroundClass = useMemo(() => getColorById(item.id), [item.id]);
   const showPoint = type === "survey";
 
   return (
