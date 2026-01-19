@@ -8,6 +8,15 @@ interface SVGIconProps extends React.SVGProps<SVGSVGElement> {
   color?: string;
 }
 
+/**
+ * 통합 SVG 아이콘 컴포넌트
+ * IconMap에서 아이콘을 가져와 렌더링
+ * @param name - 아이콘 이름
+ * @param size - 아이콘 크기 (키워드 또는 픽셀)
+ * @param color - 아이콘 색상
+ * @param className - 추가 CSS 클래스
+ * @param props - 기타 SVG 속성
+ */
 const SVGIcon = ({
   title,
   name,

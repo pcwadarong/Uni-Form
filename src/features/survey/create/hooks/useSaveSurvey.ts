@@ -7,6 +7,11 @@ import { getAuth } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 
+/**
+ * 설문 저장 훅
+ * 설문 정보와 질문을 Firestore에 저장
+ * @returns 설문 저장 함수
+ */
 export const useSaveSurvey = () => {
   const { surveyInfo, setSurveyInfo } = useSurveyStore();
   const auth = getAuth();

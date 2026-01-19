@@ -7,6 +7,10 @@ import { useSurveyStore } from "@/features/survey/create/store/survey";
 import getColorById from "@/lib/utils/getRandomColor";
 import { useRouter } from "next/navigation";
 
+/**
+ * 템플릿 선택 박스 컴포넌트
+ * ID 기반 색상이 적용된 클릭 가능한 박스
+ */
 const RandomColoredBox: React.FC<{ link: string; text: string }> = ({ link, text }) => {
   const router = useRouter();
   const { setSurveyInfo } = useSurveyStore();
@@ -41,6 +45,10 @@ const RandomColoredBox: React.FC<{ link: string; text: string }> = ({ link, text
   );
 };
 
+/**
+ * 폼 생성 템플릿 선택 페이지 컴포넌트
+ * 공통, 설문조사, 모집공고 템플릿을 표시
+ */
 const Form: React.FC = () => {
   const gridClassNames = "grid grid-cols-2 gap-4 md:grid-cols-4 xl:grid-cols-5 xl:gap-8";
 

@@ -1,6 +1,12 @@
 import { adminAuth } from "@/lib/firebase/firebaseAdminConfig";
 import { type NextRequest, NextResponse } from "next/server";
 
+/**
+ * Next.js 미들웨어
+ * 보호된 경로에 대한 인증 검사 수행
+ * @param request - Next.js 요청 객체
+ * @returns 인증된 사용자는 통과, 비인증 사용자는 로그인 페이지로 리다이렉트
+ */
 export async function middleware(request: NextRequest) {
   const token = request.cookies.get("session")?.value;
 

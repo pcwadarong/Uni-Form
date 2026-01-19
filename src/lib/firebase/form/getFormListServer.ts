@@ -23,6 +23,12 @@ const mapDocumentToForm = (doc: QueryDocumentSnapshot, formType: "survey" | "rec
   };
 };
 
+/**
+ * 정렬 타입에 따라 폼 목록 조회
+ * @param formType - 폼 타입 ("survey" | "recruit")
+ * @param sortType - 정렬 타입 ("public" | "recent" | "highPoint" | "popular" | "endingSoon")
+ * @returns 폼 배열
+ */
 export const fetchFormList = async (
   formType: "survey" | "recruit",
   sortType: SortType,
