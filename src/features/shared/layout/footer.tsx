@@ -24,6 +24,10 @@ const sns = [
   },
 ];
 
+/**
+ * 전역 푸터 컴포넌트
+ * SNS 링크 및 저작권 정보를 표시
+ */
 export default function Footer() {
   return (
     <footer className="-mt-36 flex flex-col items-center justify-center gap-4 pt-10 text-gray-400 ">

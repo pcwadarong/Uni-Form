@@ -30,7 +30,11 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://uni-form-chaen-chaens-projects.vercel.app/"),
 };
 
-const Home: React.FC = () => {
+/**
+ * 홈 페이지 컴포넌트
+ * 특별 설문, 최신 댓글, 인기 설문, 마감 임박 모집 공고를 표시
+ */
+export default function Home() {
   return (
     <>
       <SpecialSurveys />
@@ -39,6 +43,4 @@ const Home: React.FC = () => {
       <ClosingRecruits />
     </>
   );
-};
-
-export default Home;
+}
