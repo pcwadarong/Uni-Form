@@ -8,7 +8,7 @@ const LongAnswerQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
   return (
     <>
       <textarea
-        className="p-3 rounded-lg w-full mt-3 bg-gray-300/20"
+        className="mt-3 w-full rounded-lg bg-gray-300/20 p-3"
         name={`question-${question.id}`}
         disabled={isDisabled}
         placeholder="참여자의 답변 입력란 (최대 2000자)"

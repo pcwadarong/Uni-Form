@@ -21,7 +21,7 @@ export default function FloatingControls() {
     "w-11 h-11 rounded-full border border-gray-300 bg-surface text-xl font-bold text-content/60 drop-shadow-md hover:bg-green-300";
 
   return (
-    <div className="fixed bottom-10 right-10 hidden gap-3 text-center leading-4 sm:flex">
+    <div className="fixed right-10 bottom-10 hidden gap-3 text-center leading-4 sm:flex">
       <button type="button" className={commonClass} onClick={toTheTop} aria-label="위로 가기 버튼">
         ↑
       </button>

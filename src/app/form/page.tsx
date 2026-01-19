@@ -24,7 +24,7 @@ const RandomColoredBox: React.FC<{ link: string; text: string }> = ({ link, text
 
   return (
     <li
-      className={`relative aspect-square h-auto mb-2 flex items-center justify-center rounded-3xl bg-${bgColor} drop-shadow-md`}
+      className={`relative mb-2 flex aspect-square h-auto items-center justify-center rounded-3xl bg-${bgColor} drop-shadow-md`}
     >
       <button
         type="button"
@@ -33,7 +33,7 @@ const RandomColoredBox: React.FC<{ link: string; text: string }> = ({ link, text
         className="h-full w-full"
       >
         <p className="title3 absolute top-6 left-6">{text}</p>
-        <div className="absolute bottom-6 right-6">
+        <div className="absolute right-6 bottom-6">
           <FileEditIcon width={60} height={60} aria-label="Edit icon" />
         </div>
       </button>
@@ -52,7 +52,7 @@ const Form: React.FC = () => {
         ))}
       </ul>
       <div>
-        <h2 className="mb-4 text-start title3">설문조사</h2>
+        <h2 className="title3 mb-4 text-start">설문조사</h2>
         <ul className={gridClassNames} aria-label="설문조사 템플릿 목록">
           {Object.entries(surveyTemplate).map(([key, value]) => (
             <RandomColoredBox key={key} link={`/create${value}`} text={key} />
@@ -60,7 +60,7 @@ const Form: React.FC = () => {
         </ul>
       </div>
       <div>
-        <h2 className="mb-4 text-start title3">모집공고</h2>
+        <h2 className="title3 mb-4 text-start">모집공고</h2>
         <ul className={gridClassNames} aria-label="모집공고 템플릿 목록">
           {Object.entries(recruitTemplate).map(([key, value]) => (
             <RandomColoredBox key={key} link={`/create${value}`} text={key} />

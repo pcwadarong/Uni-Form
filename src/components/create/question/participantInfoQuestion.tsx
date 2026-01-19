@@ -57,12 +57,12 @@ const ParticipantInfoQuestion: React.FC<QuestionProps> = ({ question, mode }) =>
       ) : (
         <div className="flex flex-col gap-2">
           <label
-            className="overflow-hidden bg-gray-100 mt-3"
+            className="mt-3 overflow-hidden bg-gray-100"
             aria-label={`${optionMap[selectedOption].placeholder}`}
           >
             <input
               type="text"
-              className="w-full bg-gray-100 p-3 rounded-lg"
+              className="w-full rounded-lg bg-gray-100 p-3"
               disabled={isDisabled}
               placeholder={`${optionMap[selectedOption].placeholder}`}
               aria-describedby={`${selectedOption}-description`}
@@ -72,7 +72,7 @@ const ParticipantInfoQuestion: React.FC<QuestionProps> = ({ question, mode }) =>
             <label className="overflow-hidden bg-gray-100" aria-label="상세 주소 입력">
               <input
                 type="text"
-                className="w-full bg-gray-100 p-3 rounded-lg"
+                className="w-full rounded-lg bg-gray-100 p-3"
                 disabled={isDisabled}
                 placeholder={"상세 주소를 입력해주세요."}
               />

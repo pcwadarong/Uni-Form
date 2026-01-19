@@ -28,7 +28,7 @@ export const SURVEY_CATEGORY_LABELS = Object.entries(SURVEY_CATEGORY).reduce(
     acc[eng] = kor;
     return acc;
   },
-  {} as Record<string, string>
+  {} as Record<string, string>,
 );
 
 export const RECRUIT_CATEGORY_LABELS = Object.entries(RECRUIT_CATEGORY).reduce(
@@ -36,5 +36,5 @@ export const RECRUIT_CATEGORY_LABELS = Object.entries(RECRUIT_CATEGORY).reduce(
     acc[eng] = kor;
     return acc;
   },
-  {} as Record<string, string>
+  {} as Record<string, string>,
 );

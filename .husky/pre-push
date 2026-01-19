@@ -14,13 +14,13 @@ run_step () {
   fi
 }
 
-# 1. 전체 코드 스타일 및 린트 검사
+# 1. 코드 스타일 및 린트 검사
 run_step "Lint & Format Check" "yarn run lint"
 
-# 2. 타입 검사 (매우 중요)
+# 2. 타입 검사
 run_step "Type Check" "yarn run type-check"
 
-# 3. 빌드 테스트 (배포 전 최종 확인)
+# 3. 빌드 테스트
 run_step "Build Test" "yarn run build"
 
 echo "✅ All checks passed. Push allowed."

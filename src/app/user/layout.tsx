@@ -7,9 +7,9 @@ export default function Layout({
   children: ReactNode;
 }) {
   return (
-    <div className="lg:flex w-full lg:w-fit">
+    <div className="w-full lg:flex lg:w-fit">
       <Sidebar />
-      <main className="flex-1 p-10 max-w-[1200px]">{children}</main>
+      <main className="max-w-[1200px] flex-1 p-10">{children}</main>
     </div>
   );
 }

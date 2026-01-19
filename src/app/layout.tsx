@@ -16,12 +16,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${suit.className} relative body2 text-content bg-muted dark:bg-surface`}>
+      <body className={`${suit.className} body2 relative bg-muted text-content dark:bg-surface`}>
         <Providers>
           <Header />
-          <div className="flex flex-col items-center pt-20">
-            {children}
-          </div>
+          <div className="flex flex-col items-center pt-20">{children}</div>
           <Toaster />
           <FloatingControls />
           {modal}

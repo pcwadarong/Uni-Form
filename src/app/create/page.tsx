@@ -47,15 +47,15 @@ const Create: React.FC = () => {
       setEnabled(false);
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
-  }, [setSurveyInfo, surveyInfo.questions.map]);
+  }, [setSurveyInfo, surveyInfo.questions]);
 
   if (!enabled) {
     return null;
   }
 
   return (
-    <div className="flex-1 w-full px-4 pt-8 pb-20 md:px-8 2xl:px-0 bg-green-50 dark:bg-surface justify-center">
-      <div className="w-full 2xl:w-[1400px] flex flex-col gap-5 m-auto">
+    <div className="w-full flex-1 justify-center bg-green-50 px-4 pt-8 pb-20 md:px-8 2xl:px-0 dark:bg-surface">
+      <div className="m-auto flex w-full flex-col gap-5 2xl:w-350">
         <CreatePageButton />
         <SurveyInfo
           mode={editingId === 0 ? "editing" : "previewing"}

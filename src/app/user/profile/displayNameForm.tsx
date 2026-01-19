@@ -45,7 +45,7 @@ export default function DisplayNameForm({ displayName: initial }: { displayName:
         <Button
           type="submit"
           disabled={isPending || !displayName || displayName === initial}
-          className="subtitle bg-green-400 text-white text-nowrap disabled:bg-content/20 disabled:text-content"
+          className="subtitle text-nowrap bg-green-400 text-white disabled:bg-content/20 disabled:text-content"
         >
           닉네임 변경
         </Button>

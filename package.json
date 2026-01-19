@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "biome check .",
-    "lint:fix": "biome check --write .",
+    "lint:fix": "biome check --write --unsafe .",
     "format": "biome format . --write",
     "type-check": "tsc --noEmit",
     "prepare": "husky install"
@@ -60,7 +60,7 @@
     "typescript": "^5.7.2"
   },
   "lint-staged": {
-    "*.{js,ts,jsx,tsx,json}": ["biome check --write --no-errors-on-unmatched"]
+    "*.{js,ts,jsx,tsx,json}": ["biome check --write --unsafe --no-errors-on-unmatched"]
   },
   "msw": {
     "workerDirectory": ["public"]

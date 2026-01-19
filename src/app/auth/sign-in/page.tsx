@@ -4,14 +4,12 @@ import Form from "./form";
 const SignIn: React.FC = () => {
   return (
     <>
-      <h2 className="mt-20 text-center title2" id="login-heading">
+      <h2 className="title2 mt-20 text-center" id="login-heading">
         로그인
       </h2>
       <div className="mt-10 w-96" aria-labelledby="login-heading">
         <Form />
-        <div
-          className="flex gap-3 items-center justify-center mt-10 subtitle"
-        >
+        <div className="subtitle mt-10 flex items-center justify-center gap-3">
           <Link
             className="flex-1 text-end"
             href="/auth/reset-pw"

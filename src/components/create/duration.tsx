@@ -51,13 +51,13 @@ const SetDuration = () => {
     if (beginDateVisible && finishDateVisible) {
       setBeginDateVisible(false);
     }
-  }, [finishDateVisible]);
+  }, [beginDateVisible, finishDateVisible]);
 
   useEffect(() => {
     if (beginDateVisible && finishDateVisible) {
       setFinishDateVisible(false);
     }
-  }, [beginDateVisible]);
+  }, [beginDateVisible, finishDateVisible]);
 
   const toggleModal = useCallback(() => {
     setIsOpened(!isOpened);
@@ -80,20 +80,21 @@ const SetDuration = () => {
 
     setSurveyInfo({ ...surveyInfo, startDate: begin, endDate: finish });
     setIsOpened(!isOpened);
-  }, [beginVisible, finishVisible, beginDate, finishDate, setSurveyInfo, surveyInfo]);
+  }, [beginVisible, finishVisible, beginDate, finishDate, setSurveyInfo, surveyInfo, isOpened]);
 
   const handleTimeChange = useCallback(
     (type: "begin" | "finish", period: string, hours: number, minutes: number) => {
       const date = type === "begin" ? beginDate : finishDate;
       if (date) {
         const newDate = new Date(date);
+        let adjustedHours = hours;
 
         if (period === "PM" && hours !== 12) {
-          hours += 12;
+          adjustedHours = hours + 12;
         } else if (period === "AM" && hours === 12) {
-          hours = 0;
+          adjustedHours = 0;
         }
-        newDate.setHours(hours);
+        newDate.setHours(adjustedHours);
         newDate.setMinutes(minutes);
 
         if (type === "finish" && beginDate) {
@@ -127,11 +128,11 @@ const SetDuration = () => {
   return (
     <>
       {/* 날짜 버튼 */}
-      <div className="px-2 mb-4">
+      <div className="mb-4 px-2">
         <span className="subtitle mr-2">설문 기간</span>
         <button
           type="button"
-          className="bg-gray-1 p-2 rounded-full text-gray-4"
+          className="rounded-full bg-gray-1 p-2 text-gray-4"
           onClick={toggleModal}
         >
           {`${surveyInfo.startDate} ~ ${surveyInfo.endDate}`}
@@ -142,19 +143,19 @@ const SetDuration = () => {
       {isOpened && (
         <>
           {/* Backdrop */}
-          <div className="fixed top-0 left-0 w-full h-full bg-dark/70 z-30" aria-hidden="true" />
+          <div className="fixed top-0 left-0 z-30 h-full w-full bg-dark/70" aria-hidden="true" />
 
           {/* Dialog */}
           <div
             className="fixed inset-0 z-40 flex items-center justify-center p-4"
             aria-modal="true"
           >
-            <div className="w-fit sm:w-[340px] bg-surface p-8 rounded-2xl flex flex-col gap-4">
+            <div className="flex w-fit flex-col gap-4 rounded-2xl bg-surface p-8 sm:w-[340px]">
               <h3 className="title3 text-center">설문 기간</h3>
 
               {/* 시작일 설정 */}
               <div className="flex">
-                <span className="text-gray-4 font-semibold">시작</span>
+                <span className="font-semibold text-gray-4">시작</span>
                 <div>
                   <input
                     type="radio"
@@ -164,7 +165,7 @@ const SetDuration = () => {
                     onClick={() => setBeginVisible(false)}
                     defaultChecked
                   />
-                  <label className="ml-2 mr-4" htmlFor="begin-immediate">
+                  <label className="mr-4 ml-2" htmlFor="begin-immediate">
                     바로 시작
                   </label>
                 </div>
@@ -187,7 +188,7 @@ const SetDuration = () => {
                     type="button"
                     onClick={() => setBeginDateVisible(!beginDateVisible)}
                     aria-expanded={beginDateVisible}
-                    className="mb-2 w-full rounded-lg border border-gray-2 py-2 px-3 text-left"
+                    className="mb-2 w-full rounded-lg border border-gray-2 px-3 py-2 text-left"
                   >
                     {formatDate(beginDate).split(" / ")[0]}
                   </button>
@@ -197,14 +198,14 @@ const SetDuration = () => {
                       selected={beginDate}
                       onDayClick={setBeginDate}
                       fromDate={new Date()}
-                      className="z-50 rounded-2xl bg-content xl:absolute top-11 xl:shadow-lg"
+                      className="top-11 z-50 rounded-2xl bg-content xl:absolute xl:shadow-lg"
                     />
                   )}
                   <button
                     type="button"
                     onClick={() => setBeginTimeVisible(!beginTimeVisible)}
                     aria-expanded={beginTimeVisible}
-                    className="w-full rounded-lg border border-gray-2 py-2 px-3 text-left"
+                    className="w-full rounded-lg border border-gray-2 px-3 py-2 text-left"
                   >
                     {formatDate(beginDate).split(" / ")[1]}
                   </button>
@@ -216,7 +217,7 @@ const SetDuration = () => {
 
               {/* 종료일 설정 */}
               <div className="flex">
-                <span className="text-gray-4 font-semibold">종료</span>
+                <span className="font-semibold text-gray-4">종료</span>
                 <div>
                   <input
                     type="radio"
@@ -226,7 +227,7 @@ const SetDuration = () => {
                     onClick={() => setFinishVisible(false)}
                     defaultChecked
                   />
-                  <label className="ml-2 mr-4" htmlFor="endless">
+                  <label className="mr-4 ml-2" htmlFor="endless">
                     제한 없음
                   </label>
                 </div>
@@ -249,7 +250,7 @@ const SetDuration = () => {
                     type="button"
                     onClick={() => setFinishDateVisible(!finishDateVisible)}
                     aria-expanded={finishDateVisible}
-                    className="mb-2 w-full rounded-lg border border-gray-2 py-2 px-3 text-left"
+                    className="mb-2 w-full rounded-lg border border-gray-2 px-3 py-2 text-left"
                   >
                     {formatDate(finishDate).split(" / ")[0]}
                   </button>
@@ -259,14 +260,14 @@ const SetDuration = () => {
                       selected={finishDate}
                       onDayClick={setFinishDate}
                       fromDate={beginDate}
-                      className="z-50 rounded-2xl bg-content xl:absolute top-11 xl:shadow-lg"
+                      className="top-11 z-50 rounded-2xl bg-content xl:absolute xl:shadow-lg"
                     />
                   )}
                   <button
                     type="button"
                     onClick={() => setFinishTimeVisible(!finishTimeVisible)}
                     aria-expanded={finishTimeVisible}
-                    className="w-full rounded-lg border border-gray-2 py-2 px-3 text-left"
+                    className="w-full rounded-lg border border-gray-2 px-3 py-2 text-left"
                   >
                     {formatDate(finishDate).split(" / ")[1]}
                   </button>

@@ -10,10 +10,10 @@ export default function Special({ endDate, point = 0, showPoint = false }: Speci
   const remainingDays = isEndingSoon ? Math.ceil(diffMs / (1000 * 60 * 60 * 24)) : null;
 
   return (
-    <div className="flex truncate space-x-2">
+    <div className="flex space-x-2 truncate">
       {remainingDays && (
         <span
-          className="rounded-md px-2 py-1 bg-demonstrate text-center text-red-500 caption"
+          className="caption rounded-md bg-demonstrate px-2 py-1 text-center text-red-500"
           aria-label={`마감 ${remainingDays}일 전`}
         >
           마감 {remainingDays}일 전
@@ -21,7 +21,7 @@ export default function Special({ endDate, point = 0, showPoint = false }: Speci
       )}
       {showPoint && point > 0 && (
         <span
-          className="rounded-md px-2 py-1 bg-green-400 text-center text-white caption"
+          className="caption rounded-md bg-green-400 px-2 py-1 text-center text-white"
           aria-label={`${point}포인트`}
         >
           {point}P

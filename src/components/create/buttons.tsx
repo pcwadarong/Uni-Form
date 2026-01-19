@@ -3,7 +3,7 @@
 import { useSurveyStore } from "@/store/survey";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import CheckModal from "./checkModal";
 
@@ -15,11 +15,11 @@ const CreatePageButton = () => {
   const { surveyInfo } = useSurveyStore();
   const [showModal, setShowModal] = useState<boolean>(false);
 
-  const handleClickOutside = (event: MouseEvent) => {
+  const handleClickOutside = useCallback((event: MouseEvent) => {
     if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
       setShowToggleMenu(false);
     }
-  };
+  }, []);
 
   const handleOpenPreview = () => {
     window.open(`${currentPath}/preview`, "_blank", "noopener,noreferrer");
@@ -71,19 +71,19 @@ const CreatePageButton = () => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [handleClickOutside]);
 
   return (
-    <div className="flex gap-2 justify-end subtitle items-center">
-      <button type="button" className="py-1 px-3 bg-tone1 rounded-md" onClick={handleOpenPreview}>
+    <div className="subtitle flex items-center justify-end gap-2">
+      <button type="button" className="rounded-md bg-tone1 px-3 py-1" onClick={handleOpenPreview}>
         미리보기
       </button>
-      <button type="button" className="py-1 px-3 bg-tone1 rounded-md" onClick={handleSaveDraft}>
+      <button type="button" className="rounded-md bg-tone1 px-3 py-1" onClick={handleSaveDraft}>
         임시저장
       </button>
       <button
         type="button"
-        className="py-1 px-3 bg-green-400 text-white rounded-md"
+        className="rounded-md bg-green-400 px-3 py-1 text-white"
         aria-label="저장하기"
         onClick={handleValidate}
       >
@@ -100,19 +100,19 @@ const CreatePageButton = () => {
         </button>
         {showToggleMenu && (
           <div
-            className="absolute right-0 top-10 flex flex-col text-center rounded-lg overflow-hidden shadow-md bg-content"
+            className="absolute top-10 right-0 flex flex-col overflow-hidden rounded-lg bg-content text-center shadow-md"
             aria-labelledby="menu-button"
           >
             <button
               type="button"
-              className="rounded-md px-3 py-2 hover:bg-gray-2 text-nowrap"
+              className="text-nowrap rounded-md px-3 py-2 hover:bg-gray-2"
               onClick={handleDuplicate}
             >
               복제하기
             </button>
             <button
               type="button"
-              className="text-red-500 px-3 py-2 rounded-md hover:bg-gray-2"
+              className="rounded-md px-3 py-2 text-red-500 hover:bg-gray-2"
               onClick={handleDelete}
             >
               삭제하기

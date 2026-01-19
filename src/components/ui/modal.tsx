@@ -32,7 +32,7 @@ const Modal = ({ children }: { children: ReactNode }) => {
       <button
         type="button"
         onClick={() => router.back()}
-        className="title2 absolute right-6 top-6 -m-4 p-4 text-gray-400 hover:text-green-300"
+        className="title2 -m-4 absolute top-6 right-6 p-4 text-gray-400 hover:text-green-300"
         aria-label="모달 닫기"
       >
         &times;

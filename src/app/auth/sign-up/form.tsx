@@ -52,7 +52,7 @@ export default function Form() {
   return (
     <>
       <form
-        className="flex flex-col gap-6 subtitle"
+        className="subtitle flex flex-col gap-6"
         autoComplete="on"
         onSubmit={handleSubmit(onSubmit)}
       >
@@ -110,7 +110,7 @@ export default function Form() {
             type="submit"
             disabled={!isValid}
             isPending={isPending}
-            className="text-white mt-5 w-full bg-green-400"
+            className="mt-5 w-full bg-green-400 text-white"
           >
             가입하기
           </Button>

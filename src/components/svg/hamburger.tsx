@@ -16,24 +16,9 @@ export default function HamburgerIcon({
       focusable="false"
       {...props}
     >
-      <path
-        d="M20 12H10"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M20 5H4"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M20 19H4"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+      <path d="M20 12H10" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M20 5H4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M20 19H4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }

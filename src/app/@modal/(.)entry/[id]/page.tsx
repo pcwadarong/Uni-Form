@@ -38,7 +38,7 @@ export default async function EntryIntercept({ params }: { params: Promise<{ id:
 function FormContent({ item }: { item: Form }) {
   return (
     <section className="space-y-3">
-      <div className="relative left-1/2 w-screen -translate-x-1/2 overflow-hidden shadow md:hidden">
+      <div className="-translate-x-1/2 relative left-1/2 w-screen overflow-hidden shadow md:hidden">
         {item.img && (
           <Image
             src={item.img}
@@ -49,7 +49,7 @@ function FormContent({ item }: { item: Form }) {
           />
         )}
       </div>
-      <h2 className="line-clamp-2 title3 md:text-xl">{item.title}</h2>
+      <h2 className="title3 line-clamp-2 md:text-xl">{item.title}</h2>
       <hr className="w-full border border-green-300" />
       {item.description && <p>{formatTextWithLineBreaks(item.description)}</p>}
       <div className="flex justify-between">

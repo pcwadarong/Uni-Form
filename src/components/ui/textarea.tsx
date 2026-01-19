@@ -43,7 +43,7 @@ const AutoResizeTextarea: React.FC<AutoResizeTextareaProps> = ({
       onChange={handleChange}
       placeholder={placeholder}
       rows={1}
-      className={`resize-none overflow-hidden p-1 w-full focused_input ${className}`}
+      className={`focused_input w-full resize-none overflow-hidden p-1 ${className}`}
     />
   );
 };

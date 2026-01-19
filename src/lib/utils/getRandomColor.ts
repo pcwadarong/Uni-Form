@@ -1,6 +1,5 @@
-
 /**
- * 
+ *
  * @param {string} id 각 data의 id 값
  * @returns charCode를 기반으로 한 고정된 color 값
  */

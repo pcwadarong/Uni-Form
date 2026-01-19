@@ -25,7 +25,7 @@ export default function FormCardItem({ item, type }: FormCardItemProps) {
         type="button"
         onClick={() => navigate(item.id)}
         onKeyDown={handleKeyDown(item.id)}
-        className="flex h-[360px] w-full flex-1 flex-col justify-between overflow-hidden rounded-3xl text-left drop-shadow-md cursor-pointer"
+        className="flex h-[360px] w-full flex-1 cursor-pointer flex-col justify-between overflow-hidden rounded-3xl text-left drop-shadow-md"
         aria-label={`${item.title} 상세보기`}
       >
         <div className={`h-36 w-full overflow-hidden bg-${backgroundClass}`}>
@@ -39,10 +39,10 @@ export default function FormCardItem({ item, type }: FormCardItemProps) {
             />
           )}
         </div>
-        <div className="flex w-full flex-1 flex-col justify-between px-6 py-6 bg-surface dark:bg-muted">
+        <div className="flex w-full flex-1 flex-col justify-between bg-surface px-6 py-6 dark:bg-muted">
           <div>
             <Special endDate={item.endDate} point={item.point} showPoint={showPoint} />
-            <h3 className="body1 md:text-xl mt-3 mb-2 line-clamp-2">{item.title}</h3>
+            <h3 className="body1 mt-3 mb-2 line-clamp-2 md:text-xl">{item.title}</h3>
           </div>
           <p className="caption truncate text-gray-4">
             {`${formateDate(item.startDate, true)} ~ ${formateDate(item.endDate, true)}`}

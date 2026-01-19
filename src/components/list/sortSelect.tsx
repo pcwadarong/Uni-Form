@@ -35,7 +35,7 @@ export default function SortSelect({
 
   return (
     <Select value={defaultValue} onValueChange={onChangeSortType}>
-      <SelectTrigger className="border-gray-2 w-36">
+      <SelectTrigger className="w-36 border-gray-2">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>

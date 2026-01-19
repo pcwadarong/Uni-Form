@@ -69,21 +69,27 @@ const CheckModal: React.FC<Props> = ({ onClose }) => {
   };
 
   return (
-    <div
-      className="fixed inset-0 flex items-center justify-center z-50"
-      role="dialog"
-      aria-modal="true"
-    >
-      <div className="fixed inset-0 bg-dark/70" aria-hidden="true" onClick={handleOnClose}></div>
+    <dialog className="fixed inset-0 z-50 flex items-center justify-center" aria-modal="true">
       <div
-        className="flex flex-col gap-4 relative z-50 p-5 w-full max-w-[600px] max-h-full overflow-auto bg-content rounded-2xl shadow-2xl md:p-30px md:pt-35px"
+        className="fixed inset-0 bg-dark/70"
+        onClick={handleOnClose}
+        onKeyDown={(e) => {
+          if (e.key === "Escape") {
+            handleOnClose();
+          }
+        }}
+        role="button"
+        tabIndex={0}
+      />
+      <div
+        className="-5 relative z-50 flex max-h-full w-full max-w-150 flex-col gap-4 overflow-auto rounded-2xl bg-content shadow-2xl md:p-30px md:pt-35px"
         ref={modalRef}
       >
         <Select
           onValueChange={handleMainCategoryChange}
           onOpenChange={() => setIsSelectOpen(!isSelectOpen)}
         >
-          <SelectTrigger className="border-gray-2 mb-3">
+          <SelectTrigger className="mb-3 border-gray-2">
             <SelectValue placeholder="카테고리를 선택해주세요" />
           </SelectTrigger>
           <SelectContent>
@@ -98,7 +104,7 @@ const CheckModal: React.FC<Props> = ({ onClose }) => {
           onValueChange={handleSubCategoryChange}
           onOpenChange={() => setIsSelectOpen(!isSelectOpen)}
         >
-          <SelectTrigger className="border-gray-2 mb-3">
+          <SelectTrigger className="mb-3 border-gray-2">
             <SelectValue placeholder="소분류를 선택해주세요" />
           </SelectTrigger>
           <SelectContent>
@@ -122,7 +128,7 @@ const CheckModal: React.FC<Props> = ({ onClose }) => {
               }}
               onOpenChange={() => setIsSelectOpen(!isSelectOpen)}
             >
-              <SelectTrigger className="border-gray-2 mb-3">
+              <SelectTrigger className="mb-3 border-gray-2">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -176,7 +182,7 @@ const CheckModal: React.FC<Props> = ({ onClose }) => {
             />
           </div>
         )}
-        <div className="mt-5 gap-2 flex justify-center">
+        <div className="mt-5 flex justify-center gap-2">
           <Button className={"bg-green-light text-green-400"} onClick={handleOnClose}>
             수정하기
           </Button>
@@ -185,7 +191,7 @@ const CheckModal: React.FC<Props> = ({ onClose }) => {
           </Button>
         </div>
       </div>
-    </div>
+    </dialog>
   );
 };
 

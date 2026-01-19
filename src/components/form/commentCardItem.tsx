@@ -18,7 +18,7 @@ export default function CommentItem({ item }: Props) {
         onKeyDown={handleKeyDown(item.formId)}
         className="w-full cursor-pointer overflow-hidden rounded-3xl border border-gray-300 px-6 py-4 text-left"
       >
-        <p className="mb-2 text-ellipsis subtitle">{item.content}</p>
+        <p className="subtitle mb-2 text-ellipsis">{item.content}</p>
         <p className="caption text-gray-400">{item.formTitle}</p>
       </button>
     </li>

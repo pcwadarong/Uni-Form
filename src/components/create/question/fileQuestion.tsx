@@ -72,7 +72,7 @@ const FileQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
       ) : (
         <>
           <label
-            className="cursor-pointer flex justify-center items-center border-[1px] border-gray-2 rounded-lg p-2 mb-3 focus:outline-none dark:bg-gray-900"
+            className="mb-3 flex cursor-pointer items-center justify-center rounded-lg border-[1px] border-gray-2 p-2 focus:outline-none dark:bg-gray-900"
             aria-label={`파일 업로드: ${type} 파일 업로드 버튼`}
           >
             <input
@@ -106,7 +106,7 @@ const FileQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
                     type="button"
                     onClick={() => setFile(null)}
                     style={{ lineHeight: "1.3rem" }}
-                    className="absolute right-3 top-3 w-6 h-6 bg-dark/50 rounded-full text-white flex justify-center"
+                    className="absolute top-3 right-3 flex h-6 w-6 justify-center rounded-full bg-dark/50 text-white"
                     aria-label="파일 삭제"
                   >
                     x

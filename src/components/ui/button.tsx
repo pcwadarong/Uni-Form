@@ -10,6 +10,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 interface LinkButtonProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   href: string;
   children: React.ReactNode;
+  className?: string;
 }
 
 export const Button = ({
@@ -23,8 +24,8 @@ export const Button = ({
   const isInactive = disabled || isPending;
 
   const buttonClass = clsx(
-    "rounded-md py-2 px-6 text-center",
-    isInactive && "opacity-60 cursor-not-allowed",
+    "rounded-md px-6 py-2 text-center",
+    isInactive && "cursor-not-allowed opacity-60",
     className,
   );
 
@@ -36,7 +37,7 @@ export const Button = ({
       className={buttonClass}
       {...props}
     >
-      {isPending ? '처리 중...' : children ?? '확인'}
+      {isPending ? "처리 중..." : (children ?? "확인")}
     </button>
   );
 };
@@ -45,7 +46,7 @@ export const LinkButton = ({ href, children, className = "", ...props }: LinkBut
   return (
     <Link
       href={href}
-      className={`rounded-md py-2 px-6 text-center cursor-pointer ${className}`}
+      className={`cursor-pointer rounded-md px-6 py-2 text-center ${className}`}
       {...props}
     >
       {children}

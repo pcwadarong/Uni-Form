@@ -46,23 +46,23 @@ const Questions: React.FC<ExtendedQuestionProps> = ({
     <div
       onClick={onEditToggle}
       onKeyDown={onEditToggle}
-      className={`bg-tone1 rounded-2xl overflow-hidden shadow-md p-5 ${
+      className={`overflow-hidden rounded-2xl bg-tone1 p-5 shadow-md ${
         mode === "editing" ? "border border-green-300" : ""
       }`}
     >
       {mode === "editing" ? (
         <>
           <div
-            className="text-center cursor-move select-none p-10 -m-10"
+            className="-m-10 cursor-move select-none p-10 text-center"
             {...(provided?.dragHandleProps || {})}
             aria-label="질문 이동 핸들"
           >
             <span className="blind">질문 이동하기</span>=
           </div>
           <QuestionSelect value={question.type} handleTypeChange={handleTypeChange} />
-          <div className="font-bold flex">
+          <div className="flex font-bold">
             {isEssential && (
-              <span aria-hidden="true" className="text-red ml-[-12px] mr-[3px]">
+              <span aria-hidden="true" className="mr-[3px] ml-[-12px] text-red">
                 *
               </span>
             )}
@@ -72,7 +72,7 @@ const Questions: React.FC<ExtendedQuestionProps> = ({
               value={question.title}
               placeholder="질문 입력"
               onChange={(e) => handleQuestionChange({ ...question, title: e.target.value })}
-              className="ml-1 flex-1 focused_input"
+              className="focused_input ml-1 flex-1"
             />
           </div>
 
@@ -95,7 +95,7 @@ const Questions: React.FC<ExtendedQuestionProps> = ({
             <span
               aria-label="필수 항목"
               aria-hidden="true"
-              className="text-red ml-[-12px] mr-[3px]"
+              className="mr-[3px] ml-[-12px] text-red"
             >
               *
             </span>

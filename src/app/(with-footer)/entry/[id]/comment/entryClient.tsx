@@ -1,7 +1,10 @@
 "use client";
 
 import Loading from "@/app/loading";
-import { fetchCommentsClient, getCommentSnapshotById } from "@/lib/firebase/comment/getCommentsClient";
+import {
+  fetchCommentsClient,
+  getCommentSnapshotById,
+} from "@/lib/firebase/comment/getCommentsClient";
 import type { Comment, Form } from "@/types/types";
 import { type InfiniteData, useInfiniteQuery } from "@tanstack/react-query";
 import type { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";

@@ -33,7 +33,7 @@ const ResetPw: React.FC = () => {
 
   return (
     <main className="m-auto mt-20">
-      <h2 className="text-center title2" id="reset-password-heading">
+      <h2 className="title2 text-center" id="reset-password-heading">
         비밀번호 재설정
       </h2>
       <p className="mt-5 text-center">
@@ -54,7 +54,7 @@ const ResetPw: React.FC = () => {
         <Button
           type="submit"
           isPending={isPending}
-          className="text-white w-full bg-green-400 mt-5"
+          className="mt-5 w-full bg-green-400 text-white"
           aria-label="비밀번호 재설정 링크 메일 발송"
         >
           비밀번호 재설정하기

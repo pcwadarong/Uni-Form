@@ -22,9 +22,9 @@ export default function NavRight() {
 
   return (
     <>
-      <div className="flex gap-8 justify-self-end items-center">
+      <div className="flex items-center gap-8 justify-self-end">
         {loading ? (
-          <span className="text-sm text-gray-500">로딩 중...</span>
+          <span className="text-gray-500 text-sm">로딩 중...</span>
         ) : user ? (
           <>
             <Link className="hidden md:inline" href="/form">
@@ -33,11 +33,7 @@ export default function NavRight() {
             <Link className="hidden md:inline" href="/user">
               내 정보
             </Link>
-            <button
-              type="button"
-              className="hidden md:inline"
-              onClick={handleLogout}
-            >
+            <button type="button" className="hidden md:inline" onClick={handleLogout}>
               로그아웃
             </button>
           </>
@@ -55,15 +51,11 @@ export default function NavRight() {
 
       <UserMenu />
 
-      <div className="sm:hidden flex">
+      <div className="flex sm:hidden">
         <button type="button" onClick={toggleCategory}>
           <HamburgerIcon />
         </button>
-        <NavSmRight
-          isOpened={isOpened}
-          toggleCategory={toggleCategory}
-          closeMenu={closeMenu}
-        />
+        <NavSmRight isOpened={isOpened} toggleCategory={toggleCategory} closeMenu={closeMenu} />
       </div>
     </>
   );

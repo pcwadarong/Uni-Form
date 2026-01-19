@@ -16,7 +16,7 @@ const SearchedList = async ({ topic, query }: Props) => {
   );
 
   return (
-    <section className="gap-10 my-20 px-4 w-full 2xl:flex 2xl:px-0 2xl:w-[1400px]">
+    <section className="my-20 w-full gap-10 px-4 2xl:flex 2xl:w-[1400px] 2xl:px-0">
       <div className="grow">
         {filteredList.length === 0 ? (
           <NoContent />

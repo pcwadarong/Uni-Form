@@ -3,7 +3,7 @@ export default function Reaction({
   commentsCount,
 }: { responsesCount: number; commentsCount: number }) {
   return (
-    <div className="flex gap-3 truncate caption text-green-500 md:text-sm ">
+    <div className="caption flex gap-3 truncate text-green-500 md:text-sm ">
       {responsesCount > 0 && (
         <span
           aria-label={`설문에 ${responsesCount}번 응답이 있습니다.`}

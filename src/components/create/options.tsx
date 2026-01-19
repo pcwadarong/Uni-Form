@@ -37,11 +37,12 @@ const Options: React.FC<Prop> = ({ id }) => {
   };
 
   return (
-    <div className="flex gap-2 justify-end border-t-[1px] border-gray-2 pt-2 mt-4">
-      <button onClick={handleQuestionDuplicate} aria-label="질문 복사하기">
+    <div className="mt-4 flex justify-end gap-2 border-gray-2 border-t pt-2">
+      <button type="button" onClick={handleQuestionDuplicate} aria-label="질문 복사하기">
         복사
       </button>
       <button
+        type="button"
         onClick={handleQuestionDelete}
         disabled={surveyInfo.questions.length === 1}
         aria-label="질문 삭제하기"
