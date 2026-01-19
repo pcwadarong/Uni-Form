@@ -50,7 +50,7 @@ export default async function Entry({
   const hasAnswered = answeredFormIds.includes(item.id);
 
   return (
-    <div className="m-y-auto w-full max-w-[1200px] space-y-20 bg-surface px-14 pb-10 shadow dark:bg-muted">
+    <div className="my-auto w-full max-w-[1200px] space-y-20 bg-surface px-14 pb-10 shadow dark:bg-muted">
       <section className="flex flex-col gap-10 md:flex-row">
         <MobileImage img={item.img ?? ""} />
 
