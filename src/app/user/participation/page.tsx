@@ -1,6 +1,6 @@
 import FormCardItem from "@/features/survey/form/components/formCardItem";
 import { fetchUserDataServer } from "@/lib/firebase/user/fetchUserDataServer";
-import type { UserParticipationFields } from "@/types/userType";
+import type { UserParticipationFields } from "@/types";
 import Link from "next/link";
 
 export default async function Page() {

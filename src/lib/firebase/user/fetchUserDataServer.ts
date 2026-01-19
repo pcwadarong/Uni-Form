@@ -8,7 +8,7 @@ import type {
   UserField,
   UserParticipationFields,
   UserProfileFields,
-} from "@/types/userType";
+} from "@/types";
 import { FirebaseError } from "firebase/app";
 
 import { adminFirestore } from "@/lib/firebase/firebaseAdminConfig";

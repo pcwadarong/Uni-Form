@@ -1,7 +1,7 @@
 import SectionHeader from "@/features/shared/ui/sectionHeader";
 import FormCardItem from "@/features/survey/form/components/formCardItem";
 import { fetchUserDataServer } from "@/lib/firebase/user/fetchUserDataServer";
-import type { UserActivityFields } from "@/types/userType";
+import type { UserActivityFields } from "@/types";
 
 export default async function Page() {
   const { createdForms, drafts } = (await fetchUserDataServer({

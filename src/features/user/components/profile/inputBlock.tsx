@@ -1,5 +1,5 @@
 import { Input } from "@/features/shared/ui/input";
-import type { FormFieldProps } from "@/types/userType";
+import type { FormFieldProps } from "@/types";
 import FormBlock from "./formBlock";
 
 export default function InputBlock({ label, error, isPending, ...props }: FormFieldProps) {

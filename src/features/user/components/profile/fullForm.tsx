@@ -23,7 +23,7 @@ import {
 import { type ProfileUpdateInput, profileUpdateSchema } from "@/lib/validation/userProfileSchema";
 
 import type { ActionState } from "@/types";
-import type { UserAuth, UserProfileFields } from "@/types/userType";
+import type { UserAuth, UserProfileFields } from "@/types";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getAuth } from "firebase/auth";

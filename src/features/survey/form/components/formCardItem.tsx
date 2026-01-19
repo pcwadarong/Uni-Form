@@ -1,8 +1,8 @@
 "use client";
 
+import getColorById from "@/features/survey/utils/getRandomColor";
 import { useEncryptedEntryNavigation } from "@/features/user/hooks/useEncryptedEntryNavigation";
 import formateDate from "@/lib/utils/formateDate";
-import getColorById from "@/lib/utils/getRandomColor";
 import type { Form } from "@/types";
 import Image from "next/image";
 import { useMemo } from "react";
