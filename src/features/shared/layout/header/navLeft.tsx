@@ -14,7 +14,7 @@ export default function NavLeft({ handleMouseOver, handleMouseLeave }: Props) {
       <li>
         <h1>
           <Link href="/">
-            <SVGIcon name="BrandLogo" width={48} />
+            <SVGIcon name="BrandLogo" width={48} className="text-green-400" />
           </Link>
         </h1>
       </li>
