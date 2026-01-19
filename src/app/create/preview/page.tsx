@@ -8,23 +8,13 @@ import { useSurveyStore } from "@/store/survey";
 import { BroadcastChannel } from "broadcast-channel";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-const loadStateFromLocalStorage = () => {
-  const serializedState = localStorage.getItem("survey 1");
-  if (serializedState === null) {
-    return undefined;
-  }
-  return JSON.parse(serializedState);
-};
-
-const PreviewFormPage: React.FC = () => {
-  const { surveyInfo, setSurveyInfo } = useSurveyStore();
-  const [loading, setLoading] = useState(true);
 const PreviewFormPage: React.FC = () => {
   const { surveyInfo, setSurveyInfo } = useSurveyStore();
   const [loading, setLoading] = useState(true);
   const broadcastRef = useRef<BroadcastChannel | null>(null);
   const isMount = useRef(false);
 
+  // 1. 채널 초기화 및 해제
   useEffect(() => {
     broadcastRef.current = new BroadcastChannel("zustand_channel");
     return () => {
@@ -32,9 +22,10 @@ const PreviewFormPage: React.FC = () => {
     };
   }, []);
 
+  // 2. 메시지 핸들러 (메모이제이션)
   const handleMessage = useCallback(
-    (event: MessageEvent) => {
-      const newState = event.data;
+    (event: any) => {
+      const newState = event;
       if (JSON.stringify(newState) !== JSON.stringify(surveyInfo)) {
         setSurveyInfo(newState);
       }
@@ -42,40 +33,21 @@ const PreviewFormPage: React.FC = () => {
     [surveyInfo, setSurveyInfo],
   );
 
+  // 3. 메시지 리스너 등록
   useEffect(() => {
-    const broadcast = broadcastRef.current;
-    if (broadcast) {
-      broadcast.onmessage = handleMessage;
+    if (broadcastRef.current) {
+      broadcastRef.current.onmessage = handleMessage;
     }
   }, [handleMessage]);
-  const isMount = useRef(false);
 
-  const handleMessage = useCallback(
-    (event: MessageEvent) => {
-      const newState = event.data;
-      if (JSON.stringify(newState) !== JSON.stringify(surveyInfo)) {
-        setSurveyInfo(newState);
-      }
-    },
-    [surveyInfo, setSurveyInfo],
-  );
-
+  // 4. 로컬 스토리지 로드 (최초 1회)
   useEffect(() => {
-    const storedState = loadStateFromLocalStorage();
-    if (storedState) {
-      setSurveyInfo(storedState);
-    }
+    const stored = localStorage.getItem("survey 1");
+    if (stored) setSurveyInfo(JSON.parse(stored));
     setLoading(false);
   }, [setSurveyInfo]);
 
-  useEffect(() => {
-    broadcast.onmessage = handleMessage;
-
-    return () => {
-      broadcast.close();
-    };
-  }, [handleMessage, broadcast]);
-
+  // 5. 상태 변경 시 로컬 스토리지 저장
   useEffect(() => {
     if (!isMount.current) {
       isMount.current = true;
@@ -91,7 +63,7 @@ const PreviewFormPage: React.FC = () => {
           <CircularProgress aria-label="설문지를 로드하는 중입니다." />
         </div>
       ) : (
-        <div className="m-auto flex w-full flex-col gap-5 2xl:w-[1400px]">
+        <div className="m-auto flex w-full flex-col gap-5 2xl:w-350">
           <SurveyInfo mode="previewing" />
           {surveyInfo.questions.map((q) => {
             const QuestionComponent = questionComponentMap[q.type];
@@ -103,7 +75,7 @@ const PreviewFormPage: React.FC = () => {
               >
                 <div className="mb-2">
                   {q.isEssential && (
-                    <span aria-hidden="true" className="mr-[3px] ml-[-12px] text-red">
+                    <span aria-hidden="true" className="-ml-3 mr-0.75 text-red">
                       *
                     </span>
                   )}
