@@ -2,7 +2,7 @@
 
 import { useAuth } from "@/features/auth/contexts/authProvider";
 import useHandleLogout from "@/features/auth/hooks/useHandleLogout";
-import UserIcon from "@/features/shared/icons/user";
+import SVGIcon from "@/features/shared/icons/icons";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -34,7 +34,7 @@ const UserMenu = () => {
         aria-expanded={showUserMenu}
         aria-label="사용자 메뉴 열기"
       >
-        <UserIcon />
+        <SVGIcon name="UserIcon" />
       </button>
 
       {showUserMenu && (

@@ -1,10 +1,10 @@
+import SVGIcon from "@/features/shared/icons/icons";
 import { useSurveyStore } from "@/features/survey/create/store/survey";
 import { deleteOption } from "@/lib/utils/createPageUtils";
 import { handleOptionDragEnd } from "@/lib/utils/handleDragEnd";
 import isModeDisabled from "@/lib/utils/isModeDisabled";
 import type { Option, Question, QuestionProps } from "@/types";
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
-import Image from "next/image";
 import Options from "../options";
 
 const DropDownQuestion: React.FC<QuestionProps> = ({ question, mode, onResponseChange }) => {
@@ -95,7 +95,7 @@ const DropDownQuestion: React.FC<QuestionProps> = ({ question, mode, onResponseC
                               disabled={question.options && question.options.length === 1}
                               aria-label={`${index + 1}번 항목 삭제`}
                             >
-                              <Image src={"/cancel.svg"} alt="삭제 버튼" width="20" height="20" />
+                              <SVGIcon name="CancelIcon" />
                             </button>
                           </div>
                         )}

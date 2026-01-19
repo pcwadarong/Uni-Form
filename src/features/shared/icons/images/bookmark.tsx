@@ -1,19 +1,19 @@
-import type { IconProps } from ".";
+import type { IconProps } from "../";
 
-export default function TwitterXIcon({
+export default function BookMarkIcon({
   title,
-  color = "currentColor",
   fill = "none",
-  width = 20,
-  height = 20,
+  color = "currentColor",
+  width = 24,
+  height = 24,
   ...props
 }: IconProps) {
-  const titleId = title ? "twitter-x-icon-title" : undefined;
+  const titleId = title ? "bookmark-icon-title" : undefined;
 
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
+      viewBox="0 0 32 32"
       width={width}
       height={height}
       fill={fill}
@@ -23,10 +23,9 @@ export default function TwitterXIcon({
       aria-labelledby={titleId}
       {...props}
     >
-      {title && <title id={titleId}>{title}</title>}
       <path
-        d="M3 21L10.5484 13.4516M21 3L13.4516 10.5484M13.4516 10.5484L8 3H3L10.5484 13.4516M13.4516 10.5484L21 21H16L10.5484 13.4516"
-        strokeWidth="1.5"
+        d="M24 28L16 23L8 28V6C8 5.73478 8.10536 5.48043 8.29289 5.29289C8.48043 5.10536 8.73478 5 9 5H23C23.2652 5 23.5196 5.10536 23.7071 5.29289C23.8946 5.48043 24 5.73478 24 6V28Z"
+        strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />

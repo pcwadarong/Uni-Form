@@ -2,7 +2,7 @@
 
 import { initSurveyInfo } from "@/constants/initSurveyInfo";
 import { commonTemplate, recruitTemplate, surveyTemplate } from "@/constants/templates";
-import FileEditIcon from "@/features/shared/icons/file";
+import SVGIcon from "@/features/shared/icons/icons";
 import { useSurveyStore } from "@/features/survey/create/store/survey";
 import getColorById from "@/lib/utils/getRandomColor";
 import { useRouter } from "next/navigation";
@@ -34,7 +34,7 @@ const RandomColoredBox: React.FC<{ link: string; text: string }> = ({ link, text
       >
         <p className="title3 absolute top-6 left-6">{text}</p>
         <div className="absolute right-6 bottom-6">
-          <FileEditIcon width={60} height={60} aria-label="Edit icon" />
+          <SVGIcon name="FileEditIcon" size={60} />
         </div>
       </button>
     </li>

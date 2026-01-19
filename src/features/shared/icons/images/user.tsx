@@ -1,4 +1,4 @@
-import type { IconProps } from ".";
+import type { IconProps } from "../";
 
 export default function UserIcon({
   title,

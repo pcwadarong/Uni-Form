@@ -2,7 +2,7 @@
 
 import { RECRUIT_CATEGORY, SURVEY_CATEGORY } from "@/constants/category";
 import { useHover } from "@/features/shared/hooks/useHover";
-import BrandLogo from "@/features/shared/icons/logo";
+import SVGIcon from "@/features/shared/icons/icons";
 import { Button } from "@/features/shared/ui/button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -33,7 +33,7 @@ export default function Header() {
         <div className="flex h-20 w-full items-center justify-between px-8 2xl:w-350 2xl:px-0">
           <h1>
             <Link href="/">
-              <BrandLogo width={48} />
+              <SVGIcon name="BrandLogo" width={48} className="text-green-300" />
             </Link>
           </h1>
           <Button onClick={quitPreview} className="bg-green-400 text-white">

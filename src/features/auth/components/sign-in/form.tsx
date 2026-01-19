@@ -1,7 +1,6 @@
 "use client";
 
-import EmailIcon from "@/features/shared/icons/email";
-import PasswordIcon from "@/features/shared/icons/password";
+import SVGIcon from "@/features/shared/icons/icons";
 import { Button } from "@/features/shared/ui/button";
 import { Input } from "@/features/shared/ui/input";
 
@@ -55,7 +54,7 @@ const Form = () => {
           <label htmlFor="email">이메일</label>
           <span className="ml-3 text-green-500">{errors.email?.message}</span>
           <div className="relative mt-2">
-            <EmailIcon className="absolute top-3 left-3" />
+            <SVGIcon name="EmailIcon" className="absolute top-3 left-3" />
             <Input
               id="email"
               type="email"
@@ -71,7 +70,7 @@ const Form = () => {
           <label htmlFor="password">비밀번호</label>
           <span className="ml-3 text-green-500">{errors.password?.message}</span>
           <div className="relative mt-2">
-            <PasswordIcon className="absolute top-3 left-3" />
+            <SVGIcon name="PasswordIcon" className="absolute top-3 left-3" />
             <Input
               id="password"
               type="password"

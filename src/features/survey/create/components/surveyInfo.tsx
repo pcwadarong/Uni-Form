@@ -1,6 +1,6 @@
 "use client";
 
-import FileEditIcon from "@/features/shared/icons/file";
+import SVGIcon from "@/features/shared/icons/icons";
 import { formatTextWithLineBreaks } from "@/features/shared/ui/formatTextWithLineBreaks";
 import AutoResizeTextarea from "@/features/shared/ui/textarea";
 import { useSurveyStore } from "@/features/survey/create/store/survey";
@@ -77,7 +77,7 @@ const SurveyInfo = ({ mode, onEditToggle }: Props) => {
                   className="hidden"
                   accept=".jpg, .jpeg, .png, .bmp, .webp, .svg"
                 />
-                <FileEditIcon color="white" width={70} height={70} />
+                <SVGIcon name="FileEditIcon" color="white" size={70} />
                 <p className="mt-2 text-white">사진 추가하기</p>
               </label>
             )}

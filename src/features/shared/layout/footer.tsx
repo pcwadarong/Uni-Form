@@ -1,28 +1,25 @@
-import FacebookIcon from "@/features/shared/icons/facebook";
-import GithubIcon from "@/features/shared/icons/github";
-import InstagramIcon from "@/features/shared/icons/instagram";
-import TwitterXIcon from "@/features/shared/icons/x";
+import SVGIcon from "@/features/shared/icons/icons";
 import Link from "next/link";
 
 const sns = [
   {
     name: "github",
-    icon: <GithubIcon width={20} />,
+    icon: <SVGIcon name="GithubIcon" size={20} />,
     link: "https://github.com/pcwadarong/Uni-Form",
   },
   {
     name: "facebook",
-    icon: <FacebookIcon width={19} />,
+    icon: <SVGIcon name="FacebookIcon" size={19} />,
     link: "https://www.facebook.com/",
   },
   {
     name: "instagram",
-    icon: <InstagramIcon />,
+    icon: <SVGIcon name="InstagramIcon" />,
     link: "https://www.instagram.com/",
   },
   {
     name: "x",
-    icon: <TwitterXIcon />,
+    icon: <SVGIcon name="TwitterXIcon" />,
     link: "https://twitter.com/",
   },
 ];

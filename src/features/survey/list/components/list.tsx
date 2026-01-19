@@ -9,7 +9,7 @@ import NoContent from "@/features/survey/list/components/noContent";
 import SortSelect from "@/features/survey/list/components/sortSelect";
 import ToggleInProgressFilter from "@/features/survey/list/components/toggleInProgressFilter";
 
-import FilterIcon from "@/features/shared/icons/filter";
+import SVGIcon from "@/features/shared/icons/icons";
 import { calculateDeadlineMatch } from "@/lib/utils/calculateDeadlineMatch";
 import { getSelectedItems } from "@/lib/utils/filterAndSortData";
 import type { Form } from "@/types";
@@ -92,7 +92,7 @@ const List = ({ initialData, topic, category, sort }: Props) => {
               className="flex items-center gap-[2.5px] rounded-md bg-green-500 p-2 text-white"
               onClick={handleCategoryToggle}
             >
-              <FilterIcon width={20} height={20} aria-label="filter icon" />
+              <SVGIcon name="FilterIcon" size={20} aria-label="filter icon" />
               <span>필터</span>
               <span className="hidden md:inline">
                 {filterDisplay === "block" ? "닫기" : "열기"}

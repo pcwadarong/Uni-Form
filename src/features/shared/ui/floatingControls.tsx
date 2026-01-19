@@ -1,8 +1,7 @@
 "use client";
 
 import { useTheme } from "@/features/shared/contexts/themeProvider";
-import Dark from "@/features/shared/icons/dark";
-import Light from "@/features/shared/icons/light";
+import SVGIcon from "@/features/shared/icons/icons";
 
 export default function FloatingControls() {
   const { theme, setTheme } = useTheme();
@@ -31,7 +30,7 @@ export default function FloatingControls() {
         aria-label="테마 전환 버튼"
         className={`flex items-center justify-center ${commonClass}`}
       >
-        {theme === "light" ? <Light /> : <Dark />}
+        {theme === "light" ? <SVGIcon name="SunIcon" /> : <SVGIcon name="DarkIcon" />}
       </button>
     </div>
   );

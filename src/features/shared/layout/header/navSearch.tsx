@@ -1,7 +1,7 @@
 "use client";
 
+import SVGIcon from "@/features/shared/icons/icons";
 import { Input } from "@/features/shared/ui/input";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -35,7 +35,7 @@ export default function NavSearch() {
         className="-translate-y-1/2 absolute top-1/2 right-3 transform cursor-pointer"
         onClick={handleSearch}
       >
-        <Image src={"/search.svg"} alt="search" width="20" height="20" priority />
+        <SVGIcon name="SearchIcon" className="text-green-400" />
       </button>
     </div>
   );

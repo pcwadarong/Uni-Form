@@ -6,7 +6,7 @@ import SimilarForms from "@/features/survey/entry/components/similarForms";
 import Reaction from "@/features/survey/form/components/reaction";
 
 import { RECRUIT_CATEGORY_LABELS, SURVEY_CATEGORY_LABELS } from "@/constants/category";
-import BubbleChat from "@/features/shared/icons/bubble-chat";
+import SVGIcon from "@/features/shared/icons/icons";
 import { formatTextWithLineBreaks } from "@/features/shared/ui/formatTextWithLineBreaks";
 import type { Comment, Form } from "@/types";
 
@@ -50,7 +50,7 @@ export default async function Entry({
   const hasAnswered = answeredFormIds.includes(item.id);
 
   return (
-    <div className="my-auto w-full max-w-75 space-y-20 bg-surface px-14 pb-10 shadow dark:bg-muted">
+    <div className="my-auto w-full max-w-300 space-y-20 bg-surface px-14 pt-16 pb-10 shadow dark:bg-muted">
       <section className="flex flex-col gap-10 md:flex-row">
         <MobileImage img={item.img ?? ""} />
 
@@ -164,7 +164,7 @@ function EntryCommentSection({
         />
       ) : (
         <section className="flex min-h-52 flex-col items-center justify-center gap-4 rounded-2xl border font-bold opacity-20">
-          <BubbleChat />
+          <SVGIcon name="BubbleChatIcon" />
           <p>아직 댓글이 없어요. 첫 댓글을 남겨보세요!</p>
         </section>
       )}
@@ -181,7 +181,7 @@ function MobileImage({ img }: { img: string }) {
         width={240}
         height={150}
         alt="form 이미지"
-        className="max-h-23 w-full object-cover"
+        className="max-h-[370px] w-full object-cover"
       />
     </div>
   );

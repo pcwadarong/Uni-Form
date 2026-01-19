@@ -1,6 +1,6 @@
-import type { IconProps } from ".";
+import type { IconProps } from "../";
 
-export default function Dark({
+export default function DarkIcon({
   title,
   fill = "currentColor",
   width = 20,

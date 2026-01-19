@@ -1,6 +1,6 @@
 "use client";
 
-import BrandLogo from "@/features/shared/icons/logo";
+import SVGIcon from "@/features/shared/icons/icons";
 import Link from "next/link";
 
 interface Props {
@@ -14,7 +14,7 @@ export default function NavLeft({ handleMouseOver, handleMouseLeave }: Props) {
       <li>
         <h1>
           <Link href="/">
-            <BrandLogo width={48} />
+            <SVGIcon name="BrandLogo" width={48} className="text-green-400" />
           </Link>
         </h1>
       </li>
