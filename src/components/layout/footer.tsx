@@ -1,8 +1,8 @@
+import FacebookIcon from "@/features/shared/icons/facebook";
+import GithubIcon from "@/features/shared/icons/github";
+import InstagramIcon from "@/features/shared/icons/instagram";
+import TwitterXIcon from "@/features/shared/icons/x";
 import Link from "next/link";
-import FacebookIcon from "../svg/facebook";
-import GithubIcon from "../svg/github";
-import InstagramIcon from "../svg/instagram";
-import TwitterXIcon from "../svg/x";
 
 const sns = [
   {

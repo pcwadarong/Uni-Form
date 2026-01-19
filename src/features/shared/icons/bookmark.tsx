@@ -1,18 +1,26 @@
+import type { IconProps } from ".";
+
 export default function BookMark({
+  title,
   fill = "none",
-  stroke = "currentColor",
+  color = "currentColor",
+  width = 24,
+  height = 24,
   ...props
-}: React.SVGProps<SVGSVGElement>) {
+}: IconProps) {
+  const titleId = title ? "bookmark-icon-title" : undefined;
+
   return (
     <svg
-      aria-hidden="true"
-      focusable="false"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 32 32"
-      width="24"
-      height="24"
+      width={width}
+      height={height}
       fill={fill}
-      stroke={stroke}
+      stroke={color}
+      role={title ? "img" : undefined}
+      aria-hidden={title ? undefined : true}
+      aria-labelledby={titleId}
       {...props}
     >
       <path

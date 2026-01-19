@@ -1,10 +1,10 @@
 "use client";
 
 import { formatTextWithLineBreaks } from "@/components/ui/formatTextWithLineBreaks";
+import FileEditIcon from "@/features/shared/icons/file";
 import formatDate from "@/lib/utils/formateDate";
 import { useSurveyStore } from "@/store/survey";
 import { type ChangeEvent, useState } from "react";
-import FileEditIcon from "../svg/file";
 import AutoResizeTextarea from "../ui/textarea";
 import AddBtns from "./addBtns";
 import SetDuration from "./duration";

@@ -1,19 +1,29 @@
+import type { IconProps } from ".";
+
 export default function Share({
-  stroke = "currentColor",
+  title,
+  color = "currentColor",
+  fill = "none",
+  width = 24,
+  height = 24,
   ...props
-}: React.SVGProps<SVGSVGElement>) {
+}: IconProps) {
+  const titleId = title ? "share-icon-title" : undefined;
+
   return (
     <svg
-      aria-hidden="true"
-      focusable="false"
-      width="24"
-      height="24"
-      viewBox="0 0 32 32"
-      fill="none"
-      stroke={stroke}
       xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 32 32"
+      width={width}
+      height={height}
+      fill={fill}
+      stroke={color}
+      role={title ? "img" : undefined}
+      aria-hidden={title ? undefined : true}
+      aria-labelledby={titleId}
       {...props}
     >
+      {title && <title id={titleId}>{title}</title>}
       <path
         d="M8 20C10.2091 20 12 18.2091 12 16C12 13.7909 10.2091 12 8 12C5.79086 12 4 13.7909 4 16C4 18.2091 5.79086 20 8 20Z"
         strokeWidth="2"

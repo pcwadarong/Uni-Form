@@ -1,10 +1,10 @@
 "use client";
 
+import BookMark from "@/features/shared/icons/bookmark";
+import Report from "@/features/shared/icons/report";
+import Share from "@/features/shared/icons/share";
 import { useCallback } from "react";
 import { toast } from "sonner";
-import BookMark from "../svg/bookmark";
-import Report from "../svg/report";
-import Share from "../svg/share";
 
 export default function ActionButtons() {
   const handleShare = useCallback(() => {

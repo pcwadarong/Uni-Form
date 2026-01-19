@@ -1,21 +1,29 @@
+import type { IconProps } from ".";
+
 export default function EmailIcon({
-  stroke = "currentColor",
+  title,
+  fill = "none",
+  color = "currentColor",
   width = 20,
   height = 20,
   ...props
-}: React.SVGProps<SVGSVGElement>) {
+}: IconProps) {
+  const titleId = title ? "email-icon-title" : undefined;
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       width={width}
       height={height}
-      fill="none"
-      stroke={stroke}
-      aria-hidden="true"
-      focusable="false"
+      fill={fill}
+      stroke={color}
+      role={title ? "img" : undefined}
+      aria-hidden={title ? undefined : true}
+      aria-labelledby={titleId}
       {...props}
     >
+      {title && <title id={titleId}>{title}</title>}
       <path
         d="M2 6L8.91302 9.91697C11.4616 11.361 12.5384 11.361 15.087 9.91697L22 6"
         strokeWidth="1.5"

@@ -9,10 +9,10 @@ import NoContent from "@/components/list/noContent";
 import SortSelect from "@/components/list/sortSelect";
 import ToggleInProgressFilter from "@/components/list/toggleInProgressFilter";
 
+import FilterIcon from "@/features/shared/icons/filter";
 import { calculateDeadlineMatch } from "@/lib/utils/calculateDeadlineMatch";
 import { getSelectedItems } from "@/lib/utils/filterAndSortData";
 import type { Form } from "@/types";
-import FilterIcon from "../svg/filter";
 
 interface Props {
   initialData: Form[];

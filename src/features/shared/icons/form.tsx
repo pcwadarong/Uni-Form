@@ -1,21 +1,29 @@
+import type { IconProps } from ".";
+
 export default function FormIcon({
-  stroke = "currentColor",
+  title,
+  color = "currentColor",
+  fill = "none",
   width = 20,
   height = 20,
   ...props
-}: React.SVGProps<SVGSVGElement>) {
+}: IconProps) {
+  const titleId = title ? "form-icon-title" : undefined;
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       width={width}
       height={height}
-      fill="none"
-      stroke={stroke}
-      aria-hidden="true"
-      focusable="false"
+      fill={fill}
+      stroke={color}
+      role={title ? "img" : undefined}
+      aria-hidden={title ? undefined : true}
+      aria-labelledby={titleId}
       {...props}
     >
+      {title && <title id={titleId}>{title}</title>}
       <path
         d="M3.5 8.23077V5.46154C3.5 3.54978 5.067 2 7 2C8.933 2 10.5 3.54978 10.5 5.46154L10.5 9.26923C10.5 10.2251 9.7165 11 8.75 11C7.7835 11 7 10.2251 7 9.26923L7 5.46154"
         strokeWidth="1.5"

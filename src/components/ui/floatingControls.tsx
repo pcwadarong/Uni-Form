@@ -1,8 +1,8 @@
 "use client";
 
 import { useTheme } from "@/contexts/themeProvider";
-import Dark from "../svg/dark";
-import Light from "../svg/light";
+import Dark from "@/features/shared/icons/dark";
+import Light from "@/features/shared/icons/light";
 
 export default function FloatingControls() {
   const { theme, setTheme } = useTheme();
