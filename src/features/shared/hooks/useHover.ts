@@ -1,4 +1,3 @@
-import { RECRUIT_CATEGORY, SURVEY_CATEGORY } from "@/constants/category";
 import { useRef, useState } from "react";
 
 export function useHover() {
@@ -21,12 +20,4 @@ export function useHover() {
   };
 
   return { hoveredCategory, isSubMenuOpen, handleMouseOver, handleMouseLeave };
-}
-
-export function getCategoryLinks(hoveredCategory: string | null) {
-  return hoveredCategory === "survey"
-    ? Object.entries(SURVEY_CATEGORY)
-    : hoveredCategory === "recruit"
-      ? Object.entries(RECRUIT_CATEGORY)
-      : [];
 }

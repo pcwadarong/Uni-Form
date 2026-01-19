@@ -1,6 +1,7 @@
 "use client";
 
-import { getCategoryLinks, useHover } from "@/features/shared/hooks/useHover";
+import { RECRUIT_CATEGORY, SURVEY_CATEGORY } from "@/constants/category";
+import { useHover } from "@/features/shared/hooks/useHover";
 import BrandLogo from "@/features/shared/icons/logo";
 import { Button } from "@/features/shared/ui/button";
 import Link from "next/link";
@@ -8,6 +9,14 @@ import { usePathname } from "next/navigation";
 import NavLeft from "./navLeft";
 import NavRight from "./navRight";
 import NavSearch from "./navSearch";
+
+function getCategoryLinks(hoveredCategory: string | null) {
+  return hoveredCategory === "survey"
+    ? Object.entries(SURVEY_CATEGORY)
+    : hoveredCategory === "recruit"
+      ? Object.entries(RECRUIT_CATEGORY)
+      : [];
+}
 
 export default function Header() {
   const { hoveredCategory, isSubMenuOpen, handleMouseOver, handleMouseLeave } = useHover();
