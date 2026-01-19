@@ -1,17 +1,14 @@
 {
   "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-
   "vcs": {
     "enabled": true,
     "clientKind": "git",
     "useIgnoreFile": true
   },
-
   "files": {
     "ignoreUnknown": false,
-    "ignore": ["dist/**/*", "node_modules/**/*", ".pnp.loader.mjs", ".yarn/**/*", ".next/**/*"]
+    "ignore": ["dist/**/*", "node_modules/**/*", ".pnp.*", ".yarn/**/*", ".next/**/*", "public/**/*"]
   },
-
   "formatter": {
     "enabled": true,
     "attributePosition": "auto",
@@ -21,21 +18,25 @@
     "lineEnding": "lf",
     "formatWithErrors": true
   },
-
   "organizeImports": {
     "enabled": true
   },
-
   "linter": {
     "enabled": true,
     "rules": {
       "recommended": true,
       "suspicious": {
-        "noArrayIndexKey": "off"
+        "noArrayIndexKey": "off", // 배열 인덱스를 키로 사용하는 것 허용 (UI 라이브러리 특성 고려)
+        "noExplicitAny": "warn"    // any 사용 시 경고
+      },
+      "style": {
+        "useImportType": "error"   // Type-only import 강제
+      },
+      "correctness": {
+        "noUnusedVariables": "warn" // 사용하지 않는 변수 경고
       }
     }
   },
-
   "javascript": {
     "formatter": {
       "arrowParentheses": "always",
@@ -44,10 +45,10 @@
       "jsxQuoteStyle": "double",
       "quoteProperties": "asNeeded",
       "semicolons": "always",
-      "trailingCommas": "all"
+      "trailingCommas": "all",
+      "quoteStyle": "double" // 일관성을 위해 double quote 권장
     }
   },
-
   "json": {
     "formatter": {
       "trailingCommas": "none"
