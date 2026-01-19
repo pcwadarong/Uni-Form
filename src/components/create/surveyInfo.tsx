@@ -1,7 +1,7 @@
 "use client";
 
 import { formatTextWithLineBreaks } from "@/components/ui/formatTextWithLineBreaks";
-import formateDate from "@/lib/utils/formateDate";
+import formatDate from "@/lib/utils/formateDate";
 import { useSurveyStore } from "@/store/survey";
 import { type ChangeEvent, useState } from "react";
 import FileEditIcon from "../svg/file";
@@ -16,7 +16,7 @@ interface Props {
 const SurveyInfo = ({ mode, onEditToggle }: Props) => {
   const { surveyInfo, setSurveyInfo } = useSurveyStore();
   const [explanationArea, setExplanationArea] = useState<string | undefined>(
-    surveyInfo.description,
+    surveyInfo.description ?? "",
   );
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -49,18 +49,18 @@ const SurveyInfo = ({ mode, onEditToggle }: Props) => {
     <div
       onClick={onEditToggle}
       onKeyDown={onEditToggle}
-      className={`bg-tone1 rounded-2xl overflow-hidden shadow-md ${
+      className={`overflow-hidden rounded-2xl bg-tone1 shadow-md ${
         mode === "editing" ? "border border-green-300" : ""
       }`}
     >
-      <p className="py-2 px-4 text-green-400">{}페이지</p>
+      <p className="px-4 py-2 text-green-400">{}페이지</p>
       {mode === "editing" ? (
         <div>
-          <div className="aspect-[4/1] bg-green-500 justify-center flex">
+          <div className="flex aspect-4/1 justify-center bg-green-500">
             {surveyInfo.img ? (
-              <div className="relative overflow-hidden flex items-center">
-                <img src={surveyInfo.img} alt="Uploaded" className="w-full h-auto object-cover" />
-                <div className="absolute bottom-5 right-5 bg-gray-4/50 text-white p-2 rounded-md">
+              <div className="relative flex items-center overflow-hidden">
+                <img src={surveyInfo.img} alt="Uploaded" className="h-auto w-full object-cover" />
+                <div className="absolute right-5 bottom-5 rounded-md bg-gray-4/50 p-2 text-white">
                   <button type="button" onClick={handleDeleteClick} aria-label="Delete image">
                     삭제하기
                   </button>
@@ -68,7 +68,7 @@ const SurveyInfo = ({ mode, onEditToggle }: Props) => {
               </div>
             ) : (
               <label
-                className="cursor-pointer p-50 justify-center flex flex-col items-center"
+                className="flex cursor-pointer flex-col items-center justify-center p-50"
                 aria-label="Upload Image"
               >
                 <input
@@ -88,7 +88,7 @@ const SurveyInfo = ({ mode, onEditToggle }: Props) => {
               placeholder="설문 제목 입력"
               value={surveyInfo.title}
               onChange={handleTitleChange}
-              className="p-2 w-full focused_input"
+              className="focused_input w-full p-2"
               aria-label="Survey title"
             />
             <AutoResizeTextarea
@@ -105,9 +105,9 @@ const SurveyInfo = ({ mode, onEditToggle }: Props) => {
       ) : (
         <div className="pb-2">
           {surveyInfo.img && (
-            <div className="aspect-[4/1] bg-green-500 justify-center flex">
-              <div className="relative overflow-hidden flex items-center">
-                <img src={surveyInfo.img} alt="Survey" className="w-full h-auto object-cover" />
+            <div className="flex aspect-4/1 justify-center bg-green-500">
+              <div className="relative flex items-center overflow-hidden">
+                <img src={surveyInfo.img} alt="Survey" className="h-auto w-full object-cover" />
               </div>
             </div>
           )}
@@ -121,8 +121,14 @@ const SurveyInfo = ({ mode, onEditToggle }: Props) => {
             >
               {formatTextWithLineBreaks(surveyInfo.description || "")}
             </p>
-            <span className="bg-gray-1 p-2 rounded-full text-gray-4" aria-label="Survey duration">
-              {`${formateDate(surveyInfo.startDate)} ~ ${formateDate(surveyInfo.endDate)}`}
+            <span className="rounded-full bg-gray-1 p-2 text-gray-4" aria-label="Survey duration">
+              {surveyInfo.startDate === 0
+                ? "바로 시작"
+                : formatDate(surveyInfo.startDate).split(" / ")[0]}
+              {" ~ "}
+              {surveyInfo.endDate === 0
+                ? "제한 없음"
+                : formatDate(surveyInfo.endDate).split(" / ")[0]}
             </span>
           </div>
         </div>

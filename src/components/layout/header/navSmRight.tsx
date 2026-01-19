@@ -33,14 +33,14 @@ export default function NavSmRight({ isOpened, toggleCategory, closeMenu }: Prop
   return (
     <dialog
       ref={dialogRef}
-      className="fixed inset-0 z-30 m-0 h-screen w-full transform overflow-auto bg-surface p-8 pt-20 transition-transform duration-300 ease-out open:translate-x-0 translate-x-full"
+      className="fixed inset-0 z-30 m-0 h-screen w-full translate-x-full transform overflow-auto bg-surface p-8 pt-20 transition-transform duration-300 ease-out open:translate-x-0"
       onClose={closeMenu}
       aria-label="카테고리 사이드 메뉴"
     >
       <button
         type="button"
         onClick={toggleCategory}
-        className="absolute right-9 top-8 text-2xl"
+        className="absolute top-8 right-9 text-2xl"
         aria-label="메뉴 닫기"
       >
         &times;

@@ -6,45 +6,48 @@ import CircularProgress from "@/components/ui/circular";
 import questionComponentMap from "@/constants/questionComponentMap";
 import { useSurveyStore } from "@/store/survey";
 import { BroadcastChannel } from "broadcast-channel";
-import { useEffect, useRef, useState } from "react";
-
-const loadStateFromLocalStorage = () => {
-  const serializedState = localStorage.getItem("survey 1");
-  if (serializedState === null) {
-    return undefined;
-  }
-  return JSON.parse(serializedState);
-};
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const PreviewFormPage: React.FC = () => {
   const { surveyInfo, setSurveyInfo } = useSurveyStore();
   const [loading, setLoading] = useState(true);
-  const broadcast = new BroadcastChannel("zustand_channel");
+  const broadcastRef = useRef<BroadcastChannel | null>(null);
   const isMount = useRef(false);
 
-  const handleMessage = (event: MessageEvent) => {
-    const newState = event.data;
-    if (JSON.stringify(newState) !== JSON.stringify(surveyInfo)) {
-      setSurveyInfo(newState);
-    }
-  };
-
+  // 1. 채널 초기화 및 해제
   useEffect(() => {
-    const storedState = loadStateFromLocalStorage();
-    if (storedState) {
-      setSurveyInfo(storedState);
+    broadcastRef.current = new BroadcastChannel("zustand_channel");
+    return () => {
+      broadcastRef.current?.close();
+    };
+  }, []);
+
+  // 2. 메시지 핸들러 (메모이제이션)
+  const handleMessage = useCallback(
+    (event: any) => {
+      const newState = event;
+      if (JSON.stringify(newState) !== JSON.stringify(surveyInfo)) {
+        setSurveyInfo(newState);
+      }
+    },
+    [surveyInfo, setSurveyInfo],
+  );
+
+  // 3. 메시지 리스너 등록
+  useEffect(() => {
+    if (broadcastRef.current) {
+      broadcastRef.current.onmessage = handleMessage;
     }
+  }, [handleMessage]);
+
+  // 4. 로컬 스토리지 로드 (최초 1회)
+  useEffect(() => {
+    const stored = localStorage.getItem("survey 1");
+    if (stored) setSurveyInfo(JSON.parse(stored));
     setLoading(false);
   }, [setSurveyInfo]);
 
-  useEffect(() => {
-    broadcast.onmessage = handleMessage;
-
-    return () => {
-      broadcast.close();
-    };
-  }, [surveyInfo, setSurveyInfo, broadcast]);
-
+  // 5. 상태 변경 시 로컬 스토리지 저장
   useEffect(() => {
     if (!isMount.current) {
       isMount.current = true;
@@ -54,28 +57,25 @@ const PreviewFormPage: React.FC = () => {
   }, [surveyInfo]);
 
   return (
-    <div className="flex-1 w-full px-4 pt-8 pb-20 md:px-8 2xl:px-0 bg-green-light justify-center">
+    <div className="w-full flex-1 justify-center bg-green-light px-4 pt-8 pb-20 md:px-8 2xl:px-0">
       {loading ? (
-        <div
-          className="flex w-screen h-screen justify-center items-center"
-          aria-live="polite"
-        >
+        <div className="flex h-screen w-screen items-center justify-center" aria-live="polite">
           <CircularProgress aria-label="설문지를 로드하는 중입니다." />
         </div>
       ) : (
-        <div className="w-full 2xl:w-[1400px] flex flex-col gap-5 m-auto">
+        <div className="m-auto flex w-full flex-col gap-5 2xl:w-350">
           <SurveyInfo mode="previewing" />
           {surveyInfo.questions.map((q) => {
             const QuestionComponent = questionComponentMap[q.type];
             return (
               <div
                 key={q.id}
-                className="bg-content rounded-2xl overflow-hidden shadow-md p-5"
+                className="overflow-hidden rounded-2xl bg-content p-5 shadow-md"
                 aria-labelledby={`question-title-${q.id}`}
               >
                 <div className="mb-2">
                   {q.isEssential && (
-                    <span aria-hidden="true" className="text-red ml-[-12px] mr-[3px]">
+                    <span aria-hidden="true" className="-ml-3 mr-0.75 text-red">
                       *
                     </span>
                   )}
@@ -100,7 +100,7 @@ const PreviewFormPage: React.FC = () => {
             <div className="flex-1 text-end">
               <button
                 type="button"
-                className="p-3 hover:bg-dark/5 rounded-md"
+                className="rounded-md p-3 hover:bg-dark/5"
                 onClick={() => {
                   window.location.reload();
                 }}

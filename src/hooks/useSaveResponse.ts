@@ -29,11 +29,10 @@ export const useSaveResponse = () => {
     const validatedQuestions = surveyInfo.questions.map((question) => {
       const validatedQuestion: Partial<Question> = {};
 
-      (Object.keys(question) as Array<keyof Question>).forEach((key) => {
-        if (question[key] !== undefined) {
+      for (const key of Object.keys(question) as Array<keyof Question>) {
+        if (question[key] !== undefined)
           (validatedQuestion[key] as Question[keyof Question]) = question[key];
-        }
-      });
+      }
 
       return validatedQuestion;
     });

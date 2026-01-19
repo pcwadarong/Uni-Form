@@ -21,9 +21,9 @@ export default function NavSearch() {
   };
 
   return (
-    <div className="relative flex-1 ml-3 w-full">
+    <div className="relative ml-3 w-full flex-1">
       <Input
-        className="bg-gray-300/20 pr-10 w-full subtitle focus:ring-2 focus:ring-green-300"
+        className="subtitle w-full bg-gray-300/20 pr-10 focus:ring-2 focus:ring-green-300"
         type="text"
         placeholder="관심사를 찾아보세요!"
         value={param}
@@ -32,10 +32,10 @@ export default function NavSearch() {
       />
       <button
         type="button"
-        className="absolute top-1/2 right-3 transform -translate-y-1/2 cursor-pointer"
+        className="-translate-y-1/2 absolute top-1/2 right-3 transform cursor-pointer"
         onClick={handleSearch}
       >
-        <Image src={"/search.svg"} alt="search" width="20" height="20" priority/>
+        <Image src={"/search.svg"} alt="search" width="20" height="20" priority />
       </button>
     </div>
   );

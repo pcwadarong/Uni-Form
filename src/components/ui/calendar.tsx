@@ -63,10 +63,6 @@ export default function Calendar({
         day_hidden: "invisible",
         ...classNames,
       }}
-      components={{
-        IconLeft: () => <span className="h-4 w-4">{"<"}</span>,
-        IconRight: () => <span className="h-4 w-4">{">"}</span>,
-      }}
       {...props}
     />
   );

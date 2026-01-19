@@ -19,7 +19,7 @@ export default function NavLeft({ handleMouseOver, handleMouseLeave }: Props) {
         </h1>
       </li>
       <li
-        className="hidden sm:inline decoration-green-300 underline-offset-8 hover:underline"
+        className="hidden decoration-green-300 underline-offset-8 hover:underline sm:inline"
         onMouseOver={() => handleMouseOver("survey")}
         onFocus={() => handleMouseOver("survey")}
         onMouseLeave={handleMouseLeave}
@@ -28,7 +28,7 @@ export default function NavLeft({ handleMouseOver, handleMouseLeave }: Props) {
         <Link href="/survey?cat=all">설문조사</Link>
       </li>
       <li
-        className="hidden sm:inline decoration-green-300 underline-offset-8 hover:underline"
+        className="hidden decoration-green-300 underline-offset-8 hover:underline sm:inline"
         onMouseOver={() => handleMouseOver("recruit")}
         onFocus={() => handleMouseOver("recruit")}
         onMouseLeave={handleMouseLeave}

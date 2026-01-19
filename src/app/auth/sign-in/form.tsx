@@ -47,7 +47,7 @@ const Form = () => {
   return (
     <div>
       <form
-        className="flex flex-col gap-6 subtitle"
+        className="subtitle flex flex-col gap-6"
         autoComplete="on"
         onSubmit={handleSubmit(onSubmit)}
       >
@@ -82,16 +82,16 @@ const Form = () => {
             />
           </div>
         </div>
-        <Button type="submit" disabled={!isValid} className="text-white w-full bg-green-400 mt-5">
+        <Button type="submit" disabled={!isValid} className="mt-5 w-full bg-green-400 text-white">
           로그인
         </Button>
       </form>
 
-      <div className="mt-6 flex justify-center relative">
+      <div className="relative mt-6 flex justify-center">
         <button
           type="submit"
           onClick={handleGoogleLogin}
-          className="flex items-center gap-2 py-3 w-full justify-center px-4 border-[1px] rounded-full border-gray-4"
+          className="flex w-full items-center justify-center gap-2 rounded-full border-[1px] border-gray-4 px-4 py-3"
         >
           <Image src={"/google.svg"} alt="icon" width="20" height="20" priority={true} />
           <span>Google로 계속하기</span>

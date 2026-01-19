@@ -69,10 +69,11 @@ const RadioQuestion: React.FC<QuestionProps> = ({ question, mode, onResponseChan
                                   ),
                                 })
                               }
-                              className="flex-1 mb-2 focused_input"
+                              className="focused_input mb-2 flex-1"
                               aria-label={`항목 ${index + 1} 텍스트 입력`}
                             />
                             <button
+                              type="button"
                               onClick={() =>
                                 deleteOption({
                                   question,
@@ -99,8 +100,9 @@ const RadioQuestion: React.FC<QuestionProps> = ({ question, mode, onResponseChan
               )}
             </Droppable>
           </DragDropContext>
-          <div className="flex gap-2 items-center">
+          <div className="flex items-center gap-2">
             <button
+              type="button"
               onClick={() =>
                 handleQuestionChange({
                   ...question,
@@ -121,13 +123,14 @@ const RadioQuestion: React.FC<QuestionProps> = ({ question, mode, onResponseChan
               <>
                 <span>또는</span>
                 <button
+                  type="button"
                   onClick={() =>
                     handleQuestionChange({
                       ...question,
                       options: [...(question.options || []), { id: -1, value: "기타" }],
                     })
                   }
-                  className="rounded-full bg-gray-1 text-gray-4 py-1 px-3"
+                  className="rounded-full bg-gray-1 px-3 py-1 text-gray-4"
                   aria-label="'기타' 추가"
                 >
                   '기타' 추가
@@ -140,7 +143,7 @@ const RadioQuestion: React.FC<QuestionProps> = ({ question, mode, onResponseChan
       ) : (
         <>
           {question.options?.map((option) => (
-            <label key={option.id} className="p-3 rounded-lg flex gap-2 bg-gray-1 mt-3 text-gray-3">
+            <label key={option.id} className="mt-3 flex gap-2 rounded-lg bg-gray-1 p-3 text-gray-3">
               <input
                 type="radio"
                 name={`question-${question.id}`}

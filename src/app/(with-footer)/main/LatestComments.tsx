@@ -10,14 +10,11 @@ const LatestComments = async () => {
 
   return (
     <section
-      className="w-full bg-surface dark:bg-muted px-4 py-16 flex justify-center md:px-8 2xl:px-0"
+      className="flex w-full justify-center bg-surface px-4 py-16 md:px-8 2xl:px-0 dark:bg-muted"
       aria-labelledby="latest-comments-heading"
     >
       <div className="w-full 2xl:w-[1400px]">
-        <SectionHeader
-          title="최신 댓글이 달린 설문조사를 살펴보세요"
-          linkHref="/survey?cat=all"
-        />
+        <SectionHeader title="최신 댓글이 달린 설문조사를 살펴보세요" linkHref="/survey?cat=all" />
         <ul className="mb-8 grid gap-4 md:grid-cols-2 md:gap-8">
           {latestComments && latestComments.length > 0
             ? latestComments.map((item) => <CommentItem key={item.id} item={item} />)

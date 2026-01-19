@@ -20,7 +20,7 @@ export default function Header() {
 
   if (pathName.includes("preview")) {
     return (
-      <nav className="fixed z-10 flex w-screen flex-col items-center bg-surface backdrop-blur-sm drop-shadow text-nowrap">
+      <nav className="fixed z-10 flex w-screen flex-col items-center text-nowrap bg-surface drop-shadow backdrop-blur-sm">
         <div className="flex h-20 w-full items-center justify-between px-8 2xl:w-[1400px] 2xl:px-0">
           <h1>
             <Link href="/">
@@ -36,7 +36,7 @@ export default function Header() {
   }
 
   return (
-    <nav className="fixed z-10 flex w-screen flex-col items-center bg-surface backdrop-blur-sm drop-shadow text-nowrap dark:bg-muted">
+    <nav className="fixed z-10 flex w-screen flex-col items-center text-nowrap bg-surface drop-shadow backdrop-blur-sm dark:bg-muted">
       <div className="flex h-20 w-full items-center justify-between gap-2 px-8 md:grid md:grid-cols-3 md:gap-8 2xl:w-[1400px] 2xl:px-0">
         <NavLeft handleMouseOver={handleMouseOver} handleMouseLeave={handleMouseLeave} />
         <NavSearch />
@@ -44,7 +44,7 @@ export default function Header() {
       </div>
       {isSubMenuOpen && (
         <ul
-          className="flex w-full flex-1 gap-8 overflow-y-auto px-8 pb-6 text-nowrap 2xl:w-[1400px] 2xl:px-0"
+          className="flex w-full flex-1 gap-8 overflow-y-auto text-nowrap px-8 pb-6 2xl:w-[1400px] 2xl:px-0"
           onMouseOver={() => handleMouseOver(hoveredCategory)}
           onFocus={() => handleMouseOver(hoveredCategory)}
           onMouseLeave={handleMouseLeave}

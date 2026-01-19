@@ -2,7 +2,7 @@ import { adminFirestore } from "@/lib/firebase/firebaseAdminConfig";
 import type { Form } from "@/types/types";
 import { FirebaseError } from "firebase/app";
 
-export const handleDrafts = async (uid: string, lastDocId?: string): Promise<Form[]> => {
+export const handleDrafts = async (uid: string, _lastDocId?: string): Promise<Form[]> => {
   const draftsSnap = await adminFirestore
     .collection("drafts")
     .where("uid", "==", uid)

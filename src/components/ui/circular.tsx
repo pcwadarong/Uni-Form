@@ -1,5 +1,5 @@
 const CircularProgress = () => (
-  <div className="inline-block w-12 h-12">
+  <div className="inline-block h-12 w-12">
     <svg className="animate-spin" role="presentation" aria-hidden="true" viewBox="25 25 50 50">
       <circle
         className="stroke-current stroke-green-300"

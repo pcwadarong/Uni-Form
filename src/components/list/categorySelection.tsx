@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 interface Props {
   topic: string;
@@ -9,24 +9,24 @@ export const CategorySelection: React.FC<Props> = ({ topic, onFilterChange }) =>
   const [selectedPoint, setSelectedPoint] = useState<string>("all");
   const [selectedDeadline, setSelectedDeadline] = useState<string>("all");
 
-  const updateLabelClass = (type: string, value: string) => {
+  const updateLabelClass = useCallback((type: string, value: string) => {
     const labels = document.querySelectorAll(`label[for^=${type}]`);
-    labels.forEach((label) => {
+    for (const label of labels) {
       const htmlFor = (label as HTMLLabelElement).htmlFor;
       if (htmlFor === `${type}-${value}`) {
         label.classList.add("text-green-400");
       } else {
         label.classList.remove("text-green-400");
       }
-    });
-  };
+    }
+  }, []);
 
   useEffect(() => {
     updateLabelClass("point", selectedPoint);
     updateLabelClass("deadline", selectedDeadline);
 
     onFilterChange({ point: selectedPoint, deadline: selectedDeadline });
-  }, [selectedPoint, selectedDeadline]);
+  }, [selectedPoint, selectedDeadline, onFilterChange, updateLabelClass]);
 
   const handleRadioSelect = (type: string, value: string) => {
     if (type === "point") {
@@ -37,17 +37,25 @@ export const CategorySelection: React.FC<Props> = ({ topic, onFilterChange }) =>
   };
 
   return (
-    <div className="py-6 px-10 2xl:px-6 border-[1px] border-gray-2 bg-content rounded-3xl 2xl:w-64 w-full text-nowrap flex-none mb-10">
+    <div className="mb-10 w-full flex-none text-nowrap rounded-3xl border border-gray-2 bg-content px-10 py-6 2xl:w-64 2xl:px-6">
       {topic === "survey" && (
-        <div className="flex 2xl:flex-col gap-10 2xl:gap-4 items-center 2xl:items-start mb-6">
-          <p className="font-bold w-12 flex-none">포인트</p>
-          <form className="2xl:grid 2xl:grid-cols-2 flex subtitle w-full flex-wrap text-gray-4">
+        <div className="mb-6 flex items-center gap-10 2xl:flex-col 2xl:items-start 2xl:gap-4">
+          <p className="w-12 flex-none font-bold">포인트</p>
+          <form className="subtitle flex w-full flex-wrap text-gray-4 2xl:grid 2xl:grid-cols-2">
             {["all", "50", "100", "150", "200", "250"].map((value) => (
               <div key={`point-${value}`}>
                 <label
                   htmlFor={`point-${value}`}
-                  className={`hover:text-green-400 w-24 mr-6 2xl:w-fit ${selectedPoint === value ? "text-green-400" : ""}`}
+                  className={`mr-6 w-24 hover:text-green-400 2xl:w-fit ${
+                    selectedPoint === value ? "text-green-400" : ""
+                  }`}
                   onClick={() => handleRadioSelect("point", value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      handleRadioSelect("point", value);
+                    }
+                  }}
                   aria-label={value === "all" ? "전체 보기" : `${value}포인트 이상`}
                 >
                   {value === "all" ? "전체 보기" : `${value}P 이상`}
@@ -58,15 +66,23 @@ export const CategorySelection: React.FC<Props> = ({ topic, onFilterChange }) =>
           </form>
         </div>
       )}
-      <div className="flex 2xl:flex-col gap-10 2xl:gap-4 items-center 2xl:items-start">
-        <p className="font-bold w-12 flex-none">마감기한</p>
-        <form className="2xl:grid 2xl:grid-cols-2 flex subtitle w-full flex-wrap text-gray-4">
+      <div className="flex items-center gap-10 2xl:flex-col 2xl:items-start 2xl:gap-4">
+        <p className="w-12 flex-none font-bold">마감기한</p>
+        <form className="subtitle flex w-full flex-wrap text-gray-4 2xl:grid 2xl:grid-cols-2">
           {["all", "7", "14", "15"].map((value) => (
             <div key={`deadline-${value}`}>
               <label
                 htmlFor={`deadline-${value}`}
-                className={`hover:text-green-400 w-24 mr-6 2xl:w-fit ${selectedDeadline === value ? "text-green-400" : ""}`}
+                className={`mr-6 w-24 hover:text-green-400 2xl:w-fit ${
+                  selectedDeadline === value ? "text-green-400" : ""
+                }`}
                 onClick={() => handleRadioSelect("deadline", value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    handleRadioSelect("deadline", value);
+                  }
+                }}
                 aria-label={
                   value === "all" ? "전체 보기" : `${value}일 이${value === "15" ? "상" : "내"}`
                 }

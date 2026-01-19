@@ -5,7 +5,7 @@ interface ToggleInProgressFilterProps {
 
 const ToggleInProgressFilter: React.FC<ToggleInProgressFilterProps> = ({ checked, onChange }) => {
   return (
-    <div className="flex gap-2 items-center">
+    <div className="flex items-center gap-2">
       <input
         type="checkbox"
         name="inProgress"
@@ -14,7 +14,7 @@ const ToggleInProgressFilter: React.FC<ToggleInProgressFilterProps> = ({ checked
         onChange={onChange}
       />
       <label htmlFor="inProgress" className="cursor-pointer">
-        <span className="block md:hidden text-sm">진행 중</span>
+        <span className="block text-sm md:hidden">진행 중</span>
         <span className="hidden md:block">진행 중인 설문만 보기</span>
       </label>
     </div>

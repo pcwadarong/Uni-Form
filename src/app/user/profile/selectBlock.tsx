@@ -21,7 +21,7 @@ export default function SelectBlock({
       <Select {...props} defaultValue={value}>
         <SelectTrigger
           id={selectId}
-          className="w-full mt-2 py-4 text-content bg-muted dark:bg-surface"
+          className="mt-2 w-full bg-muted py-4 text-content dark:bg-surface"
         >
           <SelectValue placeholder="선택해주세요" />
         </SelectTrigger>

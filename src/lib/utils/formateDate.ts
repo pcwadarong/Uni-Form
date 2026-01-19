@@ -11,7 +11,7 @@ export default function formateDate(time: number, isShort?: boolean): string {
   const hours = date.getHours() || 12;
   const minutes = String(date.getMinutes()).padStart(2, "0");
 
-  if (isShort) return `${year-2000}.${month}.${day} ${hours}:${minutes}`;
+  if (isShort) return `${year - 2000}.${month}.${day} ${hours}:${minutes}`;
 
   const ampm = hours > 12 ? "오후" : "오전";
   const formattedHours = hours % 12 || 12;

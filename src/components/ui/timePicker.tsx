@@ -33,10 +33,10 @@ const TimePicker: React.FC<TimePickerProps> = ({ type, date, onChange }) => {
     onChange(type, period, Number(hours12Format), Number(value));
   };
 
-  const TriggerClass = 'flex-1 border-gray-2 mb-3';
+  const TriggerClass = "flex-1 border-gray-2 mb-3";
 
   return (
-    <div id="start-time" className="flex items-center gap-3 p-2 w-full text-center">
+    <div id="start-time" className="flex w-full items-center gap-3 p-2 text-center">
       <Select defaultValue={period} onValueChange={handlePeriodChange}>
         <SelectTrigger className={TriggerClass}>
           <SelectValue placeholder="오전" />

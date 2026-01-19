@@ -1,5 +1,5 @@
 import { adminFirestore } from "@/lib/firebase/firebaseAdminConfig";
-import type { Comment, Detail, Form, Response } from "@/types/types";
+import type { Comment, Detail, Form } from "@/types/types";
 import { FirebaseError } from "firebase/app";
 import type { DocumentData } from "firebase/firestore";
 

@@ -30,14 +30,14 @@ const ResetPw: React.FC = () => {
 
   return (
     <main className="m-auto mt-20">
-      <h2 className="text-center title2" id="reset-password-heading">
+      <h2 className="title2 text-center" id="reset-password-heading">
         회원 탈퇴
       </h2>
       <p className="mt-5 text-center">정말 탈퇴하시겠습니까? 회원 정보를 복구할 수 없습니다.</p>
       <form
-        className="mt-15 w-96 flex flex-col gap-4"
+        className="mt-15 flex w-96 flex-col gap-4"
         onSubmit={handleDeleteUser}
-        aria-labelledby="reset-password"
+        aria-labelledby="reset-password-heading"
       >
         <Input
           type="email"
@@ -57,7 +57,7 @@ const ResetPw: React.FC = () => {
         />
         <Button
           type="submit"
-          className="text-white w-full bg-green-400 mt-5"
+          className="mt-5 w-full bg-green-400 text-white"
           aria-label="회원 탈퇴하기"
         >
           회원 탈퇴하기

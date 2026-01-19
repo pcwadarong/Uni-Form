@@ -16,10 +16,7 @@ const FormListSection = async ({ title, link, sortType }: FormListSectionProps) 
 
   return (
     <section className="flex-1" aria-labelledby={`${sortType}-title`}>
-      <SectionHeader
-        title={title}
-        linkHref={link}
-      />
+      <SectionHeader title={title} linkHref={link} />
       <ul className="grid grid-cols-2 gap-4 md:gap-8">
         {forms.length > 0
           ? forms.map((item) => <FormCardItem type="survey" key={item.id} item={item} />)

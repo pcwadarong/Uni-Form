@@ -16,7 +16,7 @@ export default async function AnalyzePage({
   const { id: encryptedId } = await params;
   const itemId = await decrypt(encryptedId, process.env.CRYPT_SECRET || "");
   if (!itemId) return notFound();
-  
+
   return (
     <>
       <div>분석페이지 for Item ID: {itemId}</div>

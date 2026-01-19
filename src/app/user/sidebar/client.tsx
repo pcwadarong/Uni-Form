@@ -24,10 +24,10 @@ export default function SidebarClient({ displayName, profileURL, email }: Props)
   return (
     <aside
       aria-label="사용자 사이드바 메뉴"
-      className="w-full bg-tone1 text-center text-nowrap px-8 lg:w-88 lg:h-dvh lg:-mt-20 lg:pt-40 lg:shadow-[4px_0_6px_rgba(0,0,0,0.1)]"
+      className="lg:-mt-20 w-full text-nowrap bg-tone1 px-8 text-center lg:h-dvh lg:w-88 lg:pt-40 lg:shadow-[4px_0_6px_rgba(0,0,0,0.1)]"
     >
       <div className="m-auto hidden w-fit lg:block">
-        <div className="relative overflow-hidden aspect-square rounded-full bg-gray-300 shadow">
+        <div className="relative aspect-square overflow-hidden rounded-full bg-gray-300 shadow">
           <Image
             src={profileURL || "/preview.jpg"}
             alt={`${displayName ?? "사용자"}의 프로필 이미지`}
@@ -37,8 +37,8 @@ export default function SidebarClient({ displayName, profileURL, email }: Props)
             priority={true}
           />
         </div>
-        <p className="mt-4 font-semibold title3">{displayName}</p>
-        <p className="caption text-sm text-content/50">{email}</p>
+        <p className="title3 mt-4 font-semibold">{displayName}</p>
+        <p className="caption text-content/50 text-sm">{email}</p>
         <hr className="mt-6 mb-10 border-gray-300" />
       </div>
 
@@ -50,8 +50,8 @@ export default function SidebarClient({ displayName, profileURL, email }: Props)
               <Link
                 href={href}
                 className={clsx(
-                  "block box-content py-4 font-medium text-content/50 transition-colors duration-200 border-b-2 lg:p-0 hover:text-green-400 lg:border-none",
-                  isActive ? "text-green-400 border-green-400" : "border-transparent",
+                  "box-content block border-b-2 py-4 font-medium text-content/50 transition-colors duration-200 hover:text-green-400 lg:border-none lg:p-0",
+                  isActive ? "border-green-400 text-green-400" : "border-transparent",
                 )}
                 aria-current={isActive ? "page" : undefined}
               >

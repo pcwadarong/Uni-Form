@@ -39,19 +39,19 @@ export default function Comments({
         <ul className="mt-4 space-y-3">
           {[...Array(3)].map((_, idx) => (
             <li key={idx}>
-              <Skeleton className="w-full h-16 rounded-xl border border-gray-200" />
+              <Skeleton className="h-16 w-full rounded-xl border border-gray-200" />
             </li>
           ))}
         </ul>
       ) : isError ? (
-        <p className="mt-4 text-sm text-red-500">추가 댓글을 불러오지 못했습니다.</p>
+        <p className="mt-4 text-red-500 text-sm">추가 댓글을 불러오지 못했습니다.</p>
       ) : (
         <ul className="mt-4 space-y-3">
           {comments.map((comment) => (
             <li key={comment.id} className="rounded-xl border border-gray-300 px-4 py-3">
               <div className="flex items-center">
                 <span className="font-semibold">{comment.displayName}</span>
-                <span className="ml-2 caption">
+                <span className="caption ml-2">
                   {comment.createdAt && new Date(comment.createdAt).toLocaleString()}
                 </span>
                 <div className="flex-1 text-end">
@@ -69,7 +69,7 @@ export default function Comments({
           <Button
             onClick={loadMore}
             disabled={isFetching}
-            className="text-sm border border-gray-400 hover:bg-gray-200 disabled:opacity-50"
+            className="border border-gray-400 text-sm hover:bg-gray-200 disabled:opacity-50"
           >
             {isFetching ? "불러오는 중..." : "더보기"}
           </Button>

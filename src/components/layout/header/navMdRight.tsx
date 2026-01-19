@@ -38,7 +38,7 @@ const UserMenu = () => {
       </button>
 
       {showUserMenu && (
-        <div className="absolute right-0 top-8 flex flex-col overflow-hidden rounded-lg bg-muted text-center shadow-md drop-shadow caption">
+        <div className="caption absolute top-8 right-0 flex flex-col overflow-hidden rounded-lg bg-muted text-center shadow-md drop-shadow">
           {user ? (
             <>
               <Link href="/form" className="px-4 py-2">

@@ -27,6 +27,7 @@ export const initSurveyInfo: Detail = {
   category: "",
   isPublic: false,
   isEditable: false,
+  createdAt: NOW,
   // mode: "editing",
   responsesCount: 0,
   commentsCount: 0,

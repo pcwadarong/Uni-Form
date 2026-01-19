@@ -50,7 +50,7 @@ export default async function Entry({
   const hasAnswered = answeredFormIds.includes(item.id);
 
   return (
-    <div className="m-y-auto w-full max-w-[1200px] px-14 pb-10 space-y-20 shadow bg-surface dark:bg-muted">
+    <div className="my-auto w-full max-w-[1200px] space-y-20 bg-surface px-14 pb-10 shadow dark:bg-muted">
       <section className="flex flex-col gap-10 md:flex-row">
         <MobileImage img={item.img ?? ""} />
 
@@ -79,7 +79,7 @@ function EntryHeader({ item, type }: { item: Form; type: string }) {
   const CATEGORY_LABELS = type === "surveys" ? SURVEY_CATEGORY_LABELS : RECRUIT_CATEGORY_LABELS;
   return (
     <div>
-      <div className="mb-3 space-x-2 text-gray-400 subtitle">
+      <div className="subtitle mb-3 space-x-2 text-gray-400">
         <span>{type === "surveys" ? "#설문조사" : "#모집공고"}</span>
         <span>{`#${CATEGORY_LABELS[item.category]}`}</span>
       </div>
@@ -175,7 +175,7 @@ function EntryCommentSection({
 function MobileImage({ img }: { img: string }) {
   if (!img) return null;
   return (
-    <div className="relative left-1/2 w-screen -translate-x-1/2 overflow-hidden shadow md:hidden">
+    <div className="-translate-x-1/2 relative left-1/2 w-screen overflow-hidden shadow md:hidden">
       <Image
         src={img}
         width={240}

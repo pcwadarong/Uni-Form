@@ -10,12 +10,12 @@ export default function FormBlock({
   error?: string;
 }) {
   return (
-    <div className="rounded-xl shadow-md bg-tone1 p-6 grow shrink-0">
+    <div className="shrink-0 grow rounded-xl bg-tone1 p-6 shadow-md">
       <label htmlFor={htmlFor} className="subtitle">
         {label}
       </label>
       {children}
-      {error && <p className="caption text-red-500 mt-2">{error}</p>}
+      {error && <p className="caption mt-2 text-red-500">{error}</p>}
     </div>
   );
 }

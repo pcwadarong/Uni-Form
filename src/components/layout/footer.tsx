@@ -7,12 +7,12 @@ import TwitterXIcon from "../svg/x";
 const sns = [
   {
     name: "github",
-    icon: <GithubIcon width={20}/>,
+    icon: <GithubIcon width={20} />,
     link: "https://github.com/pcwadarong/Uni-Form",
   },
   {
     name: "facebook",
-    icon: <FacebookIcon width={19}/>,
+    icon: <FacebookIcon width={19} />,
     link: "https://www.facebook.com/",
   },
   {
@@ -29,8 +29,8 @@ const sns = [
 
 export default function Footer() {
   return (
-    <footer className="flex flex-col justify-center items-center gap-4 -mt-36 pt-10 text-gray-400 ">
-      <ul className="flex gap-4 items-center">
+    <footer className="-mt-36 flex flex-col items-center justify-center gap-4 pt-10 text-gray-400 ">
+      <ul className="flex items-center gap-4">
         {sns.map((item) => (
           <li key={item.name}>
             <Link href={item.link}>{item.icon}</Link>

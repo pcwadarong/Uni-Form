@@ -18,7 +18,7 @@ export async function POST(req: Request) {
 
     const decoded = await adminAuth.verifySessionCookie(sessionCookie);
     return new Response(JSON.stringify({ uid: decoded.uid }), { status: 200 });
-  } catch (err) {
+  } catch (_err) {
     return new Response("Invalid token", { status: 401 });
   }
 }

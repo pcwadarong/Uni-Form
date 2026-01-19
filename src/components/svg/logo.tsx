@@ -27,12 +27,7 @@ export default function BrandLogo({
         strokeWidth="5.08703"
         strokeLinecap="round"
       />
-      <path
-        d="M4.45111 32.4297H18.92"
-        stroke={fill}
-        strokeWidth="5.08703"
-        strokeLinecap="round"
-      />
+      <path d="M4.45111 32.4297H18.92" stroke={fill} strokeWidth="5.08703" strokeLinecap="round" />
       <circle cx="74.1991" cy="5.28574" r="5.28574" fill={fill} />
     </svg>
   );

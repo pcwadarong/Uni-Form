@@ -8,7 +8,7 @@ const ShortAnswerQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
   return (
     <>
       <input
-        className="p-3 rounded-lg w-full bg-gray-1 mt-3"
+        className="mt-3 w-full rounded-lg bg-gray-1 p-3"
         type="text"
         name={`question-${question.id}`}
         disabled={isDisabled}

@@ -9,7 +9,7 @@ export default function InputBlock({ label, error, isPending, ...props }: FormFi
       <Input
         id={inputId}
         type="text"
-        className="w-full bg-muted dark:bg-surface mt-2"
+        className="mt-2 w-full bg-muted dark:bg-surface"
         disabled={isPending}
         {...props}
       />
