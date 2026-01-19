@@ -38,43 +38,47 @@ const StarRatingQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
           aria-labelledby={`question-${question.id}-label`}
           onMouseLeave={() => setHoverRating(0)}
         >
-          {[...Array(5)].map((_, i) => {
-            const starValue = i + 1;
-            // 현재 별이 채워져야 하는지 판단 (실제 점수 혹은 호버 점수 기준)
-            const isActive = (hoverRating || rating) >= starValue;
-            const inputId = `star-${question.id}-${starValue}`;
+          {(() => {
+            const step = question.ratingStep ?? 1;
+            const steps = Math.round(5 / step);
+            return [...Array(steps)].map((_, i) => {
+              // 현재 별이 채워져야 하는지 판단 (실제 점수 혹은 호버 점수 기준)
+              const starValue = (i + 1) * step;
+              const isActive = (hoverRating || rating) >= starValue;
+              const inputId = `star-${question.id}-${starValue}`;
 
-            return (
-              <div key={i} className="relative">
-                <input
-                  type="radio"
-                  id={inputId}
-                  name={`rating-${question.id}`}
-                  value={starValue}
-                  checked={rating === starValue}
-                  onChange={() => handleRatingClick(starValue)}
-                  className="sr-only"
-                  disabled={mode === "editing"}
-                />
-
-                <label
-                  htmlFor={inputId}
-                  onMouseEnter={() => mode !== "editing" && setHoverRating(starValue)}
-                  className={`block transition-transform duration-150 ${
-                    mode !== "editing" ? "cursor-pointer hover:scale-110" : "cursor-default"
-                  }`}
-                  aria-label={`별 ${starValue}점`}
-                >
-                  <SVGIcon
-                    name="FilledStarIcon"
-                    size={45}
-                    color={isActive ? "#FFD700" : "#E5E7EB"}
-                    fill={isActive ? "#FFD700" : "none"}
+              return (
+                <div key={i} className="relative">
+                  <input
+                    type="radio"
+                    id={inputId}
+                    name={`rating-${question.id}`}
+                    value={starValue}
+                    checked={rating === starValue}
+                    onChange={() => handleRatingClick(starValue)}
+                    className="sr-only"
+                    disabled={mode === "editing"}
                   />
-                </label>
-              </div>
-            );
-          })}
+
+                  <label
+                    htmlFor={inputId}
+                    onMouseEnter={() => mode !== "editing" && setHoverRating(starValue)}
+                    className={`block transition-transform duration-150 ${
+                      mode !== "editing" ? "cursor-pointer hover:scale-110" : "cursor-default"
+                    }`}
+                    aria-label={`별 ${starValue}점`}
+                  >
+                    <SVGIcon
+                      name="FilledStarIcon"
+                      size={45}
+                      className={isActive ? "text-green-400" : "text-gray-200"}
+                      fill="currentColor"
+                    />
+                  </label>
+                </div>
+              );
+            });
+          })()}
         </div>
 
         <div className="ml-2 text-gray-4" id={`question-${question.id}-comment`}>
