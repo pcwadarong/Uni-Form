@@ -1,0 +1,13 @@
+#!/bin/sh
+
+echo "🔍 [Pre-commit] Checking staged files..."
+yarn run lint-staged
+RESULT=$?
+
+if [ $RESULT -ne 0 ]; then
+  echo "❌ Format failed. Commit aborted."
+  exit 1
+fi
+
+echo "✅ Format passed. Commit allowed."
+exit 0

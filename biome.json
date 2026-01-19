@@ -1,17 +1,21 @@
 {
   "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-
   "vcs": {
     "enabled": true,
     "clientKind": "git",
     "useIgnoreFile": true
   },
-
   "files": {
     "ignoreUnknown": false,
-    "ignore": ["dist/**/*", "node_modules/**/*", ".pnp.loader.mjs", ".yarn/**/*", ".next/**/*"]
+    "ignore": [
+      "dist/**/*",
+      "node_modules/**/*",
+      ".pnp.*",
+      ".yarn/**/*",
+      ".next/**/*",
+      "public/**/*"
+    ]
   },
-
   "formatter": {
     "enabled": true,
     "attributePosition": "auto",
@@ -21,21 +25,33 @@
     "lineEnding": "lf",
     "formatWithErrors": true
   },
-
   "organizeImports": {
     "enabled": true
   },
-
   "linter": {
     "enabled": true,
     "rules": {
       "recommended": true,
       "suspicious": {
-        "noArrayIndexKey": "off"
+        "noArrayIndexKey": "off",
+        "noExplicitAny": "warn"
+      },
+      "style": {
+        "useImportType": "error"
+      },
+      "correctness": {
+        "noUnusedVariables": "warn"
+      },
+      "nursery": {
+        "useSortedClasses": {
+          "options": {
+            "attributes": ["classList"],
+            "functions": ["clsx", "cva", "tw", "tw.*"]
+          }
+        }
       }
     }
   },
-
   "javascript": {
     "formatter": {
       "arrowParentheses": "always",
@@ -44,10 +60,10 @@
       "jsxQuoteStyle": "double",
       "quoteProperties": "asNeeded",
       "semicolons": "always",
-      "trailingCommas": "all"
+      "trailingCommas": "all",
+      "quoteStyle": "double"
     }
   },
-
   "json": {
     "formatter": {
       "trailingCommas": "none"
