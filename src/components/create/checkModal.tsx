@@ -82,7 +82,7 @@ const CheckModal: React.FC<Props> = ({ onClose }) => {
         tabIndex={0}
       />
       <div
-        className="-5 relative z-50 flex max-h-full w-full max-w-150 flex-col gap-4 overflow-auto rounded-2xl bg-content shadow-2xl md:p-30px md:pt-35px"
+        className="p-5 relative z-50 flex max-h-full w-full max-w-150 flex-col gap-4 overflow-auto rounded-2xl bg-content shadow-2xl md:p-30px md:pt-35px"
         ref={modalRef}
       >
         <Select
