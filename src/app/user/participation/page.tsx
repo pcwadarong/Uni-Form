@@ -7,9 +7,8 @@ import { fetchUserDataServer } from "@/lib/firebase/user/fetchUserDataServer";
  * API 호출 처리 및 UI 컴포넌트에 데이터 전달
  */
 export default async function Page() {
-  const { bookmarks, responses } = (await fetchUserDataServer({
-    field: "participation",
-  })) as UserParticipationFields;
+  const data = await fetchUserDataServer({ field: "participation" });
+  const { bookmarks = [], responses = [] } = (data ?? {}) as UserParticipationFields;
 
   return (
     <div>
