@@ -85,8 +85,15 @@ const SurveyInfo = ({ mode, onEditToggle }: Props) => {
   return (
     <div
       onClick={onEditToggle}
-      onKeyDown={(e) => e.key === "Enter" && onEditToggle?.()}
+      role={onEditToggle ? "button" : undefined}
       tabIndex={onEditToggle ? 0 : -1}
+      onKeyDown={(e) => {
+        if (!onEditToggle) return;
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onEditToggle();
+        }
+      }}
       className={`overflow-hidden rounded-2xl bg-tone1 shadow-md transition-all ${
         isEditing ? "border-2 border-green-300 ring-2 ring-green-100" : "border border-transparent"
       }`}

@@ -34,14 +34,12 @@ export const ParticipationSection = memo(function ParticipationSection({
       </div>
       <ul>
         {forms.length > 0 ? (
-          forms.map((item) => {
-            const type = item.id.startsWith("survey") ? "survey" : "recruit";
-            return (
-              <li key={item.id}>
-                <FormCardItem type={type} item={item} />
-              </li>
-            );
-          })
+          <ul>
+            {forms.map((item) => {
+              const type = item.id.startsWith("survey") ? "survey" : "recruit";
+              return <FormCardItem key={item.id} type={type} item={item} />;
+            })}
+          </ul>
         ) : (
           <p>{emptyMessage}</p>
         )}

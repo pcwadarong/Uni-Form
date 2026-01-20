@@ -33,14 +33,12 @@ export const MyFormsSection = memo(function MyFormsSection({
         {forms.length > 0 ? (
           forms.map((item) => {
             const type = item.id.startsWith("survey") ? "survey" : "recruit";
-            return (
-              <li key={item.id}>
-                <FormCardItem type={type} item={item} />
-              </li>
-            );
+            return <FormCardItem key={item.id} type={type} item={item} />;
           })
         ) : (
-          <p>{emptyMessage}</p>
+          <li className="list-none">
+            <p>{emptyMessage}</p>
+          </li>
         )}
       </ul>
     </section>

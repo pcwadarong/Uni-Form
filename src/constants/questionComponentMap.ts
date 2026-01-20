@@ -26,5 +26,3 @@ export const questionComponentMap: { [key: string]: React.FC<QuestionProps> } = 
   star: StarRatingQuestion,
   table: TableQuestion,
 };
-
-export default questionComponentMap;

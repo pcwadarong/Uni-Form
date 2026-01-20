@@ -1,4 +1,4 @@
-import questionComponentMap from "@/constants/questionComponentMap";
+import { questionComponentMap } from "@/constants/questionComponentMap";
 import AutoResizeTextarea from "@/features/shared/ui/textarea";
 import { useSurveyStore } from "@/features/survey/create/store/survey";
 import { useResponseStore } from "@/features/survey/form/store/response";

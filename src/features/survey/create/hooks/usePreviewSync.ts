@@ -9,10 +9,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 /**
  * BroadcastChannel을 사용한 상태 동기화 훅
  * 새 창/탭 간의 설문 상태를 동기화
- * @returns 초기화 완료 여부
  */
 export function useBroadcastSync() {
-  const { surveyInfo, setSurveyInfo } = useSurveyStore();
+  const { setSurveyInfo } = useSurveyStore();
   const broadcastRef = useRef<BroadcastChannel | null>(null);
 
   /**
@@ -31,12 +30,12 @@ export function useBroadcastSync() {
    */
   const handleMessage = useCallback(
     (event: Detail) => {
-      const newState = event;
-      if (JSON.stringify(newState) !== JSON.stringify(surveyInfo)) {
-        setSurveyInfo(newState);
-      }
+      setSurveyInfo((prev) => {
+        if (JSON.stringify(prev) === JSON.stringify(event)) return prev;
+        return event;
+      });
     },
-    [surveyInfo, setSurveyInfo],
+    [setSurveyInfo],
   );
 
   /**
@@ -68,7 +67,14 @@ export function useLocalStorageSync() {
   useEffect(() => {
     const storageKey = `survey-preview:${basePath}`;
     const stored = localStorage.getItem(storageKey);
-    if (stored) setSurveyInfo(JSON.parse(stored));
+    if (stored) {
+      try {
+        setSurveyInfo(JSON.parse(stored));
+      } catch (e) {
+        console.error("Failed to parse stored survey data:", e);
+        localStorage.removeItem(storageKey);
+      }
+    }
     setIsLoaded(true);
   }, [setSurveyInfo, basePath]);
 

@@ -18,18 +18,23 @@ export function CommentsSection({ comments }: { comments: Comment[] }) {
       </h2>
 
       {hasComments ? (
-        <ul className="space-y-3">
+        <>
+          <ul className="space-y-3">
+            {comments.map((comment) => (
+              <li
+                key={comment.id}
+                className="rounded-xl border border-gray-300 bg-surface px-4 py-3"
+              >
+                <span className="font-semibold">{comment.displayName}</span>
+                <span className="caption ml-2">
+                  {comment.createdAt && new Date(comment.createdAt).toLocaleString()}
+                </span>
+                <p>{comment.content}</p>
+              </li>
+            ))}
+          </ul>
           <div className="absolute bottom-0 h-14 w-full bg-linear-to-t from-muted" />
-          {comments.map((comment) => (
-            <li key={comment.id} className="rounded-xl border border-gray-300 bg-surface px-4 py-3">
-              <span className="font-semibold">{comment.displayName}</span>
-              <span className="caption ml-2">
-                {comment.createdAt && new Date(comment.createdAt).toLocaleString()}
-              </span>
-              <p>{comment.content}</p>
-            </li>
-          ))}
-        </ul>
+        </>
       ) : (
         <div className="flex min-h-52 flex-col items-center justify-center gap-4 rounded-2xl border font-bold opacity-20">
           <SVGIcon name="BubbleChatIcon" size={70} />
