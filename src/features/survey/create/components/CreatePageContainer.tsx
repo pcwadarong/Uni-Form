@@ -39,19 +39,22 @@ export function CreatePageContainer() {
 
     window.addEventListener("beforeunload", handleBeforeUnload);
 
-    const timestamp = new Date().toISOString();
-    const updatedQuestions = surveyInfo.questions.map((q) => ({
-      ...q,
-      timestamp: timestamp,
-    }));
-    setSurveyInfo({ questions: updatedQuestions });
+    // 마운트 시에만 timestamp 초기화 (함수형 업데이터로 최신 상태 사용)
+    setSurveyInfo((prev) => {
+      const timestamp = new Date().toISOString();
+      const updatedQuestions = prev.questions.map((q) => ({
+        ...q,
+        timestamp: timestamp,
+      }));
+      return { questions: updatedQuestions };
+    });
 
     return () => {
       cancelAnimationFrame(animation);
       setEnabled(false);
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
-  }, [setSurveyInfo, surveyInfo.questions]);
+  }, [setSurveyInfo]);
 
   if (!enabled) {
     return null;
