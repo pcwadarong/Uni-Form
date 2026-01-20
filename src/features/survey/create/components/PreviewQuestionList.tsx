@@ -1,6 +1,6 @@
 "use client";
 
-import questionComponentMap from "@/constants/questionComponentMap";
+import { questionComponentMap } from "@/constants/questionComponentMap";
 import type { Question } from "@/features/survey/types";
 import { memo } from "react";
 
@@ -20,6 +20,14 @@ export const PreviewQuestionList = memo(function PreviewQuestionList({
     <>
       {questions.map((q) => {
         const QuestionComponent = questionComponentMap[q.type];
+        if (!QuestionComponent) {
+          return (
+            <div key={q.id} className="rounded-2xl bg-content p-5 shadow-md">
+              <span className="font-bold">Q. {q.title || "(질문 없음)"}</span>
+              <p className="caption">지원하지 않는 질문 타입입니다.</p>
+            </div>
+          );
+        }
         return (
           <div
             key={q.id}
