@@ -35,9 +35,9 @@ const CreatePageButton = () => {
    * 새 창에서 미리보기 페이지 열기
    */
   const handleOpenPreview = useCallback(() => {
-    window.open(`${currentPath}/preview`, "_blank", "noopener,noreferrer");
     const storageKey = `survey-preview:${currentPath}`;
     localStorage.setItem(storageKey, JSON.stringify(surveyInfo));
+    window.open(`${currentPath}/preview`, "_blank", "noopener,noreferrer");
   }, [currentPath, surveyInfo]);
 
   /**

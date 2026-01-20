@@ -21,8 +21,13 @@ export function CreatePageContainer() {
   const { surveyInfo, setSurveyInfo } = useSurveyStore();
 
   const toggleEdit = (id: number) => {
-    setEditingId(id);
-    setIsEditing(!isEditing);
+    if (editingId === id) {
+      setEditingId(null);
+      setIsEditing(false);
+    } else {
+      setEditingId(id);
+      setIsEditing(true);
+    }
   };
 
   const setQuestions = (questions: Question[]) => {

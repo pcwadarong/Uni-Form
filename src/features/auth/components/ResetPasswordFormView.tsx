@@ -26,7 +26,7 @@ export const ResetPasswordFormView = memo(function ResetPasswordFormView({
   isPending,
 }: ResetPasswordFormViewProps) {
   return (
-    <form action={onSubmit} className="mt-15 w-96" aria-labelledby="reset-password">
+    <form action={onSubmit} className="mt-12 w-96" aria-label="비밀번호 재설정 폼">
       <Input
         onChange={(e) => onEmailChange(e.target.value)}
         value={email}

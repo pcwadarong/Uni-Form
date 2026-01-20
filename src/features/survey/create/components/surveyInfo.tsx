@@ -1,11 +1,10 @@
 "use client";
-
 import SVGIcon from "@/features/shared/icons/icons";
 import { formatTextWithLineBreaks } from "@/features/shared/ui/formatTextWithLineBreaks";
 import AutoResizeTextarea from "@/features/shared/ui/textarea";
 import { useSurveyStore } from "@/features/survey/create/store/survey";
 import formatDate from "@/lib/utils/formateDate";
-import { type ChangeEvent, useCallback, useState } from "react";
+import { type ChangeEvent, useCallback, useEffect, useState } from "react";
 import AddBtns from "./addBtns";
 import SetDuration from "./duration";
 
@@ -25,6 +24,9 @@ const SurveyInfo = ({ mode, onEditToggle }: Props) => {
   const [explanationArea, setExplanationArea] = useState<string | undefined>(
     surveyInfo.description ?? "",
   );
+  useEffect(() => {
+    setExplanationArea(surveyInfo.description ?? "");
+  }, [surveyInfo.description]);
 
   /**
    * 이미지 파일 변경 핸들러
