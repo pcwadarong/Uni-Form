@@ -36,7 +36,8 @@ const CreatePageButton = () => {
    */
   const handleOpenPreview = useCallback(() => {
     window.open(`${currentPath}/preview`, "_blank", "noopener,noreferrer");
-    localStorage.setItem("survey 1", JSON.stringify(surveyInfo));
+    const storageKey = `survey-preview:${currentPath}`;
+    localStorage.setItem(storageKey, JSON.stringify(surveyInfo));
   }, [currentPath, surveyInfo]);
 
   /**
@@ -51,12 +52,12 @@ const CreatePageButton = () => {
    * @returns 유효성 검사 통과 여부
    */
   const validateSurveyInfo = useCallback((): boolean => {
-    if (!surveyInfo.title) {
+    if (!surveyInfo.title?.trim()) {
       toast("설문 제목을 입력해 주세요.");
       return false;
     }
 
-    const incompleteQuestions = surveyInfo.questions.filter((q) => !q.title);
+    const incompleteQuestions = surveyInfo.questions.filter((q) => !q.title?.trim());
     if (incompleteQuestions.length > 0) {
       toast("모든 질문의 제목을 입력해 주세요.");
       return false;

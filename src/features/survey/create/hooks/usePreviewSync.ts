@@ -1,7 +1,9 @@
 "use client";
 
 import { useSurveyStore } from "@/features/survey/create/store/survey";
+import type { Detail } from "@/types";
 import { BroadcastChannel } from "broadcast-channel";
+import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 /**
@@ -28,7 +30,7 @@ export function useBroadcastSync() {
    * @param event - BroadcastChannel 이벤트
    */
   const handleMessage = useCallback(
-    (event: any) => {
+    (event: Detail) => {
       const newState = event;
       if (JSON.stringify(newState) !== JSON.stringify(surveyInfo)) {
         setSurveyInfo(newState);
@@ -53,17 +55,22 @@ export function useBroadcastSync() {
  */
 export function useLocalStorageSync() {
   const { surveyInfo, setSurveyInfo } = useSurveyStore();
+  const pathname = usePathname();
   const isMount = useRef(false);
   const [isLoaded, setIsLoaded] = useState(false);
+
+  // preview 경로에서 부모 경로 추출 (/create/preview -> /create)
+  const basePath = pathname.replace(/\/preview$/, "");
 
   /**
    * 로컬 스토리지에서 설문 데이터 로드
    */
   useEffect(() => {
-    const stored = localStorage.getItem("survey 1");
+    const storageKey = `survey-preview:${basePath}`;
+    const stored = localStorage.getItem(storageKey);
     if (stored) setSurveyInfo(JSON.parse(stored));
     setIsLoaded(true);
-  }, [setSurveyInfo]);
+  }, [setSurveyInfo, basePath]);
 
   /**
    * 설문 상태 변경 시 로컬 스토리지에 저장
@@ -73,8 +80,9 @@ export function useLocalStorageSync() {
       isMount.current = true;
       return;
     }
-    localStorage.setItem("survey 1", JSON.stringify(surveyInfo));
-  }, [surveyInfo]);
+    const storageKey = `survey-preview:${basePath}`;
+    localStorage.setItem(storageKey, JSON.stringify(surveyInfo));
+  }, [surveyInfo, basePath]);
 
   return isLoaded;
 }
