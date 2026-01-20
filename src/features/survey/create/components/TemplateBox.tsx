@@ -3,7 +3,7 @@
 import { initSurveyInfo } from "@/constants/initSurveyInfo";
 import SVGIcon from "@/features/shared/icons/icons";
 import { useSurveyStore } from "@/features/survey/create/store/survey";
-import getColorById from "@/features/survey/utils/getRandomColor";
+import getRandomColor from "@/features/survey/utils/getRandomColor";
 import { useRouter } from "next/navigation";
 
 interface TemplateBoxProps {
@@ -30,7 +30,7 @@ export function TemplateBox({ link, text }: TemplateBoxProps) {
     }
   };
 
-  const bgColor = getColorById(text);
+  const bgColor = getRandomColor(text);
 
   return (
     <li

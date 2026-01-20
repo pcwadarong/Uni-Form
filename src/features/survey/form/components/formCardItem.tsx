@@ -1,7 +1,7 @@
 "use client";
 
 import type { Form } from "@/features/survey/types";
-import getColorById from "@/features/survey/utils/getRandomColor";
+import getRandomColor from "@/features/survey/utils/getRandomColor";
 import { useEncryptedEntryNavigation } from "@/features/user/hooks/useEncryptedEntryNavigation";
 import formateDate from "@/lib/utils/formateDate";
 import Image from "next/image";
@@ -22,7 +22,7 @@ interface FormCardItemProps {
  */
 export default function FormCardItem({ item, type }: FormCardItemProps) {
   const { navigate, handleKeyDown } = useEncryptedEntryNavigation();
-  const backgroundClass = useMemo(() => getColorById(item.id), [item.id]);
+  const backgroundClass = useMemo(() => getRandomColor(item.id), [item.id]);
   const showPoint = type === "survey";
 
   return (
