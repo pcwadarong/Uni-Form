@@ -16,6 +16,8 @@ export const useSelectedSurveyStore = create<SelectedSurveyStore>((set) => ({
 
 // surveyitem
 const broadcast = new BroadcastChannel("zustand_channel");
+// rebroadcast 루프 방지: 자신이 보낸 메시지 추적
+let lastBroadcastedState: Detail | null = null;
 
 interface SurveyStore {
   surveyInfo: Detail;
@@ -30,6 +32,8 @@ export const useSurveyStore = create<SurveyStore>((set) => ({
     set((state) => {
       const partialInfo = typeof info === "function" ? info(state.surveyInfo) : info;
       const newState = { surveyInfo: { ...state.surveyInfo, ...partialInfo } };
+      // 자신이 보낸 메시지 추적
+      lastBroadcastedState = newState.surveyInfo;
       broadcast.postMessage(newState.surveyInfo);
       return newState;
     });
@@ -42,6 +46,7 @@ export const useSurveyStore = create<SurveyStore>((set) => ({
       const newState = {
         surveyInfo: { ...state.surveyInfo, questions: newQuestions },
       };
+      lastBroadcastedState = newState.surveyInfo;
       broadcast.postMessage(newState.surveyInfo);
       return newState;
     });
@@ -94,6 +99,7 @@ export const useSurveyStore = create<SurveyStore>((set) => ({
       const newState = {
         surveyInfo: { ...state.surveyInfo, questions: newQuestions },
       };
+      lastBroadcastedState = newState.surveyInfo;
       broadcast.postMessage(newState.surveyInfo);
       return newState;
     });
@@ -101,8 +107,15 @@ export const useSurveyStore = create<SurveyStore>((set) => ({
 }));
 
 // BroadcastChannel 메시지 수신 설정
+// rebroadcast 루프 방지: 자신이 보낸 메시지는 무시
 broadcast.onmessage = (event) => {
   const newState = event as Detail;
+  // 자신이 방금 보낸 메시지와 동일하면 무시 (rebroadcast 루프 방지)
+  if (lastBroadcastedState && JSON.stringify(lastBroadcastedState) === JSON.stringify(newState)) {
+    lastBroadcastedState = null; // 플래그 리셋
+    return;
+  }
+  lastBroadcastedState = null; // 다른 소스에서 온 메시지이므로 플래그 리셋
   useSurveyStore.setState({
     surveyInfo: newState,
   });
