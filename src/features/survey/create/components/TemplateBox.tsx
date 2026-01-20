@@ -34,7 +34,7 @@ export function TemplateBox({ link, text }: TemplateBoxProps) {
 
   return (
     <li
-      className={`relative mb-2 flex aspect-square h-auto items-center justify-center rounded-3xl bg-${bgColor} drop-shadow-md`}
+      className={`relative mb-2 flex aspect-square h-auto items-center justify-center rounded-3xl ${bgColor} drop-shadow-md`}
     >
       <button
         type="button"

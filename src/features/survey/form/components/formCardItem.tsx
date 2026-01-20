@@ -34,7 +34,7 @@ export default function FormCardItem({ item, type }: FormCardItemProps) {
         className="flex h-90 w-full flex-1 cursor-pointer flex-col justify-between overflow-hidden rounded-3xl text-left drop-shadow-md"
         aria-label={`${item.title} 상세보기`}
       >
-        <div className={`h-36 w-full overflow-hidden bg-${backgroundClass}`}>
+        <div className={`h-36 w-full overflow-hidden ${backgroundClass}`}>
           {item.img && (
             <Image
               className="h-full w-full object-cover"
