@@ -17,7 +17,7 @@ export const dynamic = "force-dynamic";
 /**
  * 엔트리 상세 페이지 컴포넌트
  * 폼의 상세 정보, 댓글, 관련 폼들을 표시
- * @param params - 암호화된 폼 ID를 포함한 라우트 파라미터
+ * @param params - 암호화된 폼 ID를 포함한 라우트 파라미터 (Promise)
  */
 export default async function Entry({
   params,

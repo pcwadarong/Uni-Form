@@ -30,6 +30,7 @@ export const ResetPasswordFormView = memo(function ResetPasswordFormView({
       <Input
         onChange={(e) => onEmailChange(e.target.value)}
         value={email}
+        name="email"
         type="email"
         required
         className="border-b"

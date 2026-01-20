@@ -21,14 +21,15 @@ interface SurveyStore {
   surveyInfo: Detail;
   updateQuestion: (id: number, updatedQuestion: Question) => void;
   updateQuestionType: (id: number, newType: QuestionType) => void;
-  setSurveyInfo: (info: Partial<Detail>) => void;
+  setSurveyInfo: (info: Partial<Detail> | ((prev: Detail) => Partial<Detail>)) => void;
 }
 
 export const useSurveyStore = create<SurveyStore>((set) => ({
   surveyInfo: initSurveyInfo,
   setSurveyInfo: (info) => {
     set((state) => {
-      const newState = { surveyInfo: { ...state.surveyInfo, ...info } };
+      const partialInfo = typeof info === "function" ? info(state.surveyInfo) : info;
+      const newState = { surveyInfo: { ...state.surveyInfo, ...partialInfo } };
       broadcast.postMessage(newState.surveyInfo);
       return newState;
     });

@@ -1,3 +1,5 @@
+import type { DraggableProvided } from "@hello-pangea/dnd";
+
 /**
  * 폼 기본 정보 타입
  */
@@ -57,7 +59,7 @@ export interface QuestionProps {
   onResponseChange?: (newResponse: string) => void;
   onEditToggle?: () => void;
   isEssential?: boolean;
-  provided?: any;
+  provided?: DraggableProvided;
 }
 
 /**
