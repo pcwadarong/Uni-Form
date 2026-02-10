@@ -10,8 +10,7 @@
     "lint:fix": "biome check --write --unsafe .",
     "format": "biome format . --write",
     "type-check": "tsc --noEmit",
-    "prepare": "husky install",
-    "seed:firestore:mock": "node scripts/seed-firestore-mock-data.cjs"
+    "prepare": "husky install"
   },
   "dependencies": {
     "@hello-pangea/dnd": "^18.0.1",
