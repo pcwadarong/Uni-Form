@@ -1,7 +1,7 @@
+import { adminFirestore } from "@/lib/firebase/firebaseAdminConfig";
+import { fetchUserDisplayNameServer } from "@/lib/firebase/user/server/fetchUserDisplayNameServer";
 import type { Comment } from "@/types";
 import { FirebaseError } from "firebase/app";
-import { adminFirestore } from "../firebaseAdminConfig";
-import { fetchUserDisplayNameServer } from "../user/server/fetchUserDisplayNameServer";
 
 /**
  * 서버에서 폼의 댓글 목록 조회 (페이지네이션 지원)

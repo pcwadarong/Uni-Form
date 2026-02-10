@@ -1,6 +1,6 @@
+import { getServerUid } from "@/lib/firebase/auth/getServerUid";
 import { adminFirestore } from "@/lib/firebase/firebaseAdminConfig";
 import { getAuth } from "firebase-admin/auth";
-import { getServerUid } from "../../auth/getServerUid";
 
 interface ProfileData {
   university?: string;
@@ -29,13 +29,22 @@ export async function updateUserProfile(data: ProfileData, uid: string) {
   const originalSchool = userData.school || {};
 
   if (data.university && data.university !== originalSchool.university) {
-    updatePayload.school = { ...(updatePayload.school as object), university: data.university };
+    updatePayload.school = {
+      ...(updatePayload.school as object),
+      university: data.university,
+    };
   }
   if (data.major && data.major !== originalSchool.major) {
-    updatePayload.school = { ...(updatePayload.school as object), major: data.major };
+    updatePayload.school = {
+      ...(updatePayload.school as object),
+      major: data.major,
+    };
   }
   if (data.grade && data.grade !== originalSchool.grade) {
-    updatePayload.school = { ...(updatePayload.school as object), grade: data.grade };
+    updatePayload.school = {
+      ...(updatePayload.school as object),
+      grade: data.grade,
+    };
   }
 
   if (data.gender && data.gender !== userData.gender) {

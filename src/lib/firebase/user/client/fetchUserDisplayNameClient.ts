@@ -1,8 +1,8 @@
 // 해당 댓글의 uid에 맞는 displayName을 users doc에서 매칭함: client용
 
+import { firestore } from "@/lib/firebase/firebaseConfig";
 import { FirebaseError } from "firebase/app";
 import { doc, getDoc } from "firebase/firestore";
-import { firestore } from "../../firebaseConfig";
 
 export const fetchUserDisplayNameClient = async (uid: string): Promise<string | null> => {
   try {

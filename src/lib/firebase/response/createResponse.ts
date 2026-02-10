@@ -1,6 +1,6 @@
+import { adminFirestore } from "@/lib/firebase/firebaseAdminConfig";
 import type { Answer } from "@/types";
 import { FieldValue, Timestamp } from "firebase-admin/firestore";
-import { adminFirestore } from "../firebaseAdminConfig";
 
 /**
  * 응답 문서를 생성하고 폼 응답 수를 증가시킨다.

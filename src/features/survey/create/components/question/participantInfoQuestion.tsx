@@ -1,9 +1,9 @@
 "use client";
 
+import Options from "@/features/survey/create/components/options";
 import { useSurveyStore } from "@/features/survey/create/store/survey";
 import isModeDisabled from "@/lib/utils/isModeDisabled";
 import type { QuestionProps } from "@/types";
-import Options from "../options";
 
 const ParticipantInfoQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
   const { updateQuestion } = useSurveyStore();

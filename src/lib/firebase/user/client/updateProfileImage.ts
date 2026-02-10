@@ -1,9 +1,9 @@
 // storage를 이용하여 프로필 이미지 업로드 / 삭제
 
+import { auth, storage } from "@/lib/firebase/firebaseConfig";
 import type { FirebaseError } from "firebase/app";
 import { updateProfile } from "firebase/auth";
 import { deleteObject, getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { auth, storage } from "../../firebaseConfig";
 
 export async function syncProfileImage(
   userId: string,

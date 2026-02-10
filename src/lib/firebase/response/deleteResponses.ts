@@ -1,5 +1,5 @@
+import { adminFirestore } from "@/lib/firebase/firebaseAdminConfig";
 import { FieldValue } from "firebase-admin/firestore";
-import { adminFirestore } from "../firebaseAdminConfig";
 
 /**
  * 응답을 삭제하고 폼 응답 수를 감소시킨다.

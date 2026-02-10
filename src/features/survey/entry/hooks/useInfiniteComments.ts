@@ -1,10 +1,14 @@
 "use client";
 
+import {
+  type CommentPage,
+  fetchCommentPage,
+  fetchLastCommentSnapshot,
+} from "@/features/survey/entry/services/comments";
 import type { Comment } from "@/types";
 import { type InfiniteData, useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import type { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { type CommentPage, fetchCommentPage, fetchLastCommentSnapshot } from "../services/comments";
 
 interface UseInfiniteCommentsParams {
   formId: string;
@@ -54,10 +58,7 @@ export const useInfiniteComments = ({
         if (!old?.pages?.length) return old;
         return {
           ...old,
-          pages: [
-            { ...old.pages[0], lastDoc: initialLastDoc },
-            ...old.pages.slice(1),
-          ],
+          pages: [{ ...old.pages[0], lastDoc: initialLastDoc }, ...old.pages.slice(1)],
         };
       },
     );

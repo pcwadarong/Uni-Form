@@ -1,5 +1,5 @@
+import { adminFirestore } from "@/lib/firebase/firebaseAdminConfig";
 import { FieldValue, Timestamp } from "firebase-admin/firestore";
-import { adminFirestore } from "../firebaseAdminConfig";
 
 /**
  * 댓글을 생성하고 대상 폼의 댓글 수를 증가시킨다.

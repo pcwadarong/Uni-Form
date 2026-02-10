@@ -1,8 +1,8 @@
+import { adminFirestore } from "@/lib/firebase/firebaseAdminConfig";
 import type { RawFormData } from "@/lib/utils/mapRawToForm";
 import { mapRawToForm } from "@/lib/utils/mapRawToForm";
 import type { Form } from "@/types";
 import { FieldPath } from "firebase-admin/firestore";
-import { adminFirestore } from "../firebase/firebaseAdminConfig";
 
 /**
  * Firestore 쿼리 제한(30개)을 고려하여 ID 목록을 배치로 조회

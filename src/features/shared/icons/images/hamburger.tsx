@@ -1,4 +1,4 @@
-import type { IconProps } from "../";
+import type { IconProps } from "@/features/shared/icons";
 
 export default function HamburgerIcon({
   title,

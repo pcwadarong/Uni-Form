@@ -1,3 +1,4 @@
+import { getFirebaseErrorMessage } from "@/lib/firebase/errorMessages";
 import { auth, firestore } from "@/lib/firebase/firebaseConfig";
 import { FirebaseError } from "firebase/app";
 import {
@@ -7,7 +8,6 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-import { getFirebaseErrorMessage } from "../errorMessages";
 
 const emailSignIn = async (
   email: string,

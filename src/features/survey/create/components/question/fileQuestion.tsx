@@ -1,11 +1,11 @@
 "use client";
 
 import SVGIcon from "@/features/shared/icons/icons";
+import Options from "@/features/survey/create/components/options";
 import { useSurveyStore } from "@/features/survey/create/store/survey";
 import type { QuestionProps } from "@/types";
 import Image from "next/image";
 import { useState } from "react";
-import Options from "../options";
 
 const FileQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
   const { updateQuestion } = useSurveyStore();
