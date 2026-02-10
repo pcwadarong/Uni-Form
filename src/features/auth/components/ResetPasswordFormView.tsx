@@ -26,23 +26,26 @@ export const ResetPasswordFormView = memo(function ResetPasswordFormView({
   isPending,
 }: ResetPasswordFormViewProps) {
   return (
-    <form action={onSubmit} className="mt-12 w-96" aria-label="비밀번호 재설정 폼">
-      <Input
-        onChange={(e) => onEmailChange(e.target.value)}
-        value={email}
-        name="email"
-        type="email"
-        required
-        className="border-b"
-        placeholder="이메일 입력"
-        aria-label="이메일 입력"
-      />
-      <Button
-        type="submit"
-        isPending={isPending}
-        className="mt-5 w-full bg-green-400 text-white"
-        aria-label="비밀번호 재설정 링크 메일 발송"
-      >
+    <form action={onSubmit} className="mt-12 w-96" aria-labelledby="reset-password-heading">
+      <fieldset className="flex flex-col gap-4">
+        <legend className="sr-only">비밀번호 재설정 정보 입력</legend>
+        <div>
+          <label htmlFor="reset-password-email" className="sr-only">
+            이메일 입력
+          </label>
+          <Input
+            id="reset-password-email"
+            onChange={(e) => onEmailChange(e.target.value)}
+            value={email}
+            name="email"
+            type="email"
+            required
+            className="border-b"
+            placeholder="이메일 입력"
+          />
+        </div>
+      </fieldset>
+      <Button type="submit" isPending={isPending} className="mt-5 w-full bg-green-400 text-white">
         비밀번호 재설정하기
       </Button>
     </form>
