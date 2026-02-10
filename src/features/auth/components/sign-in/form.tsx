@@ -86,7 +86,7 @@ const Form = () => {
                 type="password"
                 {...register("password")}
                 required
-                autoComplete="password"
+                autoComplete="current-password"
                 className="pl-10"
               />
             </div>
