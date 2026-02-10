@@ -24,7 +24,7 @@ export default function EntryClient({
   initialHasNextPage,
   totalCount,
 }: Props) {
-  const { ready, allComments, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
+  const { ready, allComments, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError } =
     useInfiniteComments({
       formId: item.id,
       initialComments,
@@ -42,6 +42,7 @@ export default function EntryClient({
       hasNextPage={hasNextPage}
       isFetching={isFetchingNextPage}
       isLoading={isLoading}
+      isError={isError}
       totalCount={totalCount}
     />
   );

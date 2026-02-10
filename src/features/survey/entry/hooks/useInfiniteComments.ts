@@ -1,7 +1,7 @@
 "use client";
 
 import type { Comment } from "@/types";
-import { type InfiniteData, useInfiniteQuery } from "@tanstack/react-query";
+import { type InfiniteData, useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import type { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { type CommentPage, fetchCommentPage, fetchLastCommentSnapshot } from "../services/comments";
@@ -25,6 +25,7 @@ export const useInfiniteComments = ({
   lastDocId,
   initialHasNextPage,
 }: UseInfiniteCommentsParams) => {
+  const queryClient = useQueryClient();
   const [initialLastDoc, setInitialLastDoc] = useState<QueryDocumentSnapshot<DocumentData> | null>(
     null,
   );
@@ -32,13 +33,35 @@ export const useInfiniteComments = ({
 
   useEffect(() => {
     const loadInitialSnapshot = async () => {
-      const snapshot = await fetchLastCommentSnapshot(lastDocId);
-      setInitialLastDoc(snapshot);
-      setReady(true);
+      try {
+        const snapshot = await fetchLastCommentSnapshot(lastDocId);
+        setInitialLastDoc(snapshot);
+      } catch (err) {
+        console.error("Failed to load initial comment snapshot:", err);
+      } finally {
+        setReady(true);
+      }
     };
 
     loadInitialSnapshot();
   }, [lastDocId]);
+
+  useEffect(() => {
+    if (!ready) return;
+    queryClient.setQueryData<InfiniteData<CommentPage, QueryDocumentSnapshot<DocumentData> | null>>(
+      ["comments", formId],
+      (old) => {
+        if (!old?.pages?.length) return old;
+        return {
+          ...old,
+          pages: [
+            { ...old.pages[0], lastDoc: initialLastDoc },
+            ...old.pages.slice(1),
+          ],
+        };
+      },
+    );
+  }, [queryClient, formId, ready, initialLastDoc]);
 
   const query = useInfiniteQuery<
     CommentPage,
@@ -52,19 +75,23 @@ export const useInfiniteComments = ({
     getNextPageParam: (lastPage) => (lastPage.comments.length > 0 ? lastPage.lastDoc : undefined),
     initialPageParam: null,
     enabled: ready,
-    initialData: {
-      pages: [
-        {
-          comments: initialComments,
-          lastDoc: initialLastDoc,
-          hasMore: initialHasNextPage,
-        },
-      ],
-      pageParams: [null],
-    },
+    initialData: ready
+      ? {
+          pages: [
+            {
+              comments: initialComments,
+              lastDoc: initialLastDoc,
+              hasMore: initialHasNextPage,
+            },
+          ],
+          pageParams: [null],
+        }
+      : undefined,
   });
 
   const allComments = query.data?.pages.flatMap((page) => page.comments) ?? [];
+  const hasData = (query.data?.pages?.length ?? 0) > 0;
+  const isLoading = !hasData && query.isLoading;
 
   return {
     ready,
@@ -72,6 +99,7 @@ export const useInfiniteComments = ({
     fetchNextPage: query.fetchNextPage,
     hasNextPage: query.hasNextPage ?? false,
     isFetchingNextPage: query.isFetchingNextPage,
-    isLoading: query.data?.pages.length === 0,
+    isLoading,
+    isError: query.isError,
   };
 };
