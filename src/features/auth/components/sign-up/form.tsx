@@ -50,15 +50,20 @@ export default function Form() {
   }, [result, router, reset]);
 
   return (
-    <>
-      <form
-        className="subtitle flex flex-col gap-6"
-        autoComplete="on"
-        onSubmit={handleSubmit(onSubmit)}
-      >
+    <form
+      className="subtitle flex flex-col gap-6"
+      autoComplete="on"
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <fieldset className="flex flex-col gap-6">
+        <legend className="sr-only">회원가입 정보 입력</legend>
         <div>
           <label htmlFor="displayName">닉네임</label>
-          <span className="ml-3 text-green-500">{errors.displayName?.message}</span>
+          {errors.displayName?.message && (
+            <output htmlFor="displayName" className="ml-3 text-green-500">
+              {errors.displayName.message}
+            </output>
+          )}
           <Input
             id="displayName"
             type="text"
@@ -70,7 +75,11 @@ export default function Form() {
 
         <div>
           <label htmlFor="email">이메일</label>
-          <span className="ml-3 text-green-500">{errors.email?.message}</span>
+          {errors.email?.message && (
+            <output htmlFor="email" className="ml-3 text-green-500">
+              {errors.email.message}
+            </output>
+          )}
           <Input
             id="email"
             type="email"
@@ -82,7 +91,11 @@ export default function Form() {
 
         <div>
           <label htmlFor="password">비밀번호</label>
-          <span className="ml-3 text-green-500">{errors.password?.message}</span>
+          {errors.password?.message && (
+            <output htmlFor="password" className="ml-3 text-green-500">
+              {errors.password.message}
+            </output>
+          )}
           <div className="relative mt-2">
             <Input
               id="password"
@@ -96,7 +109,11 @@ export default function Form() {
 
         <div>
           <label htmlFor="confirmPassword">비밀번호 재확인</label>
-          <span className="ml-3 text-green-500">{errors.confirmPassword?.message}</span>
+          {errors.confirmPassword?.message && (
+            <output htmlFor="confirmPassword" className="ml-3 text-green-500">
+              {errors.confirmPassword.message}
+            </output>
+          )}
           <Input
             id="confirmPassword"
             type="password"
@@ -105,17 +122,17 @@ export default function Form() {
             className="mt-2"
           />
         </div>
-        <div>
-          <Button
-            type="submit"
-            disabled={!isValid}
-            isPending={isPending}
-            className="mt-5 w-full bg-green-400 text-white"
-          >
-            가입하기
-          </Button>
-        </div>
-      </form>
-    </>
+      </fieldset>
+      <div>
+        <Button
+          type="submit"
+          disabled={!isValid}
+          isPending={isPending}
+          className="mt-5 w-full bg-green-400 text-white"
+        >
+          가입하기
+        </Button>
+      </div>
+    </form>
   );
 }

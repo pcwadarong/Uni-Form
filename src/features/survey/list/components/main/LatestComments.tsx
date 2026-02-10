@@ -14,7 +14,11 @@ const LatestComments = async () => {
       aria-labelledby="latest-comments-heading"
     >
       <div className="w-full 2xl:w-350">
-        <SectionHeader title="최신 댓글이 달린 설문조사를 살펴보세요" linkHref="/survey?cat=all" />
+        <SectionHeader
+          title="최신 댓글이 달린 설문조사를 살펴보세요"
+          linkHref="/survey?cat=all"
+          headingId="latest-comments-heading"
+        />
         <ul className="mb-8 grid gap-4 md:grid-cols-2 md:gap-8">
           {latestComments && latestComments.length > 0
             ? latestComments.map((item) => <CommentItem key={item.id} item={item} />)

@@ -3,14 +3,18 @@
 import { adminFirestore } from "@/lib/firebase/firebaseAdminConfig";
 import type { Form } from "@/types";
 
+/**
+ * 사용자가 생성한 폼 목록을 조회한다.
+ * @param uid - 사용자 UID
+ * @returns 생성한 폼 목록
+ */
 export const handleCreatedForms = async (uid: string): Promise<Form[]> => {
-  const [surveysSnap, recruitsSnap] = await Promise.all([
-    adminFirestore.collection("surveys").where("uid", "==", uid).limit(3).get(),
-    adminFirestore.collection("recruits").where("uid", "==", uid).limit(3).get(),
-  ]);
+  const formsSnap = await adminFirestore
+    .collection("forms")
+    .where("uid", "==", uid)
+    .orderBy("createdAt", "desc")
+    .limit(6)
+    .get();
 
-  return [
-    ...surveysSnap.docs.map((doc) => ({ id: doc.id, ...doc.data() })),
-    ...recruitsSnap.docs.map((doc) => ({ id: doc.id, ...doc.data() })),
-  ] as Form[];
+  return formsSnap.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as Form[];
 };

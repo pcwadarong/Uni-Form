@@ -39,7 +39,7 @@ export default function Header() {
 
   if (pathName.includes("preview")) {
     return (
-      <nav className="fixed z-10 flex w-screen flex-col items-center text-nowrap bg-surface drop-shadow backdrop-blur-sm">
+      <header className="fixed z-10 flex w-screen flex-col items-center text-nowrap bg-surface drop-shadow backdrop-blur-sm">
         <div className="flex h-20 w-full items-center justify-between px-8 2xl:w-350 2xl:px-0">
           <h1>
             <Link href="/">
@@ -50,19 +50,22 @@ export default function Header() {
             미리보기 종료
           </Button>
         </div>
-      </nav>
+      </header>
     );
   }
 
   return (
-    <nav className="fixed z-10 flex w-screen flex-col items-center text-nowrap bg-surface drop-shadow backdrop-blur-sm dark:bg-muted">
-      <div className="flex h-20 w-full items-center justify-between gap-2 px-8 md:grid md:grid-cols-3 md:gap-8 2xl:w-350 2xl:px-0">
+    <header className="fixed z-10 flex w-screen flex-col items-center text-nowrap bg-surface drop-shadow backdrop-blur-sm dark:bg-muted">
+      <nav
+        className="flex h-20 w-full items-center justify-between gap-2 px-8 md:grid md:grid-cols-3 md:gap-8 2xl:w-350 2xl:px-0"
+        aria-label="주요 메뉴"
+      >
         <NavLeft handleMouseOver={handleMouseOver} handleMouseLeave={handleMouseLeave} />
         <NavSearch />
         <NavRight />
-      </div>
+      </nav>
       {isSubMenuOpen && (
-        <ul
+        <menu
           className="flex w-full flex-1 gap-8 overflow-y-auto text-nowrap px-8 pb-6 2xl:w-350 2xl:px-0"
           onMouseOver={() => handleMouseOver(hoveredCategory)}
           onFocus={() => handleMouseOver(hoveredCategory)}
@@ -74,8 +77,8 @@ export default function Header() {
               <Link href={`/${hoveredCategory}?cat=${value}`}>{key}</Link>
             </li>
           ))}
-        </ul>
+        </menu>
       )}
-    </nav>
+    </header>
   );
 }
