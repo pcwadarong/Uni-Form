@@ -14,7 +14,11 @@ const SpecialSurveys = async () => {
       aria-labelledby="special-survey-heading"
     >
       <div className="w-full 2xl:w-350">
-        <SectionHeader title="특별한 설문조사를 둘러보세요" linkHref="/survey?cat=all" />
+        <SectionHeader
+          title="특별한 설문조사를 둘러보세요"
+          headingId="special-survey-heading"
+          linkHref="/survey?cat=all"
+        />
         <ul className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-8">
           {specialSurveys.length > 0
             ? specialSurveys.map((item) => <FormCardItem type="survey" key={item.id} item={item} />)

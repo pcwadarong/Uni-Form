@@ -9,9 +9,16 @@ const ClosingRecruits = async () => {
   const closingRecruits = await fetchFormList("recruit", "endingSoon");
 
   return (
-    <section className="flex w-full justify-center bg-surface px-4 py-16 drop-shadow-sm md:px-8 2xl:px-0 dark:bg-muted">
+    <section
+      className="flex w-full justify-center bg-surface px-4 py-16 drop-shadow-sm md:px-8 2xl:px-0 dark:bg-muted"
+      aria-labelledby="closing-recruits-heading"
+    >
       <div className="w-full 2xl:w-350">
-        <SectionHeader title="곧 마감되는 모집 공고를 살펴보세요" linkHref="/recruit?cat=all" />
+        <SectionHeader
+          title="곧 마감되는 모집 공고를 살펴보세요"
+          headingId="closing-recruits-heading"
+          linkHref="/recruit?cat=all"
+        />
         <ul className="grid gap-4 md:grid-cols-3 md:gap-8">
           {closingRecruits.length > 0
             ? closingRecruits.map((item) => (

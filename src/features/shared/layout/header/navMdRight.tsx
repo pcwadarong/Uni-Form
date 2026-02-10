@@ -30,7 +30,7 @@ const UserMenu = () => {
       <button
         type="button"
         onClick={() => setShowUserMenu((prev) => !prev)}
-        aria-haspopup="true"
+        aria-haspopup="menu"
         aria-expanded={showUserMenu}
         aria-label="사용자 메뉴 열기"
       >
@@ -38,30 +38,45 @@ const UserMenu = () => {
       </button>
 
       {showUserMenu && (
-        <div className="caption absolute top-8 right-0 flex flex-col overflow-hidden rounded-lg bg-muted text-center shadow-md drop-shadow">
-          {user ? (
-            <>
-              <Link href="/form" className="px-4 py-2">
-                설문 만들기
-              </Link>
-              <Link href="/user" className="px-4 py-2">
-                내 정보
-              </Link>
-              <button type="button" className="px-4 py-2" onClick={handleLogout}>
-                로그아웃
-              </button>
-            </>
-          ) : (
-            <>
-              <Link href="/auth/sign-in" className="px-4 py-2">
-                로그인
-              </Link>
-              <Link href="/auth/sign-up" className="px-4 py-2">
-                회원가입
-              </Link>
-            </>
-          )}
-        </div>
+        <nav
+          aria-label="사용자 드롭다운 메뉴"
+          className="caption absolute top-8 right-0 rounded-lg bg-muted shadow-md drop-shadow"
+        >
+          <ul className="flex flex-col overflow-hidden text-center">
+            {user ? (
+              <>
+                <li>
+                  <Link href="/form" className="block px-4 py-2">
+                    설문 만들기
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/user" className="block px-4 py-2">
+                    내 정보
+                  </Link>
+                </li>
+                <li>
+                  <button type="button" className="w-full px-4 py-2" onClick={handleLogout}>
+                    로그아웃
+                  </button>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link href="/auth/sign-in" className="block px-4 py-2">
+                    로그인
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/auth/sign-up" className="block px-4 py-2">
+                    회원가입
+                  </Link>
+                </li>
+              </>
+            )}
+          </ul>
+        </nav>
       )}
     </div>
   );

@@ -16,7 +16,7 @@ const FormListSection = async ({ title, link, sortType }: FormListSectionProps) 
 
   return (
     <section className="flex-1" aria-labelledby={`${sortType}-title`}>
-      <SectionHeader title={title} linkHref={link} />
+      <SectionHeader title={title} headingId={`${sortType}-title`} linkHref={link} />
       <ul className="grid grid-cols-2 gap-4 md:gap-8">
         {forms.length > 0
           ? forms.map((item) => <FormCardItem type="survey" key={item.id} item={item} />)
@@ -28,7 +28,10 @@ const FormListSection = async ({ title, link, sortType }: FormListSectionProps) 
 
 const RecentPopularSurveys = async () => {
   return (
-    <section className="flex w-full justify-center px-4 py-16 md:px-8 2xl:px-0">
+    <section
+      className="flex w-full justify-center px-4 py-16 md:px-8 2xl:px-0"
+      aria-label="최근 및 인기 설문조사"
+    >
       <div className="w-full 2xl:w-350">
         <div className="flex flex-col gap-14 md:flex-row md:gap-8">
           <FormListSection

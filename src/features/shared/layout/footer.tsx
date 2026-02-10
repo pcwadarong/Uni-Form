@@ -27,13 +27,17 @@ const sns = [
 export default function Footer() {
   return (
     <footer className="-mt-36 flex flex-col items-center justify-center gap-4 pt-10 text-gray-400 ">
-      <ul className="flex items-center gap-4">
-        {sns.map((item) => (
-          <li key={item.name}>
-            <Link href={item.link}>{item.icon}</Link>
-          </li>
-        ))}
-      </ul>
+      <nav aria-label="소셜 미디어 링크">
+        <ul className="flex items-center gap-4">
+          {sns.map((item) => (
+            <li key={item.name}>
+              <Link href={item.link} aria-label={`${item.name}로 이동`}>
+                {item.icon}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
       <p className="caption">© 2024. Uni Form Co. all rights reserved.</p>
     </footer>
   );

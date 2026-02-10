@@ -21,12 +21,14 @@ export default function NavRight() {
 
   return (
     <>
-      <div className="flex items-center gap-8 justify-self-end">
+      <nav aria-label="사용자 메뉴" className="flex items-center gap-8 justify-self-end">
         {loading ? (
-          <span className="text-gray-500 text-sm">로딩 중...</span>
+          <span className="text-gray-500 text-sm" aria-live="polite">
+            로딩 중...
+          </span>
         ) : user ? (
           <>
-            <Link className="hidden md:inline" href="/form">
+            <Link className="hidden md:inline" href="/form" aria-label="설문 생성 페이지로 이동">
               <SVGIcon name="FormIcon" />
             </Link>
             <Link className="hidden md:inline" href="/user">
@@ -46,12 +48,12 @@ export default function NavRight() {
             </Link>
           </>
         )}
-      </div>
+      </nav>
 
       <UserMenu />
 
       <div className="flex sm:hidden">
-        <button type="button" onClick={toggleCategory}>
+        <button type="button" onClick={toggleCategory} aria-label="모바일 메뉴 열기">
           <SVGIcon name="HamburgerIcon" />
         </button>
         <NavSmRight isOpened={isOpened} toggleCategory={toggleCategory} closeMenu={closeMenu} />
