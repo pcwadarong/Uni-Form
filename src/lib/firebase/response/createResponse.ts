@@ -4,7 +4,7 @@ import { FieldValue, Timestamp } from "firebase-admin/firestore";
 
 /**
  * 응답 문서를 생성하고 폼 응답 수를 증가시킨다.
- * WriteBatch로 set과 update를 원자적으로 수행한다.
+ * Transaction으로 "새 응답일 때만" responsesCount를 증가시킨다.
  * @param responseId - 응답 문서 ID
  * @param formId - 대상 폼 ID
  * @param uid - 응답자 UID
@@ -17,23 +17,43 @@ export const createResponse = async (
   content: Answer[],
 ) => {
   try {
-    const batch = adminFirestore.batch();
     const responseRef = adminFirestore.collection("responses").doc(responseId);
     const formRef = adminFirestore.collection("forms").doc(formId);
 
-    batch.set(responseRef, {
-      formId,
-      uid,
-      content,
-      createdAt: Timestamp.now(),
+    const result = await adminFirestore.runTransaction(async (tx) => {
+      const now = Timestamp.now();
+      const existing = await tx.get(responseRef);
+      const isNewResponse = !existing.exists;
+
+      if (isNewResponse) {
+        tx.set(responseRef, {
+          formId,
+          uid,
+          content,
+          createdAt: now,
+        });
+
+        tx.update(formRef, {
+          responsesCount: FieldValue.increment(1),
+        });
+      } else {
+        const existingUid = existing.get("uid") as string | undefined;
+        if (existingUid && existingUid !== uid) {
+          // responseId가 formId-uid 형태로 만들어진 전제라면 이 케이스는 비정상.
+          throw new Error("Response document already exists with a different uid");
+        }
+
+        // 기존 응답을 덮어쓰되, createdAt은 유지하고 카운트는 올리지 않는다.
+        tx.update(responseRef, {
+          content,
+          updatedAt: now,
+        });
+      }
+
+      return { status: true, isNewResponse };
     });
 
-    batch.update(formRef, {
-      responsesCount: FieldValue.increment(1),
-    });
-
-    await batch.commit();
-    return { status: true };
+    return result;
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     throw new Error(`Failed to create response ${responseId} for form ${formId}: ${message}`);
