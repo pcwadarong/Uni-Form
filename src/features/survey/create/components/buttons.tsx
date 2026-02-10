@@ -80,7 +80,8 @@ const CreatePageButton = () => {
    */
   const handleCloseModal = useCallback(() => {
     setShowModal(false);
-    document.body.style.overflow = "auto";
+    // Remove inline style so SSR/CSR don't fight over <body style="...">.
+    document.body.style.overflow = "";
   }, []);
 
   /**

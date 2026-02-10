@@ -7,5 +7,6 @@ import { useSelectedSurveyStore } from "@/features/survey/create/store/survey";
 export const closeModal = () => {
   const setSelectedItem = useSelectedSurveyStore.getState().setSelectedItem;
   setSelectedItem(null);
-  document.body.style.overflow = "auto";
+  // Remove inline style so SSR/CSR don't fight over <body style="...">.
+  document.body.style.overflow = "";
 };

@@ -1,5 +1,3 @@
-// my forms (isPublic)
-
 import { adminFirestore } from "@/lib/firebase/firebaseAdminConfig";
 import { type RawFormData, mapRawToForm } from "@/lib/utils/mapRawToForm";
 import type { Form } from "@/types";
