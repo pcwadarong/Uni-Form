@@ -50,37 +50,48 @@ const Form = () => {
         autoComplete="on"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div>
-          <label htmlFor="email">이메일</label>
-          <span className="ml-3 text-green-500">{errors.email?.message}</span>
-          <div className="relative mt-2">
-            <SVGIcon name="EmailIcon" className="absolute top-3 left-3" />
-            <Input
-              id="email"
-              type="email"
-              {...register("email")}
-              required
-              autoComplete="email"
-              className="pl-10"
-            />
+        <fieldset className="flex flex-col gap-6">
+          <legend className="sr-only">이메일 로그인</legend>
+          <div>
+            <label htmlFor="email">이메일</label>
+            {errors.email?.message && (
+              <output htmlFor="email" className="ml-3 text-green-500">
+                {errors.email.message}
+              </output>
+            )}
+            <div className="relative mt-2">
+              <SVGIcon name="EmailIcon" className="absolute top-3 left-3" />
+              <Input
+                id="email"
+                type="email"
+                {...register("email")}
+                required
+                autoComplete="email"
+                className="pl-10"
+              />
+            </div>
           </div>
-        </div>
 
-        <div>
-          <label htmlFor="password">비밀번호</label>
-          <span className="ml-3 text-green-500">{errors.password?.message}</span>
-          <div className="relative mt-2">
-            <SVGIcon name="PasswordIcon" className="absolute top-3 left-3" />
-            <Input
-              id="password"
-              type="password"
-              {...register("password")}
-              required
-              autoComplete="password"
-              className="pl-10"
-            />
+          <div>
+            <label htmlFor="password">비밀번호</label>
+            {errors.password?.message && (
+              <output htmlFor="password" className="ml-3 text-green-500">
+                {errors.password.message}
+              </output>
+            )}
+            <div className="relative mt-2">
+              <SVGIcon name="PasswordIcon" className="absolute top-3 left-3" />
+              <Input
+                id="password"
+                type="password"
+                {...register("password")}
+                required
+                autoComplete="password"
+                className="pl-10"
+              />
+            </div>
           </div>
-        </div>
+        </fieldset>
         <Button type="submit" disabled={!isValid} className="mt-5 w-full bg-green-400 text-white">
           로그인
         </Button>
@@ -88,11 +99,11 @@ const Form = () => {
 
       <div className="relative mt-6 flex justify-center">
         <button
-          type="submit"
+          type="button"
           onClick={handleGoogleLogin}
           className="flex w-full items-center justify-center gap-2 rounded-full border border-gray-4 px-4 py-3"
         >
-          <Image src={"/google.svg"} alt="icon" width="20" height="20" priority={true} />
+          <Image src="/google.svg" alt="Google" width="20" height="20" priority={true} />
           <span>Google로 계속하기</span>
         </button>
       </div>

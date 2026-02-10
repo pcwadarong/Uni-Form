@@ -14,22 +14,20 @@ export const SignInContentView = memo(function SignInContentView() {
       <h2 className="title2 mt-20 text-center" id="login-heading">
         로그인
       </h2>
-      <div className="mt-10 w-96" aria-labelledby="login-heading">
+      <section className="mt-10 w-96" aria-labelledby="login-heading">
         <Form />
-        <div className="subtitle mt-10 flex items-center justify-center gap-3">
-          <Link
-            className="flex-1 text-end"
-            href="/auth/reset-pw"
-            aria-label="비밀번호 재설정 페이지로 이동"
-          >
-            비밀번호 찾기
-          </Link>
-          <p>|</p>
-          <Link className="flex-1" href="/auth/sign-up" aria-label="회원가입 페이지로 이동">
-            회원가입
-          </Link>
-        </div>
-      </div>
+        <nav className="subtitle mt-10" aria-label="로그인 관련 링크">
+          <ul className="flex items-center justify-center gap-3">
+            <li className="flex-1 text-end">
+              <Link href="/auth/reset-pw">비밀번호 찾기</Link>
+            </li>
+            <li aria-hidden="true">|</li>
+            <li className="flex-1">
+              <Link href="/auth/sign-up">회원가입</Link>
+            </li>
+          </ul>
+        </nav>
+      </section>
     </>
   );
 });

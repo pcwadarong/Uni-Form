@@ -22,7 +22,7 @@ export const ResetPasswordContentView = memo(function ResetPasswordContentView({
 }: ResetPasswordContentViewProps) {
   return (
     <main className="m-auto mt-20">
-      <h2 className="title2 text-center" id="reset-password">
+      <h2 className="title2 text-center" id="reset-password-heading">
         비밀번호 재설정
       </h2>
       <p className="mt-5 text-center">

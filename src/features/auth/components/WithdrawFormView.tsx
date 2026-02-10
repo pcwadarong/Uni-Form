@@ -32,29 +32,38 @@ export const WithdrawFormView = memo(function WithdrawFormView({
     <form
       className="mt-15 flex w-96 flex-col gap-4"
       onSubmit={onSubmit}
-      aria-labelledby="reset-password-heading"
+      aria-labelledby="withdraw-heading"
     >
-      <Input
-        type="email"
-        value={email}
-        onChange={(e) => onEmailChange(e.target.value)}
-        required
-        placeholder="이메일 입력"
-        aria-label="이메일 입력"
-      />
-      <Input
-        type="password"
-        value={password}
-        onChange={(e) => onPasswordChange(e.target.value)}
-        required
-        placeholder="비밀번호 입력"
-        aria-label="비밀번호 입력"
-      />
-      <Button
-        type="submit"
-        className="mt-5 w-full bg-green-400 text-white"
-        aria-label="회원 탈퇴하기"
-      >
+      <fieldset className="flex flex-col gap-4">
+        <legend className="sr-only">회원 탈퇴 확인 정보</legend>
+        <div>
+          <label htmlFor="withdraw-email" className="sr-only">
+            이메일 입력
+          </label>
+          <Input
+            id="withdraw-email"
+            type="email"
+            value={email}
+            onChange={(e) => onEmailChange(e.target.value)}
+            required
+            placeholder="이메일 입력"
+          />
+        </div>
+        <div>
+          <label htmlFor="withdraw-password" className="sr-only">
+            비밀번호 입력
+          </label>
+          <Input
+            id="withdraw-password"
+            type="password"
+            value={password}
+            onChange={(e) => onPasswordChange(e.target.value)}
+            required
+            placeholder="비밀번호 입력"
+          />
+        </div>
+      </fieldset>
+      <Button type="submit" className="mt-5 w-full bg-green-400 text-white">
         회원 탈퇴하기
       </Button>
     </form>

@@ -26,10 +26,37 @@ export default function ActionButtons() {
   }, []);
 
   return (
-    <div className="mt-10 flex gap-5 font-bold">
-      <SVGIcon name="ShareIcon" onClick={handleShare} className="cursor-pointer" />
-      <SVGIcon name="BookmarkIcon" onClick={handleBookmark} className="cursor-pointer" />
-      <SVGIcon name="ReportIcon" onClick={handleReport} className="cursor-pointer" />
-    </div>
+    <menu className="mt-10 flex gap-5 font-bold">
+      <li>
+        <button
+          type="button"
+          onClick={handleShare}
+          className="cursor-pointer"
+          aria-label="공유하기"
+        >
+          <SVGIcon name="ShareIcon" />
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          onClick={handleBookmark}
+          className="cursor-pointer"
+          aria-label="북마크하기"
+        >
+          <SVGIcon name="BookmarkIcon" />
+        </button>
+      </li>
+      <li>
+        <button
+          type="button"
+          onClick={handleReport}
+          className="cursor-pointer"
+          aria-label="신고하기"
+        >
+          <SVGIcon name="ReportIcon" />
+        </button>
+      </li>
+    </menu>
   );
 }
