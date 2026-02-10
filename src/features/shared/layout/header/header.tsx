@@ -10,6 +10,11 @@ import NavLeft from "./navLeft";
 import NavRight from "./navRight";
 import NavSearch from "./navSearch";
 
+/**
+ * 호버된 카테고리에 해당하는 카테고리 링크 목록 반환
+ * @param hoveredCategory - 현재 호버 중인 카테고리 ("survey" | "recruit" | null)
+ * @returns 카테고리 링크 배열 [키, 값] 형태
+ */
 function getCategoryLinks(hoveredCategory: string | null) {
   return hoveredCategory === "survey"
     ? Object.entries(SURVEY_CATEGORY)
@@ -18,6 +23,11 @@ function getCategoryLinks(hoveredCategory: string | null) {
       : [];
 }
 
+/**
+ * 전역 헤더 컴포넌트
+ * 네비게이션 메뉴, 검색, 사용자 메뉴를 제공
+ * 미리보기 모드에서는 종료 버튼을 표시
+ */
 export default function Header() {
   const { hoveredCategory, isSubMenuOpen, handleMouseOver, handleMouseLeave } = useHover();
   const pathName = usePathname();

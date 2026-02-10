@@ -1,17 +1,26 @@
 import { initSurveyInfo } from "@/constants/initSurveyInfo";
 import { useSurveyStore } from "@/features/survey/create/store/survey";
+import type { Question } from "@/features/survey/types";
 import { firestore } from "@/lib/firebase/firebaseConfig";
-import type { Question } from "@/types";
 import { FirebaseError } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 
+/**
+ * 설문 저장 훅
+ * 설문 정보와 질문을 Firestore에 저장
+ * @returns 설문 저장 함수
+ */
 export const useSaveSurvey = () => {
   const { surveyInfo, setSurveyInfo } = useSurveyStore();
   const auth = getAuth();
   const router = useRouter();
 
+  /**
+   * 설문 저장 함수
+   * @param category - 설문 카테고리 (설문조사 또는 모집공고)
+   */
   const saveSurvey = async (category: string) => {
     const cat = category === "설문조사" ? "surveys" : "recruits";
     const date = new Date().toISOString();
@@ -26,6 +35,10 @@ export const useSaveSurvey = () => {
       uid: uid,
     };
 
+    /**
+     * 질문 데이터 유효성 검사 및 정리
+     * undefined 값 제거
+     */
     const validatedQuestions = surveyInfo.questions.map((question) => {
       const validatedQuestion: Partial<Question> = {};
 

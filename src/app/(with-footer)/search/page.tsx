@@ -1,5 +1,10 @@
 import SearchedList from "@/features/survey/list/components/search/searchedList";
 
+/**
+ * 검색 결과 페이지 컴포넌트
+ * 설문조사와 모집공고 검색 결과를 표시
+ * @param searchParams - URL 쿼리 파라미터 (검색어 q)
+ */
 const SearchedResults = async ({
   searchParams,
 }: {

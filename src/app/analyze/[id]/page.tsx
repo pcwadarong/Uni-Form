@@ -8,6 +8,11 @@ import { notFound } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
+/**
+ * 설문 분석 페이지 컴포넌트
+ * 설문 응답 데이터를 분석하여 표시 (작업 중)
+ * @param params - 암호화된 폼 ID를 포함한 라우트 파라미터
+ */
 export default async function AnalyzePage({
   params,
 }: {

@@ -5,7 +5,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/features/shared/ui/select";
-import type { FormFieldProps } from "@/types/userType";
+import type { FormFieldProps } from "@/types";
 import FormBlock from "./formBlock";
 
 export default function SelectBlock({

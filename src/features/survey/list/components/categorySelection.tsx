@@ -5,10 +5,21 @@ interface Props {
   onFilterChange: (filter: { point?: string; deadline: string }) => void;
 }
 
+/**
+ * 카테고리 선택 컴포넌트
+ * 포인트 및 마감기한 필터 선택 UI
+ * @param topic - 설문 또는 모집공고 구분
+ * @param onFilterChange - 필터 변경 핸들러
+ */
 export const CategorySelection: React.FC<Props> = ({ topic, onFilterChange }) => {
   const [selectedPoint, setSelectedPoint] = useState<string>("all");
   const [selectedDeadline, setSelectedDeadline] = useState<string>("all");
 
+  /**
+   * 선택된 라디오 버튼의 라벨 스타일 업데이트
+   * @param type - 필터 타입 (point 또는 deadline)
+   * @param value - 선택된 값
+   */
   const updateLabelClass = useCallback((type: string, value: string) => {
     const labels = document.querySelectorAll(`label[for^=${type}]`);
     for (const label of labels) {
@@ -21,6 +32,9 @@ export const CategorySelection: React.FC<Props> = ({ topic, onFilterChange }) =>
     }
   }, []);
 
+  /**
+   * 필터 변경 시 라벨 스타일 및 부모 컴포넌트에 변경사항 전달
+   */
   useEffect(() => {
     updateLabelClass("point", selectedPoint);
     updateLabelClass("deadline", selectedDeadline);
@@ -28,13 +42,18 @@ export const CategorySelection: React.FC<Props> = ({ topic, onFilterChange }) =>
     onFilterChange({ point: selectedPoint, deadline: selectedDeadline });
   }, [selectedPoint, selectedDeadline, onFilterChange, updateLabelClass]);
 
-  const handleRadioSelect = (type: string, value: string) => {
+  /**
+   * 라디오 버튼 선택 핸들러
+   * @param type - 필터 타입 (point 또는 deadline)
+   * @param value - 선택된 값
+   */
+  const handleRadioSelect = useCallback((type: string, value: string) => {
     if (type === "point") {
       setSelectedPoint(value);
     } else if (type === "deadline") {
       setSelectedDeadline(value);
     }
-  };
+  }, []);
 
   return (
     <div className="mb-10 w-full flex-none text-nowrap rounded-3xl border border-gray-2 bg-content px-10 py-6 2xl:w-64 2xl:px-6">
@@ -60,7 +79,14 @@ export const CategorySelection: React.FC<Props> = ({ topic, onFilterChange }) =>
                 >
                   {value === "all" ? "전체 보기" : `${value}P 이상`}
                 </label>
-                <input type="radio" name="point" id={`point-${value}`} className="hidden" />
+                <input
+                  type="radio"
+                  name="point"
+                  id={`point-${value}`}
+                  checked={selectedPoint === value}
+                  onChange={() => handleRadioSelect("point", value)}
+                  className="hidden"
+                />
               </div>
             ))}
           </form>
@@ -89,7 +115,14 @@ export const CategorySelection: React.FC<Props> = ({ topic, onFilterChange }) =>
               >
                 {value === "all" ? "전체 보기" : `${value}일 이${value === "15" ? "상" : "내"}`}
               </label>
-              <input type="radio" name="deadline" id={`deadline-${value}`} className="hidden" />
+              <input
+                type="radio"
+                name="deadline"
+                id={`deadline-${value}`}
+                checked={selectedDeadline === value}
+                onChange={() => handleRadioSelect("deadline", value)}
+                className="hidden"
+              />
             </div>
           ))}
         </form>

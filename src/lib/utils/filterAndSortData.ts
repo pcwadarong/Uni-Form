@@ -1,5 +1,11 @@
 import type { Form } from "@/types";
 
+/**
+ * 폼 목록을 정렬 타입에 따라 정렬
+ * @param items - 정렬할 폼 배열
+ * @param sortType - 정렬 타입 ("random" | "point-asc" | "popular-asc" | "date-desc")
+ * @returns 정렬된 폼 배열
+ */
 export const getSelectedItems = (items: Form[], sortType: string): Form[] => {
   return [...items].sort((a, b) => {
     switch (sortType) {

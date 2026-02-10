@@ -2,6 +2,10 @@
 
 import { LinkButton } from "@/features/shared/ui/button";
 
+/**
+ * 404 Not Found 페이지 컴포넌트
+ * 존재하지 않는 페이지 접근 시 표시
+ */
 export default function NotFound() {
   return (
     <main className="flex h-screen w-screen flex-col items-center justify-center gap-8">

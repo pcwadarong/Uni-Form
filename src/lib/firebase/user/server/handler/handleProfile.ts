@@ -1,5 +1,5 @@
 import { adminFirestore } from "@/lib/firebase/firebaseAdminConfig";
-import type { UserProfileFields } from "@/types/userType";
+import type { UserProfileFields } from "@/types";
 
 export const handleProfile = async (uid: string): Promise<UserProfileFields | null> => {
   const userRef = adminFirestore.collection("users").doc(uid);

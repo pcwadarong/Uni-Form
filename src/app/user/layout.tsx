@@ -1,6 +1,11 @@
 import Sidebar from "@/features/user/components/sidebar";
 import type { ReactNode } from "react";
 
+/**
+ * 사용자 페이지 레이아웃 컴포넌트
+ * 사이드바와 메인 콘텐츠 영역을 제공
+ * @param children - 페이지 콘텐츠
+ */
 export default function Layout({
   children,
 }: {

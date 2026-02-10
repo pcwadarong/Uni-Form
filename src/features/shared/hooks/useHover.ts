@@ -1,5 +1,10 @@
 import { useRef, useState } from "react";
 
+/**
+ * 호버 상태 관리 훅
+ * 서브메뉴 호버 및 자동 닫기 기능 제공
+ * @returns 호버된 카테고리, 서브메뉴 열림 상태, 핸들러 함수들
+ */
 export function useHover() {
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
   const [isSubMenuOpen, setIsSubMenuOpen] = useState<boolean>(false);

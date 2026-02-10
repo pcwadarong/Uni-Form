@@ -2,15 +2,17 @@
 
 import { INITIAL_ACTION_STATE } from "@/constants/states";
 import { resetPWAction } from "@/features/auth/actions/auth";
-import { Button } from "@/features/shared/ui/button";
-import { Input } from "@/features/shared/ui/input";
-import type { ActionState } from "@/types";
+import { ResetPasswordContentView } from "@/features/auth/components/ResetPasswordContentView";
+import type { ActionState } from "@/features/shared/types";
 import { useRouter } from "next/navigation";
-import { useActionState } from "react";
-import { useEffect, useState } from "react";
+import { useActionState, useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 
-const ResetPw: React.FC = () => {
+/**
+ * 비밀번호 재설정 페이지
+ * 상태 관리 및 API 호출 처리, UI 컴포넌트에 데이터 전달
+ */
+export default function ResetPw() {
   const router = useRouter();
   const [email, setEmail] = useState("");
 
@@ -19,6 +21,9 @@ const ResetPw: React.FC = () => {
     INITIAL_ACTION_STATE,
   );
 
+  /**
+   * 비밀번호 재설정 결과 처리
+   */
   useEffect(() => {
     if (resetState.status === null) return;
     if (!resetState.status) {
@@ -31,37 +36,19 @@ const ResetPw: React.FC = () => {
     }
   }, [resetState, router]);
 
-  return (
-    <main className="m-auto mt-20">
-      <h2 className="title2 text-center" id="reset-password-heading">
-        비밀번호 재설정
-      </h2>
-      <p className="mt-5 text-center">
-        유니폼에 가입했던 이메일을 입력해주세요. <br />
-        비밀번호 재설정 이메일을 보내드립니다. <br />
-        발송된 이메일은 1시간 동안 유효합니다.
-      </p>
-      <form action={formAction} className="mt-15 w-96" aria-labelledby="reset-password">
-        <Input
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
-          type="email"
-          required
-          className="border-b"
-          placeholder="이메일 입력"
-          aria-label="이메일 입력"
-        />
-        <Button
-          type="submit"
-          isPending={isPending}
-          className="mt-5 w-full bg-green-400 text-white"
-          aria-label="비밀번호 재설정 링크 메일 발송"
-        >
-          비밀번호 재설정하기
-        </Button>
-      </form>
-    </main>
-  );
-};
+  /**
+   * 이메일 변경 핸들러
+   */
+  const handleEmailChange = useCallback((value: string) => {
+    setEmail(value);
+  }, []);
 
-export default ResetPw;
+  return (
+    <ResetPasswordContentView
+      email={email}
+      onEmailChange={handleEmailChange}
+      onSubmit={formAction}
+      isPending={isPending}
+    />
+  );
+}

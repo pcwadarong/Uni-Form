@@ -1,9 +1,9 @@
 "use client";
 
+import type { Form } from "@/features/survey/types";
+import getRandomColor from "@/features/survey/utils/getRandomColor";
 import { useEncryptedEntryNavigation } from "@/features/user/hooks/useEncryptedEntryNavigation";
 import formateDate from "@/lib/utils/formateDate";
-import getColorById from "@/lib/utils/getRandomColor";
-import type { Form } from "@/types";
 import Image from "next/image";
 import { useMemo } from "react";
 import Reaction from "./reaction";
@@ -14,9 +14,15 @@ interface FormCardItemProps {
   type: "survey" | "recruit";
 }
 
+/**
+ * 설문/모집 카드 아이템 컴포넌트
+ * 설문 또는 모집공고 카드를 렌더링하고 상세 페이지로 이동
+ * @param item - 표시할 설문/모집 데이터
+ * @param type - 설문 또는 모집공고 구분
+ */
 export default function FormCardItem({ item, type }: FormCardItemProps) {
   const { navigate, handleKeyDown } = useEncryptedEntryNavigation();
-  const backgroundClass = useMemo(() => getColorById(item.id), [item]);
+  const backgroundClass = useMemo(() => getRandomColor(item.id), [item.id]);
   const showPoint = type === "survey";
 
   return (
@@ -28,7 +34,7 @@ export default function FormCardItem({ item, type }: FormCardItemProps) {
         className="flex h-90 w-full flex-1 cursor-pointer flex-col justify-between overflow-hidden rounded-3xl text-left drop-shadow-md"
         aria-label={`${item.title} 상세보기`}
       >
-        <div className={`h-36 w-full overflow-hidden bg-${backgroundClass}`}>
+        <div className={`h-36 w-full overflow-hidden ${backgroundClass}`}>
           {item.img && (
             <Image
               className="h-full w-full object-cover"

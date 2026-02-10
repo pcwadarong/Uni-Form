@@ -3,7 +3,14 @@ import type { Comment, Detail, Form } from "@/types";
 import { FirebaseError } from "firebase/app";
 import type { DocumentData } from "firebase/firestore";
 
-// form의 detail (문항 미포함) - entry에서 사용
+/**
+ * 서버에서 폼 데이터 조회
+ * @param surveyType - 폼 타입 ("surveys" | "recruits")
+ * @param id - 폼 ID
+ * @param includeQuestions - 질문 포함 여부 (기본: false)
+ * @returns 폼 데이터 (Form 또는 Detail)
+ * @throws 폼이 존재하지 않거나 Firebase 에러 발생 시
+ */
 export const fetchForm = async (
   surveyType: "surveys" | "recruits",
   id: string,
@@ -46,7 +53,11 @@ export const fetchForm = async (
   }
 };
 
-// 최근 댓글이 달린 게시물 - main페이지에서 사용
+/**
+ * 최근 댓글이 달린 폼 제목과 함께 조회
+ * @param limitCount - 조회할 댓글 수 제한 (기본: 4)
+ * @returns 댓글 배열 또는 null
+ */
 export const fetchLatestCommentsWithFormTitles = async (
   limitCount = 4,
 ): Promise<Comment[] | null> => {
@@ -94,7 +105,13 @@ export const fetchLatestCommentsWithFormTitles = async (
   }
 };
 
-// 비슷한 form 추천
+/**
+ * 비슷한 폼 추천 (같은 카테고리 우선, 부족 시 추가)
+ * @param currentId - 현재 폼 ID
+ * @param surveyType - 폼 타입 ("surveys" | "recruits")
+ * @param cat - 카테고리
+ * @returns 추천 폼 배열 또는 null
+ */
 export const fetchSimilarForms = async (
   currentId: string,
   surveyType: "surveys" | "recruits",

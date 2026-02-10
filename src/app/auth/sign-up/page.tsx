@@ -1,14 +1,9 @@
-import Form from "@/features/auth/components/sign-up/form";
+import { SignUpContentView } from "@/features/auth/components/SignUpContentView";
 
-const SignUp: React.FC = () => {
-  return (
-    <>
-      <h2 className="title2 mt-20 text-center text-green-500">회원가입</h2>
-      <div className="mt-10 w-96">
-        <Form />
-      </div>
-    </>
-  );
-};
-
-export default SignUp;
+/**
+ * 회원가입 페이지
+ * 회원가입 UI를 렌더링하는 페이지 셸
+ */
+export default function SignUp() {
+  return <SignUpContentView />;
+}

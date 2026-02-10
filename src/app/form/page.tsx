@@ -1,74 +1,9 @@
-"use client";
+import { TemplatePageContainer } from "@/features/survey/create/components/TemplatePageContainer";
 
-import { initSurveyInfo } from "@/constants/initSurveyInfo";
-import { commonTemplate, recruitTemplate, surveyTemplate } from "@/constants/templates";
-import SVGIcon from "@/features/shared/icons/icons";
-import { useSurveyStore } from "@/features/survey/create/store/survey";
-import getColorById from "@/lib/utils/getRandomColor";
-import { useRouter } from "next/navigation";
-
-const RandomColoredBox: React.FC<{ link: string; text: string }> = ({ link, text }) => {
-  const router = useRouter();
-  const { setSurveyInfo } = useSurveyStore();
-
-  const moveToCreatePage = async () => {
-    try {
-      setSurveyInfo(initSurveyInfo);
-      router.push(link);
-    } catch (error) {
-      console.error("Failed to set survey info:", error);
-    }
-  };
-
-  const bgColor = getColorById(text);
-
-  return (
-    <li
-      className={`relative mb-2 flex aspect-square h-auto items-center justify-center rounded-3xl bg-${bgColor} drop-shadow-md`}
-    >
-      <button
-        type="button"
-        onClick={moveToCreatePage}
-        aria-label={`Navigate to ${text}`}
-        className="h-full w-full"
-      >
-        <p className="title3 absolute top-6 left-6">{text}</p>
-        <div className="absolute right-6 bottom-6">
-          <SVGIcon name="FileEditIcon" size={60} />
-        </div>
-      </button>
-    </li>
-  );
-};
-
-const Form: React.FC = () => {
-  const gridClassNames = "grid grid-cols-2 gap-4 md:grid-cols-4 xl:grid-cols-5 xl:gap-8";
-
-  return (
-    <section className="flex w-full flex-col gap-10 px-4 py-16 text-center md:px-8 2xl:w-350 2xl:px-0">
-      <ul className={gridClassNames} aria-label="공통 템플릿 목록">
-        {Object.entries(commonTemplate).map(([key, value]) => (
-          <RandomColoredBox key={key} link={`/create${value}`} text={key} />
-        ))}
-      </ul>
-      <div>
-        <h2 className="title3 mb-4 text-start">설문조사</h2>
-        <ul className={gridClassNames} aria-label="설문조사 템플릿 목록">
-          {Object.entries(surveyTemplate).map(([key, value]) => (
-            <RandomColoredBox key={key} link={`/create${value}`} text={key} />
-          ))}
-        </ul>
-      </div>
-      <div>
-        <h2 className="title3 mb-4 text-start">모집공고</h2>
-        <ul className={gridClassNames} aria-label="모집공고 템플릿 목록">
-          {Object.entries(recruitTemplate).map(([key, value]) => (
-            <RandomColoredBox key={key} link={`/create${value}`} text={key} />
-          ))}
-        </ul>
-      </div>
-    </section>
-  );
-};
-
-export default Form;
+/**
+ * 폼 생성 템플릿 선택 페이지
+ * 템플릿 선택 UI를 제공하는 페이지 셸
+ */
+export default function Form() {
+  return <TemplatePageContainer />;
+}

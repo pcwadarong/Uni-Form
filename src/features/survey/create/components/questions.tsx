@@ -1,10 +1,10 @@
-import questionComponentMap from "@/constants/questionComponentMap";
+import { questionComponentMap } from "@/constants/questionComponentMap";
 import AutoResizeTextarea from "@/features/shared/ui/textarea";
 import { useSurveyStore } from "@/features/survey/create/store/survey";
 import { useResponseStore } from "@/features/survey/form/store/response";
-import type { Question, QuestionProps, QuestionType } from "@/types";
+import type { Question, QuestionProps, QuestionType } from "@/features/survey/types";
 import type { DraggableProvided } from "@hello-pangea/dnd";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import RadioQuestion from "./question/radioQuestion";
 import QuestionSelect from "./select";
 
@@ -14,6 +14,15 @@ interface ExtendedQuestionProps extends QuestionProps {
   provided?: DraggableProvided;
 }
 
+/**
+ * 질문 컴포넌트
+ * 질문 편집 및 응답 입력 UI 제공
+ * @param question - 질문 데이터
+ * @param mode - 모드 (editing, testing, responding)
+ * @param isEssential - 필수 여부
+ * @param onEditToggle - 편집 토글 핸들러 (선택)
+ * @param provided - 드래그 앤 드롭 제공 객체 (선택)
+ */
 const Questions: React.FC<ExtendedQuestionProps> = ({
   question,
   mode,
@@ -26,21 +35,42 @@ const Questions: React.FC<ExtendedQuestionProps> = ({
   const { updateQuestion, updateQuestionType } = useSurveyStore();
   const { setResponse } = useResponseStore();
 
-  const handleQuestionChange = (updatedQuestion: Question) => {
-    updateQuestion(question.id, updatedQuestion);
-  };
+  /**
+   * 질문 변경 핸들러
+   * @param updatedQuestion - 업데이트된 질문 데이터
+   */
+  const handleQuestionChange = useCallback(
+    (updatedQuestion: Question) => {
+      updateQuestion(question.id, updatedQuestion);
+    },
+    [question.id, updateQuestion],
+  );
 
   useEffect(() => {
     setExplanation(question.description || "");
   }, [question.description]);
 
-  const handleTypeChange = (newType: string) => {
-    updateQuestionType(question.id, newType as QuestionType);
-  };
+  /**
+   * 질문 타입 변경 핸들러
+   * @param newType - 새로운 질문 타입
+   */
+  const handleTypeChange = useCallback(
+    (newType: string) => {
+      updateQuestionType(question.id, newType as QuestionType);
+    },
+    [question.id, updateQuestionType],
+  );
 
-  const handleResponseChange = (newResponse: string | number | string[] | number[]) => {
-    setResponse(question.timestamp, newResponse);
-  };
+  /**
+   * 응답 변경 핸들러
+   * @param newResponse - 새로운 응답 값
+   */
+  const handleResponseChange = useCallback(
+    (newResponse: string | number | string[] | number[]) => {
+      setResponse(question.timestamp, newResponse);
+    },
+    [question.timestamp, setResponse],
+  );
 
   return (
     <div
