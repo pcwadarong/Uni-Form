@@ -1,66 +1,58 @@
-import { initSurveyInfo } from "@/constants/initSurveyInfo";
-import { useSurveyStore } from "@/features/survey/create/store/survey";
-import type { Question } from "@/features/survey/types";
 import { firestore } from "@/lib/firebase/firebaseConfig";
 import { FirebaseError } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, increment, setDoc, updateDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
+
+interface SaveResponsePayload {
+  formId: string;
+  answers: Array<{
+    questionId: number;
+    timestamp: string;
+    response: string | number | string[] | number[];
+  }>;
+}
 
 /**
  * 응답 저장 훅
- * 설문 응답을 Firestore에 저장
+ * forms/formQuestions를 다시 생성하지 않고 responses만 저장한다.
  * @returns 응답 저장 함수
  */
 export const useSaveResponse = () => {
-  const { surveyInfo, setSurveyInfo } = useSurveyStore();
   const auth = getAuth();
   const router = useRouter();
 
   /**
    * 응답 저장 함수
-   * @param category - 설문 카테고리 (설문조사 또는 모집공고)
+   * @param payload - 저장할 응답 데이터
    */
-  const saveResponse = async (category: string) => {
-    const cat = category === "설문조사" ? "surveys" : "recruits";
-    const date = new Date().toISOString();
-    const id = `${category === "설문조사" ? "survey" : "recruit"}-${date}`;
-
+  const saveResponse = async (payload: SaveResponsePayload) => {
     const user = auth.currentUser;
     const uid = user ? user.uid : "unknown";
-
-    const filteredSurveyInfo = {
-      ...Object.fromEntries(Object.entries(surveyInfo).filter(([key]) => key !== "questions")),
-      id: id,
-      uid: uid,
-    };
-
-    const validatedQuestions = surveyInfo.questions.map((question) => {
-      const validatedQuestion: Partial<Question> = {};
-
-      for (const key of Object.keys(question) as Array<keyof Question>) {
-        if (question[key] !== undefined)
-          (validatedQuestion[key] as Question[keyof Question]) = question[key];
-      }
-
-      return validatedQuestion;
-    });
-
-    const questions = {
-      id: id,
-      questions: validatedQuestions,
-    };
+    const responseId = `${payload.formId}-${uid}`;
 
     try {
-      await setDoc(doc(firestore, cat, id), filteredSurveyInfo);
-      await setDoc(doc(firestore, "questions", id), questions);
-      setSurveyInfo(initSurveyInfo);
+      await setDoc(doc(firestore, "responses", responseId), {
+        id: responseId,
+        formId: payload.formId,
+        uid,
+        content: payload.answers,
+        createdAt: Date.now(),
+      });
+
+      /**
+       * TODO: 트랜잭션으로 전환해 동시성 상황에서도 카운트 정확도를 보장한다.
+       */
+      await updateDoc(doc(firestore, "forms", payload.formId), {
+        responsesCount: increment(1),
+      });
+
       router.push("/");
     } catch (error) {
       if (error instanceof FirebaseError) {
-        console.error("Error Saving Document:", error.code, error.message);
+        console.error("Error Saving Response:", error.code, error.message);
       } else {
-        console.error("Unknown error saving document:", error);
+        console.error("Unknown error saving response:", error);
       }
       return null;
     }

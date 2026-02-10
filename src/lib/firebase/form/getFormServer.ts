@@ -4,6 +4,38 @@ import { FirebaseError } from "firebase/app";
 import type { DocumentData } from "firebase/firestore";
 
 /**
+ * 설문 타입 파라미터를 forms.type 값으로 정규화한다.
+ * @param surveyType - 기존 컬렉션 명 기반 타입
+ * @returns forms 컬렉션의 type 값
+ */
+const resolveFormType = (surveyType: "surveys" | "recruits"): "survey" | "recruit" =>
+  surveyType === "surveys" ? "survey" : "recruit";
+
+/**
+ * Firestore 문서 데이터를 Form 형태로 변환한다.
+ * @param rawData - Firestore 원본 데이터
+ * @param id - 문서 ID
+ * @returns Form 타입 데이터
+ */
+const mapRawToForm = (rawData: DocumentData, id: string): Form => ({
+  id,
+  uid: rawData.uid ?? "",
+  title: rawData.title ?? "",
+  description: rawData.description ?? null,
+  img: rawData.img ?? null,
+  createdAt: rawData.createdAt?.toMillis?.() ?? rawData.createdAt ?? 0,
+  startDate: rawData.startDate?.toMillis?.() ?? rawData.startDate ?? 0,
+  endDate: rawData.endDate?.toMillis?.() ?? rawData.endDate ?? 0,
+  category: rawData.category ?? "",
+  isEditable: rawData.isEditable ?? false,
+  isPublic: rawData.isPublic ?? false,
+  responsesCount: rawData.responsesCount ?? 0,
+  commentsCount: rawData.commentsCount ?? 0,
+  point: rawData.point ?? 0,
+  type: rawData.type,
+});
+
+/**
  * 서버에서 폼 데이터 조회
  * @param surveyType - 폼 타입 ("surveys" | "recruits")
  * @param id - 폼 ID
@@ -17,22 +49,22 @@ export const fetchForm = async (
   includeQuestions = false,
 ): Promise<Form | Detail> => {
   try {
-    const docRef = adminFirestore.collection(surveyType).doc(id);
+    const docRef = adminFirestore.collection("forms").doc(id);
     const docSnap = await docRef.get();
 
     if (!docSnap.exists) throw new Error("해당하는 폼이 존재하지 않습니다.");
 
     const rawData = docSnap.data() as DocumentData;
+    const expectedType = resolveFormType(surveyType);
 
-    const baseData = {
-      ...rawData,
-      id: docSnap.id,
-      startDate: rawData.startDate?.toMillis?.() ?? null,
-      endDate: rawData.endDate?.toMillis?.() ?? null,
-    };
+    if (rawData.type !== expectedType) {
+      throw new Error("요청한 폼 타입과 저장된 폼 타입이 일치하지 않습니다.");
+    }
+
+    const baseData = mapRawToForm(rawData, docSnap.id);
 
     if (includeQuestions) {
-      const questionsDocSnap = await adminFirestore.collection("questions").doc(id).get();
+      const questionsDocSnap = await adminFirestore.collection("formQuestions").doc(id).get();
 
       const questionsArray = questionsDocSnap.exists
         ? (questionsDocSnap.data()?.questions ?? [])
@@ -79,7 +111,7 @@ export const fetchLatestCommentsWithFormTitles = async (
         if (!data.formId || typeof data.formId !== "string")
           throw new Error(`Invalid formId in comment: ${doc.id}`);
 
-        const formDocSnap = await adminFirestore.collection("surveys").doc(data.formId).get();
+        const formDocSnap = await adminFirestore.collection("forms").doc(data.formId).get();
 
         const formTitle = formDocSnap.exists
           ? (formDocSnap.data()?.title ?? "제목 없음")
@@ -118,30 +150,28 @@ export const fetchSimilarForms = async (
   cat: string,
 ): Promise<Form[] | null> => {
   try {
-    const ref = adminFirestore.collection(surveyType);
-
-    const convertDateFields = (rawData: DocumentData, id: string) =>
-      ({
-        ...rawData,
-        id,
-        startDate: rawData.startDate?.toMillis?.() ?? null,
-        endDate: rawData.endDate?.toMillis?.() ?? null,
-        createdAt: rawData.createdAt?.toMillis?.() ?? null,
-      }) as Form;
+    const formType = resolveFormType(surveyType);
+    const ref = adminFirestore.collection("forms").where("type", "==", formType);
 
     // first filtering: same category
     const categorySnapshot = await ref.where("category", "==", cat).get();
     const matchedDocs = categorySnapshot.docs
       .filter((doc) => doc.id !== currentId)
-      .map((doc) => convertDateFields(doc.data(), doc.id));
+      .map((doc) => mapRawToForm(doc.data(), doc.id));
 
     if (matchedDocs.length >= 3) return matchedDocs.slice(0, 3);
 
-    const additionalSnapshot = await ref.orderBy("__name__", "desc").limit(6).get();
+    const additionalSnapshot = await adminFirestore
+      .collection("forms")
+      .where("type", "==", formType)
+      .orderBy("createdAt", "desc")
+      .limit(6)
+      .get();
+
     const additionalDocs = additionalSnapshot.docs
       .filter((doc) => doc.id !== currentId)
       .filter((doc) => doc.data().category !== cat)
-      .map((doc) => convertDateFields(doc.data(), doc.id));
+      .map((doc) => mapRawToForm(doc.data(), doc.id));
 
     const combined = [...matchedDocs, ...additionalDocs].slice(0, 3);
 

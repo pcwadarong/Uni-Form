@@ -1,14 +1,8 @@
 "use client";
 
 import Loading from "@/app/loading";
-import {
-  fetchCommentsClient,
-  getCommentSnapshotById,
-} from "@/lib/firebase/comment/getCommentsClient";
+import { useInfiniteComments } from "@/features/survey/entry/hooks/useInfiniteComments";
 import type { Comment, Form } from "@/types";
-import { type InfiniteData, useInfiniteQuery } from "@tanstack/react-query";
-import type { DocumentData, QueryDocumentSnapshot } from "firebase/firestore";
-import { useEffect, useState } from "react";
 import Comments from "./comment";
 
 interface Props {
@@ -19,12 +13,10 @@ interface Props {
   totalCount: number;
 }
 
-interface CommentPage {
-  comments: Comment[];
-  lastDoc: QueryDocumentSnapshot<DocumentData> | null;
-  hasMore: boolean;
-}
-
+/**
+ * 댓글 조회/페이지네이션은 훅으로 분리하고,
+ * 이 컴포넌트는 화면 조합과 상태 전달만 담당한다.
+ */
 export default function EntryClient({
   item,
   initialComments,
@@ -32,83 +24,24 @@ export default function EntryClient({
   initialHasNextPage,
   totalCount,
 }: Props) {
-  const [initialLastDoc, setInitialLastDoc] = useState<QueryDocumentSnapshot<DocumentData> | null>(
-    null,
-  );
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    const fetchLastDoc = async () => {
-      if (lastDocId) {
-        const snap = await getCommentSnapshotById(lastDocId);
-        setInitialLastDoc(snap);
-      }
-      setReady(true);
-    };
-    fetchLastDoc();
-  }, [lastDocId]);
+  const { ready, allComments, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
+    useInfiniteComments({
+      formId: item.id,
+      initialComments,
+      lastDocId,
+      initialHasNextPage,
+    });
 
   if (!ready) return <Loading />;
-
-  return (
-    <CommentQueryClient
-      item={item}
-      initialComments={initialComments}
-      initialLastDoc={initialLastDoc}
-      initialHasNextPage={initialHasNextPage}
-      totalCount={totalCount}
-    />
-  );
-}
-
-interface CommentQueryClientProps {
-  item: Form;
-  initialComments: Comment[];
-  initialLastDoc: QueryDocumentSnapshot<DocumentData> | null;
-  initialHasNextPage: boolean;
-  totalCount: number;
-}
-
-function CommentQueryClient({
-  item,
-  initialComments,
-  initialLastDoc,
-  initialHasNextPage,
-  totalCount,
-}: CommentQueryClientProps) {
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery<
-    CommentPage,
-    Error,
-    InfiniteData<CommentPage>,
-    [string, string],
-    QueryDocumentSnapshot<DocumentData> | null
-  >({
-    queryKey: ["comments", item.id],
-    queryFn: async ({ pageParam }) => await fetchCommentsClient(item.id, 5, pageParam ?? null),
-    getNextPageParam: (lastPage) => (lastPage.comments.length > 0 ? lastPage.lastDoc : undefined),
-    initialPageParam: null,
-    initialData: {
-      pages: [
-        {
-          comments: initialComments,
-          lastDoc: initialLastDoc,
-          hasMore: initialHasNextPage,
-        },
-      ],
-      pageParams: [null],
-    },
-  });
-
-  const allComments = data?.pages.flatMap((page) => page.comments) ?? [];
 
   return (
     <Comments
       formId={item.id}
       comments={allComments}
       loadMore={fetchNextPage}
-      hasNextPage={hasNextPage ?? false}
+      hasNextPage={hasNextPage}
       isFetching={isFetchingNextPage}
-      isLoading={data?.pages.length === 0}
+      isLoading={isLoading}
       totalCount={totalCount}
     />
   );

@@ -18,6 +18,8 @@ export interface Form {
   responsesCount: number;
   commentsCount: number;
   point?: number;
+  /** 폼 종류(단일 forms 컬렉션에서 사용) */
+  type?: "survey" | "recruit";
 }
 
 /**

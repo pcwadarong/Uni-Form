@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 
 /**
  * 설문 저장 훅
- * 설문 정보와 질문을 Firestore에 저장
+ * `forms` 단일 컬렉션 + `type` 필드 구조로 저장한다.
  * @returns 설문 저장 함수
  */
 export const useSaveSurvey = () => {
@@ -19,25 +19,29 @@ export const useSaveSurvey = () => {
 
   /**
    * 설문 저장 함수
-   * @param category - 설문 카테고리 (설문조사 또는 모집공고)
+   * @param category - 화면에서 사용하는 카테고리 문자열(설문조사/모집공고)
    */
   const saveSurvey = async (category: string) => {
-    const cat = category === "설문조사" ? "surveys" : "recruits";
+    /**
+     * TODO: category 문자열 의존을 enum/상수로 통일한다.
+     */
+    const formType = category === "설문조사" ? "survey" : "recruit";
     const date = new Date().toISOString();
-    const id = `${category === "설문조사" ? "survey" : "recruit"}-${date}`;
+    const id = `${formType}-${date}`;
 
     const user = auth.currentUser;
     const uid = user ? user.uid : "unknown";
 
     const filteredSurveyInfo = {
       ...Object.fromEntries(Object.entries(surveyInfo).filter(([key]) => key !== "questions")),
-      id: id,
-      uid: uid,
+      id,
+      uid,
+      type: formType,
     };
 
     /**
      * 질문 데이터 유효성 검사 및 정리
-     * undefined 값 제거
+     * undefined 값을 제거해 Firestore 저장 데이터를 최소화한다.
      */
     const validatedQuestions = surveyInfo.questions.map((question) => {
       const validatedQuestion: Partial<Question> = {};
@@ -51,13 +55,13 @@ export const useSaveSurvey = () => {
     });
 
     const questions = {
-      id: id,
+      id,
       questions: validatedQuestions,
     };
 
     try {
-      await setDoc(doc(firestore, cat, id), filteredSurveyInfo);
-      await setDoc(doc(firestore, "questions", id), questions);
+      await setDoc(doc(firestore, "forms", id), filteredSurveyInfo);
+      await setDoc(doc(firestore, "formQuestions", id), questions);
       setSurveyInfo(initSurveyInfo);
       router.push("/");
     } catch (error) {

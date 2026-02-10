@@ -2,7 +2,12 @@ import { adminFirestore } from "@/lib/firebase/firebaseAdminConfig";
 import type { Form, SortType } from "@/types";
 import type { QueryDocumentSnapshot } from "firebase-admin/firestore";
 
-const mapDocumentToForm = (doc: QueryDocumentSnapshot, formType: "survey" | "recruit"): Form => {
+/**
+ * Firestore 문서를 Form 타입으로 변환한다.
+ * @param doc - Firestore Query 문서
+ * @returns Form 데이터
+ */
+const mapDocumentToForm = (doc: QueryDocumentSnapshot): Form => {
   const data = doc.data();
 
   return {
@@ -19,14 +24,14 @@ const mapDocumentToForm = (doc: QueryDocumentSnapshot, formType: "survey" | "rec
     isPublic: data.isPublic ?? false,
     responsesCount: data.responsesCount ?? 0,
     commentsCount: data.commentsCount ?? 0,
-    ...(formType === "survey" ? { point: data.point ?? 0 } : {}),
+    ...(data.type === "survey" ? { point: data.point ?? 0 } : {}),
   };
 };
 
 /**
  * 정렬 타입에 따라 폼 목록 조회
  * @param formType - 폼 타입 ("survey" | "recruit")
- * @param sortType - 정렬 타입 ("public" | "recent" | "highPoint" | "popular" | "endingSoon")
+ * @param sortType - 정렬 타입
  * @returns 폼 배열
  */
 export const fetchFormList = async (
@@ -34,7 +39,7 @@ export const fetchFormList = async (
   sortType: SortType,
 ): Promise<Form[]> => {
   try {
-    const ref = adminFirestore.collection(formType === "survey" ? "surveys" : "recruits");
+    const ref = adminFirestore.collection("forms").where("type", "==", formType);
 
     let queryRef: FirebaseFirestore.Query = ref;
 
@@ -64,7 +69,7 @@ export const fetchFormList = async (
     }
 
     const snapshot = await queryRef.get();
-    return snapshot.docs.map((doc) => mapDocumentToForm(doc, formType));
+    return snapshot.docs.map((doc) => mapDocumentToForm(doc));
   } catch (error) {
     console.error(`Error fetching ${sortType} ${formType}s:`, error);
     return [];
