@@ -1,6 +1,7 @@
 // my forms (isPublic)
 
 import { adminFirestore } from "@/lib/firebase/firebaseAdminConfig";
+import { type RawFormData, mapRawToForm } from "@/lib/utils/mapRawToForm";
 import type { Form } from "@/types";
 
 /**
@@ -16,5 +17,5 @@ export const handleCreatedForms = async (uid: string): Promise<Form[]> => {
     .limit(6)
     .get();
 
-  return formsSnap.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as Form[];
+  return formsSnap.docs.map((doc) => mapRawToForm(doc.data() as RawFormData, doc.id));
 };
