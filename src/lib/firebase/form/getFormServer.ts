@@ -14,14 +14,12 @@ const resolveFormType = (surveyType: "surveys" | "recruits"): "survey" | "recrui
 
 /**
  * 서버에서 폼 데이터 조회
- * @param surveyType - 폼 타입 ("surveys" | "recruits")
  * @param id - 폼 ID
  * @param includeQuestions - 질문 포함 여부 (기본: false)
  * @returns 폼 데이터 (Form 또는 Detail)
  * @throws 폼이 존재하지 않거나 Firebase 에러 발생 시
  */
 export const fetchForm = async (
-  surveyType: "surveys" | "recruits",
   id: string,
   includeQuestions = false,
 ): Promise<Form | Detail> => {
@@ -32,11 +30,6 @@ export const fetchForm = async (
     if (!docSnap.exists) throw new Error("해당하는 폼이 존재하지 않습니다.");
 
     const rawData = docSnap.data() as RawFormData;
-    const expectedType = resolveFormType(surveyType);
-
-    if (rawData.type !== expectedType) {
-      throw new Error("요청한 폼 타입과 저장된 폼 타입이 일치하지 않습니다.");
-    }
 
     const baseData = mapRawToForm(rawData, docSnap.id);
 

@@ -30,8 +30,8 @@ export default async function Entry({
   if (!itemId) return notFound();
 
   // 해당하는 doc에서 데이터 가져오기
-  const type = itemId.startsWith("survey") ? "surveys" : "recruits";
-  const item = await fetchForm(type, itemId);
+  const item = await fetchForm(itemId);
+  const type = item.type === "survey" ? "surveys" : "recruits";
 
   // 초기 댓글 5개 + 1개 매칭하여 가져오기
   const {

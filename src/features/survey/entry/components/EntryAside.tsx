@@ -25,6 +25,7 @@ export function EntryAside({ item, encryptedId, hasAnswered }: EntryAsideProps) 
           height={150}
           alt="form 이미지"
           className="hidden rounded-md border border-gray-300 md:flex"
+          priority
         />
       )}
       {item.isPublic && (
