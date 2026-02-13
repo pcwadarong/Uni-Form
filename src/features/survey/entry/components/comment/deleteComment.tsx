@@ -1,11 +1,11 @@
 "use client";
 
 import { INITIAL_ACTION_STATE } from "@/constants/states";
+import { toast } from "@/features/shared/ui/sonner";
 import { deleteCommentsAction } from "@/features/survey/entry/actions/comments";
 import type { ActionState } from "@/types";
 import { useQueryClient } from "@tanstack/react-query";
 import { useActionState, useEffect } from "react";
-import { toast } from "sonner";
 
 export default function DeleteComment({
   formId,
@@ -25,7 +25,7 @@ export default function DeleteComment({
     if (!result) return;
 
     if (!result.status) {
-      console.error(result.error);
+      toast.error(result.error ?? "댓글 삭제에 실패했습니다.");
     } else {
       toast("댓글이 삭제되었습니다.");
       queryClient.invalidateQueries({ queryKey: ["comments", formId] });

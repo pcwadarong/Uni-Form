@@ -2,6 +2,7 @@
 
 import { initSurveyInfo } from "@/constants/initSurveyInfo";
 import SVGIcon from "@/features/shared/icons/icons";
+import { toast } from "@/features/shared/ui/sonner";
 import { useSurveyStore } from "@/features/survey/create/store/survey";
 import getRandomColor from "@/features/survey/utils/getRandomColor";
 import { useRouter } from "next/navigation";
@@ -25,8 +26,8 @@ export function TemplateBox({ link, text }: TemplateBoxProps) {
     try {
       setSurveyInfo(initSurveyInfo);
       router.push(link);
-    } catch (error) {
-      console.error("Failed to set survey info:", error);
+    } catch {
+      toast.error("템플릿 이동 중 오류가 발생했습니다.");
     }
   };
 

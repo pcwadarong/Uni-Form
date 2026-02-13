@@ -1,11 +1,11 @@
 import { Button } from "@/features/shared/ui/button";
+import { toast } from "@/features/shared/ui/sonner";
 import { syncProfileImage } from "@/lib/firebase/user/client/updateProfileImage";
 import imageCompression from "browser-image-compression";
 import type { User } from "firebase/auth";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
-import { toast } from "sonner";
 import FormBlock from "./formBlock";
 
 interface Props {
@@ -49,8 +49,7 @@ export default function ProfileImageForm({ user, photoURL }: Props) {
 
       toast.success("프로필 이미지가 저장되었습니다.");
       router.refresh();
-    } catch (err) {
-      console.error("저장 실패", err);
+    } catch {
       toast.error("프로필 이미지 저장 중 오류가 발생했습니다.");
     }
   };

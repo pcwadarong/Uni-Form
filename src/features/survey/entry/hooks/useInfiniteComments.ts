@@ -1,5 +1,6 @@
 "use client";
 
+import { toast } from "@/features/shared/ui/sonner";
 import {
   type CommentPage,
   fetchCommentPage,
@@ -40,8 +41,8 @@ export const useInfiniteComments = ({
       try {
         const snapshot = await fetchLastCommentSnapshot(lastDocId);
         setInitialLastDoc(snapshot);
-      } catch (err) {
-        console.error("Failed to load initial comment snapshot:", err);
+      } catch {
+        toast.error("초기 댓글을 불러오는 중 오류가 발생했습니다.");
       } finally {
         setReady(true);
       }

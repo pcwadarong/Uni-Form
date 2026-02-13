@@ -1,5 +1,6 @@
 "use client";
 
+import { toast } from "@/features/shared/ui/sonner";
 import type { User } from "@/features/user/types";
 import { auth, firestore } from "@/lib/firebase/firebaseConfig";
 import { type User as FirebaseUser, onAuthStateChanged, signOut } from "firebase/auth";
@@ -41,8 +42,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             console.warn("No user document found in Firestore");
             setUser(null);
           }
-        } catch (err) {
-          console.error("Error fetching user document:", err);
+        } catch {
+          toast.error("사용자 정보를 불러오는 중 오류가 발생했습니다.");
           setUser(null);
         }
       } else {

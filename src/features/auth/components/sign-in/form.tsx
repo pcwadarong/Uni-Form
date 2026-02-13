@@ -8,10 +8,10 @@ import { handleLogin } from "@/lib/firebase/auth/sign-in";
 import { type SignInInput, signInSchema } from "@/lib/validation/authSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import { toast } from "@/features/shared/ui/sonner";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 
 const Form = () => {
   const router = useRouter();
@@ -40,7 +40,7 @@ const Form = () => {
   const handleGoogleLogin = async () => {
     const success = await handleLogin("google");
     if (success) router.push("/");
-    else console.error("Google sign in failed");
+    else toast.error("Google 로그인에 실패했습니다.");
   };
 
   return (
