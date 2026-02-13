@@ -21,7 +21,6 @@ export default async function EntryIntercept({ params }: { params: Promise<{ id:
   if (!itemId) return notFound();
 
   const item = await fetchForm(itemId);
-  const type = item.type === "survey" ? "surveys" : "recruits";
   const { comments: initialComments } = await fetchCommentsServer(item.id, 3);
 
   return (

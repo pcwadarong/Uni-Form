@@ -14,7 +14,7 @@ export function EntryHeader({ item, type }: { item: Form; type: string }) {
   const CATEGORY_LABELS = type === "surveys" ? SURVEY_CATEGORY_LABELS : RECRUIT_CATEGORY_LABELS;
   return (
     <div>
-      <div className="subtitle mb-3 space-x-2 text-gray-400">
+      <div className="subtitle mb-3 flex-1 space-x-2 text-gray-400">
         <span>{type === "surveys" ? "#설문조사" : "#모집공고"}</span>
         <span>{`#${CATEGORY_LABELS[item.category]}`}</span>
       </div>

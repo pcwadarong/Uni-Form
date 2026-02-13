@@ -51,7 +51,7 @@ export default function Comments({
             <li key={comment.id} className="rounded-xl border border-gray-300 px-4 py-3">
               <div className="flex items-center">
                 <span className="font-semibold">{comment.displayName}</span>
-                <span className="caption ml-2">
+                <span className="caption ml-2 text-gray-400">
                   {comment.createdAt && new Date(comment.createdAt).toLocaleString()}
                 </span>
                 <div className="flex-1 text-end">

@@ -22,7 +22,9 @@ export type RawFormData = Record<string, unknown> & {
 };
 
 const toMillis = (v: TimestampLike | undefined): number =>
-  typeof v === "object" && v !== null && typeof (v as { toMillis?: () => number }).toMillis === "function"
+  typeof v === "object" &&
+  v !== null &&
+  typeof (v as { toMillis?: () => number }).toMillis === "function"
     ? (v as { toMillis: () => number }).toMillis()
     : typeof v === "number"
       ? v

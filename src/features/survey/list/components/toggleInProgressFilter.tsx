@@ -14,6 +14,7 @@ const ToggleInProgressFilter: React.FC<ToggleInProgressFilterProps> = ({ checked
     <div className="flex items-center gap-2">
       <input
         type="checkbox"
+        className="cursor-pointer"
         name="inProgress"
         id="inProgress"
         checked={checked}

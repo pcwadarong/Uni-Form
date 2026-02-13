@@ -51,7 +51,7 @@ export default async function Entry({
       <section className="flex flex-col gap-10 md:flex-row">
         <MobileImage img={item.img ?? ""} />
 
-        <main className="flex flex-col justify-between">
+        <main className="flex flex-1 flex-col justify-between">
           <EntryHeader item={item} type={type} />
           <ActionButtons />
         </main>

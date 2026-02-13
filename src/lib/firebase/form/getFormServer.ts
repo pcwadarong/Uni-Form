@@ -1,5 +1,5 @@
-import { type RawFormData, mapRawToForm } from "@/lib/utils/mapRawToForm";
 import { adminFirestore } from "@/lib/firebase/firebaseAdminConfig";
+import { type RawFormData, mapRawToForm } from "@/lib/utils/mapRawToForm";
 import type { Comment, Detail, Form } from "@/types";
 import { FirebaseError } from "firebase/app";
 import type { DocumentData } from "firebase/firestore";
@@ -19,10 +19,7 @@ const resolveFormType = (surveyType: "surveys" | "recruits"): "survey" | "recrui
  * @returns 폼 데이터 (Form 또는 Detail)
  * @throws 폼이 존재하지 않거나 Firebase 에러 발생 시
  */
-export const fetchForm = async (
-  id: string,
-  includeQuestions = false,
-): Promise<Form | Detail> => {
+export const fetchForm = async (id: string, includeQuestions = false): Promise<Form | Detail> => {
   try {
     const docRef = adminFirestore.collection("forms").doc(id);
     const docSnap = await docRef.get();
