@@ -46,7 +46,7 @@ export default function FormCardItem({ item, type }: FormCardItemProps) {
             />
           )}
         </div>
-        <div className="flex w-full flex-1 flex-col justify-between bg-surface px-6 py-6 dark:bg-muted">
+        <div className="flex w-full flex-1 flex-col justify-between bg-surface px-6 py-6 dark:bg-tone1">
           <div>
             <Special endDate={item.endDate} point={item.point} showPoint={showPoint} />
             <h3 className="body1 mt-3 mb-2 line-clamp-2 md:text-xl">{item.title}</h3>

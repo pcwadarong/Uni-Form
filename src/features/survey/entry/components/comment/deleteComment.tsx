@@ -43,7 +43,7 @@ export default function DeleteComment({
     >
       <input type="hidden" name="formId" value={formId} readOnly />
       <input type="hidden" name="commentId" value={commentId} readOnly />
-      <button type="submit" disabled={isPending} className="text-destructive">
+      <button type="submit" disabled={isPending} className="caption text-destructive">
         {isPending ? "삭제 중..." : "삭제"}
       </button>
     </form>

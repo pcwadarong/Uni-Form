@@ -26,7 +26,7 @@ export function FormContent({ item }: { item: Form }) {
       <hr className="w-full border border-green-300" />
       {item.description && <p>{formatTextWithLineBreaks(item.description)}</p>}
       <div className="flex justify-between">
-        <span className="caption truncate text-gray-4">
+        <span className="caption truncate text-gray-400">
           {`${formatDate(item.startDate, true)} ~ ${formatDate(item.endDate, true)}`}
         </span>
         <Reaction responsesCount={item.responsesCount} commentsCount={item.commentsCount} />

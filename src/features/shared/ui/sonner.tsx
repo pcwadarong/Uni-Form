@@ -14,7 +14,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
         {
           "--normal-bg": "var(--color-surface)",
           "--normal-text": "var(--color-content)",
-          "--normal-border": "var(--color-green-300)"
+          "--normal-border": "var(--color-green-300)",
         } as React.CSSProperties
       }
       {...props}
