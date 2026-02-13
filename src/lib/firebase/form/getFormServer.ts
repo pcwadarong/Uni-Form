@@ -1,4 +1,5 @@
 import { adminFirestore } from "@/lib/firebase/firebaseAdminConfig";
+import { type RawFormData, mapRawToForm } from "@/lib/utils/mapRawToForm";
 import type { Comment, Detail, Form } from "@/types";
 import { FirebaseError } from "firebase/app";
 import type { DocumentData } from "firebase/firestore";
@@ -12,54 +13,20 @@ const resolveFormType = (surveyType: "surveys" | "recruits"): "survey" | "recrui
   surveyType === "surveys" ? "survey" : "recruit";
 
 /**
- * Firestore 문서 데이터를 Form 형태로 변환한다.
- * @param rawData - Firestore 원본 데이터
- * @param id - 문서 ID
- * @returns Form 타입 데이터
- */
-const mapRawToForm = (rawData: DocumentData, id: string): Form => ({
-  id,
-  uid: rawData.uid ?? "",
-  title: rawData.title ?? "",
-  description: rawData.description ?? null,
-  img: rawData.img ?? null,
-  createdAt: rawData.createdAt?.toMillis?.() ?? rawData.createdAt ?? 0,
-  startDate: rawData.startDate?.toMillis?.() ?? rawData.startDate ?? 0,
-  endDate: rawData.endDate?.toMillis?.() ?? rawData.endDate ?? 0,
-  category: rawData.category ?? "",
-  isEditable: rawData.isEditable ?? false,
-  isPublic: rawData.isPublic ?? false,
-  responsesCount: rawData.responsesCount ?? 0,
-  commentsCount: rawData.commentsCount ?? 0,
-  point: rawData.point ?? 0,
-  type: rawData.type,
-});
-
-/**
  * 서버에서 폼 데이터 조회
- * @param surveyType - 폼 타입 ("surveys" | "recruits")
  * @param id - 폼 ID
  * @param includeQuestions - 질문 포함 여부 (기본: false)
  * @returns 폼 데이터 (Form 또는 Detail)
  * @throws 폼이 존재하지 않거나 Firebase 에러 발생 시
  */
-export const fetchForm = async (
-  surveyType: "surveys" | "recruits",
-  id: string,
-  includeQuestions = false,
-): Promise<Form | Detail> => {
+export const fetchForm = async (id: string, includeQuestions = false): Promise<Form | Detail> => {
   try {
     const docRef = adminFirestore.collection("forms").doc(id);
     const docSnap = await docRef.get();
 
     if (!docSnap.exists) throw new Error("해당하는 폼이 존재하지 않습니다.");
 
-    const rawData = docSnap.data() as DocumentData;
-    const expectedType = resolveFormType(surveyType);
-
-    if (rawData.type !== expectedType) {
-      throw new Error("요청한 폼 타입과 저장된 폼 타입이 일치하지 않습니다.");
-    }
+    const rawData = docSnap.data() as RawFormData;
 
     const baseData = mapRawToForm(rawData, docSnap.id);
 
@@ -157,7 +124,7 @@ export const fetchSimilarForms = async (
     const categorySnapshot = await ref.where("category", "==", cat).get();
     const matchedDocs = categorySnapshot.docs
       .filter((doc) => doc.id !== currentId)
-      .map((doc) => mapRawToForm(doc.data(), doc.id));
+      .map((doc) => mapRawToForm(doc.data() as RawFormData, doc.id));
 
     if (matchedDocs.length >= 3) return matchedDocs.slice(0, 3);
 
@@ -171,7 +138,7 @@ export const fetchSimilarForms = async (
     const additionalDocs = additionalSnapshot.docs
       .filter((doc) => doc.id !== currentId)
       .filter((doc) => doc.data().category !== cat)
-      .map((doc) => mapRawToForm(doc.data(), doc.id));
+      .map((doc) => mapRawToForm(doc.data() as RawFormData, doc.id));
 
     const combined = [...matchedDocs, ...additionalDocs].slice(0, 3);
 

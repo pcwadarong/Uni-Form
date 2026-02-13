@@ -1,5 +1,3 @@
-// responded Forms + bookmarked Forms
-
 import { adminFirestore } from "@/lib/firebase/firebaseAdminConfig";
 import { batchQueryByIds } from "@/lib/utils/batchQueryByIds";
 import type { Form } from "@/types";

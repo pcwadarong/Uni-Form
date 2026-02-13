@@ -30,8 +30,8 @@ export default async function Entry({
   if (!itemId) return notFound();
 
   // 해당하는 doc에서 데이터 가져오기
-  const type = itemId.startsWith("survey") ? "surveys" : "recruits";
-  const item = await fetchForm(type, itemId);
+  const item = await fetchForm(itemId);
+  const type = item.type === "survey" ? "surveys" : "recruits";
 
   // 초기 댓글 5개 + 1개 매칭하여 가져오기
   const {
@@ -51,7 +51,7 @@ export default async function Entry({
       <section className="flex flex-col gap-10 md:flex-row">
         <MobileImage img={item.img ?? ""} />
 
-        <main className="flex flex-col justify-between">
+        <main className="flex flex-1 flex-col justify-between">
           <EntryHeader item={item} type={type} />
           <ActionButtons />
         </main>

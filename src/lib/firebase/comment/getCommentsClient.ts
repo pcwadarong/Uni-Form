@@ -1,4 +1,5 @@
 import { firestore } from "@/lib/firebase/firebaseConfig";
+import { fetchUserDisplayNameClient } from "@/lib/firebase/user/client/fetchUserDisplayNameClient";
 import type { Comment } from "@/types";
 import {
   type DocumentData,
@@ -13,7 +14,6 @@ import {
   startAfter,
   where,
 } from "firebase/firestore";
-import { fetchUserDisplayNameClient } from "../user/client/fetchUserDisplayNameClient";
 
 export const getCommentSnapshotById = async (
   id: string,

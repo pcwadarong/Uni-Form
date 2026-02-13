@@ -17,7 +17,7 @@ export default function FloatingControls() {
   };
 
   const commonClass =
-    "w-11 h-11 rounded-full border border-gray-300 bg-surface text-xl font-bold text-content/60 drop-shadow-md hover:bg-green-300";
+    "w-11 h-11 rounded-full border border-gray-300 text-xl font-bold text-content/60 drop-shadow-md hover:bg-green-300";
 
   return (
     <div className="fixed right-10 bottom-10 hidden gap-3 text-center leading-4 sm:flex">

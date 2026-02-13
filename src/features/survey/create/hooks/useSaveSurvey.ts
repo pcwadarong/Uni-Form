@@ -22,15 +22,19 @@ export const useSaveSurvey = () => {
    * @param category - 화면에서 사용하는 카테고리 문자열(설문조사/모집공고)
    */
   const saveSurvey = async (category: string) => {
+    const user = auth.currentUser;
+    if (!user) {
+      console.error("설문 저장 실패: 로그인이 필요합니다.");
+      return null;
+    }
+
     /**
      * TODO: category 문자열 의존을 enum/상수로 통일한다.
      */
     const formType = category === "설문조사" ? "survey" : "recruit";
     const date = new Date().toISOString();
     const id = `${formType}-${date}`;
-
-    const user = auth.currentUser;
-    const uid = user ? user.uid : "unknown";
+    const uid = user.uid;
 
     const filteredSurveyInfo = {
       ...Object.fromEntries(Object.entries(surveyInfo).filter(([key]) => key !== "questions")),

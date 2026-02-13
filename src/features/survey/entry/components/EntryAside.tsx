@@ -25,6 +25,7 @@ export function EntryAside({ item, encryptedId, hasAnswered }: EntryAsideProps) 
           height={150}
           alt="form 이미지"
           className="hidden rounded-md border border-gray-300 md:flex"
+          priority
         />
       )}
       {item.isPublic && (
@@ -35,7 +36,7 @@ export function EntryAside({ item, encryptedId, hasAnswered }: EntryAsideProps) 
       {item.endDate - Date.now() > 0 &&
         (hasAnswered ? (
           <LinkButton
-            className="w-full bg-blue-400 text-white"
+            className="w-full bg-green-400 text-white"
             href={`/edit-response/${encryptedId}`}
           >
             수정하기

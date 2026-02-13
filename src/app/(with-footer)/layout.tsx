@@ -1,6 +1,6 @@
+import Loading from "@/app/loading";
 import Footer from "@/features/shared/layout/footer";
 import { Suspense } from "react";
-import Loading from "../loading";
 
 /**
  * 푸터 포함 레이아웃 컴포넌트

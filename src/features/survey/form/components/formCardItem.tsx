@@ -42,6 +42,7 @@ export default function FormCardItem({ item, type }: FormCardItemProps) {
               alt={`${type === "survey" ? "설문" : "모집"} 이미지`}
               width={100}
               height={100}
+              priority
             />
           )}
         </div>

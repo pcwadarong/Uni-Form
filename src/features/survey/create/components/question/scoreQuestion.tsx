@@ -1,6 +1,6 @@
+import Options from "@/features/survey/create/components/options";
 import isModeDisabled from "@/lib/utils/isModeDisabled";
 import type { QuestionProps } from "@/types";
-import Options from "../options";
 const ScoreQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
   const isDisabled = isModeDisabled(mode);
 

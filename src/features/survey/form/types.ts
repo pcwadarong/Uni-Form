@@ -2,7 +2,7 @@
  * 설문 응답 관련 타입 정의
  */
 
-import type { Form } from "../types";
+import type { Form } from "@/features/survey/types";
 
 /**
  * 답변 타입

@@ -20,7 +20,7 @@ export default function Special({ endDate, point = 0, showPoint = false }: Speci
     <div className="flex space-x-2 truncate">
       {remainingDays && (
         <span
-          className="caption rounded-md bg-demonstrate px-2 py-1 text-center text-red-500"
+          className="caption rounded-md bg-demonstrate bg-red-500 px-2 py-1 text-center text-gray-50"
           aria-label={`마감 ${remainingDays}일 전`}
         >
           마감 {remainingDays}일 전

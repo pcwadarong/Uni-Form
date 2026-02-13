@@ -1,5 +1,5 @@
+import { IconMap, type IconMapTypes, type IconSizeTypes, IconSizes } from "@/features/shared/icons";
 import type React from "react";
-import { IconMap, type IconMapTypes, type IconSizeTypes, IconSizes } from "../icons";
 
 interface SVGIconProps extends React.SVGProps<SVGSVGElement> {
   title?: string;
@@ -22,7 +22,7 @@ const SVGIcon = ({
   name,
   size = "md",
   color = "currentColor",
-  fill = "none",
+  fill,
   className,
   style,
   ...props

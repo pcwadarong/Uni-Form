@@ -21,8 +21,11 @@ export default function RootLayout({
   modal: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${suit.className} body2 relative bg-muted text-content dark:bg-surface`}>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${suit.className} body2 relative bg-muted text-content dark:bg-surface`}
+        suppressHydrationWarning
+      >
         <Providers>
           <Header />
           <div className="flex flex-col items-center pt-20">{children}</div>

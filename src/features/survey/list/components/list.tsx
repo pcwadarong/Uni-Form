@@ -47,26 +47,29 @@ const List = ({ initialData, topic, category, sort }: Props) => {
     setFinalData(updatedData);
   }, [isInProgressChecked, filteredData]);
 
-  const onFilterChange = ({
-    point = "all",
-    deadline,
-  }: {
-    point?: string;
-    deadline: string;
-  }) => {
-    const filtered = filteredData.filter((item) => {
-      const pointMatch =
-        item.point !== undefined ? point === "all" || item.point >= Number(point) : true;
-      const deadlineMatch = calculateDeadlineMatch(item.endDate, deadline);
-      return pointMatch && deadlineMatch;
-    });
+  const onFilterChange = useCallback(
+    ({
+      point = "all",
+      deadline,
+    }: {
+      point?: string;
+      deadline: string;
+    }) => {
+      const filtered = filteredData.filter((item) => {
+        const pointMatch =
+          item.point !== undefined ? point === "all" || item.point >= Number(point) : true;
+        const deadlineMatch = calculateDeadlineMatch(item.endDate, deadline);
+        return pointMatch && deadlineMatch;
+      });
 
-    const updated = isInProgressChecked
-      ? filtered.filter((item) => item.endDate >= Date.now())
-      : filtered;
+      const updated = isInProgressChecked
+        ? filtered.filter((item) => item.endDate >= Date.now())
+        : filtered;
 
-    setFinalData(updated);
-  };
+      setFinalData(updated);
+    },
+    [filteredData, isInProgressChecked],
+  );
 
   const handleCategoryToggle = () => {
     setFilterDisplay((prev) => (prev === "block" ? "hidden" : "block"));

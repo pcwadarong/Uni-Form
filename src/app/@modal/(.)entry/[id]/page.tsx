@@ -20,8 +20,7 @@ export default async function EntryIntercept({ params }: { params: Promise<{ id:
   const itemId = await decrypt(encryptedId, process.env.CRYPT_SECRET || "");
   if (!itemId) return notFound();
 
-  const type = itemId.startsWith("survey") ? "surveys" : "recruits";
-  const item = await fetchForm(type, itemId);
+  const item = await fetchForm(itemId);
   const { comments: initialComments } = await fetchCommentsServer(item.id, 3);
 
   return (

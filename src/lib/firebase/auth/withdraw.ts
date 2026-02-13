@@ -1,4 +1,5 @@
 import { getFirebaseErrorMessage } from "@/lib/firebase/errorMessages";
+import { firestore } from "@/lib/firebase/firebaseConfig";
 import { FirebaseError } from "firebase/app";
 import {
   EmailAuthProvider,
@@ -7,7 +8,6 @@ import {
   reauthenticateWithCredential,
 } from "firebase/auth";
 import { deleteDoc, doc } from "firebase/firestore";
-import { firestore } from "../firebaseConfig";
 
 export const withdrawUser = async (
   user: User | null,
