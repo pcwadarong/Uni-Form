@@ -9,7 +9,7 @@
   --color-gray-500: oklch(0.35 0.0071 274.78);
 
   --color-green-400: oklch(0.79 0.1699 161.94);
-  --color-green-500: oklch(0.74 0.1657 159.94); /* font */
+  --color-green-500: oklch(0.7324 0.1657 159.94); /* font */
 
   --color-surface: oklch(1 0 0); /* white */
   --color-content: oklch(0.14 0 235); /* black */
@@ -26,9 +26,9 @@
 .dark {
   --color-surface: oklch(0.14 0 235); /* black */
   --color-content: oklch(1 0 0); /* white */
-  --color-muted: oklch(0.3 0 275); /* dark gray */
+  --color-muted: oklch(24.354% 0.00003 271.152); /* dark gray */
 
-  --color-tone1: oklch(0.269 0 0); /* dark gray */
+  --color-tone1: oklch(21.342% 0.00002 271.152); /* dark gray */
   --color-tone1-reverse: oklch(1 0 0); /* white */
   --color-tone2: oklch(0 0 0); /* black */
   --color-tone2-reverse: oklch(0.97 0 0); /* light gray */

@@ -22,7 +22,7 @@ const SVGIcon = ({
   name,
   size = "md",
   color = "currentColor",
-  fill = "none",
+  fill,
   className,
   style,
   ...props
