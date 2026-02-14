@@ -1,70 +1,64 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { WithdrawContentView } from "@/features/auth/components/WithdrawContentView";
 import { withdrawUser } from "@/lib/firebase/auth/withdraw";
 import { getAuth } from "firebase/auth";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { toast } from "sonner";
 
-const ResetPw: React.FC = () => {
+/**
+ * 회원 탈퇴 페이지
+ * 상태 관리 및 API 호출 처리, UI 컴포넌트에 데이터 전달
+ */
+export default function Withdraw() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const auth = getAuth();
 
-  const handleDeleteUser = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const user = auth.currentUser;
-    if (!user) return;
-    if (!confirm("정말 탈퇴하시겠습니까? 복구할 수 없습니다.")) return;
+  /**
+   * 사용자 탈퇴 처리
+   * @param e - 폼 제출 이벤트
+   */
+  const handleDeleteUser = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
+      const user = auth.currentUser;
+      if (!user) return;
+      if (!confirm("정말 탈퇴하시겠습니까? 복구할 수 없습니다.")) return;
 
-    const result = await withdrawUser(user, email, password);
+      const result = await withdrawUser(user, email, password);
 
-    if (result.status) {
-      toast.success("계정이 삭제되었습니다.");
-      router.push("/");
-    } else toast.error(result.error);
-  };
+      if (result.status) {
+        toast.success("계정이 삭제되었습니다.");
+        router.push("/");
+      } else toast.error(result.error);
+    },
+    [auth, email, password, router],
+  );
+
+  /**
+   * 이메일 변경 핸들러
+   */
+  const handleEmailChange = useCallback((value: string) => {
+    setEmail(value);
+  }, []);
+
+  /**
+   * 비밀번호 변경 핸들러
+   */
+  const handlePasswordChange = useCallback((value: string) => {
+    setPassword(value);
+  }, []);
 
   return (
-    <main className="m-auto mt-20">
-      <h2 className="text-center title2" id="reset-password-heading">
-        회원 탈퇴
-      </h2>
-      <p className="mt-5 text-center">정말 탈퇴하시겠습니까? 회원 정보를 복구할 수 없습니다.</p>
-      <form
-        className="mt-15 w-96 flex flex-col gap-4"
-        onSubmit={handleDeleteUser}
-        aria-labelledby="reset-password"
-      >
-        <Input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          placeholder="이메일 입력"
-          aria-label="이메일 입력"
-        />
-        <Input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          placeholder="비밀번호 입력"
-          aria-label="비밀번호 입력"
-        />
-        <Button
-          type="submit"
-          className="text-white w-full bg-green-400 mt-5"
-          aria-label="회원 탈퇴하기"
-        >
-          회원 탈퇴하기
-        </Button>
-      </form>
-    </main>
+    <WithdrawContentView
+      email={email}
+      password={password}
+      onEmailChange={handleEmailChange}
+      onPasswordChange={handlePasswordChange}
+      onSubmit={handleDeleteUser}
+    />
   );
-};
-
-export default ResetPw;
+}

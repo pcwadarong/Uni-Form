@@ -1,3 +1,4 @@
+import { getFirebaseErrorMessage } from "@/lib/firebase/errorMessages";
 import { auth, firestore } from "@/lib/firebase/firebaseConfig";
 import { FirebaseError } from "firebase/app";
 import {
@@ -7,7 +8,6 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-import { getFirebaseErrorMessage } from "../errorMessages";
 
 const emailSignIn = async (
   email: string,
@@ -45,7 +45,7 @@ const googleSignIn = async (): Promise<{
       {
         displayName,
         bookmarks: [],
-        school: { university: "", major: "", grade: "선택 안 함", },
+        school: { university: "", major: "", grade: "선택 안 함" },
         gender: "선택 안 함",
         age: null,
         region: "선택 안 함",
@@ -96,7 +96,7 @@ export const handleLogin = async (
       body: JSON.stringify({ token }),
     });
     return { status: true };
-  } catch (err) {
+  } catch (_err) {
     return { status: false, error: "세션 설정에 실패했습니다." };
   }
 };

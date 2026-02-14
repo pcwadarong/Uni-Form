@@ -1,6 +1,6 @@
 // my drafts, my forms
 
-import type { UserActivityFields } from "@/types/userType";
+import type { UserActivityFields } from "@/types";
 import { handleCreatedForms } from "./handleCreatedForms";
 import { handleDrafts } from "./handleDrafts";
 

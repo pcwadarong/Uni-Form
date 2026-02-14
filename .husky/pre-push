@@ -1,0 +1,24 @@
+#!/bin/sh
+
+run_step () {
+  NAME=$1
+  CMD=$2
+
+  echo "▶ Running $NAME..."
+  $CMD
+  RESULT=$?
+
+  if [ $RESULT -ne 0 ]; then
+    echo "❌ $NAME failed. Push aborted."
+    exit 1
+  fi
+}
+
+# 1. 코드 스타일 및 린트 검사
+run_step "Lint & Format Check" "yarn run lint"
+
+# 2. 타입 검사
+run_step "Type Check" "yarn run type-check"
+
+echo "✅ All checks passed. Push allowed."
+exit 0

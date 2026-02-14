@@ -1,4 +1,4 @@
-import type { Detail } from "@/types/types";
+import type { Detail } from "@/types";
 
 export const LIMITLESS_DATE = new Date("2224-01-01T00:00:00Z").getTime(); // 제한 없음
 const NOW = Date.now(); // 바로 시작
@@ -27,6 +27,7 @@ export const initSurveyInfo: Detail = {
   category: "",
   isPublic: false,
   isEditable: false,
+  createdAt: NOW,
   // mode: "editing",
   responsesCount: 0,
   commentsCount: 0,

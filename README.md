@@ -56,7 +56,9 @@
 
 ## 프로젝트 진행 기간
 
-2024.04.09 ~ 2024.04.ing..
+2024.04.09 ~ 2024.05.26 (초기)
+2026.01.19 ~ 2026.01..
+
 
  <br/>
  
@@ -72,7 +74,6 @@
 - tailwindcss : CSS 프레임워크
 - shadcn/ui : 깔끔한 UI 라이브러리
 - @hello-pangea/dnd (react-beautiful-dnd) : 목록의 드래그 이벤트를 지원하는 리액트 라이브러리의 확장판
-- material-icon: includes the 2,100+ official Material Icons converted to SvgIcon component
 
 ### Sign in, up
 

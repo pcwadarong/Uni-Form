@@ -34,7 +34,6 @@ export const REGION_OPTIONS = [
   "제주특별자치도",
 ] as [string, ...string[]];
 
-
 // 타입으로 사용하기 위한 유니온 추출
 export type GradeType = (typeof GRADE_OPTIONS)[number];
 export type GenderType = (typeof GENDER_OPTIONS)[number];

@@ -1,16 +1,16 @@
-import CategoryQuestion from "@/components/create/question/categoryQuestion";
-import CheckboxQuestion from "@/components/create/question/checkboxQuestion";
-import DropDownQuestion from "@/components/create/question/dropDownQuestion";
-import FileQuestion from "@/components/create/question/fileQuestion";
-import LongAnswerQuestion from "@/components/create/question/longAnswerQueestion";
-import ParticipantInfoQuestion from "@/components/create/question/participantInfoQuestion";
-import RadioQuestion from "@/components/create/question/radioQuestion";
-import ScheduleQuestion from "@/components/create/question/scheduleQuestion";
-import ScoreQuestion from "@/components/create/question/scoreQuestion";
-import ShortAnswerQuestion from "@/components/create/question/shortAnswerQuestion";
-import StarRatingQuestion from "@/components/create/question/starRatingQuestion";
-import TableQuestion from "@/components/create/question/tableQuestion";
-import type { QuestionProps } from "@/types/types";
+import CategoryQuestion from "@/features/survey/create/components/question/categoryQuestion";
+import CheckboxQuestion from "@/features/survey/create/components/question/checkboxQuestion";
+import DropDownQuestion from "@/features/survey/create/components/question/dropDownQuestion";
+import FileQuestion from "@/features/survey/create/components/question/fileQuestion";
+import LongAnswerQuestion from "@/features/survey/create/components/question/longAnswerQueestion";
+import ParticipantInfoQuestion from "@/features/survey/create/components/question/participantInfoQuestion";
+import RadioQuestion from "@/features/survey/create/components/question/radioQuestion";
+import ScheduleQuestion from "@/features/survey/create/components/question/scheduleQuestion";
+import ScoreQuestion from "@/features/survey/create/components/question/scoreQuestion";
+import ShortAnswerQuestion from "@/features/survey/create/components/question/shortAnswerQuestion";
+import StarRatingQuestion from "@/features/survey/create/components/question/starRatingQuestion";
+import TableQuestion from "@/features/survey/create/components/question/tableQuestion";
+import type { QuestionProps } from "@/types";
 
 export const questionComponentMap: { [key: string]: React.FC<QuestionProps> } = {
   category: CategoryQuestion,
@@ -26,5 +26,3 @@ export const questionComponentMap: { [key: string]: React.FC<QuestionProps> } = 
   star: StarRatingQuestion,
   table: TableQuestion,
 };
-
-export default questionComponentMap;

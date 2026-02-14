@@ -1,5 +1,7 @@
+import { toast } from "@/features/shared/ui/sonner";
 import { firestore } from "@/lib/firebase/firebaseConfig";
-import type { Comment } from "@/types/types";
+import { fetchUserDisplayNameClient } from "@/lib/firebase/user/client/fetchUserDisplayNameClient";
+import type { Comment } from "@/types";
 import {
   type DocumentData,
   type QueryDocumentSnapshot,
@@ -13,7 +15,6 @@ import {
   startAfter,
   where,
 } from "firebase/firestore";
-import { fetchUserDisplayNameClient } from "../user/client/fetchUserDisplayNameClient";
 
 export const getCommentSnapshotById = async (
   id: string,
@@ -23,8 +24,8 @@ export const getCommentSnapshotById = async (
     const snap = await getDoc(ref);
 
     return snap.exists() ? (snap as QueryDocumentSnapshot<DocumentData>) : null;
-  } catch (err) {
-    console.error("📛 Failed to get comment snapshot:", err);
+  } catch {
+    toast.error("댓글 스냅샷을 불러오지 못했습니다.");
     return null;
   }
 };
@@ -76,8 +77,8 @@ export const fetchCommentsClient = async (
       lastDoc,
       hasMore,
     };
-  } catch (error) {
-    console.error("Error fetching paginated comments:", error);
+  } catch {
+    toast.error("댓글 목록을 불러오지 못했습니다.");
     return { comments: [], lastDoc: null, hasMore: false };
   }
 };

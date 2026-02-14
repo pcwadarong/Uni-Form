@@ -1,0 +1,114 @@
+"use client";
+
+import SVGIcon from "@/features/shared/icons/icons";
+import { Button } from "@/features/shared/ui/button";
+import { Input } from "@/features/shared/ui/input";
+
+import { handleLogin } from "@/lib/firebase/auth/sign-in";
+import { type SignInInput, signInSchema } from "@/lib/validation/authSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import { toast } from "@/features/shared/ui/sonner";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+
+const Form = () => {
+  const router = useRouter();
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isValid },
+  } = useForm<SignInInput>({
+    resolver: zodResolver(signInSchema),
+    mode: "all",
+  });
+
+  const onSubmit = async (data: SignInInput) => {
+    const { email, password } = data;
+    const { status, error } = await handleLogin("email", email, password);
+
+    if (!status) toast(error ?? "로그인에 실패했습니다.");
+    else {
+      reset();
+      router.push("/");
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    const success = await handleLogin("google");
+    if (success) router.push("/");
+    else toast.error("Google 로그인에 실패했습니다.");
+  };
+
+  return (
+    <div>
+      <form
+        className="subtitle flex flex-col gap-6"
+        autoComplete="on"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <fieldset className="flex flex-col gap-6">
+          <legend className="sr-only">이메일 로그인</legend>
+          <div>
+            <label htmlFor="email">이메일</label>
+            {errors.email?.message && (
+              <output htmlFor="email" className="ml-3 text-green-500">
+                {errors.email.message}
+              </output>
+            )}
+            <div className="relative mt-2">
+              <SVGIcon name="EmailIcon" className="absolute top-3 left-3" />
+              <Input
+                id="email"
+                type="email"
+                {...register("email")}
+                required
+                autoComplete="email"
+                className="pl-10"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label htmlFor="password">비밀번호</label>
+            {errors.password?.message && (
+              <output htmlFor="password" className="ml-3 text-green-500">
+                {errors.password.message}
+              </output>
+            )}
+            <div className="relative mt-2">
+              <SVGIcon name="PasswordIcon" className="absolute top-3 left-3" />
+              <Input
+                id="password"
+                type="password"
+                {...register("password")}
+                required
+                autoComplete="current-password"
+                className="pl-10"
+              />
+            </div>
+          </div>
+        </fieldset>
+        <Button type="submit" disabled={!isValid} className="mt-5 w-full bg-green-400 text-white">
+          로그인
+        </Button>
+      </form>
+
+      <div className="relative mt-6 flex justify-center">
+        <button
+          type="button"
+          onClick={handleGoogleLogin}
+          className="flex w-full items-center justify-center gap-2 rounded-full border border-gray-4 px-4 py-3"
+        >
+          <Image src="/google.svg" alt="Google" width="20" height="20" priority={true} />
+          <span>Google로 계속하기</span>
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default Form;

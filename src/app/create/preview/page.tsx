@@ -1,119 +1,46 @@
 "use client";
 
-import SurveyInfo from "@/components/create/surveyInfo";
-import { Button } from "@/components/ui/button";
-import CircularProgress from "@/components/ui/circular";
-import questionComponentMap from "@/constants/questionComponentMap";
-import { useSurveyStore } from "@/store/survey";
-import { BroadcastChannel } from "broadcast-channel";
-import { useEffect, useRef, useState } from "react";
+import CircularProgress from "@/features/shared/ui/circular";
+import { PreviewContent } from "@/features/survey/create/components/PreviewContent";
+import {
+  useBroadcastSync,
+  useLocalStorageSync,
+} from "@/features/survey/create/hooks/usePreviewSync";
+import { useSurveyStore } from "@/features/survey/create/store/survey";
+import { usePathname } from "next/navigation";
+import { useCallback } from "react";
 
-const loadStateFromLocalStorage = () => {
-  const serializedState = localStorage.getItem("survey 1");
-  if (serializedState === null) {
-    return undefined;
-  }
-  return JSON.parse(serializedState);
-};
+/**
+ * 설문 미리보기 페이지
+ * BroadcastChannel 및 로컬 스토리지 동기화 처리, UI 컴포넌트에 데이터 전달
+ */
+export default function PreviewFormPage() {
+  const { surveyInfo } = useSurveyStore();
+  const pathname = usePathname();
+  const isLoaded = useLocalStorageSync();
+  useBroadcastSync();
 
-const PreviewFormPage: React.FC = () => {
-  const { surveyInfo, setSurveyInfo } = useSurveyStore();
-  const [loading, setLoading] = useState(true);
-  const broadcast = new BroadcastChannel("zustand_channel");
-  const isMount = useRef(false);
+  // preview 경로에서 부모 경로 추출 (/create/preview -> /create)
+  const basePath = pathname.replace(/\/preview$/, "");
 
-  const handleMessage = (event: MessageEvent) => {
-    const newState = event.data;
-    if (JSON.stringify(newState) !== JSON.stringify(surveyInfo)) {
-      setSurveyInfo(newState);
-    }
-  };
-
-  useEffect(() => {
-    const storedState = loadStateFromLocalStorage();
-    if (storedState) {
-      setSurveyInfo(storedState);
-    }
-    setLoading(false);
-  }, [setSurveyInfo]);
-
-  useEffect(() => {
-    broadcast.onmessage = handleMessage;
-
-    return () => {
-      broadcast.close();
-    };
-  }, [surveyInfo, setSurveyInfo, broadcast]);
-
-  useEffect(() => {
-    if (!isMount.current) {
-      isMount.current = true;
-      return;
-    }
-    localStorage.setItem("survey 1", JSON.stringify(surveyInfo));
-  }, [surveyInfo]);
+  /**
+   * 양식 지우기 핸들러
+   */
+  const handleClearForm = useCallback(() => {
+    const storageKey = `survey-preview:${basePath}`;
+    localStorage.removeItem(storageKey);
+    window.location.reload();
+  }, [basePath]);
 
   return (
-    <div className="flex-1 w-full px-4 pt-8 pb-20 md:px-8 2xl:px-0 bg-green-light justify-center">
-      {loading ? (
-        <div
-          className="flex w-screen h-screen justify-center items-center"
-          aria-live="polite"
-        >
+    <div className="w-full flex-1 justify-center bg-green-light px-4 pt-8 pb-20 md:px-8 2xl:px-0">
+      {!isLoaded ? (
+        <div className="flex h-screen w-screen items-center justify-center" aria-live="polite">
           <CircularProgress aria-label="설문지를 로드하는 중입니다." />
         </div>
       ) : (
-        <div className="w-full 2xl:w-[1400px] flex flex-col gap-5 m-auto">
-          <SurveyInfo mode="previewing" />
-          {surveyInfo.questions.map((q) => {
-            const QuestionComponent = questionComponentMap[q.type];
-            return (
-              <div
-                key={q.id}
-                className="bg-content rounded-2xl overflow-hidden shadow-md p-5"
-                aria-labelledby={`question-title-${q.id}`}
-              >
-                <div className="mb-2">
-                  {q.isEssential && (
-                    <span aria-hidden="true" className="text-red ml-[-12px] mr-[3px]">
-                      *
-                    </span>
-                  )}
-                  <span id={`question-title-${q.id}`} className="font-bold">
-                    Q. {q.title || "(질문 없음)"}
-                  </span>
-                  <p id={`question-description-${q.id}`} className="caption">
-                    {q.description || ""}
-                  </p>
-                </div>
-                <QuestionComponent key={q.id} question={q} mode="testing" />
-              </div>
-            );
-          })}
-          <div className="flex" aria-label="폼 액션 버튼 그룹">
-            <div className="flex-1" />
-            <div className="flex-1 text-center">
-              <Button className="bg-green-400 text-white" aria-label="폼 제출">
-                제출
-              </Button>
-            </div>
-            <div className="flex-1 text-end">
-              <button
-                type="button"
-                className="p-3 hover:bg-dark/5 rounded-md"
-                onClick={() => {
-                  window.location.reload();
-                }}
-                aria-label="양식 지우기"
-              >
-                양식 지우기
-              </button>
-            </div>
-          </div>
-        </div>
+        <PreviewContent questions={surveyInfo.questions} onClearForm={handleClearForm} />
       )}
     </div>
   );
-};
-
-export default PreviewFormPage;
+}

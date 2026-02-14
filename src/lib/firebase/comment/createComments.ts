@@ -1,6 +1,13 @@
+import { adminFirestore } from "@/lib/firebase/firebaseAdminConfig";
 import { FieldValue, Timestamp } from "firebase-admin/firestore";
-import { adminFirestore } from "../firebaseAdminConfig";
 
+/**
+ * 댓글을 생성하고 대상 폼의 댓글 수를 증가시킨다.
+ * @param commentId - 댓글 문서 ID
+ * @param formId - 대상 폼 ID
+ * @param uid - 작성자 UID
+ * @param content - 댓글 내용
+ */
 export async function createComment(
   commentId: string,
   formId: string,
@@ -8,7 +15,6 @@ export async function createComment(
   content: string,
 ) {
   try {
-    // 댓글 등록
     await adminFirestore.collection("comments").doc(commentId).set({
       content,
       createdAt: Timestamp.now(),
@@ -16,9 +22,8 @@ export async function createComment(
       uid,
     });
 
-    // 해당 survey의 댓글 수 증가
     await adminFirestore
-      .collection("surveys")
+      .collection("forms")
       .doc(formId)
       .update({
         commentsCount: FieldValue.increment(1),

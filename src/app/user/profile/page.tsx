@@ -1,11 +1,8 @@
-import { Suspense } from "react";
-import ProfileSkeleton from "./skeleton";
-import Wrapper from "./wrapper";
+import ProfileWrapper from "@/features/user/components/profile/wrapper";
 
-export default function Page() {
-  return (
-    <Suspense fallback={<ProfileSkeleton />}>
-      <Wrapper />
-    </Suspense>
-  );
+/**
+ * 사용자 프로필 수정 페이지
+ */
+export default function UserProfilePage() {
+  return <ProfileWrapper />;
 }

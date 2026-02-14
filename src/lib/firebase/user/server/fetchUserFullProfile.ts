@@ -1,5 +1,5 @@
-import { fetchUserDataServer } from "../fetchUserDataServer";
-import { fetchUserAuthInfo } from "./fetchUserAuthInfo";
+import { fetchUserDataServer } from "@/lib/firebase/user/fetchUserDataServer";
+import { fetchUserAuthInfo } from "@/lib/firebase/user/server/fetchUserAuthInfo";
 
 export const fetchUserFullProfile = async (uid?: string) => {
   const [auth, firestore] = await Promise.all([

@@ -1,7 +1,7 @@
-import ClosingRecruits from "@/app/(with-footer)/main/ClosingRecruits";
-import LatestComments from "@/app/(with-footer)/main/LatestComments";
-import RecentPopularSurveys from "@/app/(with-footer)/main/RecentPopularSurveys";
-import SpecialSurveys from "@/app/(with-footer)/main/SpecialSurvey";
+import ClosingRecruits from "@/features/survey/list/components/main/ClosingRecruits";
+import LatestComments from "@/features/survey/list/components/main/LatestComments";
+import RecentPopularSurveys from "@/features/survey/list/components/main/RecentPopularSurveys";
+import SpecialSurveys from "@/features/survey/list/components/main/SpecialSurvey";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -30,7 +30,11 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://uni-form-chaen-chaens-projects.vercel.app/"),
 };
 
-const Home: React.FC = () => {
+/**
+ * 홈 페이지 컴포넌트
+ * 특별 설문, 최신 댓글, 인기 설문, 마감 임박 모집 공고를 표시
+ */
+export default function Home() {
   return (
     <>
       <SpecialSurveys />
@@ -39,6 +43,4 @@ const Home: React.FC = () => {
       <ClosingRecruits />
     </>
   );
-};
-
-export default Home;
+}

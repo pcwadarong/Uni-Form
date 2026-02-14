@@ -1,8 +1,8 @@
 import { getFirebaseErrorMessage } from "@/lib/firebase/errorMessages";
+import { adminFirestore } from "@/lib/firebase/firebaseAdminConfig";
+import { auth } from "@/lib/firebase/firebaseConfig";
 import { FirebaseError } from "firebase/app";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { adminFirestore } from "../firebaseAdminConfig";
-import { auth } from "../firebaseConfig";
 
 export const signUp = async (email: string, password: string, displayName: string) => {
   try {

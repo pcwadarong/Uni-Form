@@ -1,10 +1,14 @@
-// 댓글 리스트 - entry에서 사용
-
-import type { Comment } from "@/types/types";
+import { adminFirestore } from "@/lib/firebase/firebaseAdminConfig";
+import { fetchUserDisplayNameServer } from "@/lib/firebase/user/server/fetchUserDisplayNameServer";
+import type { Comment } from "@/types";
 import { FirebaseError } from "firebase/app";
-import { adminFirestore } from "../firebaseAdminConfig";
-import { fetchUserDisplayNameServer } from "../user/server/fetchUserDisplayNameServer";
 
+/**
+ * 서버에서 폼의 댓글 목록 조회 (페이지네이션 지원)
+ * @param id - 폼 ID
+ * @param limitCount - 조회할 댓글 수 (기본: 5)
+ * @returns 댓글 목록, 마지막 문서 ID, 다음 페이지 존재 여부, 전체 개수
+ */
 export const fetchCommentsServer = async (
   id: string,
   limitCount = 5,

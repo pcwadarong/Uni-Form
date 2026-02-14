@@ -1,14 +1,14 @@
 // users docs에서 선택적으로 데이터 조합하여 반환
 
 import { getServerUid } from "@/lib/firebase/auth/getServerUid";
-import type { Form } from "@/types/types";
+import type { Form } from "@/types";
 import type {
   User,
   UserActivityFields,
   UserField,
   UserParticipationFields,
   UserProfileFields,
-} from "@/types/userType";
+} from "@/types";
 import { FirebaseError } from "firebase/app";
 
 import { adminFirestore } from "@/lib/firebase/firebaseAdminConfig";

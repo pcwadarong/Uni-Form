@@ -1,12 +1,18 @@
-import Header from "@/components/layout/header/header";
-import FloatingControls from "@/components/ui/floatingControls";
+import { Providers } from "@/features/shared/contexts/providers";
+import Header from "@/features/shared/layout/header/header";
+import FloatingControls from "@/features/shared/ui/floatingControls";
+import { Toaster } from "@/features/shared/ui/sonner";
 import localFont from "next/font/local";
 import "./globals.css";
-import { Toaster } from "@/components/ui/sonner";
-import { Providers } from "../contexts/providers";
 
 const suit = localFont({ src: "../fonts/SUIT.woff2" });
 
+/**
+ * 루트 레이아웃 컴포넌트
+ * 전역 레이아웃, 헤더, 플로팅 컨트롤, 모달 루트를 제공
+ * @param children - 페이지 콘텐츠
+ * @param modal - 모달 콘텐츠 (Intercepting Routes)
+ */
 export default function RootLayout({
   children,
   modal,
@@ -15,13 +21,14 @@ export default function RootLayout({
   modal: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${suit.className} relative body2 text-content bg-muted dark:bg-surface`}>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${suit.className} body2 relative bg-muted text-content dark:bg-surface`}
+        suppressHydrationWarning
+      >
         <Providers>
           <Header />
-          <div className="flex flex-col items-center pt-20">
-            {children}
-          </div>
+          <div className="flex flex-col items-center pt-20 text-content">{children}</div>
           <Toaster />
           <FloatingControls />
           {modal}
