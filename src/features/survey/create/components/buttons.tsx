@@ -109,10 +109,18 @@ const CreatePageButton = () => {
 
   return (
     <div className="subtitle flex items-center justify-end gap-2">
-      <button type="button" className="rounded-md bg-tone1 px-3 py-1" onClick={handleOpenPreview}>
+      <button
+        type="button"
+        className="rounded-md bg-tone1 dark:bg-muted px-3 py-1"
+        onClick={handleOpenPreview}
+      >
         미리보기
       </button>
-      <button type="button" className="rounded-md bg-tone1 px-3 py-1" onClick={handleSaveDraft}>
+      <button
+        type="button"
+        className="rounded-md bg-tone1 dark:bg-muted px-3 py-1"
+        onClick={handleSaveDraft}
+      >
         임시저장
       </button>
       <button
@@ -139,14 +147,14 @@ const CreatePageButton = () => {
           >
             <button
               type="button"
-              className="text-nowrap rounded-md px-3 py-2 hover:bg-gray-2"
+              className="text-nowrap rounded-md px-3 py-2 hover:bg-gray-400"
               onClick={handleDuplicate}
             >
               복제하기
             </button>
             <button
               type="button"
-              className="rounded-md px-3 py-2 text-red-500 hover:bg-gray-2"
+              className="rounded-md px-3 py-2 text-red-500 hover:bg-gray-400"
               onClick={handleDelete}
             >
               삭제하기

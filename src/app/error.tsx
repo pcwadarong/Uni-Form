@@ -15,7 +15,8 @@ import { startTransition } from "react";
 export default function ErrorFallback({ error, reset }: { error: Error; reset: () => void }) {
   const router = useRouter();
   useEffect(() => {
-    toast.error(error.message || "오류가 발생했습니다.");
+    const message = error.message?.trim();
+    toast.error(message || "오류가 발생했습니다.");
   }, [error]);
 
   const onClickButton = () => {

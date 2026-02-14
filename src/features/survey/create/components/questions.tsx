@@ -76,7 +76,7 @@ const Questions: React.FC<ExtendedQuestionProps> = ({
     <div
       onClick={onEditToggle}
       onKeyDown={onEditToggle}
-      className={`overflow-hidden rounded-2xl bg-tone1 p-5 shadow-md ${
+      className={`overflow-hidden rounded-2xl bg-tone1 dark:bg-muted p-5 shadow-md ${
         mode === "editing" ? "border border-green-300" : ""
       }`}
     >
@@ -92,7 +92,7 @@ const Questions: React.FC<ExtendedQuestionProps> = ({
           <QuestionSelect value={question.type} handleTypeChange={handleTypeChange} />
           <div className="flex font-bold">
             {isEssential && (
-              <span aria-hidden="true" className="mr-[3px] ml-[-12px] text-red">
+              <span aria-hidden="true" className="mr-[3px] ml-[-12px] text-destructive">
                 *
               </span>
             )}
@@ -125,7 +125,7 @@ const Questions: React.FC<ExtendedQuestionProps> = ({
             <span
               aria-label="필수 항목"
               aria-hidden="true"
-              className="mr-[3px] ml-[-12px] text-red"
+              className="mr-[3px] ml-[-12px] text-destructive"
             >
               *
             </span>

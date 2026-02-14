@@ -1,6 +1,7 @@
 import SVGIcon from "@/features/shared/icons/icons";
 import CreateComments from "@/features/survey/entry/components/comment/createComment";
 import EntryClient from "@/features/survey/entry/components/comment/entryClient";
+import EntryQueryClientProvider from "@/features/survey/entry/components/comment/queryClientProvider";
 import type { Comment, Form } from "@/types";
 
 interface EntryCommentSectionProps {
@@ -28,7 +29,7 @@ export function EntryCommentSection({
   totalCount,
 }: EntryCommentSectionProps) {
   return (
-    <>
+    <EntryQueryClientProvider>
       <CreateComments id={item.id} />
       {initialComments && initialComments.length > 0 ? (
         <EntryClient
@@ -44,6 +45,6 @@ export function EntryCommentSection({
           <p>아직 댓글이 없어요. 첫 댓글을 남겨보세요!</p>
         </section>
       )}
-    </>
+    </EntryQueryClientProvider>
   );
 }

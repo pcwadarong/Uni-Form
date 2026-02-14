@@ -125,6 +125,7 @@ const CheckboxQuestion: React.FC<QuestionProps> = ({ question, mode, onResponseC
                 })
               }
               aria-label="항목 추가"
+              className="hover:bg-gray-200 dark:hover:bg-gray-600 px-1 -mx-1 rounded"
             >
               항목 추가
             </button>
@@ -139,7 +140,7 @@ const CheckboxQuestion: React.FC<QuestionProps> = ({ question, mode, onResponseC
                       options: [...(question.options || []), { id: -1, value: "기타" }],
                     })
                   }
-                  className="rounded-full bg-gray-1 px-3 py-1 text-gray-4"
+                  className="hover:bg-gray-200 dark:hover:bg-gray-600 px-1 -mx-1 rounded"
                   aria-label="'기타' 항목 추가"
                 >
                   '기타' 추가

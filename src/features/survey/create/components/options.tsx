@@ -55,7 +55,7 @@ const Options: React.FC<Prop> = ({ id }) => {
   }, [question, surveyInfo.questions, id, setSurveyInfo]);
 
   return (
-    <div className="mt-4 flex justify-end gap-2 border-gray-2 border-t pt-2">
+    <div className="mt-4 flex justify-end items-center gap-2 border-gray-400 border-t pt-2">
       <button type="button" onClick={handleQuestionDuplicate} aria-label="질문 복사하기">
         복사
       </button>

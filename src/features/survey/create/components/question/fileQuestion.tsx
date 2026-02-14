@@ -71,7 +71,7 @@ const FileQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
       ) : (
         <>
           <label
-            className="mb-3 flex cursor-pointer items-center justify-center rounded-lg border border-gray-2 p-2 focus:outline-none dark:bg-gray-900"
+            className="mb-3 flex cursor-pointer items-center justify-center rounded-lg border border-gray-400 p-2 focus:outline-none dark:bg-gray-900"
             aria-label={`파일 업로드: ${type} 파일 업로드 버튼`}
           >
             <input

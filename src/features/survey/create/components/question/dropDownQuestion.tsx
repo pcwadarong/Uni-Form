@@ -155,7 +155,7 @@ const DropDownQuestion: React.FC<QuestionProps> = ({ question, mode, onResponseC
             onValueChange={handleResponseChange}
           >
             <SelectTrigger
-              className="border-gray-2 mb-3"
+              className="border-gray-400 mb-3"
               aria-describedby={`question-${question.id}-description`}
             >
               <SelectValue placeholder="답변을 선택해주세요." />

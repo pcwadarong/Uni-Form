@@ -15,7 +15,7 @@ const ToggleBtn = ({ text, checked = false, onChange }: ToggleBtnProps) => {
         aria-checked={checked}
         aria-label={text}
         className={`relative h-full w-9.5 overflow-hidden rounded-full transition-colors duration-200 ${
-          checked ? "bg-green-300" : "bg-gray-300"
+          checked ? "bg-green-400" : "bg-gray-300"
         }`}
       >
         <div

@@ -89,7 +89,7 @@ const CheckModal: React.FC<Props> = ({ onClose }) => {
           onValueChange={handleMainCategoryChange}
           onOpenChange={() => setIsSelectOpen(!isSelectOpen)}
         >
-          <SelectTrigger className="mb-3 border-gray-2">
+          <SelectTrigger className="mb-3 border-gray-400">
             <SelectValue placeholder="카테고리를 선택해주세요" />
           </SelectTrigger>
           <SelectContent>
@@ -104,7 +104,7 @@ const CheckModal: React.FC<Props> = ({ onClose }) => {
           onValueChange={handleSubCategoryChange}
           onOpenChange={() => setIsSelectOpen(!isSelectOpen)}
         >
-          <SelectTrigger className="mb-3 border-gray-2">
+          <SelectTrigger className="mb-3 border-gray-400">
             <SelectValue placeholder="소분류를 선택해주세요" />
           </SelectTrigger>
           <SelectContent>
@@ -128,7 +128,7 @@ const CheckModal: React.FC<Props> = ({ onClose }) => {
               }}
               onOpenChange={() => setIsSelectOpen(!isSelectOpen)}
             >
-              <SelectTrigger className="mb-3 border-gray-2">
+              <SelectTrigger className="mb-3 border-gray-400">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
