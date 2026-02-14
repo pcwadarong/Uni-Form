@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/features/shared/ui/button";
+import { toast } from "@/features/shared/ui/sonner";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { startTransition } from "react";
@@ -14,7 +15,8 @@ import { startTransition } from "react";
 export default function ErrorFallback({ error, reset }: { error: Error; reset: () => void }) {
   const router = useRouter();
   useEffect(() => {
-    console.error(error);
+    const message = error.message?.trim();
+    toast.error(message || "오류가 발생했습니다.");
   }, [error]);
 
   const onClickButton = () => {

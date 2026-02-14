@@ -21,7 +21,7 @@ interface QuestionSelectProps {
 const QuestionSelect: React.FC<QuestionSelectProps> = ({ value, handleTypeChange }) => {
   return (
     <Select defaultValue={value} onValueChange={handleTypeChange}>
-      <SelectTrigger className="mb-3 border-gray-2">
+      <SelectTrigger className="mb-3 border-gray-400">
         <SelectValue placeholder="질문의 유형을 선택해주세요" />
       </SelectTrigger>
       <SelectContent>

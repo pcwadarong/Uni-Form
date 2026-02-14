@@ -89,7 +89,7 @@ const CheckModal: React.FC<Props> = ({ onClose }) => {
           onValueChange={handleMainCategoryChange}
           onOpenChange={() => setIsSelectOpen(!isSelectOpen)}
         >
-          <SelectTrigger className="mb-3 border-gray-2">
+          <SelectTrigger className="mb-3 border-gray-400">
             <SelectValue placeholder="카테고리를 선택해주세요" />
           </SelectTrigger>
           <SelectContent>
@@ -104,7 +104,7 @@ const CheckModal: React.FC<Props> = ({ onClose }) => {
           onValueChange={handleSubCategoryChange}
           onOpenChange={() => setIsSelectOpen(!isSelectOpen)}
         >
-          <SelectTrigger className="mb-3 border-gray-2">
+          <SelectTrigger className="mb-3 border-gray-400">
             <SelectValue placeholder="소분류를 선택해주세요" />
           </SelectTrigger>
           <SelectContent>
@@ -128,7 +128,7 @@ const CheckModal: React.FC<Props> = ({ onClose }) => {
               }}
               onOpenChange={() => setIsSelectOpen(!isSelectOpen)}
             >
-              <SelectTrigger className="mb-3 border-gray-2">
+              <SelectTrigger className="mb-3 border-gray-400">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -171,7 +171,7 @@ const CheckModal: React.FC<Props> = ({ onClose }) => {
             <div className="text-left">
               <p>설문 결과 공개</p>
               <p className="caption text-gray-4">
-                폭넓은 지식 공유를 위해, 개인정보를 제외한 설문 분석 결과를 사이트에 공개합니다.{" "}
+                폭넓은 지식 공유를 위해, 개인정보를 제외한 설문 분석 결과를 사이트에 공개합니다.
               </p>
             </div>
             <ToggleBtn

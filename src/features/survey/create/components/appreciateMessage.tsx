@@ -4,7 +4,7 @@ const AppreciateMessage = () => {
   const [appreciate, setAppreciate] = useState<string>("설문에 참여해주셔서 감사합니다.");
 
   return (
-    <section className="overflow-hidden rounded-2xl bg-tone1 p-2 shadow-md">
+    <section className="overflow-hidden rounded-2xl bg-tone1 dark:bg-muted p-2 shadow-md">
       <input
         type="text"
         value={appreciate}

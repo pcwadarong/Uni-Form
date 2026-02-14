@@ -96,7 +96,7 @@ const SurveyInfo = ({ mode, onEditToggle }: Props) => {
           onEditToggle();
         }
       }}
-      className={`overflow-hidden rounded-2xl bg-tone1 shadow-md transition-all ${
+      className={`overflow-hidden rounded-2xl bg-tone1 dark:bg-muted shadow-md transition-all ${
         isEditing ? "border-2 border-green-300 ring-2 ring-green-100" : "border border-transparent"
       }`}
     >
@@ -138,18 +138,18 @@ const SurveyInfo = ({ mode, onEditToggle }: Props) => {
           </div>
 
           {/* 텍스트 정보 입력 */}
-          <div className="space-y-3 p-6">
+          <div className="space-y-3 p-4">
             <input
               type="text"
               placeholder="설문 제목을 입력해 주세요"
               value={surveyInfo.title}
               onChange={handleTitleChange}
-              className="w-full border-gray-200 border-b py-2 font-bold text-2xl focus:border-green-400 focus:outline-none"
+              className="w-full border-gray-200 border-b py-2 font-bold text-2xl text-content focus:border-green-400 focus:outline-none"
             />
             <AutoResizeTextarea
               value={explanationArea}
               onChange={handleDescriptionChange}
-              className="w-full text-gray-600 outline-none"
+              className="w-full text-gray-400 outline-none"
               placeholder="설명 문구를 입력해 주세요..."
             />
           </div>
@@ -158,7 +158,7 @@ const SurveyInfo = ({ mode, onEditToggle }: Props) => {
           <AddBtns />
         </div>
       ) : (
-        <div className="pb-4">
+        <div>
           {surveyInfo.img && (
             <div className="flex aspect-4/1 w-full overflow-hidden bg-green-100">
               <img
@@ -169,16 +169,16 @@ const SurveyInfo = ({ mode, onEditToggle }: Props) => {
             </div>
           )}
           <div className="space-y-3 p-6">
-            <h2 className="font-bold text-3xl text-gray-900">
+            <h2 className="font-bold text-3xl text-content">
               {surveyInfo.title || "제목 없는 설문"}
             </h2>
-            <div className="text-gray-600 leading-relaxed">
+            <div className="text-gray-400 leading-relaxed">
               {formatTextWithLineBreaks(surveyInfo.description || "설명이 없습니다.")}
             </div>
 
             <div className="flex items-center gap-2 pt-2">
               <span className="inline-flex items-center rounded-full bg-green-50 px-3 py-1 font-semibold text-green-700 text-xs">
-                기간:{" "}
+                기간:
                 {surveyInfo.startDate === 0
                   ? "즉시 시작"
                   : formatDate(surveyInfo.startDate).split(" / ")[0]}

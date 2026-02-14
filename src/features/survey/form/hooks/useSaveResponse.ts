@@ -1,3 +1,4 @@
+import { toast } from "@/features/shared/ui/sonner";
 import { firestore } from "@/lib/firebase/firebaseConfig";
 import { FirebaseError } from "firebase/app";
 import { getAuth } from "firebase/auth";
@@ -58,9 +59,9 @@ export const useSaveResponse = () => {
       router.push("/");
     } catch (error) {
       if (error instanceof FirebaseError) {
-        console.error("Error Saving Response:", error.code, error.message);
+        toast.error(`응답 저장 실패: ${error.code}`);
       } else {
-        console.error("Unknown error saving response:", error);
+        toast.error("응답 저장 중 알 수 없는 오류가 발생했습니다.");
       }
       return null;
     }

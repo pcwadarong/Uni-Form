@@ -34,11 +34,11 @@ const AddBtns = () => {
   }, [setSurveyInfo]);
 
   return (
-    <div className="flex h-14 items-center border-gray-2 border-t">
+    <div className="flex h-14 items-center border-gray-400 border-t">
       <button
         type="button"
         onClick={addQuestion}
-        className="flex-1 border-gray-2 border-r"
+        className="flex-1 border-gray-400 border-r"
         aria-label="항목 추가"
       >
         + 항목 추가

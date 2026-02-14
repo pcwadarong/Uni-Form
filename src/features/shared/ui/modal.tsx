@@ -26,7 +26,7 @@ const Modal = ({ children }: { children: ReactNode }) => {
       }}
       onClose={() => router.back()}
       onKeyDown={() => {}}
-      className="m-auto flex max-h-full w-screen flex-col gap-3 overflow-auto rounded-2xl bg-muted p-7 pt-6.25 shadow-2xl backdrop:bg-black/70 sm:w-117.5 md:p-7.5 md:pt-6.25"
+      className="m-auto flex max-h-full w-screen flex-col gap-3 overflow-auto rounded-2xl bg-muted p-7 pt-6.25 text-content shadow-2xl backdrop:bg-black/70 sm:w-117.5 md:p-7.5 md:pt-6.25"
       aria-modal="true"
     >
       <button

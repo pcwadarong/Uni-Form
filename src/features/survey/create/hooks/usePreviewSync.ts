@@ -1,5 +1,6 @@
 "use client";
 
+import { toast } from "@/features/shared/ui/sonner";
 import { useSurveyStore } from "@/features/survey/create/store/survey";
 import type { Detail } from "@/types";
 import { BroadcastChannel } from "broadcast-channel";
@@ -70,8 +71,8 @@ export function useLocalStorageSync() {
     if (stored) {
       try {
         setSurveyInfo(JSON.parse(stored));
-      } catch (e) {
-        console.error("Failed to parse stored survey data:", e);
+      } catch {
+        toast.error("임시 저장 데이터를 불러오지 못해 초기화했습니다.");
         localStorage.removeItem(storageKey);
       }
     }

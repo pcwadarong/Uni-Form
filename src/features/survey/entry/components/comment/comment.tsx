@@ -48,7 +48,10 @@ export default function Comments({
       ) : (
         <ul className="mt-4 space-y-3">
           {comments.map((comment) => (
-            <li key={comment.id} className="rounded-xl border border-gray-300 px-4 py-3">
+            <li
+              key={comment.id}
+              className="rounded-xl border border-gray-300 px-4 py-3 dark:border-gray-500"
+            >
               <div className="flex items-center">
                 <span className="font-semibold">{comment.displayName}</span>
                 <span className="caption ml-2 text-gray-400">

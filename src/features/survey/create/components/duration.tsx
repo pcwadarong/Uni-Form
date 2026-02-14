@@ -140,7 +140,7 @@ const SetDuration = () => {
   return (
     <>
       {/* 날짜 버튼 */}
-      <div className="mb-4 px-2">
+      <div className="mb-4 px-4">
         <span className="subtitle mr-2">설문 기간</span>
         <button
           type="button"
@@ -204,7 +204,7 @@ const SetDuration = () => {
                     type="button"
                     onClick={() => setBeginDateVisible(!beginDateVisible)}
                     aria-expanded={beginDateVisible}
-                    className="mb-2 w-full rounded-lg border border-gray-2 px-3 py-2 text-left"
+                    className="mb-2 w-full rounded-lg border border-gray-400 px-3 py-2 text-left"
                   >
                     {beginDate ? formatDate(beginDate.getTime()).split(" / ")[0] : "날짜 선택"}
                   </button>
@@ -221,7 +221,7 @@ const SetDuration = () => {
                     type="button"
                     onClick={() => setBeginTimeVisible(!beginTimeVisible)}
                     aria-expanded={beginTimeVisible}
-                    className="w-full rounded-lg border border-gray-2 px-3 py-2 text-left"
+                    className="w-full rounded-lg border border-gray-400 px-3 py-2 text-left"
                   >
                     {beginDate ? formatDate(beginDate.getTime()).split(" / ")[1] : "시간 선택"}
                   </button>
@@ -266,7 +266,7 @@ const SetDuration = () => {
                     type="button"
                     onClick={() => setFinishDateVisible(!finishDateVisible)}
                     aria-expanded={finishDateVisible}
-                    className="mb-2 w-full rounded-lg border border-gray-2 px-3 py-2 text-left"
+                    className="mb-2 w-full rounded-lg border border-gray-400 px-3 py-2 text-left"
                   >
                     {finishDate ? formatDate(finishDate.getTime()).split(" / ")[0] : "날짜 선택"}
                   </button>
@@ -283,7 +283,7 @@ const SetDuration = () => {
                     type="button"
                     onClick={() => setFinishTimeVisible(!finishTimeVisible)}
                     aria-expanded={finishTimeVisible}
-                    className="w-full rounded-lg border border-gray-2 px-3 py-2 text-left"
+                    className="w-full rounded-lg border border-gray-400 px-3 py-2 text-left"
                   >
                     {finishDate ? formatDate(finishDate.getTime()).split(" / ")[1] : "시간 선택"}
                   </button>

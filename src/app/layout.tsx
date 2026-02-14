@@ -28,7 +28,7 @@ export default function RootLayout({
       >
         <Providers>
           <Header />
-          <div className="flex flex-col items-center pt-20">{children}</div>
+          <div className="flex flex-col items-center pt-20 text-content">{children}</div>
           <Toaster />
           <FloatingControls />
           {modal}

@@ -21,12 +21,9 @@ export function CommentsSection({ comments }: { comments: Comment[] }) {
         <>
           <ul className="space-y-3">
             {comments.map((comment) => (
-              <li
-                key={comment.id}
-                className="rounded-xl border border-gray-300 bg-surface px-4 py-3"
-              >
+              <li key={comment.id} className="rounded-xl border border-muted bg-tone1 px-4 py-3">
                 <span className="font-semibold">{comment.displayName}</span>
-                <span className="caption ml-2">
+                <span className="caption ml-2 text-gray-400">
                   {comment.createdAt && new Date(comment.createdAt).toLocaleString()}
                 </span>
                 <p>{comment.content}</p>

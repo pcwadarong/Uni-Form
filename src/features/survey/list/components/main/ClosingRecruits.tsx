@@ -10,7 +10,7 @@ const ClosingRecruits = async () => {
 
   return (
     <section
-      className="flex w-full justify-center bg-surface px-4 py-16 drop-shadow-sm md:px-8 2xl:px-0 dark:bg-tone1"
+      className="flex w-full justify-center bg-surface px-4 py-16 drop-shadow-sm md:px-8 2xl:px-0 dark:bg-muted"
       aria-labelledby="closing-recruits-heading"
     >
       <div className="w-full 2xl:w-350">

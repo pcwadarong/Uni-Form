@@ -1,4 +1,5 @@
 import { initSurveyInfo } from "@/constants/initSurveyInfo";
+import { toast } from "@/features/shared/ui/sonner";
 import { useSurveyStore } from "@/features/survey/create/store/survey";
 import type { Question } from "@/features/survey/types";
 import { firestore } from "@/lib/firebase/firebaseConfig";
@@ -24,7 +25,7 @@ export const useSaveSurvey = () => {
   const saveSurvey = async (category: string) => {
     const user = auth.currentUser;
     if (!user) {
-      console.error("설문 저장 실패: 로그인이 필요합니다.");
+      toast.error("설문 저장 실패: 로그인이 필요합니다.");
       return null;
     }
 
@@ -70,9 +71,9 @@ export const useSaveSurvey = () => {
       router.push("/");
     } catch (error) {
       if (error instanceof FirebaseError) {
-        console.error("Error Saving Document:", error.code, error.message);
+        toast.error(`설문 저장 실패: ${error.code}`);
       } else {
-        console.error("Unknown error saving document:", error);
+        toast.error("설문 저장 중 알 수 없는 오류가 발생했습니다.");
       }
       return null;
     }

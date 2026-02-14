@@ -89,7 +89,7 @@ const StarRatingQuestion: React.FC<QuestionProps> = ({ question, mode }) => {
               </label>
               <select
                 id={`rating-step-${question.id}`}
-                className="rounded-lg border border-gray-2 p-1.5 text-sm focus:outline-none dark:bg-gray-900"
+                className="rounded-lg border border-gray-400 p-1.5 text-sm focus:outline-none dark:bg-gray-900"
                 value={question.ratingStep || 1}
                 onChange={handleRatingStepChange}
               >
